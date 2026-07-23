@@ -6,9 +6,8 @@ The Specimen macrostructure (left-margin numbered labels + huge serif + asymmetr
 
 ## Diversification rule (mandatory)
 
-Before picking, check the target codebase for a `/* Hallmark · macrostructure: <name> · ... */` comment in any existing CSS file. If you find one, **your pick must be a different macrostructure.** No two consecutive Hallmark outputs in the same project share a macrostructure.
-
-When the brief is vague (no theme, no tone), pick from the *first ten* below before reaching for anything in 11–21. The first ten are deliberately the strongest non-Specimen shapes; they cover ~80% of briefs.
+The rule lives in SKILL.md's Rotation block.
+Check the `/* Hallmark · macrostructure: <name> · ... */` stamp and `.hallmark/log.json` before picking.
 
 ## Hero polish patterns
 

@@ -6,6 +6,18 @@ Some gates are **universal** (apply to every genre); some are **genre-scoped** (
 
 ---
 
+## Core-15 sweep (component scope)
+
+When the artifact is a single component (one nav, one footer, one card, one section), sweep this universal subset:
+
+**Gates 1, 2, 7, 10, 14, 15, 22, 26, 27, 30, 38a, 39, 40, 41, 48.**
+
+That covers banned fonts, gradients, pure black/white, transition hygiene, box-model animation, focus rings, neutral chroma, interaction states, reduced motion, icon tells, italic headers, input states, both contrast gates, and token discipline. Every answer must still be **no**.
+
+Any artifact that is a page, including fast-mode pages, runs all 58. The tier cuts narration and check time for single components, never page guarantees.
+
+---
+
 ## Pre-emit self-critique (six axes)
 
 Run this **before** the gate list, not after. Score the planned output 1–5 on each axis. Anything **< 3 on any axis triggers a revision pass** before the gate sweep — don't bring known weakness into a fifty-eight-gate review.

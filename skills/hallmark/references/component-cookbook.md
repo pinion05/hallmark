@@ -4,10 +4,7 @@ Fifty component archetypes you can compose into any macrostructure. Every entry:
 
 The same macrostructure (e.g., Bento Grid) can be built from many different combinations of these archetypes. The macrostructure picks the *page shape*; this file picks the *components inside it*.
 
-**Diversification rule:** within a single page, no two sections should use the same archetype. A Bento Grid might pair *Bento feature block* with *Inline form CTA* with *Logo wall (hairline)*. The next page Hallmark builds should pick different archetypes from the same categories.
-
----
-
+**Diversification rule:** lives in SKILL.md's Rotation block; check it before picking archetypes.
 
 ---
 
@@ -149,7 +146,6 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 
 ---
 
-
 ## Routing — which footer fits which genre
 
 | Genre | Default | Also OK |
@@ -161,12 +157,11 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | terminal | **Ft4 Dense colophon** | Ft2 |
 | docs / reference | **Ft3 Index columns** | Ft1 |
 
-**Diversification.** Same rule as nav — across consecutive Hallmark runs in the same session, no two outputs should share the same footer archetype.
+**Diversification.** Footer rotation lives in SKILL.md's Rotation block.
 
 **Default away from Ft3.** The 4-column index footer is the AI fingerprint when used reflexively (Product · Company · Resources · Legal + social row + tiny copyright). Reach for Ft3 only when the page is a hub or docs-root with a genuine sitemap; default to Ft1, Ft2, Ft4, Ft5, Ft6, Ft7, or Ft8 otherwise.
 
 ---
-
 
 ## Routing — which nav fits which genre / theme
 
@@ -180,12 +175,11 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | docs / reference (Almanac) | **N3 Side-rail** | N13, N1a, N4 |
 | commerce / product launch | **N12 Banner + retract** | N1b, N11, N9 |
 
-**Diversification — state it out loud, every build.** Across consecutive Hallmark runs in the same project session (and across multiple test builds of the *same theme*), no two outputs may share the same nav archetype. Before writing nav markup, write one line: *"Previous nav: <X>. This build: <Y>, because <reason>."* This is the same accountability step as the macrostructure rotation. **A theme with 4 test builds should show 4 different navs** — e.g. Hum across Curio/Sprout/Tally/Mixtape uses N5 → N1b → N12 → N13. Reaching for the genre *default* on every build is exactly the failure this rule exists to prevent; rotate through the "Acceptable also" column deliberately.
+**Diversification.** Nav rotation and the state-it-out-loud line live in SKILL.md's Rotation block.
 
 **Default away from N1a.** The most-recognised AI fingerprint is N1a (wordmark + inline link row + button-right) used reflexively. For a real product nav reach for **N1b** (the dense, balanced canonical bar) or N5/N11/N13 first; reach for N1a only when the page genuinely has 2 destinations.
 
 ---
-
 
 ## Picking from this file
 
