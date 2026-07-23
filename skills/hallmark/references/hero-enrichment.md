@@ -51,7 +51,7 @@ Reach for the highest tier the brief lets you ship in the time you have. Skippin
 
 **The discipline.** If you can do it in tier A, do it in tier A. If A can't reach it, try B. Only drop to C when characters demand it. Only D when the brief is explicit about "fast and cheap". Only E when E is genuinely the only option. Reaching for E because it's familiar — and many AI tools do — is the signature of a templated page.
 
-See [`custom-craft.md`](custom-craft.md) for *how* to build at tiers A and B. See [`assets.md`](assets.md) for the catalogue of sources at tiers C, D, and E.
+See [`custom-craft.md`](custom-craft.md) for *how* to build (its craft tiers are lettered by construction method: css, svg, animation, webgl, generated, lottie; match by name). See [`assets.md`](assets.md) for the catalogue of sources for generated stills, libraries, and Lottie.
 
 ---
 
@@ -91,7 +91,7 @@ Each file carries the full recipe: definition, use-when / avoid-when, variation 
 - **E2 · Demo Video, full-bleed muted loop**: video as wallpaper under a ghost overlay; the feel is the message, not the detail. [`enrichment/e2-fullbleed-muted-loop.md`](enrichment/e2-fullbleed-muted-loop.md)
 - **E3 · Mock App Screenshot, browser-framed split**: framed screenshot right, slight tilt, numbered pin annotations. [`enrichment/e3-browser-framed-split.md`](enrichment/e3-browser-framed-split.md)
 - **E4 · Mock App Screenshot, floating no-frame**: chrome-less screenshot with soft shadow; demands a beautiful capture. [`enrichment/e4-floating-no-frame.md`](enrichment/e4-floating-no-frame.md)
-- **E5 · Custom Illustration Centerpiece**: one hand-built SVG (Tier B) or generated raster (Tier C) as the hero's single illustrative element. [`enrichment/e5-custom-illustration-centerpiece.md`](enrichment/e5-custom-illustration-centerpiece.md)
+- **E5 · Custom Illustration Centerpiece**: one hand-built SVG (Tier B) or generated raster (craft tier: generated) as the hero's single illustrative element. [`enrichment/e5-custom-illustration-centerpiece.md`](enrichment/e5-custom-illustration-centerpiece.md)
 - **E6 · Animated Loop**: one small custom CSS / SVG loop, 4 s or less, that gives an otherwise still page life. [`enrichment/e6-animated-loop.md`](enrichment/e6-animated-loop.md)
 - **E7 · Abstract Background**: two-colour low-chroma gradient plus feTurbulence grain; paper texture, never aurora. [`enrichment/e7-abstract-background.md`](enrichment/e7-abstract-background.md)
 - **E8 · Hero Photography**: one tightly-cropped photograph with a margin-aligned caption; cookbook H6 cross-reference. [`enrichment/e8-hero-photography.md`](enrichment/e8-hero-photography.md)
@@ -100,7 +100,7 @@ Each file carries the full recipe: definition, use-when / avoid-when, variation 
 
 ## Hero shape polish — patterns beyond enrichment
 
-The eight enrichment archetypes above (E1–E8) decide *what sits next to the headline*. The four polish patterns below decide *how the headline itself sits* — they affect layout, type, motion, not decoration on top. They are admissible on top of any hero macrostructure (Marquee Hero, Stat-Led, Quote-Led, Letter, Photographic, Clipped). Pick one polish pattern when the hero feels shape-flat — colour-only, symmetric, predictable.
+The eight enrichment archetypes above (E1–E8) decide *what sits next to the headline*. The four polish patterns below decide *how the headline itself sits* — they affect layout, type, motion, not decoration on top. They are admissible on top of any hero macrostructure (Marquee Hero, Stat-Led, Quote-Led, Letter, Photographic). Pick one polish pattern when the hero feels shape-flat — colour-only, symmetric, predictable.
 
 You can ship a hero with one polish pattern *and* one enrichment archetype, but never two polish patterns at once. The hero is a high-stakes surface; one structural choice carries it. **Pick zero or one. Then read ONLY that one file.**
 
@@ -111,7 +111,7 @@ You can ship a hero with one polish pattern *and* one enrichment archetype, but 
 
 The decision sequence:
 
-1. Pick the hero macrostructure (Marquee Hero, Stat-Led, Quote-Led, Letter, Photographic, Clipped) — see [`macrostructures.md`](macrostructures.md).
+1. Pick the hero macrostructure (Marquee Hero, Stat-Led, Quote-Led, Letter, Photographic) — see [`macrostructures.md`](macrostructures.md).
 2. Pick zero-or-one **enrichment archetype** (E1–E8 above).
 3. Pick zero-or-one **polish pattern** (HP1–HP4 above).
 4. Load [`enrichment/hero-discipline.md`](enrichment/hero-discipline.md) alongside your pick and apply it: space discipline, hero animation discipline, and the eight pre-flight quality questions that decide whether the enrichment ships at all.

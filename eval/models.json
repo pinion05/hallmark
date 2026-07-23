@@ -22,7 +22,18 @@
       "model": "moonshotai/kimi-k3",
       "env": "OPENROUTER_API_KEY",
       "omitTemperature": true,
-      "extra": { "reasoning": { "effort": "medium" } }
+      "extra": { "reasoning": { "effort": "medium" } },
+      "enabled": false,
+      "note": "Enable once OPENROUTER_API_KEY is available; not present on this machine as of 2026-07-23."
+    },
+    {
+      "id": "k27code-together",
+      "kind": "openai-compat",
+      "base": "https://api.together.xyz/v1",
+      "model": "moonshotai/Kimi-K2.7-Code",
+      "env": "TOGETHER_API_KEY",
+      "omitTemperature": true,
+      "note": "Stand-in for Kimi K3 until Together hosts it; swap the model id when K3 lands."
     },
     {
       "id": "deepseek-openrouter",

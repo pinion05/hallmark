@@ -10,11 +10,11 @@ Some gates are **universal** (apply to every genre); some are **genre-scoped** (
 
 When the artifact is a single component (one nav, one footer, one card, one section), sweep this universal subset:
 
-**Gates 1, 2, 7, 10, 14, 15, 22, 26, 27, 30, 38a, 39, 40, 41, 48.**
+**Gates 1, 2, 7, 10, 14, 15, 22, 26, 27, 30, 38a, 39, 40, 41, 48.** (`sloplint.mjs --scope component` additionally enforces gates 24 and 37, both mechanical; fix those FAILs too.)
 
 That covers banned fonts, gradients, pure black/white, transition hygiene, box-model animation, focus rings, neutral chroma, interaction states, reduced motion, icon tells, italic headers, input states, both contrast gates, and token discipline. Every answer must still be **no**.
 
-Any artifact that is a page, including fast-mode pages, runs all 58. The tier cuts narration and check time for single components, never page guarantees.
+Any artifact that is a page, including fast-mode pages, runs all 58. The tier cuts narration and check time for single components, never page guarantees. One exception: unpicked `variants` drafts run only this sweep plus sloplint; the promoted winner runs all 58 (see [`verbs/variants.md`](verbs/variants.md)).
 
 ---
 
@@ -27,7 +27,7 @@ Every gate below carries a class tag:
 - **[R/J]** Render-verifiable: confirm on the rendered page when rendering is available, else judge.
 - **[J]** Judged: the model verifies these at Step 7; no script can.
 
-When sloplint has run, walk only the J and R/J gates; re-litigating M gates the script already passed is wasted judgment.
+When sloplint has run, walk the J and R/J gates, plus the judged halves of M/R gates when --render did not run, and confirm or dismiss every WARN; re-litigating M gates the script already passed is wasted judgment.
 
 ---
 
@@ -46,7 +46,7 @@ Two passes is normal. Three is a sign the brief is wrong, not the design — re-
 | **E** | **Restraint** | Have you removed everything that isn't earning its place? Decoration, redundancy, padding-for-padding's-sake? |
 | **F** | **Variety** | Does this output share a structural fingerprint with a previous Hallmark output in the project? Score by structural distance, not visual distance — colour-swaps don't count as variety. |
 
-Record the six scores in a one-line stamp comment at the top of the file: `/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 */`. Future runs should be able to find this and avoid repeating the same weakness.
+Record the six scores in a one-line stamp comment directly below the macrostructure stamp (which stays line 1, per gate 20): `/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 */`. Future runs should be able to find this and avoid repeating the same weakness.
 
 ---
 
@@ -62,7 +62,7 @@ Record the six scores in a one-line stamp comment at the top of the file: `/* Ha
 
 ## Structural
 
-8. **[J]** Does the page reuse a structure it shouldn't — either the generic AI template (Hero → 3 features → CTA → footer), **or** the *same* structural fingerprint / macrostructure as a previous Hallmark output in this project? Read the file system: if a `.hallmark/log.json` entry or a CSS macrostructure stamp exists, this build's macrostructure must differ from the last.
+8. **[J]** Does the page reuse a structure it shouldn't — either the generic AI template (Hero → 3 features → CTA → footer), **or** the *same* structural fingerprint / macrostructure as a previous Hallmark output in this project? Read the file system: if `.hallmark/log.json` entries or a CSS macrostructure stamp exist, this build's macrostructure must differ from the last three (SKILL.md § Rotation).
 9. **[J]** Are sections separated only by equal whitespace, with no rule, no ornament, no colour shift — every section identical in rhythm?
 
 ## Microinteractions
@@ -94,7 +94,7 @@ Record the six scores in a one-line stamp comment at the top of the file: `/* Ha
 
 ## Hero enrichment gates
 
-(When the page carries enrichment — see [`hero-enrichment.md`](hero-enrichment.md).)
+(When the page carries enrichment — see [`hero-enrichment.md`](hero-enrichment.md). Exception: gate 30 is about icon libraries and emoji, not enrichment; it applies to every page and component regardless.)
 
 28. **[M]** If the page has a demo video, does it autoplay with sound, lack a `poster`, lack `fetchpriority="high"`, or use `loading="lazy"` on the LCP element? (LCP-killers fail this gate.)
 29. **[J]** If the page has an abstract background, is it more than one accent colour, more than ~5 % footprint, or animating mesh-gradient on the whole page? (Aurora blobs and mesh-on-everything fail this gate.) *Genre note: atmospheric allows up to two warm-toned radial blooms covering ~20–30 % of the canvas, fixed-attached, no animation.*
@@ -180,7 +180,7 @@ Universal. Hallmark must reuse the user's existing chrome (browser, OS, IDE) ins
 
 Universal. The theme picks the palette and font stack at the top of the run; the rest of the run consumes tokens, never invents them.
 
-48. **[M]** **Mid-render token improvisation.** Did Hallmark introduce any colour value (`#hex`, `oklch(...)`, `rgb(...)`, `hsl(...)`) or `font-family` declaration *outside* the design tokens defined in `:root` / `[data-theme="..."]`? If yes, fail. Every colour and every font in the artifact must reference a named token (`var(--color-accent)`, `font-family: var(--font-display)`). Inline OKLCH or one-off hexes are mid-render improvisation — the model picked the theme, then forgot it and freestyled. The fix: lift the value into the token block as a new named variable, or replace it with an existing token. *(See [SKILL.md § Locked tokens](../SKILL.md) and [anti-patterns.md § Mid-render token improvisation](anti-patterns.md).)*
+48. **[M]** **Mid-render token improvisation.** Did Hallmark introduce any colour value (`#hex`, `oklch(...)`, `rgb(...)`, `hsl(...)`) or `font-family` declaration *outside* the design tokens defined in `:root` / `[data-theme="..."]` / a variants route-wrapper token block (verbs/variants.md § 4)? If yes, fail. Every colour and every font in the artifact must reference a named token (`var(--color-accent)`, `font-family: var(--font-display)`). Inline OKLCH or one-off hexes are mid-render improvisation — the model picked the theme, then forgot it and freestyled. The fix: lift the value into the token block as a new named variable, or replace it with an existing token. *(See [SKILL.md § Locked tokens](../SKILL.md) and [anti-patterns.md § Mid-render token improvisation](anti-patterns.md).)*
 
 ## Responsive — clickable affordances
 

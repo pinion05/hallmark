@@ -2,7 +2,7 @@
 
 Loaded only when the custom route is confirmed at Step 2.6 of the Design flow. Custom is **made-to-measure for one brief**, written inline into the page's `:root`, never a permanent catalog entry. It spans two depths: **tuned** (a complete OKLCH palette + free-font pairing on Hallmark's structures) and **bespoke** (structure and composition designed from first principles too). One route, chosen depth.
 
-**The freedom is the combination, never the floor.** Every constraint in [`color.md`](color.md), [`typography.md`](typography.md), and [`anti-patterns.md`](anti-patterns.md) still applies, and **every slop-test gate fires unchanged at every depth**. The Step 5 preview surfaces the direction, posture, palette, and pairing in plain text before any code is emitted, so the user can redirect.
+**The freedom is the combination, never the floor.** Every constraint in [`color.md`](color.md), [`typography.md`](typography.md), and [`anti-patterns.md`](anti-patterns.md) still applies, and **every slop-test gate fires unchanged at every depth** (unpicked variants drafts alone defer the sweep to promotion, per [`verbs/variants.md`](verbs/variants.md)). The Step 5 preview surfaces the direction, posture, palette, and pairing in plain text before any code is emitted, so the user can redirect.
 
 Custom exists because the model's own taste is an attractor. Left alone, a model asked for "something unique" ships the same two or three looks per category, every time. The ritual below is a set of outside interventions that break that pull: named rejections, a deterministic draw, a scene the palette must obey, and a contract the build is audited against.
 
@@ -79,11 +79,11 @@ The model never hand-picks from its own slate; its favourite is deterministic, a
 node <skill-dir>/scripts/seed.mjs "<brief-slug>" --n 7 --wild 2
 ```
 
-The script prints a reproducible line: `draw: 4/7 (seed <slug>·<date>·r0) · wildcards: <name>, <name>`. Paste it into the Picks block. Re-roll (only when the user asks): rerun with `--reroll 1`, `--reroll 2`, and so on; each excludes nothing but lands elsewhere, and the seed key keeps every roll reproducible.
+The script prints a reproducible line: `draw: n/7 (seed <slug>·<date>·r0) · wildcards: <name>, <name>`. Paste it into the Picks block (which, on a custom run, emits after this ritual). Re-roll (only when the user asks): rerun with `--reroll 1`, `--reroll 2`, and so on; it usually lands elsewhere (there is no exclusion; roll again if it repeats), and the seed key keeps every roll reproducible.
 
 **Wildcards.** The two dealt entries come from [`direction-atlas.json`](direction-atlas.json), a curated deck of real design-history lineages. A wildcard **replaces the drawn slate entry only if it beats it on both axes: audience identification and product clarity.** Weigh in one written line each; discard losers without ceremony. Wildcards exist to break category gravity, not to win by novelty.
 
-**Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip wildcards in fallback mode.
+**Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip wildcards, and stamp the seed as `seed: fallback-<letters>·<date>·r<n>`.
 
 ### R.5 · The scene sentence
 
@@ -102,7 +102,7 @@ Posture is declared in the stamp and the log. Gate 23 reads the posture: a decla
 
 ### R.7 · The direction contract
 
-Five blocks, <= 150 words total, written into the artifact as a comment ABOVE the stamp before any code, and mirrored in the Step 5 preview:
+Five blocks, <= 150 words total, written into the artifact as a comment directly BELOW the macrostructure stamp and critique line (the stamp stays line 1, per gate 20), before any code, and mirrored in the Step 5 preview:
 
 ```
 /* direction contract · seed <key>
@@ -152,13 +152,13 @@ Before any values: the scene sentence (R.5) fixes the paper's lightness band and
 
 ### B.1 · Anchor accent first
 
-- Convert the named or hex anchor to OKLCH; clamp chroma to **0.12-0.20** per [`color.md`](color.md) § "Accent - the discipline".
+- Convert the named or hex anchor to OKLCH; clamp chroma to **0.12-0.20** (inside the cap in [`color.md`](color.md) § Palette construction).
 - No anchor given: derive hue from the vibe: warmth 30-60° · technical 220-250° · botanical 130-160° · late-night neon 280-320° · sun-drenched 60-80°. Chroma 0.12-0.16.
 
 ### B.2 · Paper
 
 - Paper L from the scene sentence: bright / airy → **L 95-98%** (warm-tinted) · archival / editorial → **L 92-95%** · clinical / spec-sheet → **L 98-100%** near-white, cool-tinted · dark / late-night → **L 12-18%**, anchor-tinted.
-- **Always tint paper toward the anchor hue, chroma 0.005-0.020** per [`color.md`](color.md) § "Neutral tinting".
+- **Always tint paper toward the anchor hue, chroma 0.005-0.020** per [`color.md`](color.md) § Principles (tint the greys).
 - Committed posture: the carried colour becomes `--color-field` at the scene's lightness band; paper stays a quiet neighbour. Drenched posture: paper IS the anchor at usable lightness; ink derives from it.
 - Paper-2: step ±2-4% L. Paper-3 (optional): ±5-7% L.
 
@@ -218,19 +218,19 @@ A custom theme declares its diversification values explicitly so the Rotation bl
  */
 ```
 
-The `contract: kept (5/5)` line is written only after the finish review below confirms it. The direction contract comment (R.7) sits directly above this stamp.
+The `contract: kept (5/5)` line is written only after the finish review below confirms it. This extends the base stamp; the tone and the contrast / nav / footer / mobile records SKILL.md Step 6 and the gate list require still ride on line 1. The direction contract comment (R.7) sits directly below the stamp and critique line.
 
 ## § F · `.hallmark/log.json` entry shape
 
 ```json
 { "date": "2026-07-23",
-  "macrostructure": "Stat-Led",
+  "macrostructure": "Workbench",
   "theme": "custom",
-  "direction": "Double-entry ledger",
+  "direction": "Line-printer output",
   "posture": "committed",
   "seed": "loop-observability·2026-07-23·r0",
   "wildcard": true,
-  "theme_axes": "dark / mono / cool",
+  "theme_axes": "dark / grotesk-sans / chromatic-other (amber ~75)",
   "vibe": "industrial precision, cool, technical",
   "nav": "N8", "footer": "Ft4",
   "enrichment": "none",
@@ -254,7 +254,7 @@ Before the slop test, re-read the direction contract promise by promise: THESIS 
 - **Reflex check:** rejecting kraft-paper-and-coffee-browns (category default) and italic-serif-on-cream editorial (tasteful fallback).
 - **Spent:** warm/food family, so cream + serif + lamplight is spent unless the draw earns it back.
 - **Slate:** 1 the roastery chalkboard; 2 the grocer's price ticket; 3 the shipping manifest; 4 the Sunday broadsheet food column; 5 the enamel tin label; 6 the postal frank and rubber stamp; 7 the harvest-lot auction sheet.
-- **Draw:** `node scripts/seed.mjs "coffeebox-subscription" --wild 2` → `draw: 6/7 (seed coffeebox-subscription·2026-07-23·r0) · wildcards: Seed packet, Card catalog`. Wildcard weigh-in: Seed packet loses to the postal direction on product clarity (subscription = things that arrive in the mail); Card catalog loses on audience identification. **Building: the postal frank.**
+- **Draw** (illustrative; your date changes it): `node scripts/seed.mjs "coffeebox-subscription" --wild 2` printed a draw landing on entry 6 with two wildcards, Seed packet and Card catalog. Wildcard weigh-in: Seed packet loses to the postal direction on product clarity (subscription = things that arrive in the mail); Card catalog loses on audience identification. **Building: the postal frank.**
 - **Scene:** *"A subscriber on a Tuesday at 7:10am, tearing the strip on a kraft mailer at the kitchen counter, stamp-marks inked slightly off-square."* Light paper, warm, daylit.
 - **Posture:** Full palette (kraft field, frank red, ink black, airmail blue seal), each with a stated job.
 - **Contract:** THESIS: your coffee is mail, and mail used to be beautiful. OWN-WORLD: postal franking, done with restraint. STORY: the scene above. FIRST-VIEWPORT: wordmark as a circular frank, one mailer photo-placeholder, ship-date line, subscribe CTA as a stamp outline. FORM: Long Document rhythm; the signature move is the frank-mark rule system dating each section like a postmark.
@@ -266,7 +266,7 @@ Before the slop test, re-read the direction contract promise by promise: THESIS 
 
 - **Reflex check:** rejecting navy-and-emerald fintech trust (category default) and neon-on-black terminal cosplay (tasteful fallback).
 - **Slate:** 1 the double-entry ledger; 2 the SWIFT wire printout; 3 the control-room annunciator panel; 4 the oscilloscope face; 5 the bank vault engineering plate; 6 the reconciliation stamp; 7 the trading-floor pit board.
-- **Draw:** `draw: 4/7 (seed loop-observability·2026-07-23·r0) · wildcards: Line-printer output, Blueprint`. Line-printer output beats entry 4 on both axes (engineers live in logs; the report idiom carries latency tables natively). **Building: the line-printer report.**
+- **Draw** (illustrative): the draw landed on entry 4 and dealt Line-printer output and Blueprint as wildcards. Line-printer output beats entry 4 on both axes (engineers live in logs; the report idiom carries latency tables natively). **Building: the line-printer report.**
 - **Scene:** *"An on-call engineer at 2am, one monitor lit, tearing yesterday's batch report off the tractor feed."* Dark surface, cool, one warm task light.
 - **Posture:** Committed. The greenbar stripe carries 40% of the surface as `--color-field`; the alert amber accent stays a signal.
 - **Contract:** THESIS: observability is a report you can trust at 2am. OWN-WORLD: greenbar line-printer output, modernised, not cosplayed. STORY: above. FIRST-VIEWPORT: masthead as a job header (run id, date), one live latency table in greenbar stripes, try-CTA as a form-feed break. FORM: Workbench macrostructure; the signature move is greenbar striping as the page's only surface rhythm.
@@ -274,7 +274,7 @@ Before the slop test, re-read the direction contract promise by promise: THESIS 
 
 ### G.3 · Mossroot, compressed to the stamp
 
-Herbal apothecary in Porto; vibe *"moss, lichen, soft pink, herbal"*; draw landed 2/7, "the herbarium sheet" (slate), wildcards discarded; scene: overcast morning shop light; posture: restrained.
+Herbal apothecary in Porto; vibe *"moss, lichen, soft pink, herbal"*; the draw (illustrative) landed on the slate's herbarium-sheet entry, wildcards discarded; scene: overcast morning shop light; posture: restrained.
 
 ```css
 /* Hallmark · macrostructure: Catalogue · F1 catalogue knobs: tiles=8, columns=2, rule=hairline-between
@@ -290,7 +290,7 @@ Herbal apothecary in Porto; vibe *"moss, lichen, soft pink, herbal"*; draw lande
 ## What custom does **not** do
 
 1. **Does not invent themes that ignore the rules.** Every band, cap, tint requirement, font ban, and slop-test gate carries forward. The freedom is the combination.
-2. **Does not save themes for reuse.** A custom run is per-output; nothing writes back to `tokens.css`.
+2. **Does not save themes for reuse.** A custom run is per-output; nothing writes back to the skill catalog's tokens. (The project-root `tokens.css` emit from SKILL.md Step 6 still happens; that file belongs to the user's project.)
 3. **Does not ask multiple follow-up questions.** One vibe answer (+ optional anchor) is enough.
 4. **Does not relax the diversification rule.** Custom entries declare axes + posture; the rotation fires on both routes.
 5. **Does not bypass the Step 5 preview.** Direction, posture, palette, and pairing surface in plain text before code.

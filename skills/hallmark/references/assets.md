@@ -131,7 +131,7 @@ import { siGithub } from 'simple-icons/icons';
 
 ---
 
-## Generated illustration (Tier C in the enrichment hierarchy)
+## Generated illustration (the enrichment ladder's generated-still rung; craft tier-e)
 
 When characters or specific scenes can't be hand-built economically. **Always post-process.** See [`custom-craft.md`](custom-craft.md) Tier E for full discipline.
 
@@ -179,7 +179,7 @@ A specific prompt produces a specific image. A generic prompt produces the AI te
 
 ## Library illustrations (Tier D — not first choice)
 
-When budget and timeline force a shortcut and even Tier C is overkill.
+When budget and timeline force a shortcut and even a generated still is overkill.
 
 ### Canon
 
@@ -360,7 +360,7 @@ When budget and timeline force a shortcut and even Tier C is overkill.
 
 ---
 
-## Lottie / Rive (Tier F — last resort)
+## Lottie / Rive (last resort; craft tier-f)
 
 ### Canon
 
@@ -394,7 +394,7 @@ When budget and timeline force a shortcut and even Tier C is overkill.
 | UI icon (chevron, check, X) | Lucide | Phosphor / Heroicons |
 | Brand logo for a wall | Simple Icons | SVGL / theSVG |
 | A hero illustration the brand owns | Hand-build (Tier A or B) | Commission custom |
-| A hero illustration that's character-driven | Nanobanana 2 (Tier C) | Commission, then library |
+| A hero illustration that's character-driven | Nanobanana 2 (generated still) | Commission, then library |
 | An SVG-format illustration that needs to scale | Recraft V4 | Hand-build in Figma → SVG |
 | A photograph with diversity | Nappy.co | Unsplash with manual tone-tweak |
 | A demo video of your product | Custom screen recording | (skip; no stock fits) |

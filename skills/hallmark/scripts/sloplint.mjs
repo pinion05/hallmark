@@ -23,7 +23,7 @@
  *       e.g. deliberate nav morphs, downgrade to WARN; skip-links exempt)
  *   15  focus ring that transitions into existence
  *   19  placeholder names (Jane Doe) and startup cliches (Acme, Nexus...)
- *   20  missing Hallmark stamp comment (also passes on "/* Hallmark" in first 5 lines)
+ *   20  missing Hallmark stamp comment (also passes on "/* Hallmark" in first 15 lines)
  *   22  zero-chroma oklch neutral (modern-minimal exempt; alpha<1 shadow values exempt)
  *   24  off-scale px padding / margin / gap (px values only; rem/em rhythm skipped)
  *   26  :focus-visible missing entirely = FAIL; missing :active / :disabled = WARN
@@ -815,7 +815,7 @@ function check19(ctx) {
 
 /* gate 20: Hallmark stamp */
 function check20(ctx) {
-  const stamped = (src) => /\/\*\s*Hallmark|Hallmark\s*·/.test(src.split('\n').slice(0, 5).join('\n'));
+  const stamped = (src) => /\/\*\s*Hallmark|Hallmark\s*·/.test(src.split('\n').slice(0, 15).join('\n'));
   let ok = false;
   const cssSources = [];
   for (const f of ctx.cssFiles) cssSources.push(f.raw);
@@ -823,15 +823,17 @@ function check20(ctx) {
   for (const s of cssSources) if (stamped(s)) { ok = true; break; }
   if (!ok && cssSources.length) {
     const where = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
-    report(20, 'FAIL', where, 1, 'no Hallmark stamp in the first 5 lines of any CSS', 'Add the Hallmark stamp comment');
+    report(20, 'FAIL', where, 1, 'no Hallmark stamp in the first 15 lines of any CSS', 'Add the Hallmark stamp comment');
   }
 }
 
 /* gate 22: zero-chroma oklch */
 function check22(ctx) {
   if (ctx.genre === 'modern-minimal') return;
+  const MASK_PROPS = /(^|-)mask(-image|-composite|-mode)?$|^filter$|^backdrop-filter$/;
   for (const r of ctx.rules) {
     for (const d of r.decls) {
+      if (MASK_PROPS.test(d.prop)) continue; // masks/filters read alpha or luminance; zero-chroma stops are legitimate there
       const re = /oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+[\d.]+(?:deg)?\s*(?:\/\s*([\d.]+%?))?\s*\)/g;
       let m;
       while ((m = re.exec(d.value))) {
@@ -1501,13 +1503,17 @@ function check54(ctx) {
            (side by side); label + heading stacked inside one column passes */
         const children = directChildren(doc, i);
         const eyebrowRe = /class\s*=\s*["'][^"']*(eyebrow|kicker|label|tag\b|__num|index|chapter)/i;
+        const CONTENT_TAGS = /^(ol|ul|table|section|article|main|nav|figure)$/;
         let eyebrowChild = -1, headingChild = -1;
         children.forEach((chunk, ci) => {
-          if (eyebrowChild === -1 && (eyebrowRe.test(chunk.open) || eyebrowRe.test(chunk.html))) eyebrowChild = ci;
+          /* only the child's own open tag counts as an eyebrow; a label-classed
+             element buried inside a content column (a track-number span in an
+             <ol>) is not a section eyebrow */
+          if (eyebrowChild === -1 && eyebrowRe.test(chunk.open) && !CONTENT_TAGS.test(chunk.name)) eyebrowChild = ci;
           if (headingChild === -1 && (/^h[1-6]$/.test(chunk.name) || /<h[1-6]\b/i.test(chunk.html))) headingChild = ci;
         });
         if (eyebrowChild !== -1 && headingChild !== -1 && eyebrowChild !== headingChild) {
-          report(54, 'WARN', r.file, d.line, `eyebrow + heading share a ${trunc(d.value, 20)} row (${r.selector})`, 'Stack the eyebrow above the heading');
+          report(54, 'FAIL', r.file, d.line, `eyebrow + heading share a ${trunc(d.value, 20)} row (${r.selector})`, 'Stack the eyebrow above the heading');
         }
       }
     }

@@ -1,6 +1,6 @@
 # Custom craft — how to hand-build hero artwork
 
-This file is loaded only when an enrichment archetype requires construction (Tier A or B in [`hero-enrichment.md`](hero-enrichment.md)). It tells you *which technique* to reach for at *which complexity tier* — and what each looks like done well.
+This file is loaded only when an enrichment archetype requires construction (see [`hero-enrichment.md`](hero-enrichment.md)). It tells you *which technique* to reach for at *which complexity tier* — and what each looks like done well.
 
 **The principle.** Custom-built artwork is the design. Library-picked artwork is a shortcut, and a good audience reads it as one. The skill's job is to make custom-build the path of least resistance — by knowing when CSS alone suffices, when SVG is right, when JS-driven animation earns its bundle cost, and when (rarely) Three.js is justified.
 
@@ -55,6 +55,8 @@ Every tier file carries its full anti-pattern list. The cross-tier tells:
 - **No `prefers-reduced-motion` fallback.** Every animation gets one.
 
 ---
+
+**Two taxonomies, one mapping.** The enrichment ladder in SKILL.md Step 4 names outcomes (CSS art, hand-built SVG, generated still, library asset, Lottie). The craft tiers below are lettered by construction method. Map by name: CSS art = tier-a · hand-built SVG = tier-b · declarative animation = tier-c · WebGL = tier-d · generated stills = tier-e · library / Lottie = tier-f.
 
 ## Tier index
 

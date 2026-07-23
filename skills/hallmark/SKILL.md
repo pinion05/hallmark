@@ -18,7 +18,7 @@ Hallmark is opinionated, short, and boring on purpose. It encodes a tight set of
 
 These bind on every output, in every verb, on every model. Read nothing else and you must still obey these.
 
-1. Every colour and every font references a `:root` token via `var(--*)`. No inline hex / oklch / rgb values, no raw `font-family:` strings past the token block. (gate 48)
+1. Every colour and every font references a token via `var(--*)`, declared at `:root` (or a declared theme / route-wrapper token block). No inline hex / oklch / rgb values, no raw `font-family:` strings past the token block. (gate 48)
 2. Never `transition: all`. Animate only `transform` and `opacity`, never layout properties. (gates 10, 14)
 3. The display font is never Inter, Roboto, Open Sans, Poppins, or Lato. Headings are never italic, not even one word. (gates 1, 38a)
 4. No pure `#000` or `#fff` as a base colour (modern-minimal genre excepted for `#fff`). (gate 7)
@@ -28,7 +28,7 @@ These bind on every output, in every verb, on every model. Read nothing else and
 8. Any animation has a `@media (prefers-reduced-motion: reduce)` fallback. (gate 27)
 9. Never invent a metric, testimonial, logo wall, or case-study count. (gate 46)
 10. Never place an eyebrow / tag / number beside a heading. Vertical stack only. (gate 54)
-11. The first non-empty line of emitted CSS is the `/* Hallmark · macrostructure: ... */` stamp. (gate 20)
+11. The first non-empty line of emitted CSS is the `/* Hallmark · macrostructure: ... */` stamp; the pre-emit critique comment sits directly under it, and a custom build's direction contract directly under that. (gate 20)
 12. If Node is available, run `node <skill-dir>/scripts/sloplint.mjs <output>` before handing back and fix every FAIL.
 
 ## Flow at a glance
@@ -85,7 +85,7 @@ If the input does not clearly map to a verb, treat it as default. If the user at
 
 ## When the brief is a component, not a page
 
-**Check scope before entering the Design flow.** Component-scope signals: the brief names a single UI element (button, input, card, modal, dropdown, tooltip, select, checkbox, switch, tab strip, chip, badge, banner, snackbar, popover, slider, date picker, avatar); the brief is short (<= 30 words) and refers to one element; the target file is a single component; the user says "just the X" / "only the Y". Two signals fire: route component. Ambiguous ("a pricing section"): ask once, *"One pricing card, or the whole pricing page?"*, defaulting to component.
+**Check scope before entering the Design flow.** Component-scope signals: the brief names a single UI element (button, input, form, card, modal, dropdown, tooltip, select, checkbox, switch, tab strip, chip, badge, banner, snackbar, popover, slider, date picker, avatar, a single nav or footer); the brief is short (<= 30 words) and refers to one element; the target file is a single component; the user says "just the X" / "only the Y". Two signals fire: route component. Ambiguous ("a pricing section"): ask once, *"One pricing card, or the whole pricing page?"*, defaulting to component. The Step 1 questions still fire once in component scope; only `audit` / `study` / `redesign --mood` are silent. (When the brief IS a nav or footer, build it as the component; the "skips" below are about page chrome around a page build.)
 
 **Component scope keeps:** Step 0 pre-flight, Step 1 genre detection, Step 2.6 theme route (existing tokens win; otherwise ask once, defaulting to catalog), the 2+1 font discipline, and a STRICTER state rule: every interactive component ships code for **all 8 states**: default · hover · `:focus-visible` · `:active` · disabled · loading · error · success, per [`references/interaction-and-states.md`](references/interaction-and-states.md). The slop test runs the **Core-15 sweep** named in [`references/slop-test.md`](references/slop-test.md).
 
@@ -182,7 +182,7 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 **Rotation (the canonical block - every other file defers here):**
 
 - **Macro:** must differ from the last three Hallmark outputs for this project (read `.hallmark/log.json`, newest first; a CSS stamp counts when the log is missing). Specimen is never a default; reach for it only on explicit editorial / foundry briefs.
-- **Theme:** two consecutive themes must differ on at least one of three axes: **paper band** (dark < 30% L · mid 30-85% · light > 85%), **display style** (per-theme values live as comments in [`site/css/tokens.css`](../../site/css/tokens.css)), **accent hue** (warm 10-60° · cool 200-300° · neutral · chromatic-other). Two of three matching: pick a more distant theme.
+- **Theme:** two consecutive themes must differ on at least one of three axes: **paper band** (dark < 30% L · mid 30-85% · light > 85%), **display style**, **accent hue** (warm 10-60° · cool 200-300° · neutral · chromatic-other). The 20-row lookup lives in [`references/theme-axes.md`](references/theme-axes.md). Two of three matching: pick a more distant theme.
 - **Nav + footer:** across consecutive runs and across test builds of the same theme, no repeated N code and no repeated Ft code. This is the single most-violated rule; rotate deliberately through the routing table's alternates.
 - **Enrichment:** do not repeat the previous run's E# archetype back-to-back.
 - **Log schema** (`.hallmark/log.json`, newest entry first, trimmed to 20):
@@ -200,15 +200,17 @@ First run for a project: no constraint, note it in one line. User explicitly re-
 ```
 Picks · genre: modern-minimal · macro: Workbench (last 3: Bento, Long Document, Manifesto)
 · theme: Cobalt (differs on paper band + display style) · nav: N13 (prev N5) · footer: Ft5
-· enrichment: E1 Tier-A · custom: no
+· enrichment: tbd (Step 4) · custom: no
 ```
+
+The enrichment cell may read `tbd (Step 4)`; the decision lands there and the Step 5 preview carries the final value. On a custom run the Picks block emits after the 2.6 ritual instead, so it can carry the draw line.
 
 ### 2.6. Theme route
 
 By now one of four things is true:
 
 0. **A `study` diagnosis emitted earlier and the user says build with it** → route **studied-DNA**: the diagnosis's paper OKLCH, accent OKLCH, type roles, macrostructure, and archetypes become the locked system. Diversification is suspended. Stamp `theme: studied-DNA (source: <URL or image>)` with the values inline. The user pivoting ("use Newsprint instead", "ignore the DNA") re-enters the normal dispatch.
-1. **Custom confirmed** (Step 1 signal + the user said yes) → load [`references/custom-theme.md`](references/custom-theme.md) and run the ritual: reflex check → spent defaults → slate → draw → scene sentence → colour posture → direction contract → build → finish review. Tuned keeps Hallmark's structures; bespoke (structure itself is the ask) designs from first principles. **Every slop-test gate fires at either depth.**
+1. **Custom confirmed** (Step 1 signal + the user said yes) → load [`references/custom-theme.md`](references/custom-theme.md) and run the ritual: reflex check → spent defaults → slate → draw → scene sentence → colour posture → direction contract → build → finish review. Tuned keeps Hallmark's structures; bespoke (structure itself is the ask) designs from first principles. **Every slop-test gate fires at either depth** (unpicked variants drafts alone defer the sweep to promotion, per [`references/verbs/variants.md`](references/verbs/variants.md)).
 2. **Catalog** (named or implied) → pick one of the 20 themes per Rotation: Specimen, Atelier, Brutal, Newsprint, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Riso, Sport, Bloom, Coral, Cobalt, Aurora, Editorial, Carnival, Lumen, Hum. Clusters: atmospheric rotates Bloom / Midnight / Terminal / Aurora / Lumen; modern-minimal rotates Coral / Cobalt; playful stays on Hum; editorial walks the remaining twelve.
 3. **Nothing was discussed** → catalog, silently. Do not pause or ask.
 
@@ -223,8 +225,8 @@ A custom system is complete (palette + pairing + axes), never a colour swap; its
 **Index-then-pick (read the slim index, load only the picks):**
 - [`references/macrostructures.md`](references/macrostructures.md) → one file from `references/macrostructures/`.
 - [`references/component-cookbook.md`](references/component-cookbook.md) → only the picked N / Ft / H / S / F / C / T files from `references/components/`. Loading the cookbook end-to-end or pre-loading more than one archetype per category is the single biggest token waste in the skill.
-- [`references/hero-enrichment.md`](references/hero-enrichment.md) → only when Step 4's image-need check says YES, then only the picked archetype file from `references/enrichment/`.
-- [`references/custom-craft.md`](references/custom-craft.md) → only when the picked enrichment requires construction, then only the picked tier / recipe file from `references/craft/`.
+- [`references/hero-enrichment.md`](references/hero-enrichment.md) → load its slim index at Step 4 to run the image-need check it contains; load an archetype file from `references/enrichment/` only when the answer is YES.
+- [`references/custom-craft.md`](references/custom-craft.md) → only when the picked enrichment requires construction, then only the picked tier / recipe file from `references/craft/` (the craft tiers are lettered by construction method; match by name, not letter).
 
 **Every build:** [`references/typography.md`](references/typography.md) · [`references/color.md`](references/color.md) · [`references/layout-and-space.md`](references/layout-and-space.md) · [`references/motion.md`](references/motion.md) · [`references/copy.md`](references/copy.md) · [`references/anti-patterns.md`](references/anti-patterns.md).
 
@@ -242,7 +244,7 @@ A custom system is complete (palette + pairing + axes), never a colour swap; its
 
 Then run the image-need table at [`references/hero-enrichment.md` § Image-need detection](references/hero-enrichment.md). Default is typography-only. Photographic briefs without user assets use the placeholder strategy in [`references/assets.md`](references/assets.md); non-photographic briefs prefer [`references/imagery-kit.md`](references/imagery-kit.md). Never ship invented stock photos as final design.
 
-**The enrichment hierarchy is non-negotiable:** typography only → Tier A pure CSS art → Tier B hand-built SVG → Tier C generated still → Tier D library + customisation → Tier E Lottie, last resort. Reaching for Lottie when CSS would build it is the new tell. State the decision in one sentence; it goes into the stamp.
+**The enrichment hierarchy is non-negotiable:** typography only → pure CSS art → hand-built SVG → generated still → customised library asset → Lottie, last resort. Reaching for Lottie when CSS would build it is the new tell. (Construction guidance lives in `references/craft/`; its files are lettered by construction method - css, svg, animation, webgl, generated, lottie - so match by name.) State the decision in one sentence; it goes into the stamp.
 
 ### 5. Preview
 
@@ -252,12 +254,12 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 **Hallmark · v1.2.0**
 
 - **Macrostructure** · Stat-Led
-- **Theme** · Plain (#fff paper · cool greys · ink-blue accent)
+- **Theme** · Coral (near-white paper · quiet neutrals · coral accent)
 - **Enrichment** · none (typography only)
 - **Sections** · Hero · Logos · Stats · Features · Pricing · FAQ · CTA · Footer
 - **Motion** · counter · pricing-lift · pulse-once
 - **Slop test** · 58 / 58 ✓ (run after Build)
-- **Diversification** · differs from Newsprint on display style + accent hue
+- **Diversification** · differs from Newsprint on paper band + display style
 ```
 
 Custom builds add two bullets: `**Direction** · <name> (draw n/7, wildcard yes/no)` and `**Posture** · <Restrained | Committed | Full palette | Drenched>`. Any page may add `**Signature** · <the one move>`.
@@ -278,7 +280,7 @@ Emit code that satisfies the tone and the structural fingerprint. Match code com
 - A distinctive display face + refined body face (single-font pages only when the single font IS the design).
 - Eight states for every interactive element; animate `transform` / `opacity` only; the three named easings, never `ease`, never bounce on UI state; `prefers-reduced-motion` support; instant `:focus-visible` ring at >= 3:1.
 - Microinteraction recipes per [`references/microinteractions.md`](references/microinteractions.md): silent success over toasts, optimistic + Undo over confirms, 800ms hover / 0ms focus tooltips. Cut motion before adding it.
-- **Stamp the output** (first non-empty CSS line): `/* Hallmark · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */` plus the nav / footer / contrast / mobile records the gates ask for. Custom and studied-DNA stamps carry their extended fields per [`references/custom-theme.md`](references/custom-theme.md) § E and the output contract in [`references/study.md`](references/study.md).
+- **Stamp the output.** Canonical top-of-file order: line 1 the macrostructure stamp `/* Hallmark · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */` plus the nav / footer / contrast / mobile records the gates ask for; line 2 the pre-emit critique comment; then (custom only) the direction contract block. Custom and studied-DNA stamps carry their extended fields per [`references/custom-theme.md`](references/custom-theme.md) § E and the output contract in [`references/study.md`](references/study.md).
 - **Append to project memory:** update `.hallmark/log.json` (schema in Step 2), newest first, trimmed to 20. Create `.hallmark/` if needed; respect any existing `.gitignore`.
 - **Never clobber an existing global stylesheet.** Entry stylesheets (`app/globals.css`, `src/index.css`, `src/styles/global.css`) are **append-only**: keep `@tailwind` / `@import "tailwindcss"` directives in place, add Hallmark's `:root` block and base rules below them, keep any new `@import` at the very top above all rules, and reuse the project's own token names (`--background`, `--foreground`, a Tailwind `@theme`) where they exist. Full rewrite only on explicit request: silently removing a framework's CSS entry directives un-styles the entire app. See [`references/contract.md`](references/contract.md).
 - **Always emit `tokens.css`** at the project root with every `--color-*`, `--font-*`, `--space-*`, `--text-*`, `--ease-*`, `--dur-*`, `--rule-*`, and `--radius-*` token used, imported by the page CSS (or included by the project's entry point). Even single-page builds. On `design.md` projects, also refresh the `## Exports` section with all four formats (tokens.css, Tailwind v4 `@theme`, DTCG `tokens.json`, shadcn/ui variables) per [`references/export-formats.md`](references/export-formats.md).
@@ -288,9 +290,9 @@ Emit code that satisfies the tone and the structural fingerprint. Match code com
 
 **Do:** verify mechanically first, then judge.
 
-1. If Node is available: `node <skill-dir>/scripts/sloplint.mjs <output files> --genre <genre>`. Fix every FAIL, re-run until clean.
-2. Load [`references/slop-test.md`](references/slop-test.md) (now, not earlier) and walk the gates tagged **J** (judged); the script already covered the mechanical ones. Genre-scoped exceptions are noted inline per gate.
-3. No Node: walk all 58 manually.
+1. If Node is available: `node <skill-dir>/scripts/sloplint.mjs <output files> --genre <genre>` (add `--scope component` on component emits). Fix every FAIL, re-run until clean.
+2. Load [`references/slop-test.md`](references/slop-test.md) (now, not earlier) and walk the gates tagged **J** and **R/J**, plus the judged halves of **M/R** gates when `--render` did not run; confirm or dismiss every sloplint WARN. Genre-scoped exceptions are noted inline per gate.
+3. No Node, or a `.tsx`-only emit the script cannot scan: walk all 58 manually (Core-15 for components).
 
 Component scope runs the Core-15 sweep named in `slop-test.md`. Update the preview's Slop test row with the real outcome. If any gate fails, fix it. Do not ship slop.
 
@@ -320,7 +322,7 @@ Load [`references/verbs/variants.md`](references/verbs/variants.md) and follow i
 
 ## `hallmark study`
 
-The user supplied a screenshot or a URL of a design they admire. `study` extracts **structure, not pixels**: macrostructure, archetypes, type pairing, colour anchor. It produces a diagnosis report first, then offers three follow-ups: build with the DNA (Step 2.6 route 0), lock it into a portable `design.md` (opt-in, attestation required in URL mode), or stop at the diagnosis.
+The user supplied a screenshot or a URL of a design they admire. `study` extracts **structure, not pixels**: macrostructure, archetypes, type pairing, colour anchor. It produces a diagnosis report first, then offers the follow-ups: build with the DNA (Step 2.6 route 0), hand off to `redesign`, lock it into a portable `design.md` (opt-in, attestation required in URL mode), or stop at the diagnosis. Italic display roles found in a source are diagnosed as-is but built roman (gate 38a).
 
 **Always load [`references/study.md`](references/study.md) before this verb runs.** It owns source-mode detection (`http(s)://` → URL mode, else image mode), the extraction protocols, the structured-fields schema, the refusal heuristics and remote-URL safety list (run them BEFORE any fetch), junk-or-blocked fallbacks, the no-vision capability check, the diagnosis templates, the emission rules, and the output stamps. Do not work from intuition, and never copy the source's pixels, photography, or copy. If `references/study.md` cannot be loaded, refuse the verb politely and point to `hallmark redesign` with a written description.
 

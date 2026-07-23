@@ -1,0 +1,17 @@
+{
+  "brief": "b1",
+  "arm": "glm52-together",
+  "pack": "full",
+  "model": "zai-org/GLM-5.2",
+  "kind": "openai-compat",
+  "ok": true,
+  "extracted": true,
+  "durationSec": 93.3,
+  "promptTok": 28002,
+  "completionTok": 9255,
+  "costUSD": null,
+  "loc": 998,
+  "nudged": false,
+  "error": null,
+  "generatedAt": "2026-07-23T12:16:51.017922Z"
+}

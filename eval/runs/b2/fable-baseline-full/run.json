@@ -1,0 +1,17 @@
+{
+  "brief": "b2",
+  "arm": "fable-baseline",
+  "pack": "full",
+  "model": "claude-fable-5",
+  "kind": "anthropic",
+  "ok": false,
+  "extracted": false,
+  "durationSec": 413.27,
+  "promptTok": 42674,
+  "completionTok": 32000,
+  "costUSD": null,
+  "loc": 0,
+  "nudged": false,
+  "error": null,
+  "generatedAt": "2026-07-23T12:26:17.045276Z"
+}

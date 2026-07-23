@@ -1,0 +1,629 @@
+Pre-flight: no existing project signals — proceeding with full Hallmark stack. Going with: **audience** = podcast networks, audiobook & localisation producers · **use** = request early access · **tone** = atmospheric-technical, consent-first. Redirect me if wrong.
+
+```
+Picks · genre: atmospheric · macro: Marquee Hero (first run — no rotation constraint)
+· theme: Lumen (dark amber paper · warm-tinted neutrals · amber accent, hue 55–70)
+· nav: N11 (wordmark + single link + CTA, no hairline) · footer: Ft5 (statement footer)
+· enrichment: E2 Tier-B hand-built SVG voiceprint · custom: no
+```
+
+**Hallmark · v1.2.0**
+
+- **Macrostructure** · Marquee Hero
+- **Theme** · Lumen (oklch 13% warm-dark paper · amber accent · two fixed warm blooms)
+- **Enrichment** · Tier B — hand-built SVG voiceprint (motivated: the waveform *is* the product)
+- **Sections** · Hero · Uses · Process · Consent · Access · Footer
+- **Motion** · voiceprint pulse only (transform, reduced-motion fallback); everything else is cut
+- **Slop test** · 58 / 58 ✓ (self-run; no Node in this environment)
+- **Diversification** · first run for project — logged as baseline
+- **Signature** · consent framing carries the page; no invented metrics anywhere
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Undertone — a consent-first voice-cloning studio</title>
+<meta name="description" content="Undertone builds a working clone of a consenting voice from one short session — for retakes, localisation, and the patches you can’t be in the room to read.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · macrostructure: Marquee Hero · genre: atmospheric · theme: Lumen · tone: atmospheric-technical · anchor hue: 55 (warm amber)
+ * nav: N11 · footer: Ft5 · enrichment: E2 Tier-B hand-built SVG voiceprint
+ * contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47)
+ * tokens: pass (48) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49, 50–57)
+ * tokens.css: inlined below (single-file constraint) */
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 */
+
+:root {
+  /* ---- colour tokens (OKLCH, warm anchor ~55) ---- */
+  --color-paper:      oklch(13% 0.012 55);
+  --color-paper-2:    oklch(17% 0.014 55);
+  --color-paper-3:    oklch(21% 0.014 55);
+  --color-rule:       oklch(32% 0.014 55);
+  --color-wave:       oklch(46% 0.030 60);
+  --color-muted:      oklch(74% 0.016 60);
+  --color-ink:        oklch(94% 0.010 80);
+  --color-accent:     oklch(78% 0.140 70);
+  --color-accent-ink: oklch(17% 0.035 70);
+  --color-focus:      oklch(82% 0.130 70);
+  --color-error:      oklch(72% 0.160 25);
+  --color-bloom:      oklch(30% 0.070 55);
+  --color-bloom-2:    oklch(23% 0.045 30);
+
+  /* ---- font tokens (2+1: display · body · outlier) ---- */
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Geist Mono", ui-monospace, "SF Mono", monospace; /* wordmark + voiceprint readout ONLY */
+
+  /* ---- type scale (major third) ---- */
+  --text-sm:      0.875rem;
+  --text-base:    1rem;
+  --text-md:      1.25rem;
+  --text-lg:      1.5625rem;
+  --text-xl:      1.9531rem;
+  --text-2xl:     2.4414rem;
+  --text-display: clamp(2.5rem, 3.5vw + 1rem, 4rem);
+
+  /* ---- spacing (4pt scale) ---- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-s:   1rem;
+  --space-m:   1.5rem;
+  --space-l:   2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 7rem;
+  --space-5xl: 8rem;
+
+  /* ---- misc ---- */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --rule-hairline: 1px solid var(--color-rule);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-slow: 1.6s;
+  --control-h: 3rem; /* shared input + button height, 48px */
+}
+
+/* ---- base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  overflow-x: clip;
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+body {
+  overflow-x: clip;
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+/* two warm blooms, fixed-attached, no animation — the only decoration */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(56rem 38rem at 82% -12%, color-mix(in oklab, var(--color-bloom) 75%, transparent), transparent 70%),
+    radial-gradient(48rem 34rem at -12% 108%, color-mix(in oklab, var(--color-bloom-2) 60%, transparent), transparent 70%);
+}
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+p { margin: 0; }
+
+a {
+  color: var(--color-ink);
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-thickness: 2px; }
+a:active { opacity: 0.75; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.skip {
+  position: absolute;
+  left: var(--space-s);
+  top: var(--space-s);
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--color-paper-3);
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+}
+.skip:focus-visible { transform: none; }
+
+/* ---- nav (N11: wordmark · one link · CTA — no hairline, not sticky) ---- */
+.nav { padding-block: var(--space-m); }
+.nav__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+}
+.wordmark {
+  font-family: var(--font-outlier);
+  font-weight: 500;
+  font-size: var(--text-md);
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+.wordmark:hover { text-decoration: underline; text-decoration-color: var(--color-accent); }
+.nav__cluster {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+}
+.nav__link { white-space: nowrap; line-height: 1; }
+
+/* ---- buttons ---- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-h);
+  padding-inline: var(--space-m);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-base);
+  line-height: 1;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.button:hover { background: var(--color-focus); border-color: var(--color-focus); }
+.button:active { transform: translateY(1px); }
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+.button--quiet {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-rule);
+}
+.button--quiet:hover { background: var(--color-paper-2); border-color: var(--color-rule); }
+
+/* ---- hero ---- */
+.hero { padding-block: var(--space-2xl) var(--space-4xl); }
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-xl);
+  align-items: center;
+}
+.hero h1 {
+  font-size: var(--text-display);
+  line-height: 1.05;
+  max-width: 16ch;
+}
+.hero__lede {
+  margin-top: var(--space-m);
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  max-width: 52ch;
+}
+.hero__cta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  margin-top: var(--space-l);
+}
+.hero__cta a:not(.button) { white-space: nowrap; }
+
+/* voiceprint — hand-built SVG, aria-hidden art */
+.voiceprint {
+  margin: 0;
+  padding: var(--space-m);
+  border: var(--rule-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-paper-2);
+}
+.voiceprint svg { display: block; width: 100%; height: auto; }
+.voiceprint rect { fill: var(--color-wave); }
+.voiceprint__meta {
+  margin-top: var(--space-xs);
+  font-family: var(--font-outlier);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+.wf-hot {
+  fill: var(--color-accent) !important;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wf-pulse var(--dur-slow) var(--ease-inout) infinite alternate;
+}
+@keyframes wf-pulse {
+  from { transform: scaleY(0.68); }
+  to   { transform: scaleY(1.06); }
+}
+
+/* ---- uses (full-width hairline rows, asymmetric 2:3) ---- */
+.uses { padding-block: var(--space-3xl); }
+.uses h2 { font-size: clamp(1.75rem, 2vw + 1rem, 2.4414rem); max-width: 24ch; }
+.uses__list { margin-top: var(--space-l); }
+.uses__row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--space-l);
+  padding-block: var(--space-l);
+  border-top: var(--rule-hairline);
+}
+.uses__row h3 { font-size: var(--text-lg); max-width: 20ch; }
+.uses__row p { color: var(--color-muted); max-width: 58ch; }
+
+/* ---- process (staggered three-up, numbers stacked ABOVE headings) ---- */
+.process { padding-block: var(--space-3xl) var(--space-5xl); }
+.process h2 { font-size: clamp(1.75rem, 2vw + 1rem, 2.4414rem); }
+.process__list {
+  list-style: none;
+  margin: var(--space-xl) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
+.process__step {
+  display: flex;
+  flex-direction: column; /* number above heading — never beside */
+  gap: var(--space-xs);
+}
+.process__step:nth-child(2) { margin-top: var(--space-xl); }
+.process__step:nth-child(3) { margin-top: var(--space-3xl); }
+.process__num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-md);
+  color: var(--color-accent);
+  line-height: 1;
+}
+.process__step h3 { font-size: var(--text-lg); }
+.process__step p { color: var(--color-muted); max-width: 48ch; }
+
+/* ---- consent (surface shift: the one panel on the page) ---- */
+.consent { padding-block: 0; }
+.consent__panel {
+  background: var(--color-paper-2);
+  border-radius: var(--radius-md);
+  padding: clamp(2rem, 4vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--space-2xl);
+}
+.consent h2 { font-size: clamp(1.75rem, 2vw + 1rem, 2.4414rem); max-width: 14ch; }
+.consent__intro {
+  margin-top: var(--space-m);
+  color: var(--color-muted);
+  max-width: 44ch;
+}
+.consent__item { padding-block: var(--space-m); }
+.consent__item + .consent__item { border-top: var(--rule-hairline); }
+.consent__item h3 { font-size: var(--text-md); }
+.consent__item p { margin-top: var(--space-2xs); color: var(--color-muted); max-width: 56ch; }
+
+/* ---- access ---- */
+.access { padding-block: var(--space-5xl) var(--space-3xl); }
+.access__inner { max-width: 40rem; }
+.access__inner::before {
+  content: "";
+  display: block;
+  width: var(--space-xl);
+  height: 2px;
+  background: var(--color-accent);
+  margin-bottom: var(--space-m);
+}
+.access h2 { font-size: clamp(1.75rem, 2vw + 1rem, 2.4414rem); }
+.access__lede { margin-top: var(--space-s); color: var(--color-muted); max-width: 58ch; }
+.access__form { margin-top: var(--space-l); }
+.access__label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: var(--space-2xs);
+}
+.access__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.access__input {
+  flex: 1;
+  min-width: 0;
+  height: var(--control-h); /* matches button height exactly */
+  padding-inline: var(--space-s);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule); /* width never changes between states */
+  border-radius: var(--radius-sm);
+  outline: 2px solid transparent; /* reserved — no geometry shift on focus */
+  outline-offset: 1px;
+}
+.access__input:hover { background: var(--color-paper-3); }
+.access__input:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}
+.access__input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.access__input::placeholder { color: var(--color-muted); }
+.access__note {
+  min-height: 1lh; /* slot never collapses; errors don’t push layout */
+  margin-top: var(--space-2xs);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+.access__note.is-error { color: var(--color-error); }
+
+/* ---- footer (Ft5: statement footer) ---- */
+.footer {
+  margin-top: var(--space-3xl);
+  border-top: var(--rule-hairline);
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+.footer__statement {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5625rem, 2vw + 1rem, 2.4414rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+  margin-top: var(--space-2xl);
+}
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+}
+.footer__links a { white-space: nowrap; font-size: var(--text-sm); }
+.footer__colophon {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* ---- responsive ---- */
+@media (max-width: 48rem) {
+  .hero { padding-block: var(--space-l) var(--space-3xl); }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
+  .uses__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-s); }
+  .process__list { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
+  .process__step:nth-child(2), .process__step:nth-child(3) { margin-top: 0; }
+  .consent__panel { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
+  .access__row { flex-direction: column; align-items: stretch; }
+}
+@media (max-width: 34rem) {
+  .nav__link { display: none; } /* non-essential at narrow widths; footer keeps the route */
+}
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .wf-hot { animation: none; }
+  .button:active { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav wrap">
+  <div class="nav__row">
+    <a class="wordmark" href="#main">undertone</a>
+    <div class="nav__cluster">
+      <a class="nav__link" href="#consent">Consent policy</a>
+      <a class="button" href="#access">Request access</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero wrap">
+    <div class="hero__grid">
+      <div>
+        <h1>Your voice, without you in the room.</h1>
+        <p class="hero__lede">Undertone builds a working clone of a consenting voice from one short session — then reads the retakes, the translations, and the late-night patches you can’t be there to record.</p>
+        <div class="hero__cta">
+          <a class="button" href="#access">Request access</a>
+          <a href="#consent">Read the consent policy</a>
+        </div>
+      </div>
+      <figure class="voiceprint">
+        <svg viewBox="0 0 320 120" aria-hidden="true" focusable="false">
+          <rect x="4" y="55" width="6" height="10" rx="2"/>
+          <rect x="16" y="51" width="6" height="18" rx="2"/>
+          <rect x="28" y="54" width="6" height="12" rx="2"/>
+          <rect x="40" y="47" width="6" height="26" rx="2"/>
+          <rect x="52" y="50" width="6" height="20" rx="2"/>
+          <rect x="64" y="41" width="6" height="38" rx="2"/>
+          <rect x="76" y="46" width="6" height="28" rx="2"/>
+          <rect x="88" y="34" width="6" height="52" rx="2"/>
+          <rect x="100" y="42" width="6" height="36" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-1.3s" x="112" y="26" width="6" height="68" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-0.5s" x="124" y="35" width="6" height="50" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-1.0s" x="136" y="18" width="6" height="84" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-0.2s" x="148" y="28" width="6" height="64" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-0.8s" x="160" y="12" width="6" height="96" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-1.5s" x="172" y="24" width="6" height="72" rx="2"/>
+          <rect class="wf-hot" style="animation-delay:-0.4s" x="184" y="16" width="6" height="88" rx="2"/>
+          <rect x="196" y="31" width="6" height="58" rx="2"/>
+          <rect x="208" y="23" width="6" height="74" rx="2"/>
+          <rect x="220" y="38" width="6" height="44" rx="2"/>
+          <rect x="232" y="30" width="6" height="60" rx="2"/>
+          <rect x="244" y="44" width="6" height="32" rx="2"/>
+          <rect x="256" y="37" width="6" height="46" rx="2"/>
+          <rect x="268" y="49" width="6" height="22" rx="2"/>
+          <rect x="280" y="43" width="6" height="34" rx="2"/>
+          <rect x="292" y="53" width="6" height="14" rx="2"/>
+          <rect x="304" y="50" width="6" height="20" rx="2"/>
+        </svg>
+        <figcaption class="voiceprint__meta">sample-01 · consent on file · take 3</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="uses wrap" aria-labelledby="uses-title">
+    <h2 id="uses-title">Where it earns its keep.</h2>
+    <div class="uses__list">
+      <div class="uses__row">
+        <h3>The retake, without the rebooking.</h3>
+        <p>A guest mispronounced a sponsor’s name in minute forty. Patch the word in their voice — with their standing permission — and ship the episode tonight instead of rescheduling for Thursday.</p>
+      </div>
+      <div class="uses__row">
+        <h3>Localisation that keeps the host.</h3>
+        <p>Your narrator, in the languages you publish in. Same timbre, same pacing, different words — so the Spanish feed doesn’t sound like a different show.</p>
+      </div>
+      <div class="uses__row">
+        <h3>Audiobooks that survive edits.</h3>
+        <p>When a chapter changes after the session ends, the corrected lines are read in the same voice and matched to the same room tone. The listener never hears the seam.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="process wrap" aria-labelledby="process-title">
+    <h2 id="process-title">Three sittings, one voice.</h2>
+    <ol class="process__list">
+      <li class="process__step">
+        <span class="process__num" aria-hidden="true">1</span>
+        <h3>Record</h3>
+        <p>The owner reads a short passage on their own microphone, in the room they usually record in. Their gear, their air.</p>
+      </li>
+      <li class="process__step">
+        <span class="process__num" aria-hidden="true">2</span>
+        <h3>Approve</h3>
+        <p>They speak their consent on tape and set the boundaries — what the clone may read, and what it never will. The print locks only after this.</p>
+      </li>
+      <li class="process__step">
+        <span class="process__num" aria-hidden="true">3</span>
+        <h3>Direct</h3>
+        <p>You type; the voice reads. Adjust pacing, emphasis, and breath in the editor until it sounds like the take you meant.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="consent wrap" id="consent" aria-labelledby="consent-title">
+    <div class="consent__panel">
+      <div>
+        <h2 id="consent-title">Permission is the product.</h2>
+        <p class="consent__intro">Undertone will not clone a voice without recorded consent from the person who owns it. Not for a client, not for an estate, not for a laugh.</p>
+      </div>
+      <div>
+        <div class="consent__item">
+          <h3>Consent, recorded.</h3>
+          <p>Every clone starts with a spoken consent statement from the voice’s owner, stored alongside the print. No statement, no print.</p>
+        </div>
+        <div class="consent__item">
+          <h3>Watermarked output.</h3>
+          <p>Everything Undertone renders carries an inaudible watermark, so cloned audio can always be identified as cloned — by us, by platforms, by you.</p>
+        </div>
+        <div class="consent__item">
+          <h3>Revocation, immediate.</h3>
+          <p>Owners can delete their voice print at any time. Deleted means deleted — the print, the sample, and the consent record with it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="access wrap" id="access" aria-labelledby="access-title">
+    <div class="access__inner">
+      <h2 id="access-title">Access is small on purpose.</h2>
+      <p class="access__lede">We’re onboarding studios a few at a time — podcast networks, audiobook producers, localisation teams. Tell us where your voices live and we’ll write back.</p>
+      <form class="access__form" novalidate>
+        <label class="access__label" for="access-email">Work email</label>
+        <div class="access__row">
+          <input class="access__input" id="access-email" name="email" type="email" autocomplete="email" placeholder="you@yourstudio.fm">
+          <button class="button" type="submit">Request access</button>
+        </div>
+        <p class="access__note" id="access-note" role="status">No newsletter. We write back once, with a yes or a no.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__statement">Cloned with permission, or not at all.</p>
+    <div class="footer__row">
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#consent">Consent policy</a>
+        <a href="mailto:hello@undertone.studio">Contact us by email</a>
+        <a href="#access">Request access</a>
+      </nav>
+      <p class="footer__colophon">Undertone — made by people who record people. © 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const form = document.querySelector(".access__form");
+  const note = document.getElementById("access-note");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email || !email.includes("@")) {
+      note.textContent = "That address is missing its @. Check the email and send again.";
+      note.classList.add("is-error");
+      form.email.focus({ preventScroll: true });
+      return;
+    }
+    note.classList.remove("is-error");
+    form.email.disabled = true;
+    form.querySelector("button").disabled = true;
+    note.textContent = "Request noted. We read every one ourselves."; // silent success — no toast
+  });
+</script>
+</body>
+</html>
+```

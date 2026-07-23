@@ -4,7 +4,7 @@ This file is loaded when the `hallmark study` verb runs. It defines the protocol
 
 **The promise.** `study` extracts the **DNA** of a design — its macrostructure, its component archetypes, its type-pairing, its colour anchor, its rhythm — and lets the user apply that DNA to their own content. It does not copy pixels. It does not output a façade of the source.
 
-**The mental model.** A designer who likes a reference site does not photocopy it. They look at it long enough to say "ah — that's a Marquee Hero with a single column body, italic-editorial display paired with monospace labels, anchored on a desaturated forest green at maybe 3 % footprint, with hairline rules and one orchestrated entrance." Then they go build something *different* with the same skeleton. That sentence is what `study` outputs. The build is what `default` or `redesign` does after.
+**The mental model.** A designer who likes a reference site does not photocopy it. They look at it long enough to say "ah — that's a Marquee Hero with a single column body, italic-editorial display paired with monospace labels, anchored on a desaturated forest green at maybe 3 % footprint, with hairline rules and one orchestrated entrance." Then they go build something *different* with the same skeleton. That sentence is what `study` outputs. The build is what `default` or `redesign` does after. One standing translation: italic display roles are **diagnosed as-is but built roman** (gate 38a bans italic headings everywhere); name a roman face that carries the same energy.
 
 ---
 
@@ -22,7 +22,7 @@ The two modes share the schema, the refusal heuristics, and the diagnosis-report
 | 4 Motion | usually "not visible — assuming default reveals" | observable — read from `<script src>` tags (framer-motion, gsap, lottie-web, lenis, motion) and CSS `@keyframes` / `transition` declarations |
 | 5 Rhythm | observable directly from the visual gestalt | **not observable** — HTML alone can't tell you density / asymmetry / pacing. Mark this as a known blind spot in the diagnosis. |
 
-URL mode trades the rhythm pass for everything else getting more accurate. If rhythm is what the user wants extracted, they should attach a screenshot instead — or alongside the URL, but Hallmark still defaults to one source at a time (see the "One screenshot, one diagnosis" rule in § Limits).
+URL mode trades the rhythm pass for everything else getting more accurate. If rhythm is what the user wants extracted, they should attach a screenshot instead — or alongside the URL, but Hallmark still defaults to one source at a time (see the "One source, one diagnosis" rule in § Limits).
 
 ### URL mode — fetch pipeline
 
@@ -361,7 +361,7 @@ The "Want me to build" line is the **confirmation question** for code generation
 
 **Screenshot:** the user pastes a capture of a fictional "studio.example" page — a beige cream background, a single italic display headline reading *"A studio for the patient."* set in 7rem italic, with a single right-aligned column of three captioned project thumbnails on the right side of the fold, and a 4-column index footer at the bottom with monospace category labels and serif body links.
 
-**Schema** (filled by the model after a vision pass):
+**Schema** (filled by the model after a vision pass; fields not shown are null in image mode - the full field list in § The structured fields still binds):
 
 ```
 {
@@ -408,7 +408,7 @@ The "Want me to build" line is the **confirmation question** for code generation
 >
 > Anti-patterns I'd skip: nothing from this screenshot stands out as carry-over risk. The reference is clean.
 >
-> If you say **build it**, I'll use this DNA as the system — warm cream paper, neutral ink-on-paper accent, italic editorial serif + neutral grotesque + monospace, Split Studio macrostructure, H2 hero + Ft3 footer. Catalog themes are suspended for the build. If you'd rather pivot to a catalog cousin after, the closest is **Studio** (Instrument Serif + Geist + small green accent) — just say *"use Studio instead"*.
+> If you say **build it**, I'll use this DNA as the system — warm cream paper, neutral ink-on-paper accent, the editorial-serif register built roman (gate 38a) + neutral grotesque + monospace, Split Studio macrostructure, H2 hero + Ft3 footer. Catalog themes are suspended for the build. If you'd rather pivot to a catalog cousin after, the closest is **Studio** (Instrument Serif + Geist + small green accent) — just say *"use Studio instead"*.
 >
 > Want me to build with this DNA, or change one axis first?
 
@@ -418,7 +418,7 @@ The "Want me to build" line is the **confirmation question** for code generation
 /* Hallmark · macrostructure: Split Studio · H2 hero knobs: ratio=6/6, right=proof, divider=negative-space
  * Ft3 footer knobs: cols=4, heading=mono
  * theme: studied-DNA (source: image) · paper oklch(95% 0.012 80) · accent neutral (ink-on-paper)
- * display: italic editorial serif (Instrument Serif candidate) · body: neutral grotesque (Geist candidate) · label: mono (Geist Mono)
+ * display: editorial serif, built roman (Instrument Serif candidate) · body: neutral grotesque (Geist candidate) · label: mono (Geist Mono)
  * studied: yes · DNA-source: user reference (described as own work)
  */
 ```
@@ -539,7 +539,7 @@ Same post-emission behaviour as the default verb's lock-the-system flow (per [`d
 
 ## When `study` should hand off
 
-`study` is the diagnosis verb. It is not for fresh builds and not for refining existing pages. After the diagnosis, the user has three options — and `study` itself stops after any one of them:
+`study` is the diagnosis verb. It is not for fresh builds and not for refining existing pages. After the diagnosis, the user has four options — and `study` itself stops after any one of them:
 
 - If the user says *"now build me the same kind of page for my brand"*: hand off to the **default** verb with the schema filled in as inferred design-context, and build per the standard flow — but with the studied DNA stamped.
 - If the user says *"now refactor my existing site to match this DNA"*: hand off to **`hallmark redesign`** with the schema attached. Redesign preserves the user's content; study supplied the new shape.

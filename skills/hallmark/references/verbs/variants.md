@@ -4,8 +4,8 @@ One brief, three full directions, side by side, in the user's own browser. The u
 
 ## Flow at a glance
 
-1. Detect the mode: greenfield or routes; routes mode asks for the dev server URL.
-2. Run SKILL.md Steps 0-1 once; read `.hallmark/log.json` once.
+1. Run SKILL.md Steps 0-1 once; read `.hallmark/log.json` once.
+2. Detect the mode from the pre-flight: greenfield or routes; routes mode asks for the dev server URL.
 3. Say the direction plan table; end with "Redirect now or I build all three."
 4. Build three self-contained directions: parallel subagents or sequential fallback.
 5. `start.mjs`; relay the picker URL in one line.
@@ -92,7 +92,7 @@ Then state **the direction plan**: a markdown table, said before any code. It re
 
 **Divergence rules, hard:**
 
-- Three **different macrostructures from different structural families**: grid-led (Bento, Catalogue, Portfolio Grid, Ecosystem Index) · document-led (Long Document, Letter, Conversational FAQ, Index-First) · poster-led (Manifesto, Marquee Hero, Quote-Led, Type Specimen) · product-led (Workbench, Feature Stack, Stat-Led, Component Playground). One family, one direction. Three shapes from one family is a colour swap wearing three hats.
+- Three **different macrostructures from different structural families**: grid-led (Bento, Catalogue, Portfolio Grid, Ecosystem Index, Map & Diagram) · document-led (Long Document, Letter, Conversational FAQ, Index-First, Narrative Workflow) · poster-led (Manifesto, Marquee Hero, Quote-Led, Type Specimen, Specimen, Photographic) · product-led (Workbench, Feature Stack, Stat-Led, Component Playground, Split Studio). One family, one direction. Three shapes from one family is a colour swap wearing three hats.
 - Themes **pairwise distinct on ALL THREE Rotation axes** (paper band, display style, accent hue; SKILL.md § Rotation). Three paper bands, three directions: this forces one dark, one mid, one light paper. Non-negotiable; it is what makes the picker grid legible at a glance.
 - Three **distinct nav codes** and three **distinct footer codes** (index in [`component-cookbook.md`](../component-cookbook.md)).
 - Every tuple also respects the log's last-3 rotation (SKILL.md § Rotation), because the winner gets logged and must not collide with history.
@@ -116,13 +116,13 @@ Include this chip tag verbatim: <the § 4 snippet with data-direction="<n>">.
 Load ONLY references/macrostructures/<picked file>, the picked component archetype
 files, and the universal set (typography · color · layout-and-space · motion ·
 copy · anti-patterns). Do not read log.json. Do not append memory. Do not run
-the full gate sweep: Core-15 plus contrast gates 40-41 only. Styles fully
+the full gate sweep: the Core-15 sweep only (contrast gates 40-41 are in it). Styles fully
 self-contained. Stamp the CSS with `direction: <n> of 3 · run: <run-id>`.
 ```
 
 **Sequential fallback** (no subagents): same table, build v1 then v2 then v3 in one context, universal references loaded once and reused. Same fragment contract per direction, minus the spawning.
 
-**Draft quality bar.** Drafts get an abbreviated pass: the **Core-15 sweep** ([`slop-test.md`](../slop-test.md) § Core-15) plus contrast gates 40-41. ONLY THE WINNER runs the full 58-gate sweep, later, at § 7. Do not spend three full sweeps on two pages that will be archived.
+**Draft quality bar.** Drafts get an abbreviated pass: run `sloplint.mjs` on each draft and fix FAILs (it is cheap and mechanical), then sweep only the **Core-15** ([`slop-test.md`](../slop-test.md) § Core-15, which includes contrast gates 40-41) by judgment. ONLY THE WINNER runs the full 58-gate sweep, later, at § 7. Do not spend three full sweeps on two pages that will be archived.
 
 **Self-containment.** Each direction is fully self-contained: its own inline styles or a sibling css file in its folder. No shared `tokens.css` across directions; shared tokens would quietly homogenize the three systems you are trying to keep apart. In routes mode, hang each direction's token block on the route's own root element (a wrapper class), not `:root`, so three simultaneous routes cannot fight each other or leak into the app shell; every colour still references a `var(--*)` per the critical floor. The winner gets properly tokenized at promotion.
 
@@ -189,10 +189,10 @@ Handling on exit 0:
 1. Parse the JSON from stdout. A pick looks like:
 
    ```json
-   { "id": "0001-pick", "action": "pick", "choice": 2 }
+   { "id": "0001", "action": "pick", "choice": 2 }
    ```
 
-   A riff carries `"action": "riff"` and an optional `"steer"` line instead of `choice`.
+   A riff carries `"action": "riff"`, always a `"steer"` field (possibly empty), and may carry `"choice"`: the direction on screen when the user riffed. Requests also carry `"createdAt"`.
 2. Dispatch on `action`: `"pick"` → § 7, `"riff"` → § 8.
 3. Ack: `--ack <id>` moves the claimed file to `requests/done/`; `--note "<line>"` records what you did with it.
 4. A request carrying `"redelivered": true` is an orphaned claim older than 5 minutes (a previous attempt died mid-handle); handle it normally.
@@ -264,12 +264,12 @@ On `{"action": "riff", "steer": "..."}` (steer optional) or a chat ask ("riff", 
 
 - Plan direction 4: a macrostructure different from all three, from whichever structural family remains; a theme distinct on as many axes as remain. With only three paper bands, direction 4 relaxes to >= 2 axes distinct against each earlier direction; say so in the one-line plan.
 - Honor the steer line as art direction ("warmer", "like 2 but dark"). Where the steer and the divergence default conflict, the steer wins; the user is telling you where the target is.
-- Build v4 under the same fragment contract, write `v4/` (or the `hallmark-v4` route with a chip tag reading `data-direction="4" data-of="4"`), append its tuple to `manifest.json` `directions` with `"status": "ready"`, then ack the riff request. The picker's 2-second poll shows the new direction without a restart. Bump the earlier chips' `data-of` only if trivially cheap; otherwise leave them, the arrows still work.
+- Build v4 under the same fragment contract, write `v4/` (or the `hallmark-v4` route with a chip tag reading `data-direction="4" data-of="4"`), append its tuple to `manifest.json` `directions` with `"status": "ready"`, then ack the riff request. The picker's 2-second poll shows the new direction without a restart. Bump the earlier chips' `data-of` to 4 when you touch those files anyway; stale chips wrap at 3 and never reach direction 4, so mention direction 4 in chat either way.
 - A second riff repeats the ritual as direction 5. If the user riffs twice without picking, ask what is missing instead of dealing a sixth.
 
 ## 9 · Risks and edge notes
 
-- **Iframe-refusing dev servers** (`X-Frame-Options` / CSP `frame-ancestors`): the picker cannot embed the routes and shows open-in-tab cards instead. The chip still works in the real tab, so flipping and picking survive; nothing to fix.
+- **Iframe-refusing dev servers** (`X-Frame-Options` / CSP `frame-ancestors`): the grid thumbnails render blank; tell the user to open the routes directly in tabs, where the chip still flips and picks. Nothing else to fix.
 - **File watchers that restart on new files:** batch writes (§ 4). One write per direction, never a file-by-file trickle that restarts the dev server three times.
 - **Tailwind content globs** pick up new `hallmark-v*` routes automatically. Fine; no config edit, and config edits are forbidden anyway.
 - **Port conflicts:** `serve.mjs` tries 4180 and walks up to 4189. If the printed PICKER port differs from the 4180 you stamped into chip tags, update `src` and `data-base` in each direction once.
