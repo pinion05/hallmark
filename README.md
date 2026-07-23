@@ -2,7 +2,7 @@
 
 **A design skill for Claude Code, Cursor, and Codex that refuses to look AI-generated.**
 
-[Live demo →](https://www.usehallmark.com) &nbsp;·&nbsp; twenty themes &nbsp;·&nbsp; four verbs &nbsp;·&nbsp; press `T` to cycle.
+[Live demo →](https://www.usehallmark.com) &nbsp;·&nbsp; twenty themes &nbsp;·&nbsp; five verbs &nbsp;·&nbsp; press `T` to cycle.
 
 Made by Together AI.
 
@@ -10,11 +10,11 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark picks a macrostructure for the brief, dresses it in one of twenty themes, runs fifty-seven slop-test gates plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into. Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template.
+Hallmark picks a macrostructure for the brief, dresses it in one of twenty themes, runs fifty-eight slop-test gates plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into. Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template.
 
 ---
 
-## Four verbs
+## Five verbs
 
 | Verb | What it does |
 | --- | --- |
@@ -22,6 +22,7 @@ Hallmark picks a macrostructure for the brief, dresses it in one of twenty theme
 | `hallmark audit <target>` | Score existing code against the anti-patterns. Punch list, no edits. |
 | `hallmark redesign <target>` | Throw out the structure, keep copy + IA + brand, rebuild with a different fingerprint. |
 | `hallmark study <screenshot \| URL>` | Extract the **DNA** from a design you admire: macrostructure, type-pairing, colour anchor. Refuses pixel-clones and paid templates. Optionally emits a portable `design.md` for handoff to other AI tools. |
+| `hallmark variants <brief>` | Three structurally distinct directions for one brief, rendered live. Flip through them in a picker over your own localhost, pick one, keep building. |
 
 ---
 
@@ -72,9 +73,11 @@ Each page is self-contained HTML + CSS, stamped with its macrostructure in the C
 
 ---
 
-## Custom <sup>NEW</sup>
+## Custom
 
-When a brief carries creative intent that no catalog theme fits, Hallmark switches to **Custom** and designs the page from scratch: a made-to-measure palette, type, and layout. Same 57 slop-test gates, no template underneath.
+When a brief carries creative intent that no catalog theme fits, Hallmark switches to **Custom** and designs the page from scratch: a made-to-measure palette, type, and layout. Same 58 slop-test gates, no template underneath.
+
+In v1.2 the custom route runs a full art-direction ritual: it names and rejects the category's reflex aesthetics, writes a slate of seven grounded directions, and a deterministic **draw** (`scripts/seed.mjs`) picks which one gets built, sometimes dealing wildcards from a design-history atlas. A scene sentence sets the light, a colour posture (Restrained · Committed · Full palette · Drenched) sets how far the palette commits, and a five-block direction contract written into the artifact gets audited promise by promise before shipping.
 
 <table>
   <tr>
@@ -91,6 +94,35 @@ It stays a quiet branch; vanilla briefs never see it. The protocol lives in [`cu
 
 ---
 
+## Variants <sup>NEW</sup>
+
+`hallmark variants <brief>` runs the ceremony once, then builds **three complete directions**: different macrostructure, different theme (one dark, one mid, one light paper, forced), different nav, different footer. A tiny zero-dependency picker server (`skills/hallmark/scripts/variants/`) shows all three as live frames; in an existing app each direction is a temporary route your own dev server renders, with a small chip in the corner to flip and pick. Choose one and Hallmark promotes it, archives the others under `.hallmark/variants/`, and logs the whole run. Say `riff` for a fourth direction. No Node available? The picker degrades to a static compare page, and a chat reply ("pick 2") always works.
+
+---
+
+## Open models <sup>NEW</sup>
+
+Hallmark v1.2 is written to hold up on open-weight models, not just Claude. The mechanically checkable gates now live in a zero-dependency checker the model runs instead of eyeballing:
+
+```
+node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --genre <genre>
+```
+
+The skill carries a Critical floor that survives truncated reads, text-only fallbacks for every visual check (GLM has no vision; the skill knows), and a per-model quirks file ([`references/models.md`](skills/hallmark/references/models.md)) that loads only off-Claude.
+
+Run it inside Claude Code on an open model via an Anthropic-compatible endpoint:
+
+```bash
+# GLM (Z.ai)                                  # Kimi (Moonshot)
+export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
+export ANTHROPIC_AUTH_TOKEN=<zai key>         # ANTHROPIC_BASE_URL=https://api.moonshot.ai/anthropic
+export ANTHROPIC_MODEL="glm-5.2[1m]"          # ANTHROPIC_MODEL=kimi-k3
+```
+
+The `[1m]` suffix on GLM is load-bearing; dropping it silently shrinks the context. Kimi Code CLI users: it discovers skills in `~/.claude/skills/` only, so install Hallmark there rather than as a plugin.
+
+---
+
 ## Install
 
 ```
@@ -100,7 +132,7 @@ npx skills add nutlope/hallmark
 Re-run any time to update. Or copy [`SKILL.md`](skills/hallmark/SKILL.md) + [`references/`](skills/hallmark/references/) into:
 
 - **Claude Code**: `~/.claude/skills/hallmark/`
-- **Cursor**: `.cursor/rules/hallmark.mdc` (body of `SKILL.md`, no frontmatter)
+- **Cursor**: `.cursor/rules/hallmark.mdc` (body of `SKILL.md`, no frontmatter; this channel ships no scripts, so `variants` picks by chat reply and the slop test runs fully model-judged)
 - **Codex**: `~/.codex/skills/hallmark/` (personal) or `.codex/skills/hallmark/` (project-scoped)
 
 The rule-set lives in [`SKILL.md`](skills/hallmark/SKILL.md) and [`references/`](skills/hallmark/references/). Worked examples in [`docs/recipes.md`](docs/recipes.md) and [`docs/study-examples.md`](docs/study-examples.md).
