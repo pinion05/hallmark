@@ -39,6 +39,11 @@ MODELS_JSON = ROOT / "models.json"
 
 JUDGE_MODEL = "claude-fable-5"
 API_URL = "https://api.anthropic.com/v1/messages"
+# Fallback judge when the Anthropic key is missing or out of credit:
+# GLM-4.5V on Together (vision-capable, openai-compatible).
+FALLBACK_MODEL = "Qwen/Qwen3-VL-235B-A22B-Instruct-FP8"
+FALLBACK_URL = "https://api.together.xyz/v1/chat/completions"
+FALLBACK_ENV = "TOGETHER_API_KEY"
 SKIP_BRIEFS = {"b5", "b6"}
 
 RUBRIC = """You are a strict design judge for AI-generated landing pages. You are shown two screenshots of the same page: first the desktop hero (1280x800 viewport) and second the full mobile page (375 wide).
@@ -73,9 +78,9 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def get_api_key() -> str | None:
+def load_env_key(name: str) -> str | None:
     """Env first, then the keyFiles listed in models.json. Never printed."""
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = os.environ.get(name)
     if key:
         return key.strip()
     try:
@@ -86,13 +91,17 @@ def get_api_key() -> str | None:
         try:
             for line in Path(kf).read_text().splitlines():
                 line = line.strip()
-                if line.startswith("ANTHROPIC_API_KEY="):
+                if line.startswith(name + "="):
                     value = line.split("=", 1)[1].strip().strip('"').strip("'")
                     if value:
                         return value
         except OSError:
             continue
     return None
+
+
+def get_api_key() -> str | None:
+    return load_env_key("ANTHROPIC_API_KEY")
 
 
 def list_runs(brief: str | None, arm: str | None) -> list[dict]:
@@ -135,6 +144,31 @@ def image_block(png_path: Path) -> dict:
     }
 
 
+def call_api_together(api_key: str, blocks: list[dict]) -> str:
+    """OpenAI-compatible vision call; converts anthropic-style blocks."""
+    content = []
+    for b in blocks:
+        if b["type"] == "text":
+            content.append({"type": "text", "text": b["text"]})
+        else:
+            uri = "data:image/png;base64," + b["source"]["data"]
+            content.append({"type": "image_url", "image_url": {"url": uri}})
+    body = json.dumps({
+        "model": FALLBACK_MODEL,
+        "max_tokens": 1024,
+        "messages": [{"role": "user", "content": content}],
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        FALLBACK_URL, data=body, method="POST",
+        headers={"content-type": "application/json",
+                 "authorization": f"Bearer {api_key}",
+                 "User-Agent": "hallmark-eval/1.0"},
+    )
+    with urllib.request.urlopen(req, timeout=180) as resp:
+        data = json.loads(resp.read().decode("utf-8"))
+    return data["choices"][0]["message"]["content"] or ""
+
+
 def call_api(api_key: str, blocks: list[dict]) -> dict:
     body = json.dumps(
         {
@@ -151,6 +185,7 @@ def call_api(api_key: str, blocks: list[dict]) -> dict:
             "content-type": "application/json",
             "x-api-key": api_key,
             "anthropic-version": "2023-06-01",
+            "User-Agent": "hallmark-eval/1.0",
         },
     )
     with urllib.request.urlopen(req, timeout=180) as resp:
@@ -185,15 +220,27 @@ def judge_one(api_key: str, run: dict) -> dict:
         image_block(run["mobile"]),
         {"type": "text", "text": RUBRIC},
     ]
-    resp = call_api(api_key, blocks)
-    text = "".join(
-        b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text"
-    )
+    used_model = JUDGE_MODEL
+    usage = None
+    try:
+        resp = call_api(api_key, blocks)
+        text = "".join(
+            b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text"
+        )
+        usage = resp.get("usage")
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")[:200]
+        fb_key = load_env_key(FALLBACK_ENV)
+        if not fb_key:
+            raise
+        print(f"    anthropic judge unavailable ({e.code}: {detail[:60]}); falling back to {FALLBACK_MODEL}")
+        text = call_api_together(fb_key, blocks)
+        used_model = FALLBACK_MODEL
     parsed = parse_judgement(text)
     result: dict = {
-        "model": JUDGE_MODEL,
+        "model": used_model,
         "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "usage": resp.get("usage"),
+        "usage": usage,
     }
     if parsed is None:
         result["error"] = "unparseable judge response"

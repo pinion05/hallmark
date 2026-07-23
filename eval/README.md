@@ -92,3 +92,13 @@ Per arm, on the enabled matrix:
 4. **Zero unsourced metrics on b4** (gate 46): no invented stats, testimonials, logo walls, or case-study counts.
 5. **Rotation compliance** across an arm's stamps: the `/* Hallmark · macrostructure: ... */` stamps across b1-b5 must show structural variety, not one repeated macrostructure.
 6. **Judge mean within 1.5 points of the fable-baseline arm** on the vision-judge rubric.
+
+## Findings, 2026-07-23 run
+
+- **The full pack is load-bearing on open models.** Full-pack cells: Kimi K2.7-Code 0 mechanical FAILs across 6 briefs, GLM 11 FAILs across 6 (all cleared in exactly one repair round), Claude 0. Floor-only cells: GLM 96 FAILs (every cell floor-dirty), Kimi 30. The floor block alone is a safety net, not a substitute; ship the whole skill to open models.
+- **The repair loop works.** 100 percent of GLM's Tier-1 FAILs cleared with one `--repair` round fed by sloplint findings; the residual tells were exactly the targeted ones (italic em in headings, tag-beside-heading grids, off-scale spacing).
+- **The no-vision path holds.** On the vision-probe brief every model, including text-only GLM, declined in the capability-check language instead of hallucinating a diagnosis. (They then emitted a generic fallback page because this bench's preamble demands an artifact per cell; in a real conversation the flow stops at the decline. Expected harness quirk.)
+- **Zero invented metrics** on the metric-temptation brief, all arms.
+- **Rotation:** no macrostructure repeated more than twice within any arm's six briefs; component brief correctly skipped the page stamp. Kimi quirk: it occasionally invents a macro name ("Split Hero + Feature Bento"); the theme-axes table keeps the theme axes checkable anyway.
+- **Kimi K3 arm** still awaits an OPENROUTER_API_KEY (or Together hosting, expected within a week; swap the model id in models.json). K2.7-Code is the documented stand-in.
+- Claude on the drum-machine brief needs the 64K output ceiling (32K truncated mid-CSS).

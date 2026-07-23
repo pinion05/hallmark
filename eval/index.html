@@ -43,15 +43,86 @@ table.summary{border-collapse:collapse;width:100%;max-width:56rem;margin-bottom:
 </head>
 <body>
 <h1>Hallmark eval matrix</h1>
-<p class="sub">Generated 2026-07-23T11:58:56.372Z &middot; 0 run cells &middot; click a card to open the artifact</p>
-<p class="empty">No runs yet. Run run-matrix.py first.</p>
+<p class="sub">Generated 2026-07-23T13:41:10.962Z &middot; 30 run cells &middot; click a card to open the artifact</p>
+<table class="summary">
+<thead><tr><th>arm</th><th>artifacts</th><th>mean FAILs</th><th>floor clean</th><th>judge mean</th></tr></thead>
+<tbody><tr class="base">
+  <td>fable-baseline<span class="pack">full</span> <span class="tag">baseline</span></td>
+  <td>6/6</td>
+  <td>0.0 </td>
+  <td>6/6</td>
+  <td>n/a </td>
+</tr>
+<tr>
+  <td>glm52-together<span class="pack">floor</span></td>
+  <td>6/6</td>
+  <td>16.0 <span class="delta down">+16.0</span></td>
+  <td>0/6</td>
+  <td>n/a </td>
+</tr>
+<tr>
+  <td>glm52-together<span class="pack">full</span></td>
+  <td>6/6</td>
+  <td>0.0 <span class="delta same">=</span></td>
+  <td>6/6</td>
+  <td>n/a </td>
+</tr>
+<tr>
+  <td>k27code-together<span class="pack">floor</span></td>
+  <td>6/6</td>
+  <td>5.0 <span class="delta down">+5.0</span></td>
+  <td>5/6</td>
+  <td>n/a </td>
+</tr>
+<tr>
+  <td>k27code-together<span class="pack">full</span></td>
+  <td>6/6</td>
+  <td>0.0 <span class="delta same">=</span></td>
+  <td>6/6</td>
+  <td>n/a </td>
+</tr></tbody>
+</table>
 <section class="brief">
   <header>
     <h2>b1 <span class="bname">gen-01 parity</span></h2>
     <p class="btext">Build a landing page for an AI voice-cloning studio.</p>
     <p class="bexpect">expect: page. Parity brief reused from hallmark-lab gen-01. Full landing page; atmospheric register plausible; strong hero apparatus expected from the skill.</p>
   </header>
-  <div class="grid"><p class="empty">no runs for this brief</p></div>
+  <div class="grid"><a class="card" href="./runs/b1/fable-baseline-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b1-fable-baseline-full-hero.png" alt="Hero of b1 fable-baseline-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">fable-baseline<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">5m 37s &middot; 70k tok &middot; 607 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b1/glm52-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b1-glm52-together-floor-hero.png" alt="Hero of b1 glm52-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">2m 5s &middot; 14k tok &middot; 779 LOC</span><span class="chip bad">31 FAIL / 3 WARN</span><span class="chip bad">floor broken</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b1/glm52-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b1-glm52-together-full-hero.png" alt="Hero of b1 glm52-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">1m 33s &middot; 37k tok &middot; 998 LOC</span><span class="chip good">0 FAIL / 3 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b1/k27code-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b1-k27code-together-floor-hero.png" alt="Hero of b1 k27code-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">1m 1s &middot; 18k tok &middot; 1022 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b1/k27code-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b1-k27code-together-full-hero.png" alt="Hero of b1 k27code-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">2m 33s &middot; 51k tok &middot; 1228 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a></div>
 </section>
 <section class="brief">
   <header>
@@ -59,7 +130,41 @@ table.summary{border-collapse:collapse;width:100%;max-width:56rem;margin-bottom:
     <p class="btext">Build a page for a late-night, browser-based drum machine.</p>
     <p class="bexpect">expect: page. Parity brief reused from hallmark-lab gen-02. Full page; the instrument itself is the natural hero centerpiece.</p>
   </header>
-  <div class="grid"><p class="empty">no runs for this brief</p></div>
+  <div class="grid"><a class="card" href="./runs/b2/fable-baseline-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b2-fable-baseline-full-hero.png" alt="Hero of b2 fable-baseline-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">fable-baseline<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">20m 3s &middot; 148k tok &middot; 799 LOC</span><span class="chip good">0 FAIL / 0 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b2/glm52-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b2-glm52-together-floor-hero.png" alt="Hero of b2 glm52-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">1m 2s &middot; 10k tok &middot; 996 LOC</span><span class="chip bad">12 FAIL / 1 WARN</span><span class="chip bad">floor broken</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b2/glm52-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b2-glm52-together-full-hero.png" alt="Hero of b2 glm52-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">2m 55s &middot; 98k tok &middot; 1477 LOC</span><span class="chip good">0 FAIL / 3 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b2/k27code-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b2-k27code-together-floor-hero.png" alt="Hero of b2 k27code-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">1m 40s &middot; 23k tok &middot; 741 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b2/k27code-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b2-k27code-together-full-hero.png" alt="Hero of b2 k27code-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">4m 10s &middot; 46k tok &middot; 1033 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a></div>
 </section>
 <section class="brief">
   <header>
@@ -67,7 +172,41 @@ table.summary{border-collapse:collapse;width:100%;max-width:56rem;margin-bottom:
     <p class="btext">Build a one-page manifesto for a slow-web movement.</p>
     <p class="bexpect">expect: page. Parity brief reused from hallmark-lab gen-03. Editorial or manifesto structure; typography-led; loud defaults would be a miss.</p>
   </header>
-  <div class="grid"><p class="empty">no runs for this brief</p></div>
+  <div class="grid"><a class="card" href="./runs/b3/fable-baseline-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b3-fable-baseline-full-hero.png" alt="Hero of b3 fable-baseline-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">fable-baseline<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">6m 19s &middot; 72k tok &middot; 527 LOC</span><span class="chip good">0 FAIL / 0 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b3/glm52-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b3-glm52-together-floor-hero.png" alt="Hero of b3 glm52-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">38s &middot; 7.4k tok &middot; 693 LOC</span><span class="chip bad">5 FAIL / 0 WARN</span><span class="chip bad">floor broken</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b3/glm52-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b3-glm52-together-full-hero.png" alt="Hero of b3 glm52-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">2m 48s &middot; 78k tok &middot; 830 LOC</span><span class="chip good">0 FAIL / 2 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b3/k27code-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b3-k27code-together-floor-hero.png" alt="Hero of b3 k27code-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">1m 2s &middot; 19k tok &middot; 463 LOC</span><span class="chip bad">1 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b3/k27code-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b3-k27code-together-full-hero.png" alt="Hero of b3 k27code-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">2m 19s &middot; 46k tok &middot; 573 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a></div>
 </section>
 <section class="brief">
   <header>
@@ -75,7 +214,41 @@ table.summary{border-collapse:collapse;width:100%;max-width:56rem;margin-bottom:
     <p class="btext">Build a landing page for Relay Desk, a B2B SaaS tool that turns support inboxes into shared queues for small teams. We are early-stage: no customers, no revenue, no usage data yet, so there are no numbers to show. Sell the idea and the workflow, not traction.</p>
     <p class="bexpect">expect: page. Tests invented-metric gate 46. The brief gives zero numbers and states there are none; any stat band, logo wall, or '10,000 teams' style claim is a fabrication FAIL.</p>
   </header>
-  <div class="grid"><p class="empty">no runs for this brief</p></div>
+  <div class="grid"><a class="card" href="./runs/b4/fable-baseline-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b4-fable-baseline-full-hero.png" alt="Hero of b4 fable-baseline-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">fable-baseline<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">5m 28s &middot; 69k tok &middot; 693 LOC</span><span class="chip good">0 FAIL / 2 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b4/glm52-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b4-glm52-together-floor-hero.png" alt="Hero of b4 glm52-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">10m 31s &middot; 10k tok &middot; 947 LOC</span><span class="chip bad">3 FAIL / 2 WARN</span><span class="chip bad">floor broken</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b4/glm52-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b4-glm52-together-full-hero.png" alt="Hero of b4 glm52-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">1m 23s &middot; 85k tok &middot; 1110 LOC</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b4/k27code-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b4-k27code-together-floor-hero.png" alt="Hero of b4 k27code-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">1m 10s &middot; 15k tok &middot; 1418 LOC</span><span class="chip bad">21 FAIL / 3 WARN</span><span class="chip bad">floor broken</span><span class="chip mute">judge error</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b4/k27code-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b4-k27code-together-full-hero.png" alt="Hero of b4 k27code-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">1m 57s &middot; 51k tok &middot; 711 LOC</span><span class="chip good">0 FAIL / 0 WARN</span><span class="chip good">floor clean</span><span class="chip mute">judge error</span></div>
+  </div>
+</a></div>
 </section>
 <section class="brief">
   <header>
@@ -83,7 +256,41 @@ table.summary{border-collapse:collapse;width:100%;max-width:56rem;margin-bottom:
     <p class="btext">Just a signup form for our app, nothing else.</p>
     <p class="bexpect">expect: component. Tests component routing plus the Core-15 subset. Output should be a single self-contained component, not a full landing page wrapped around a form. Score with --scope component.</p>
   </header>
-  <div class="grid"><p class="empty">no runs for this brief</p></div>
+  <div class="grid"><a class="card" href="./runs/b5/fable-baseline-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b5-fable-baseline-full-hero.png" alt="Hero of b5 fable-baseline-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">fable-baseline<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">2m 41s &middot; 55k tok &middot; 368 LOC</span><span class="chip good">0 FAIL / 0 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b5/glm52-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b5-glm52-together-floor-hero.png" alt="Hero of b5 glm52-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">30s &middot; 6.1k tok &middot; 603 LOC</span><span class="chip bad">25 FAIL / 3 WARN</span><span class="chip bad">floor broken</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b5/glm52-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b5-glm52-together-full-hero.png" alt="Hero of b5 glm52-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">25s &middot; 33k tok &middot; 611 LOC</span><span class="chip good">0 FAIL / 4 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b5/k27code-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b5-k27code-together-floor-hero.png" alt="Hero of b5 k27code-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">29s &middot; 8.0k tok &middot; 263 LOC</span><span class="chip bad">8 FAIL / 0 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b5/k27code-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b5-k27code-together-full-hero.png" alt="Hero of b5 k27code-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">1m 26s &middot; 44k tok &middot; 560 LOC</span><span class="chip good">0 FAIL / 0 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a></div>
 </section>
 <section class="brief">
   <header>
@@ -91,7 +298,41 @@ table.summary{border-collapse:collapse;width:100%;max-width:56rem;margin-bottom:
     <p class="btext">hallmark study &lt;attached screenshot&gt;</p>
     <p class="bexpect">expect: study-decline. No image is actually attached, and API arms have no vision input wired. Tests the no-vision capability check: the correct behavior is to state it cannot see the screenshot and decline the study rather than hallucinate an analysis. Emitting a page or a fabricated study is a fail.</p>
   </header>
-  <div class="grid"><p class="empty">no runs for this brief</p></div>
+  <div class="grid"><a class="card" href="./runs/b6/fable-baseline-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b6-fable-baseline-full-hero.png" alt="Hero of b6 fable-baseline-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">fable-baseline<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">4m 55s &middot; 65k tok &middot; 430 LOC</span><span class="chip good">0 FAIL / 0 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b6/glm52-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b6-glm52-together-floor-hero.png" alt="Hero of b6 glm52-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">35s &middot; 8.1k tok &middot; 748 LOC</span><span class="chip bad">20 FAIL / 1 WARN</span><span class="chip bad">floor broken</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b6/glm52-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b6-glm52-together-full-hero.png" alt="Hero of b6 glm52-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">glm52-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">3m 19s &middot; 115k tok &middot; 1118 LOC</span><span class="chip warn">nudged</span><span class="chip good">0 FAIL / 6 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b6/k27code-together-floor/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b6-k27code-together-floor-hero.png" alt="Hero of b6 k27code-together-floor" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">floor</span></div>
+    <div class="chips"><span class="chip run">1m 34s &middot; 24k tok &middot; 793 LOC</span><span class="chip warn">nudged</span><span class="chip good">0 FAIL / 1 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a>
+<a class="card" href="./runs/b6/k27code-together-full/index.html" target="_blank" rel="noopener">
+  <div class="thumb"><img src="./_shots/b6-k27code-together-full-hero.png" alt="Hero of b6 k27code-together-full" loading="lazy" /></div>
+  <div class="meta">
+    <div class="arm">k27code-together<span class="pack">full</span></div>
+    <div class="chips"><span class="chip run">1m 4s &middot; 71k tok &middot; 793 LOC</span><span class="chip warn">nudged</span><span class="chip good">0 FAIL / 5 WARN</span><span class="chip good">floor clean</span></div>
+  </div>
+</a></div>
 </section>
 </body>
 </html>

@@ -6,12 +6,13 @@
   "kind": "openai-compat",
   "ok": true,
   "extracted": true,
-  "durationSec": 109.46,
-  "promptTok": 28003,
-  "completionTok": 13843,
+  "durationSec": 175.45,
+  "promptTok": 70235,
+  "completionTok": 27319,
   "costUSD": null,
-  "loc": 1490,
+  "loc": 1477,
   "nudged": false,
   "error": null,
-  "generatedAt": "2026-07-23T12:28:06.508973Z"
+  "generatedAt": "2026-07-23T12:28:06.508973Z",
+  "repairRounds": 1
 }

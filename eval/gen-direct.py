@@ -51,7 +51,7 @@ EVAL_DIR = Path(__file__).resolve().parent
 RUNS_DIR = EVAL_DIR / "runs"
 PACKS_DIR = EVAL_DIR / "_packs"
 
-MAX_TOKENS = 32000
+MAX_TOKENS = 64000
 READ_TIMEOUT = 600  # seconds of stream silence before giving up
 RETRY_ATTEMPTS = 3
 # Together sits behind Cloudflare, which 403s the default urllib UA.

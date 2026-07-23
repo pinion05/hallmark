@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hallmark v1.2 · Before / after</title>
+<style>
+:root { --bg: #141416; --card: #1d1d21; --line: #2c2c31; --fg: #e9e7e2; --mut: #8f8d86; --acc: #6ea8fe; --mono: ui-monospace, "SF Mono", Menlo, monospace; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body { background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; padding-bottom: 80px; }
+header { padding: 40px clamp(20px, 4vw, 56px) 28px; border-bottom: 1px solid var(--line); }
+header .k { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--mut); }
+header h1 { font-size: clamp(26px, 4vw, 42px); font-weight: 750; letter-spacing: -0.02em; margin-top: 8px; }
+header p { color: var(--mut); margin-top: 10px; max-width: 70ch; font-size: 14.5px; }
+.brief { padding: 40px clamp(20px, 4vw, 56px) 8px; }
+.brief h2 { font-size: 19px; font-weight: 650; }
+.brief .sub { font-family: var(--mono); font-size: 12px; color: var(--mut); margin-top: 4px; }
+.row { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-top: 18px; }
+.cell { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: clip; }
+.cell.old { border-color: #4b3a2e; }
+.cell img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; background: #fff; }
+.cell .cap { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; font-family: var(--mono); font-size: 11px; color: var(--mut); }
+.cell .cap b { color: var(--fg); font-weight: 600; }
+.cell.old .cap b { color: #d9a06b; }
+.badge { border: 1px solid var(--line); border-radius: 99px; padding: 2px 9px; }
+.cell.old .badge { border-color: #4b3a2e; color: #d9a06b; }
+</style>
+</head>
+<body>
+<header>
+  <div class="k">HALLMARK · V1.2 · SAME BRIEFS, NEW SKILL, THREE MODELS</div>
+  <h1>Before / after</h1>
+  <p>Left column: the shipped hallmark-lab generation from the previous skill (Claude). Then the same brief through v1.2: the consolidated skill + critical floor + sloplint, run bare over the API on Claude, GLM on Together, and the Kimi stand-in on Together (K2.7-Code until K3 lands). Every v1.2 cell below passed all mechanical gates with zero FAILs.</p>
+</header>
+
+<section class="brief">
+  <h2>AI voice-cloning studio</h2>
+  <div class="sub">brief b1 · was gen-01 in hallmark-lab</div>
+  <div class="row">
+    <div class="cell old"><img src="img/gen-01-hero.png" alt="Old skill, Claude" /><div class="cap"><b>Before · v1.1</b><span class="badge">Claude</span></div></div>
+    <div class="cell"><img src="img/b1-fable-baseline.png" alt="v1.2, Claude" /><div class="cap"><b>v1.2</b><span class="badge">Claude</span></div></div>
+    <div class="cell"><img src="img/b1-glm52-together.png" alt="v1.2, GLM" /><div class="cap"><b>v1.2</b><span class="badge">GLM · Together</span></div></div>
+    <div class="cell"><img src="img/b1-k27code-together.png" alt="v1.2, Kimi" /><div class="cap"><b>v1.2</b><span class="badge">Kimi K2.7-Code</span></div></div>
+  </div>
+</section>
+
+<section class="brief">
+  <h2>Late-night drum machine</h2>
+  <div class="sub">brief b2 · was gen-02 in hallmark-lab</div>
+  <div class="row">
+    <div class="cell old"><img src="img/gen-02-hero.png" alt="Old skill, Claude" /><div class="cap"><b>Before · v1.1</b><span class="badge">Claude</span></div></div>
+    <div class="cell"><img src="img/b2-fable-baseline.png" alt="v1.2, Claude" /><div class="cap"><b>v1.2</b><span class="badge">Claude</span></div></div>
+    <div class="cell"><img src="img/b2-glm52-together.png" alt="v1.2, GLM" /><div class="cap"><b>v1.2</b><span class="badge">GLM · Together</span></div></div>
+    <div class="cell"><img src="img/b2-k27code-together.png" alt="v1.2, Kimi" /><div class="cap"><b>v1.2</b><span class="badge">Kimi K2.7-Code</span></div></div>
+  </div>
+</section>
+
+<section class="brief">
+  <h2>Slow-web manifesto</h2>
+  <div class="sub">brief b3 · was gen-03 in hallmark-lab</div>
+  <div class="row">
+    <div class="cell old"><img src="img/gen-03-hero.png" alt="Old skill, Claude" /><div class="cap"><b>Before · v1.1</b><span class="badge">Claude</span></div></div>
+    <div class="cell"><img src="img/b3-fable-baseline.png" alt="v1.2, Claude" /><div class="cap"><b>v1.2</b><span class="badge">Claude</span></div></div>
+    <div class="cell"><img src="img/b3-glm52-together.png" alt="v1.2, GLM" /><div class="cap"><b>v1.2</b><span class="badge">GLM · Together</span></div></div>
+    <div class="cell"><img src="img/b3-k27code-together.png" alt="v1.2, Kimi" /><div class="cap"><b>v1.2</b><span class="badge">Kimi K2.7-Code</span></div></div>
+  </div>
+</section>
+</body>
+</html>

@@ -4,14 +4,15 @@
   "pack": "full",
   "model": "claude-fable-5",
   "kind": "anthropic",
-  "ok": false,
-  "extracted": false,
-  "durationSec": 413.27,
-  "promptTok": 42674,
-  "completionTok": 32000,
+  "ok": true,
+  "extracted": true,
+  "durationSec": 1203.31,
+  "promptTok": 98665,
+  "completionTok": 49201,
   "costUSD": null,
-  "loc": 0,
+  "loc": 799,
   "nudged": false,
   "error": null,
-  "generatedAt": "2026-07-23T12:26:17.045276Z"
+  "generatedAt": "2026-07-23T13:35:44.304341Z",
+  "repairRounds": 1
 }

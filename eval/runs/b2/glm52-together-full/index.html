@@ -430,7 +430,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .seq__steps {
   display: grid;
   grid-template-columns: repeat(16, minmax(0, 1fr));
-  gap: 3px;
+  gap: var(--space-3xs);
 }
 .seq__step-mark {
   font-family: var(--font-outlier);
@@ -449,7 +449,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .seq__rows {
   display: grid;
-  gap: 3px;
+  gap: var(--space-3xs);
 }
 .seq__row {
   display: grid;
@@ -491,7 +491,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .seq__cells {
   display: grid;
   grid-template-columns: repeat(16, minmax(0, 1fr));
-  gap: 3px;
+  gap: var(--space-3xs);
 }
 
 .cell {
@@ -631,11 +631,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .voice__meter {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-2xs);
   height: 16px;
 }
 .meter-bar {
-  width: 4px;
+  width: var(--space-2xs);
   height: 100%;
   background: var(--color-rule);
   border-radius: 1px;
@@ -657,7 +657,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: transparent;
   border: var(--rule-hair) solid var(--color-rule);
   color: var(--color-ink-soft);
-  padding: 4px 8px;
+  padding: var(--space-2xs) var(--space-xs);
   border-radius: var(--radius-xs);
   cursor: pointer;
   line-height: 1;
@@ -723,9 +723,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .knob__dial::before {
   content: "";
   position: absolute;
-  top: 4px;
+  top: var(--space-2xs);
   left: 50%;
-  width: 2px;
+  width: var(--rule-med);
   height: 14px;
   background: var(--color-accent);
   border-radius: 1px;
@@ -955,7 +955,7 @@ ul { margin: 0; padding: 0; list-style: none; }
     <p class="foot__statement">Made for the kind of night where the room is quiet and the headphones are on.</p>
     <div class="foot__meta">
       <span>built in one html file</span>
-      <span>audio runs on the web Audio API</span>
+      <span>audio runs on the Web Audio API</span>
       <a href="#" id="about-link">about knock →</a>
     </div>
   </div>
@@ -969,11 +969,11 @@ ul { margin: 0; padding: 0; list-style: none; }
     { name: "Kick",  desc: "60hz sine · fast pitch drop",  type: "kick" },
     { name: "Snare", desc: "noise burst · 200hz tone",     type: "snare" },
     { name: "Hat",   desc: "highpass noise · 7khz",        type: "hat" },
-    { name: "Open",  desc: "noise · longer decay",        type: "open" },
+    { name: "Open",  desc: "noise · longer decay",         type: "open" },
     { name: "Clap",  desc: "three noise bursts",          type: "clap" },
-    { name: "Tom",   desc: "100hz sine · mid decay",      type: "tom" },
+    { name: "Tom",   desc: "100hz sine · mid decay",       type: "tom" },
     { name: "Rim",   desc: "short click · 1.2khz",        type: "rim" },
-    { name: "Cymb",  desc: "noise · bright · long tail",  type: "cymbal" }
+    { name: "Cymb",  desc: "noise · bright · long tail",   type: "cymbal" }
   ];
 
   const STEPS = 16;
@@ -986,8 +986,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   let currentStep = 0;
   let nextNoteTime = 0;
   let timerID = null;
-  let lookahead = 25.0;
-  let scheduleAheadTime = 0.1;
+  const lookahead = 25.0;
+  const scheduleAheadTime = 0.1;
   let lastDrawnStep = -1;
 
   const knobs = {
@@ -1009,7 +1009,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     masterGain = audioCtx.createGain();
     masterGain.gain.value = knobs.vol.value / 100;
 
-    // simple reverb via feedback delay
     reverbNode = audioCtx.createDelay(1.0);
     reverbNode.delayTime.value = 0.18;
     const fb = audioCtx.createGain();
@@ -1140,8 +1139,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   function nextNote() {
     const secondsPerBeat = 60.0 / bpm;
     const swingAmt = knobs.swing.value / 100;
-    const base = secondsPerBeat / 4; // 16th notes
-    // swing: delay odd 16ths
+    const base = secondsPerBeat / 4;
     const isOff = currentStep % 2 === 1;
     nextNoteTime += base * (1 + (isOff ? swingAmt : 0));
     currentStep = (currentStep + 1) % STEPS;
@@ -1169,15 +1167,11 @@ ul { margin: 0; padding: 0; list-style: none; }
     }
     lastDrawnStep = stepToDraw;
 
-    // update step readout
     stepCurrentEl.textContent = String(stepToDraw + 1).padStart(2, "0");
 
-    // clear all playing states
     document.querySelectorAll(".cell--playing").forEach(el => el.classList.remove("cell--playing"));
-    // mark current step column
     document.querySelectorAll('.cell[data-step="' + stepToDraw + '"]').forEach(el => el.classList.add("cell--playing"));
 
-    // voice meters flash
     for (let r = 0; r < ROWS; r++) {
       if (pattern[r][stepToDraw] && !muted[r]) {
         const meter = document.querySelector('.voice[data-voice="' + r + '"] .voice__meter');
@@ -1254,7 +1248,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     seqRows.appendChild(row);
   });
 
-  // Voices list
   const voiceList = document.getElementById("voice-list");
   VOICES.forEach((v, r) => {
     const li = document.createElement("li");
@@ -1309,7 +1302,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     voiceList.appendChild(li);
   });
 
-  // Knobs
   const knobRow = document.getElementById("knob-row");
   Object.keys(knobs).forEach(key => {
     const k = knobs[key];
@@ -1354,7 +1346,6 @@ ul { margin: 0; padding: 0; list-style: none; }
       if (key === "rev" && reverbWet) reverbWet.gain.value = k.value / 100;
     }
 
-    // drag
     let dragging = false;
     let startY = 0;
     let startVal = 0;
@@ -1377,7 +1368,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     });
     dial.addEventListener("pointercancel", () => { dragging = false; });
 
-    // keyboard
     dial.addEventListener("keydown", (e) => {
       if (e.key === "ArrowUp" || e.key === "ArrowRight") {
         e.preventDefault();
@@ -1395,7 +1385,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     });
   });
 
-  // ─── Transport wiring ───
   const playBtn = document.getElementById("play-btn");
   const stopBtn = document.getElementById("stop-btn");
   const clearBtn = document.getElementById("clear-btn");
@@ -1453,10 +1442,9 @@ ul { margin: 0; padding: 0; list-style: none; }
       c.setAttribute("aria-pressed", "false");
     });
   });
-  bpmUp.addEventListener("click", () => setBpm(bpm + (event.shiftKey ? 5 : 1)));
-  bpmDown.addEventListener("click", () => setBpm(bpm - (event.shiftKey ? 5 : 1)));
+  bpmUp.addEventListener("click", (e) => setBpm(bpm + (e.shiftKey ? 5 : 1)));
+  bpmDown.addEventListener("click", (e) => setBpm(bpm - (e.shiftKey ? 5 : 1)));
 
-  // spacebar
   document.addEventListener("keydown", (e) => {
     if (e.code === "Space" && e.target.tagName !== "BUTTON" && e.target.tagName !== "INPUT") {
       e.preventDefault();
@@ -1464,13 +1452,12 @@ ul { margin: 0; padding: 0; list-style: none; }
     }
   });
 
-  // ─── Seed a starter pattern (real, not a placeholder) ───
-  // a four-on-the-floor with a hat on offbeats — the kind of thing you'd tap in at 2am
+  // Seed a starter pattern — four-on-the-floor with hats on the offbeats
   const seed = {
-    0: [0, 4, 8, 12],          // kick — four on the floor
-    1: [4, 12],                // snare — backbeats
-    2: [0, 2, 4, 6, 8, 10, 12, 14], // hat — every 8th
-    4: [7, 15]                 // clap — offbeats
+    0: [0, 4, 8, 12],
+    1: [4, 12],
+    2: [0, 2, 4, 6, 8, 10, 12, 14],
+    4: [7, 15]
   };
   Object.keys(seed).forEach(r => {
     seed[r].forEach(s => {
