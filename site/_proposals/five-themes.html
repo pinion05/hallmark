@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hallmark · Five proposed themes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Karla:wght@400;500&family=Cormorant+Garamond:wght@400;500&family=EB+Garamond:wght@400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+/* ============ proposal shell ============ */
+:root {
+  --paper: oklch(96.5% 0.006 80);
+  --paper-2: oklch(99% 0.004 80);
+  --ink: oklch(22% 0.01 70);
+  --ink-2: oklch(42% 0.01 70);
+  --muted: oklch(55% 0.01 70);
+  --rule: oklch(85% 0.008 80);
+  --accent: oklch(55% 0.19 30);
+  --font-ui: "Archivo", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+
+.masthead { padding: 56px 0 40px; border-bottom: 1px solid var(--ink); }
+.masthead .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--ink-2); }
+.masthead h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.02; margin-top: 12px; max-width: 18ch; overflow-wrap: anywhere; min-width: 0; }
+.masthead p { margin-top: 16px; max-width: 62ch; color: var(--ink-2); font-size: 15.5px; }
+.masthead .note { margin-top: 10px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+.proposal { padding: 56px 0 8px; border-bottom: 1px solid var(--rule); }
+.proposal:last-of-type { border-bottom: 0; }
+.p-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+.p-num { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.p-name { font-size: clamp(24px, 3vw, 34px); font-weight: 700; letter-spacing: -0.015em; }
+.p-thesis { font-size: 15px; color: var(--ink-2); }
+.p-cluster { margin-left: auto; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); border: 1px solid var(--rule); padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+
+.p-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 32px; margin-top: 26px; align-items: start; }
+@media (max-width: 900px) { .p-body { grid-template-columns: 1fr; } }
+
+.p-meta dl { display: grid; gap: 14px; font-size: 13.5px; }
+.p-meta dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.p-meta dd { color: var(--ink); }
+.p-meta dd em { font-style: normal; color: var(--ink-2); }
+.p-meta ul { list-style: none; }
+.p-meta li { padding-left: 14px; position: relative; margin-bottom: 3px; }
+.p-meta li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 1px; background: var(--ink-2); }
+
+.mock { border: 1px solid var(--rule); background: var(--paper-2); border-radius: 6px; overflow: clip; box-shadow: 0 1px 2px oklch(0% 0 0 / 0.04); }
+.mock-frame { aspect-ratio: 16 / 10; position: relative; overflow: clip; container-type: inline-size; }
+.mock-caption { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-top: 1px solid var(--rule); font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.mock-caption span { overflow-wrap: anywhere; }
+
+.footer { padding: 48px 0 72px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+/* ============ 01 · PLATE ============ */
+.m-plate {
+  --pl-ink: oklch(97% 0.01 75);
+  --pl-shadow: oklch(24% 0.03 50);
+  --pl-accent: oklch(62% 0.13 55);
+  background:
+    radial-gradient(120% 90% at 78% 30%, oklch(70% 0.09 65) 0%, oklch(52% 0.1 50) 34%, oklch(36% 0.06 45) 62%, oklch(26% 0.04 40) 100%);
+  font-family: "Karla", sans-serif;
+  color: var(--pl-ink);
+  height: 100%;
+  position: relative;
+}
+.m-plate .photo-plate {
+  position: absolute; right: 12%; top: 18%;
+  width: 42cqw; height: 42cqw; border-radius: 50%;
+  background:
+    radial-gradient(closest-side, oklch(88% 0.03 80) 0%, oklch(84% 0.04 75) 58%, oklch(72% 0.05 70) 60%, oklch(88% 0.03 80) 62%, oklch(80% 0.04 75) 100%);
+  box-shadow: 0 40px 80px -20px oklch(15% 0.03 40 / 0.55), inset 0 -2px 12px oklch(60% 0.05 70 / 0.5);
+}
+.m-plate .photo-plate::after {
+  content: ""; position: absolute; inset: 26%;
+  border-radius: 46% 54% 52% 48%;
+  background: radial-gradient(80% 80% at 40% 35%, oklch(58% 0.13 45), oklch(42% 0.11 38) 70%);
+  box-shadow: inset 0 2px 10px oklch(20% 0.05 35 / 0.5);
+}
+.m-plate .p-nav { position: absolute; top: 5.5%; left: 5%; right: 5%; display: flex; align-items: center; line-height: 1; font-size: clamp(9px, 1.4cqw, 13px); letter-spacing: 0.02em; }
+.m-plate .p-nav .mark { font-family: "Fraunces", serif; font-weight: 500; font-size: clamp(12px, 1.9cqw, 18px); }
+.m-plate .p-nav .links { margin-left: auto; display: flex; gap: 2.2cqw; opacity: 0.85; }
+.m-plate .annot { position: absolute; left: 5%; bottom: 8%; max-width: 44%; }
+.m-plate .annot h2 { font-family: "Fraunces", serif; font-weight: 300; font-size: clamp(18px, 4.4cqw, 46px); line-height: 1.04; letter-spacing: -0.01em; }
+.m-plate .annot .meta { margin-top: 1.6cqw; font-size: clamp(9px, 1.35cqw, 13px); opacity: 0.82; max-width: 38ch; }
+.m-plate .annot .lnk { display: inline-block; margin-top: 1.8cqw; font-size: clamp(9px, 1.35cqw, 13px); color: var(--pl-ink); border-bottom: 1px solid var(--pl-accent); padding-bottom: 2px; text-decoration: none; }
+.m-plate .credit { position: absolute; right: 5%; bottom: 8%; font-family: var(--font-mono); font-size: clamp(8px, 1.1cqw, 11px); opacity: 0.55; writing-mode: vertical-rl; }
+
+/* ============ 02 · GRID ============ */
+.m-grid {
+  --gr-paper: oklch(99.4% 0 0);
+  --gr-ink: oklch(15% 0 0);
+  --gr-red: oklch(55% 0.21 28);
+  --gr-line: oklch(93% 0 0);
+  background:
+    repeating-linear-gradient(90deg, var(--gr-line) 0 1px, transparent 1px calc(100% / 12)),
+    var(--gr-paper);
+  color: var(--gr-ink);
+  font-family: "Archivo", sans-serif;
+  height: 100%; position: relative;
+}
+.m-grid .g-nav { position: absolute; top: 0; left: 0; right: 0; display: flex; border-bottom: 1px solid var(--gr-ink); font-size: clamp(8px, 1.2cqw, 12px); }
+.m-grid .g-nav span { flex: 1; padding: 1.4cqw 1.6cqw; border-right: 1px solid var(--gr-line); }
+.m-grid .g-nav span:last-child { border-right: 0; text-align: right; color: var(--gr-red); }
+.m-grid .g-title { position: absolute; left: calc(100% / 12); top: 22%; }
+.m-grid .g-title h2 { font-weight: 800; font-size: clamp(34px, 9.4cqw, 96px); line-height: 0.92; letter-spacing: -0.045em; }
+.m-grid .g-title h2 .dot { color: var(--gr-red); }
+.m-grid .g-rule { position: absolute; left: calc(100% / 12); right: calc(100% / 6); top: 63%; height: 2px; background: var(--gr-ink); }
+.m-grid .g-cols { position: absolute; left: calc(100% / 12); right: calc(100% / 6); top: calc(63% + 2.4cqw); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2cqw; font-size: clamp(8px, 1.25cqw, 12.5px); line-height: 1.45; }
+.m-grid .g-cols b { display: block; font-weight: 700; margin-bottom: 0.4cqw; }
+.m-grid .g-cols p { color: oklch(40% 0 0); }
+.m-grid .g-marker { position: absolute; right: calc(100% / 12); top: 24%; width: 3.4cqw; height: 3.4cqw; background: var(--gr-red); }
+
+/* ============ 03 · BENCH ============ */
+.m-bench {
+  --bn-paper: oklch(94% 0.006 240);
+  --bn-ink: oklch(24% 0.015 250);
+  --bn-line: oklch(60% 0.02 250);
+  --bn-orange: oklch(66% 0.19 45);
+  background: var(--bn-paper);
+  color: var(--bn-ink);
+  font-family: "Hanken Grotesk", sans-serif;
+  height: 100%; position: relative;
+}
+.m-bench .b-head { position: absolute; top: 6%; left: 5%; right: 5%; display: flex; align-items: baseline; gap: 1.6cqw; }
+.m-bench .b-head h2 { font-weight: 700; font-size: clamp(15px, 2.6cqw, 26px); letter-spacing: -0.01em; }
+.m-bench .b-head .chips { margin-left: auto; display: flex; gap: 0.9cqw; font-family: var(--font-mono); font-size: clamp(7.5px, 1.05cqw, 11px); }
+.m-bench .b-head .chips span { border: 1px solid var(--bn-line); padding: 0.35cqw 0.9cqw; border-radius: 3px; }
+.m-bench .b-head .chips span.hot { border-color: var(--bn-orange); color: var(--bn-orange); }
+.m-bench .device { position: absolute; left: 32%; top: 34%; width: 36%; aspect-ratio: 1.6; background: oklch(88% 0.008 240); border: 1.5px solid var(--bn-ink); border-radius: 10px; box-shadow: 6px 6px 0 oklch(80% 0.012 245); }
+.m-bench .device .dial { position: absolute; right: 8%; top: 18%; width: 26%; aspect-ratio: 1; border: 1.5px solid var(--bn-ink); border-radius: 50%; background: oklch(92% 0.005 240); }
+.m-bench .device .dial::after { content: ""; position: absolute; left: 50%; top: 6%; width: 2px; height: 34%; background: var(--bn-orange); }
+.m-bench .device .grille { position: absolute; left: 9%; top: 20%; width: 40%; height: 55%;
+  background-image: radial-gradient(oklch(40% 0.015 250) 1px, transparent 1.4px);
+  background-size: 9% 14%; }
+.m-bench svg.dims { position: absolute; inset: 0; width: 100%; height: 100%; }
+.m-bench .dim-label { font-family: var(--font-mono); font-size: clamp(7.5px, 1.05cqw, 11px); fill: var(--bn-ink); }
+.m-bench .part { position: absolute; font-family: var(--font-mono); font-size: clamp(7.5px, 1.05cqw, 11px); max-width: 22%; line-height: 1.5; }
+.m-bench .part b { color: var(--bn-orange); font-weight: 500; }
+.m-bench .part.p1 { left: 5%; top: 36%; }
+.m-bench .part.p2 { right: 5%; top: 58%; text-align: right; }
+.m-bench .b-foot { position: absolute; bottom: 7%; left: 5%; right: 5%; display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: clamp(7.5px, 1.05cqw, 11px); color: oklch(45% 0.02 250); }
+
+/* ============ 04 · MAISON ============ */
+.m-maison {
+  --ms-paper: oklch(97.5% 0.005 85);
+  --ms-ink: oklch(26% 0.008 60);
+  --ms-line: oklch(88% 0.006 80);
+  background: var(--ms-paper);
+  color: var(--ms-ink);
+  font-family: "EB Garamond", serif;
+  height: 100%; position: relative; text-align: center;
+}
+.m-maison .ms-nav { position: absolute; top: 7%; left: 0; right: 0; display: flex; justify-content: center; gap: 3.4cqw; font-size: clamp(7.5px, 1.05cqw, 11px); letter-spacing: 0.32em; text-transform: uppercase; }
+.m-maison .lockup { position: absolute; top: 16%; left: 0; right: 0; }
+.m-maison .lockup .no { font-size: clamp(8px, 1.2cqw, 12px); letter-spacing: 0.3em; color: oklch(52% 0.01 60); }
+.m-maison .lockup h2 { font-family: "Cormorant Garamond", serif; font-weight: 400; font-size: clamp(28px, 6cqw, 62px); line-height: 1; letter-spacing: 0.05em; margin-top: 0.8cqw; }
+.m-maison .lockup .line { font-size: clamp(9px, 1.3cqw, 13px); letter-spacing: 0.06em; color: oklch(45% 0.01 60); margin-top: 1cqw; }
+.m-maison .strip { position: absolute; bottom: 10%; left: 17%; right: 17%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2cqw; }
+.m-maison .strip figure { aspect-ratio: 4 / 5; position: relative; }
+.m-maison .strip .f1 { background: linear-gradient(165deg, oklch(85% 0.015 75), oklch(70% 0.02 65)); }
+.m-maison .strip .f2 { background: linear-gradient(165deg, oklch(78% 0.01 250), oklch(58% 0.015 255)); }
+.m-maison .strip .f3 { background: linear-gradient(165deg, oklch(80% 0.02 30), oklch(62% 0.025 25)); }
+.m-maison .strip figcaption { position: absolute; bottom: -2.2cqw; left: 0; right: 0; font-size: clamp(7px, 1cqw, 10px); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(50% 0.01 60); }
+.m-maison .ms-foot { position: absolute; bottom: 4%; left: 0; right: 0; font-size: clamp(7.5px, 1cqw, 10px); letter-spacing: 0.28em; text-transform: uppercase; color: oklch(58% 0.01 60); }
+
+/* ============ 05 · FIELD ============ */
+.m-field {
+  --fd-paper: oklch(96.5% 0.015 90);
+  --fd-ink: oklch(25% 0.02 70);
+  --fd-accent: oklch(75% 0.13 80);
+  --fd-rule: oklch(87% 0.015 90);
+  background: var(--fd-paper);
+  color: var(--fd-ink);
+  font-family: "Public Sans", sans-serif;
+  height: 100%; position: relative;
+}
+.m-field .f-nav { position: absolute; top: 6%; left: 5%; right: 5%; display: flex; align-items: center; font-size: clamp(8.5px, 1.25cqw, 12.5px); }
+.m-field .f-nav .mark { font-family: "Source Serif 4", serif; font-weight: 700; font-size: clamp(12px, 1.8cqw, 17px); }
+.m-field .f-nav .links { margin-left: auto; display: flex; gap: 2.4cqw; align-items: center; }
+.m-field .f-nav .btn-s { border: 1px solid var(--fd-ink); border-radius: 99px; padding: 0.55cqw 1.5cqw; line-height: 1; }
+.m-field .f-left { position: absolute; left: 5%; top: 27%; width: 46%; }
+.m-field .f-left h2 { font-family: "Source Serif 4", serif; font-weight: 600; font-size: clamp(22px, 4.6cqw, 48px); line-height: 1.06; letter-spacing: -0.015em; }
+.m-field .f-left h2 mark { background: linear-gradient(180deg, transparent 42%, var(--fd-accent) 42%, var(--fd-accent) 90%, transparent 90%); color: inherit; padding: 0 0.06em; }
+.m-field .f-left p { margin-top: 1.8cqw; font-size: clamp(9.5px, 1.4cqw, 14px); color: oklch(40% 0.02 70); max-width: 44ch; }
+.m-field .f-cta { margin-top: 2.6cqw; display: flex; gap: 2cqw; align-items: center; font-size: clamp(9px, 1.35cqw, 13.5px); }
+.m-field .f-cta .primary { background: var(--fd-ink); color: var(--fd-paper); border-radius: 8px; padding: 1cqw 2.1cqw; font-weight: 600; line-height: 1; }
+.m-field .f-cta .ghost { border-bottom: 1.5px solid var(--fd-accent); padding-bottom: 2px; font-weight: 500; }
+.m-field svg.doodle { position: absolute; right: 6%; top: 22%; width: 38%; height: auto; }
+.m-field .sticky { position: absolute; right: 9%; bottom: 12%; background: oklch(99% 0.01 95); border: 1px solid var(--fd-rule); border-radius: 8px; padding: 1.4cqw 1.8cqw; font-size: clamp(8px, 1.15cqw, 11.5px); box-shadow: 0 8px 22px -12px oklch(30% 0.03 70 / 0.35); transform: rotate(-1.2deg); }
+.m-field .sticky div { display: flex; gap: 0.8cqw; align-items: center; margin-top: 0.5cqw; }
+.m-field .sticky div:first-child { margin-top: 0; }
+.m-field .sticky .tick { width: 1.5cqw; height: 1.5cqw; border-radius: 4px; background: var(--fd-accent); flex: none; }
+
+/* ============ A1 · LEDGER ============ */
+.m-ledger {
+  --lg-paper: oklch(20% 0.025 255);
+  --lg-ink: oklch(93% 0.01 250);
+  --lg-teal: oklch(78% 0.12 185);
+  --lg-rule: oklch(32% 0.02 255);
+  background:
+    linear-gradient(180deg, oklch(23% 0.028 258), var(--lg-paper) 40%);
+  color: var(--lg-ink);
+  font-family: "Hanken Grotesk", sans-serif;
+  height: 100%; position: relative;
+}
+.m-ledger .l-nav { position: absolute; top: 6%; left: 5%; right: 5%; display: flex; align-items: center; font-size: clamp(8.5px, 1.25cqw, 12.5px); }
+.m-ledger .l-nav .mark { font-weight: 700; letter-spacing: 0.01em; font-size: clamp(11px, 1.7cqw, 16px); }
+.m-ledger .l-nav .links { margin-left: auto; display: flex; gap: 2.4cqw; align-items: center; color: oklch(72% 0.015 250); }
+.m-ledger .l-nav .open { border: 1px solid var(--lg-rule); color: var(--lg-ink); border-radius: 6px; padding: 0.55cqw 1.4cqw; line-height: 1; }
+.m-ledger .l-hero { position: absolute; left: 5%; top: 24%; }
+.m-ledger .l-hero h2 { font-weight: 600; font-size: clamp(19px, 3.5cqw, 37px); letter-spacing: -0.02em; line-height: 1.1; }
+.m-ledger .l-hero .bal { margin-top: 2cqw; font-family: var(--font-mono); font-size: clamp(20px, 4.2cqw, 44px); font-variant-numeric: tabular-nums; color: var(--lg-teal); }
+.m-ledger .l-hero .bal small { font-size: 0.45em; color: oklch(65% 0.015 250); margin-left: 1cqw; }
+.m-ledger svg.spark { position: absolute; right: 6%; top: 26%; width: 30%; height: auto; }
+.m-ledger table { position: absolute; left: 5%; right: 5%; bottom: 9%; width: 90%; border-collapse: collapse; font-size: clamp(8px, 1.15cqw, 11.5px); font-family: var(--font-mono); }
+.m-ledger td { padding: 1cqw 0; border-top: 1px solid var(--lg-rule); color: oklch(80% 0.012 250); }
+.m-ledger td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.m-ledger td .pos { color: var(--lg-teal); }
+
+/* ============ A2 · ARCADE ============ */
+.m-arcade {
+  --ac-paper: oklch(16% 0.02 300);
+  --ac-ink: oklch(95% 0.01 300);
+  --ac-mag: oklch(70% 0.24 340);
+  --ac-cyan: oklch(85% 0.13 195);
+  background:
+    radial-gradient(1px 1px at 20% 30%, oklch(90% 0.02 300 / 0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 15%, oklch(90% 0.02 300 / 0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 45% 70%, oklch(90% 0.02 300 / 0.4) 50%, transparent 51%),
+    radial-gradient(1px 1px at 85% 55%, oklch(90% 0.02 300 / 0.5) 50%, transparent 51%),
+    var(--ac-paper);
+  color: var(--ac-ink);
+  font-family: "Silkscreen", monospace;
+  height: 100%; position: relative; text-align: center; overflow: clip;
+}
+.m-arcade::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(180deg, transparent 0 3px, oklch(0% 0 0 / 0.14) 3px 4px); }
+.m-arcade .a-top { position: absolute; top: 8%; left: 0; right: 0; font-size: clamp(7px, 1cqw, 10px); letter-spacing: 0.14em; color: var(--ac-cyan); }
+.m-arcade h2 { position: absolute; top: 34%; left: 0; right: 0; font-weight: 700; font-size: clamp(20px, 4.6cqw, 48px); line-height: 1.15; color: var(--ac-ink); text-shadow: 0.06em 0.06em 0 var(--ac-mag); }
+.m-arcade .cursor { display: inline-block; width: 0.5em; height: 0.9em; background: var(--ac-cyan); vertical-align: baseline; animation: ac-blink 1.1s steps(1) infinite; }
+@keyframes ac-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .m-arcade .cursor { animation: none; } }
+.m-arcade .a-sub { position: absolute; top: 58%; left: 0; right: 0; font-size: clamp(8px, 1.15cqw, 11px); color: oklch(75% 0.03 300); }
+.m-arcade .a-score { position: absolute; bottom: 9%; left: 0; right: 0; display: flex; justify-content: center; gap: 4cqw; font-size: clamp(7px, 1cqw, 10px); color: var(--ac-mag); }
+</style>
+</head>
+<body>
+
+<header class="masthead wrap">
+  <div class="kicker">HALLMARK · V1.2 PROPOSAL · FOR REVIEW · 2026-07</div>
+  <h1>Five proposed themes, two alternates.</h1>
+  <p>Each candidate fills a hole the current twenty themes leave open, and each is grounded in real, professionally designed sites rather than invented aesthetics. The mockups below are drawn in each candidate's draft tokens with a deliberately different structure per theme. Nothing ships until you pick.</p>
+  <div class="note">Photography in mockups is placeholder CSS art. Fonts shown are free-baseline picks from the Hallmark canon.</div>
+</header>
+
+<!-- ==================== 01 PLATE ==================== -->
+<section id="plate" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">01</span>
+    <span class="p-name">Plate</span>
+    <span class="p-thesis">The photograph is the page. Text is annotation.</span>
+    <span class="p-cluster">new cluster · image-led</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>image-carried (mid) · roman-serif-light · warm-umber</dd></div>
+        <div><dt>Grounded in</dt><dd>Aesop · SSENSE · Cereal Magazine · Airbnb Luxe</dd></div>
+        <div><dt>Fills the gap</dt><dd>No current theme can serve e-commerce, food, travel, or lookbook briefs; they all route to typography-only.</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>Image treatment: full-bleed · inset plate · duotone wash</li>
+          <li>Annotation position: corner-anchored · caption rail · over-image</li>
+          <li>Palette derives from the photograph, not a fixed accent</li>
+        </ul></dd></div>
+        <div><dt>Nearest existing</dt><dd><em>Photographic macrostructure exists, but no theme dresses it. Plate is its native dress + the Nanobanana hook's target.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-plate">
+        <div class="p-nav"><span class="mark">Kiln</span><span class="links"><span>Collection</span><span>Stockists</span><span>Journal</span></span></div>
+        <div class="photo-plate"></div>
+        <div class="annot">
+          <h2>Stoneware,<br />fired twice.</h2>
+          <div class="meta">The autumn collection. Thrown in Lisbon, glazed in ash, shipped in October.</div>
+          <a class="lnk" href="#">See the collection</a>
+        </div>
+        <div class="credit">PLACEHOLDER · 001</div>
+      </div>
+      <figcaption class="mock-caption"><span>Plate · draft tokens · Fraunces 300 + Karla</span><span>paper oklch(26% 0.04 40) under image</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ==================== 02 GRID ==================== -->
+<section id="grid" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">02</span>
+    <span class="p-name">Grid</span>
+    <span class="p-thesis">Swiss International style: the grid is visible and the grid is the design.</span>
+    <span class="p-cluster">editorial cluster</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>light · grotesk-sans (heavy) · warm-red, near-mono</dd></div>
+        <div><dt>Grounded in</dt><dd>Vitra · Braun · Vignelli canon · Museum fur Gestaltung</dd></div>
+        <div><dt>Fills the gap</dt><dd>The editorial cluster is serif-led everywhere; there is no rational, exposed-structure, grotesque voice.</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>Column count exposed: 6 · 8 · 12; hairline weight varies</li>
+          <li>One red element per viewport: rule, square, or period</li>
+          <li>Headline case: lowercase statement vs caps specimen</li>
+        </ul></dd></div>
+        <div><dt>Nearest existing</dt><dd><em>Manifesto (geometric poster) but Grid is rational where Manifesto is polemical; Cobalt is its dark cousin.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-grid">
+        <div class="g-nav"><span>büro grid</span><span>work</span><span>method</span><span>contact</span><span>de / en</span></div>
+        <div class="g-title"><h2>schedule,<br />then ship<span class="dot">.</span></h2></div>
+        <div class="g-marker"></div>
+        <div class="g-rule"></div>
+        <div class="g-cols">
+          <div><b>Practice</b><p>Identity systems and signage for institutions that plan in decades.</p></div>
+          <div><b>Method</b><p>One grid, two weights, one red. Everything else is content.</p></div>
+          <div><b>Standort</b><p>Zürich Hardbrücke, third floor, the one with the yellow door.</p></div>
+        </div>
+      </div>
+      <figcaption class="mock-caption"><span>Grid · draft tokens · Archivo 800 + Archivo</span><span>12-col hairlines exposed · red oklch(55% 0.21 28)</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ==================== 03 BENCH ==================== -->
+<section id="bench" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">03</span>
+    <span class="p-name">Bench</span>
+    <span class="p-thesis">The product as an engineering drawing: dimension lines, part numbers, spec chips.</span>
+    <span class="p-cluster">modern-minimal cluster</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>light (cool) · grotesk + mono labels · safety-orange</dd></div>
+        <div><dt>Grounded in</dt><dd>Teenage Engineering · Leica · Rimowa · DJI</dd></div>
+        <div><dt>Fills the gap</dt><dd>Hardware, devices, and physical-product briefs have no home; Workbench macro shows software, not objects.</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>Annotation density: 2 callouts vs full exploded view</li>
+          <li>Object rendered as CSS art, SVG line-drawing, or photo</li>
+          <li>Spec chips migrate: header row · side rail · footer strip</li>
+        </ul></dd></div>
+        <div><dt>Nearest existing</dt><dd><em>Terminal shares the mono register but is a CRT world; Bench is drawing-board daylight.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-bench">
+        <div class="b-head"><h2>FR-2 field recorder</h2><div class="chips"><span>48kHz</span><span>340g</span><span class="hot">ships Q4</span></div></div>
+        <div class="device"><div class="grille"></div><div class="dial"></div></div>
+        <svg class="dims" viewBox="0 0 800 500" preserveAspectRatio="none" aria-hidden="true">
+          <g stroke="oklch(45% 0.02 250)" stroke-width="1" fill="none">
+            <line x1="256" y1="120" x2="256" y2="140" /><line x1="544" y1="120" x2="544" y2="140" />
+            <line x1="256" y1="130" x2="544" y2="130" />
+            <line x1="576" y1="150" x2="596" y2="150" /><line x1="576" y1="330" x2="596" y2="330" />
+            <line x1="586" y1="150" x2="586" y2="330" />
+            <line x1="150" y1="196" x2="254" y2="196" stroke-dasharray="3 4" />
+            <line x1="548" y1="300" x2="652" y2="300" stroke-dasharray="3 4" />
+          </g>
+          <text class="dim-label" x="380" y="122" text-anchor="middle">240 mm</text>
+          <text class="dim-label" x="612" y="244" text-anchor="start">150</text>
+        </svg>
+        <div class="part p1"><b>01</b> anodised shell, single billet</div>
+        <div class="part p2"><b>02</b> rotary dial, 24 detents</div>
+        <div class="b-foot"><span>REV C · 2026-07</span><span>drawn 1:2 · tolerances ±0.2</span></div>
+      </div>
+      <figcaption class="mock-caption"><span>Bench · draft tokens · Hanken Grotesk + IBM Plex Mono</span><span>accent oklch(66% 0.19 45), instrument-only</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ==================== 04 MAISON ==================== -->
+<section id="maison" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">04</span>
+    <span class="p-name">Maison</span>
+    <span class="p-thesis">Quiet luxury: whitespace as the asset, type barely raising its voice.</span>
+    <span class="p-cluster">editorial cluster</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>light (warm-white) · classical-serif · neutral (no chromatic accent)</dd></div>
+        <div><dt>Grounded in</dt><dd>The Row · Jil Sander · Byredo · Celine</dd></div>
+        <div><dt>Fills the gap</dt><dd>Atelier is crafted-warm and Lumen is night-classical; nothing does restrained fashion-house cold-press.</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>Lockup: centered nameplate vs left-margin colophon</li>
+          <li>Lookbook strip: 3-up · single monolith · none</li>
+          <li>Tracking: from whisper (0.04em) to engraved (0.32em)</li>
+        </ul></dd></div>
+        <div><dt>Nearest existing</dt><dd><em>The only neutral-accent theme besides austere setups; earns the centered hero exception honestly.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-maison">
+        <nav class="ms-nav"><span>Maison</span><span>Collection</span><span>Atelier</span><span>Contact</span></nav>
+        <div class="lockup">
+          <div class="no">N° 04 · AUTUMN</div>
+          <h2>Sable</h2>
+          <div class="line">Twelve pieces. One cloth. Cut in Antwerp.</div>
+        </div>
+        <div class="strip">
+          <figure class="f1"><figcaption>Look 01</figcaption></figure>
+          <figure class="f2"><figcaption>Look 05</figcaption></figure>
+          <figure class="f3"><figcaption>Look 09</figcaption></figure>
+        </div>
+        <div class="ms-foot">Paris · Antwerp</div>
+      </div>
+      <figcaption class="mock-caption"><span>Maison · draft tokens · Cormorant Garamond + EB Garamond</span><span>no chromatic accent · ink carries everything</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ==================== 05 FIELD ==================== -->
+<section id="field" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">05</span>
+    <span class="p-name">Field</span>
+    <span class="p-thesis">Warm productivity paper: the serious tool that feels hand-made.</span>
+    <span class="p-cluster">playful cluster</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>light (cream) · roman-serif display + humanist sans body · marigold</dd></div>
+        <div><dt>Grounded in</dt><dd>Notion · the Anthropic marketing school · Coda</dd></div>
+        <div><dt>Fills the gap</dt><dd>The biggest commercial gap: warm, credible SaaS. Hum is the only playful theme and it is rounded-consumer, not work-serious.</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>Ink spot-illustrations: doodle density from 1 to a margin system</li>
+          <li>Highlighter mark on one phrase (x-height band, per gate 35)</li>
+          <li>Artifact props: sticky note · index card · none</li>
+        </ul></dd></div>
+        <div><dt>Nearest existing</dt><dd><em>Almanac shares paper warmth but is archival; Field is today-at-your-desk.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-field">
+        <div class="f-nav"><span class="mark">Fieldnote</span><span class="links"><span>Product</span><span>Pricing</span><span class="btn-s">Sign in</span></span></div>
+        <div class="f-left">
+          <h2>Meetings that end<br />with <mark>a plan</mark>.</h2>
+          <p>Fieldnote turns the talk into owners, dates, and next steps before everyone stands up.</p>
+          <div class="f-cta"><span class="primary">Start free</span><span class="ghost">See how it works</span></div>
+        </div>
+        <svg class="doodle" viewBox="0 0 300 220" fill="none" aria-hidden="true">
+          <g stroke="oklch(30% 0.02 70)" stroke-width="2.2" stroke-linecap="round">
+            <path d="M40 170 C 60 80, 150 60, 200 90 S 260 160, 210 175 S 120 180, 130 130" />
+            <path d="M205 88 L 246 42 L 258 72 Z" fill="oklch(75% 0.13 80)" stroke-width="2" />
+            <path d="M52 190 q 30 8 78 4" stroke-dasharray="1 8" stroke-width="3" />
+          </g>
+        </svg>
+        <div class="sticky">
+          <div><span class="tick"></span><span>Owner: Amara</span></div>
+          <div><span class="tick"></span><span>Due Friday</span></div>
+          <div><span class="tick"></span><span>Decision logged</span></div>
+        </div>
+      </div>
+      <figcaption class="mock-caption"><span>Field · draft tokens · Source Serif 4 + Public Sans</span><span>accent oklch(75% 0.13 80), highlighter + props only</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ==================== A1 LEDGER ==================== -->
+<section id="ledger" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">A1 · alternate</span>
+    <span class="p-name">Ledger</span>
+    <span class="p-thesis">Fintech terminal-lux: the data is the marketing.</span>
+    <span class="p-cluster">modern-minimal cluster</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>dark (navy) · grotesk + tabular mono · teal</dd></div>
+        <div><dt>Grounded in</dt><dd>Mercury · Ramp · Bloomberg's density, tamed</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>Data prop: sparkline · table · single balance</li>
+          <li>Navy depth band and teal restraint both tunable</li>
+        </ul></dd></div>
+        <div><dt>Why alternate</dt><dd><em>Strong, but Cobalt + Midnight already cover cool-dark SaaS ground; picks up a slot only if you want a finance-first voice.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-ledger">
+        <div class="l-nav"><span class="mark">Meridian</span><span class="links"><span>Product</span><span>Pricing</span><span class="open">Open account</span></span></div>
+        <div class="l-hero">
+          <h2>Treasury, reconciled<br />while you sleep.</h2>
+          <div class="bal">$4,982,114.09 <small>as of 06:00 UTC</small></div>
+        </div>
+        <svg class="spark" viewBox="0 0 240 90" fill="none" aria-hidden="true">
+          <path d="M0 70 L30 64 L60 66 L90 52 L120 56 L150 38 L180 42 L210 24 L240 28" stroke="oklch(78% 0.12 185)" stroke-width="2" />
+          <path d="M0 70 L30 64 L60 66 L90 52 L120 56 L150 38 L180 42 L210 24 L240 28 V90 H0 Z" fill="oklch(78% 0.12 185 / 0.08)" />
+        </svg>
+        <table aria-hidden="true"><tbody>
+          <tr><td>Jul 21</td><td>Northwind payroll</td><td>-182,400.00</td></tr>
+          <tr><td>Jul 21</td><td>Stripe payout</td><td class="pos">+96,112.55</td></tr>
+          <tr><td>Jul 20</td><td>AWS invoice</td><td>-14,209.31</td></tr>
+        </tbody></table>
+      </div>
+      <figcaption class="mock-caption"><span>Ledger · draft tokens · Hanken Grotesk + IBM Plex Mono</span><span>paper oklch(20% 0.025 255) · teal oklch(78% 0.12 185)</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ==================== A2 ARCADE ==================== -->
+<section id="arcade" class="proposal wrap">
+  <div class="p-head">
+    <span class="p-num">A2 · alternate</span>
+    <span class="p-name">Arcade</span>
+    <span class="p-thesis">Retro-system nostalgia: pixels, scanlines, one blinking cursor.</span>
+    <span class="p-cluster">playful cluster</span>
+  </div>
+  <div class="p-body">
+    <div class="p-meta">
+      <dl>
+        <div><dt>Axes</dt><dd>dark (violet-black) · pixel display · magenta + cyan pair</dd></div>
+        <div><dt>Grounded in</dt><dd>Poolside.fm · Panic · the OP-1 generation's software</dd></div>
+        <div><dt>Room to play</dt><dd><ul>
+          <li>CRT intensity: scanlines from whisper to heavy</li>
+          <li>Starfield vs flat; score-strip vs clean footer</li>
+        </ul></dd></div>
+        <div><dt>Why alternate</dt><dd><em>Gate 47 bans re-drawn OS chrome, and this world wants windows and title bars. Shippable only with a written carve-out that keeps chrome abstract. Flagging honestly.</em></dd></div>
+      </dl>
+    </div>
+    <figure class="mock">
+      <div class="mock-frame m-arcade">
+        <div class="a-top">FREE PLAY · EVENT 07</div>
+        <h2>SUMMER JAM<br />26<span class="cursor"></span></h2>
+        <div class="a-sub">a 48-hour game jam for people with day jobs</div>
+        <div class="a-score"><span>P1 REGISTER</span><span>P2 SPONSOR</span></div>
+      </div>
+      <figcaption class="mock-caption"><span>Arcade · draft tokens · Silkscreen</span><span>magenta oklch(70% 0.24 340) · cyan oklch(85% 0.13 195)</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<footer class="footer wrap">
+  HALLMARK V1.2 PROPOSAL · PICK ANY FIVE, SWAP AN ALTERNATE IN, OR REDIRECT A DIRECTION ENTIRELY · NOTHING SHIPS UNTIL YOU CHOOSE
+</footer>
+
+</body>
+</html>
