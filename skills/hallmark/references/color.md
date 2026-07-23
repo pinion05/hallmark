@@ -59,7 +59,7 @@ Use the APCA contrast check when you can; otherwise WCAG 2.1 ratios.
 | UI component boundaries | 3:1 | 4.5:1 |
 | Placeholder / helper text | 4.5:1 | 4.5:1 |
 
-Verify with the browser devtools vision-deficiency emulator before shipping.
+Verify with the browser devtools vision-deficiency emulator before shipping. When you cannot render, use the numeric alternative: verify the two colours differ by >= 15% OKLCH lightness in addition to hue, so the pair survives every common colour-vision deficiency.
 
 ## Dark mode recipe
 
@@ -93,3 +93,16 @@ The accent is a highlighter, not a colour block. Reach for it to:
 - Place a small square beside a heading as a visual anchor.
 
 Do not fill giant buttons with it. Do not set whole sections on it. Do not use it for decorative gradients. If you feel the urge to use more, that's the slop defaulting. Use less.
+
+## Colour postures
+
+The rules above describe the catalog's default posture, **Restrained**. A custom build (and only a custom build) may declare a different posture during the ritual in [`custom-theme.md`](custom-theme.md) § The ritual; the posture is stated in the stamp and the log, never improvised mid-render.
+
+| Posture | Where the colour lives | The rule that still binds |
+| --- | --- | --- |
+| **Restrained** | accent <= 5% of any viewport | everything above, unchanged |
+| **Committed** | one colour carries 30-60% of the surface through `--color-field` / the paper family | the accent token proper stays <= 5%; contrast gates 40-41 bind on the coloured surface |
+| **Full palette** | 3-4 named roles (field, signal, seal, ink), each with a stated job | every role is a token; no role exceeds its stated footprint |
+| **Drenched** | the surface IS the colour; ink and rules derive from it | ink contrast per § Contrast; the accent slot may be retired entirely |
+
+A declared surface colour under a stated posture is not accent footprint (gate 23 reads the posture). Undeclared accent sprawl still fails. Dark themes are the existing precedent: Midnight's near-black paper never counted against the accent budget; a Committed field colour works the same way.
