@@ -8,7 +8,7 @@ Custom exists because the model's own taste is an attractor. Left alone, a model
 
 ## Two routes, plain English
 
-- **catalog** - the 20 named themes, rotated by the Rotation block in [`SKILL.md`](../SKILL.md). The default. Most briefs use it and never hear otherwise.
+- **catalog** - the 24 named themes, rotated by the Rotation block in [`SKILL.md`](../SKILL.md). The default. Most briefs use it and never hear otherwise.
 - **custom** - made-to-measure, at the depth the brief needs:
   - **Tuned** - a one-off palette + pairing built for one brief, keeping Hallmark's macrostructures and archetypes.
   - **Bespoke** - when the brief's structure itself is the ask, the composition is designed from first principles too. Same route, deeper end. See § Bespoke depth.
@@ -29,7 +29,7 @@ Do not offer catalog-vs-custom on every prompt; that is friction, not discipline
 
 If a signal fires, ask one short follow-up before picking a theme:
 
-> *"This brief reads like a custom system would fit better than the 20 named themes. Want me to construct one tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"*
+> *"This brief reads like a custom system would fit better than the 24 named themes. Want me to construct one tuned to <one-line summary of the vibe>, or stay on the catalog for variety + speed?"*
 
 Wait for the answer. Custom (or yes / go) continues below from § The ritual. Catalog (or silence) drops the fork and proceeds with the catalog route. **Default is catalog; silence never routes to custom.** If no signal fires, do not mention the fork at all.
 

@@ -26,5 +26,9 @@ Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **wa
 | Carnival | light (92%, warm) | display-heavy (Big Shoulders) | chromatic-amber (~95°) |
 | Lumen | dark (13%, indigo; day drop flips light) | classical-serif (Instrument Serif) | warm (~50°) |
 | Hum | light (97%, warm) | rounded-sans (Plus Jakarta Sans) | chromatic-amber (~95°) |
+| Grid | light (near-white 99%) | grotesk-heavy (Archivo 800) | warm (signal red ~28) |
+| Field | light (cream 96.5%) | roman-serif display (Source Serif) | chromatic-marigold (~80) |
+| Ledger | dark (navy 20%) | grotesk-sans + tabular mono (Hanken) | chromatic-teal (~185) |
+| Arcade | dark (violet-black 16%) | pixel display (Silkscreen) | chromatic-magenta (~340) + cyan |
 
 When two candidate themes match on two of the three axes, pick a more distant one. All display is roman; italic headers are banned globally (gate 38a).

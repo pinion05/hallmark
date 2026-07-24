@@ -66,7 +66,7 @@ Numbers the user never supplied filling stats and proof bars. Fix: labelled plac
 ### Generic emoji as feature icon
 Sparkle or rocket emoji standing in for icons. Fix: one icon library, custom SVG, or typography. (gate 30)
 ### Re-drawn UI chrome
-Fake browser bars, phone frames, window-chrome code blocks. Fix: real screenshots in `<figure>`; typographic code frames. (gate 47)
+Fake browser bars, phone frames, window-chrome code blocks. Fix: real screenshots in `<figure>`; typographic code frames. (gate 47) Arcade carve-out: pixel type, scanlines, starfield, and a cursor are fine (they re-draw no UI); fake OS windows / title bars / traffic-light dots stay banned even there.
 ### Mid-render token improvisation
 Inline colours or fonts outside the locked token block. Fix: every value through `var(--token)`; extend tokens first. (gate 48)
 ### Wrap-to-two-lines clickable text
