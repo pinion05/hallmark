@@ -104,6 +104,8 @@ Calm / corporate / trust-led routes to Cobalt or Coral; sustained editorial read
 
 ## Build hint
 
+The palette tokens (`--color-*`) come from `[data-theme="arcade"]`. The starfield / scanline / neon-glow vars below (`--star*`, `--scanline`, `--shadow-cyn`, `--shadow-mag`, `--line-lit`, `--ring`) are **page-local decorative tokens**: define them in your page `:root` as in the canonical build `site/examples/arcade-01/` (gate 48 allows page-defined tokens).
+
 The first lines of CSS establish Arcade's anchor moves:
 
 ```css

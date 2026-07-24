@@ -23,9 +23,9 @@ Default model `black-forest-labs/FLUX.1.1-pro` (photoreal, ~$0.04/MP); `--model 
 
 - **Always post-process.** Add grain, asymmetric crop, hand-drawn overlays, colour grading. Raw model output reads as AI 100 % of the time. The post-process is what makes it ours.
 - **Use reference images** for brand consistency. Nanobanana's character-consistency feature is the differentiator vs. Midjourney; feed it your existing brand assets so generations stay on-style.
-- **Stamp the model in the macrostructure comment** (`generated: nanobanana-2 · post-processed`). Future audits need to know provenance.
+- **Stamp the model in the macrostructure comment** (`generated: flux-1.1-pro (via scripts/imagegen.mjs) · post-processed`). Future audits need to know provenance.
 - **Verify the SynthID watermark** is present (Google's invisible AI-provenance marker).
-- **Multi-frame animation isn't supported** by any of these models. Don't try to assemble keyframes into a Lottie loop — that's Tier F territory and almost always a worse outcome than a single still.
+- **Multi-frame animation isn't supported** by any of these models. Don't try to assemble keyframes into a Lottie loop - that's Tier F territory and almost always a worse outcome than a single still.
 
 ### Anti-patterns of generated stills
 

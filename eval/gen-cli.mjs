@@ -4,16 +4,16 @@
 // (load-order discipline, stamp, files written) - not just bare-API
 // instruction-following like Tier B (gen-direct.py).
 //
-//   node gen-cli.mjs --brief b1|all --arm claude-cli|all [--force] [--dry-run]
+//   node gen-cli.mjs --brief b1|all --arm claude|glm|kimi|all [--force] [--dry-run]
 //
 // IMPORTANT (measured): skills do NOT auto-trigger in `claude -p` headless mode,
 // so we invoke the skill BY NAME ("/hallmark <brief>"). This is a CONFORMANCE
 // harness (does the skill FOLLOW its discipline), not an auto-trigger test.
 //
-// Auth: the `claude-cli` arm sets NO key and uses your Claude subscription -
+// Auth: the `claude` arm sets NO key and uses your Claude subscription -
 // run it in a terminal where `claude` is logged in. The open-model arms
-// (glm-cli via Z.ai, kimi-cli via Moonshot) are Anthropic-shaped and DISABLED
-// until you add ANTHROPIC_AUTH_TOKEN for them; Together/OpenRouter cannot back
+// (glm via Z.ai, kimi via Moonshot) are Anthropic-shaped and DISABLED until you
+// add ZAI_AUTH_TOKEN / MOONSHOT_AUTH_TOKEN for them; Together/OpenRouter cannot back
 // `claude -p` (it needs an Anthropic-shaped endpoint).
 //
 // Output: eval/runs/<brief>/<arm>-cli/{index.html?, transcript.jsonl, run.json}

@@ -101,7 +101,7 @@ Never any of: *seamless, robust, cutting-edge, leverage, synergy, revolutionary,
 |---|---|
 | **Cobalt** (light code-hero sibling) | Cobalt is cool near-white paper (`oklch(98.5% 0.004 250)`), electric cobalt (`0.20 256`), Space Grotesk / JetBrains Mono, and a **code/API card** hero. Ledger is dark navy (`oklch(20% 0.025 255)`), teal (`0.12 185`), Hanken / IBM Plex Mono, and an **account-panel** hero. Light-vs-dark and code-vs-money settle it: same cluster, opposite ground, different focal artefact. |
 | **Midnight** (dark but atmospheric) | Both are dark near hue 250, but Midnight is **atmospheric**: deeper `L 15%`, blue accent (`0.16 220`), Geist + Instrument Serif, `--display-weight 300` with `0.16em` labels, numbered display + typewriter reveals. Ledger is **modern-minimal**: lifted `L 20%` navy, teal 185, Hanken `600`, tabular-mono data panels, flat and still. Mood vs instrument. |
-| **Coral** (light warm modern-minimal) | Coral is warm-grey paper (`oklch(96.5% 0.005 50)`), warm coral accent (`0.165 28`), Geist, `--radius-pill 999px` soft pills, and a quiet title/lede hero. Ledger is dark navy, teal, `8px` tight radii, and a data-as-hero panel. Opposite temperature and opposite ground. |
+| **Coral** (light warm modern-minimal) | Coral is warm-grey paper (`oklch(96.5% 0.005 50)`), warm coral accent (`0.165 28`), Geist, `--radius-pill 999px` soft pills, and a quiet title/lede hero. Ledger is dark navy, teal, `12px card / 8px control radii, and a data-as-hero panel. Opposite temperature and opposite ground. |
 
 ## Test brief expectations
 
