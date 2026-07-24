@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The web can wait — a slow-web manifesto</title>
+<meta name="description" content="A manifesto in seven articles for people who make pages — and the people who read them. One HTML file. Nothing that moves.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · macrostructure: Manifesto · genre: editorial · theme: Almanac (warm paper · vermilion accent) · tone: austere editorial · anchor hue: 85 · nav: N5 masthead-strip · footer: Ft4 colophon · enrichment: none (typography only) · motion: none (static by design) · contrast: pass (40–41) · nav/footer/hero slop: pass (42–45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48, inline — single-file build) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49, 50–57) · rotation: first run for project, no constraint */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 */
+
+:root {
+  /* ---- colour · OKLCH, anchor hue 85 (warm oat), accent hue 35 (vermilion) ---- */
+  --color-paper:   oklch(96% 0.014 85);
+  --color-paper-2: oklch(93% 0.016 85);
+  --color-rule:    oklch(80% 0.020 82);
+  --color-neutral: oklch(45% 0.020 70);
+  --color-ink:     oklch(22% 0.020 60);
+  --color-ink-2:   oklch(32% 0.020 60);
+  --color-accent:  oklch(44% 0.160 35);
+  --color-focus:   oklch(44% 0.160 35);
+  --color-select:  oklch(88% 0.060 85);
+
+  /* ---- type · 2+1 rule: display + body + mono outlier (dateline, numerals only) ---- */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "Newsreader", ui-serif, Georgia, serif;
+  --font-outlier: "Geist Mono", ui-monospace, "SF Mono", monospace;
+
+  /* ---- scale · five sizes on the page, no more ---- */
+  --text-xs:      0.8125rem;
+  --text-base:    1.125rem;
+  --text-md:      1.375rem;
+  --text-lg:      1.75rem;
+  --text-display: clamp(2.75rem, 6vw + 1rem, 5.25rem);
+
+  --lh-display: 1.05;
+  --lh-heading: 1.15;
+  --lh-lede:    1.45;
+  --lh-body:    1.6;
+
+  /* ---- space · 4-pt scale ---- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 10rem;
+
+  --rule-hairline: 1px;
+  --rule-strong:   2px;
+  --radius-sm:     2px;
+}
+
+/* ---- base ---- */
+html {
+  overflow-x: clip;
+  color-scheme: light;
+}
+body {
+  overflow-x: clip;
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--lh-body);
+  font-optical-sizing: auto;
+}
+::selection { background: var(--color-select); }
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+.wrap {
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-inline: var(--space-sm);
+}
+@media (min-width: 48rem) {
+  .wrap { padding-inline: var(--space-lg); }
+}
+
+/* ---- links ---- */
+a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--color-accent); }
+a:active { color: var(--color-ink-2); }
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ---- masthead · N5 strip: wordmark + mono dateline, no link row, no CTA ---- */
+.masthead {
+  border-bottom: var(--rule-hairline) solid var(--color-rule);
+}
+.masthead__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-block: var(--space-sm);
+}
+.masthead__wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.masthead__label {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-neutral);
+  line-height: 1;
+  white-space: nowrap;
+}
+@media (max-width: 36rem) {
+  .masthead__label { display: none; }
+}
+
+/* ---- hero · left-biased, content-height, bottom-heavy ---- */
+.hero {
+  padding-block: var(--space-xl) var(--space-2xl);
+}
+@media (min-width: 48rem) {
+  .hero { padding-block: var(--space-2xl) var(--space-3xl); }
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--text-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  text-wrap: balance;
+}
+.hero__lede {
+  font-size: var(--text-md);
+  line-height: var(--lh-lede);
+  max-width: 52ch;
+  margin-block: var(--space-md) var(--space-lg);
+}
+.hero__cta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+.hero__note {
+  color: var(--color-neutral);
+  line-height: 1;
+}
+
+/* ---- buttons · anchor and button share one affordance ---- */
+.btn {
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: 1;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: var(--rule-hairline) solid var(--color-ink);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--color-ink-2);
+  border-color: var(--color-ink-2);
+  color: var(--color-paper);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---- preamble · right-offset column breaks the left rhythm ---- */
+.preamble {
+  border-top: var(--rule-hairline) solid var(--color-rule);
+  padding-block: var(--space-xl) var(--space-2xl);
+}
+.preamble__text {
+  max-width: 62ch;
+  margin-left: auto;
+}
+.preamble__text p + p { margin-top: var(--space-md); }
+.preamble__text p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.4em;
+  line-height: 0.85;
+  float: left;
+  padding-right: var(--space-2xs);
+  margin-top: var(--space-3xs);
+  color: var(--color-accent);
+}
+
+/* ---- articles · numeral above title above body, strictly vertical ---- */
+.articles {
+  border-top: var(--rule-hairline) solid var(--color-rule);
+  padding-block: var(--space-xl);
+}
+.articles__col { max-width: 46rem; }
+.article {
+  border-top: var(--rule-hairline) solid var(--color-rule);
+  padding-block: var(--space-lg);
+}
+.article:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+.article__num {
+  display: block;
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2xs);
+}
+.article__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin-bottom: var(--space-xs);
+}
+.article p { max-width: 65ch; }
+
+/* ---- refusals & keepings ---- */
+.lists {
+  border-top: var(--rule-hairline) solid var(--color-rule);
+  padding-block: var(--space-xl) var(--space-2xl);
+}
+.lists__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--lh-heading);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin-bottom: var(--space-lg);
+}
+.lists__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+@media (min-width: 48rem) {
+  .lists__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+.lists__head {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-base);
+  margin-bottom: var(--space-sm);
+}
+.lists li {
+  padding-block: var(--space-2xs);
+  max-width: 45ch;
+}
+.lists li::before {
+  content: "\2014";
+  color: var(--color-accent);
+  margin-right: var(--space-2xs);
+}
+
+/* ---- sign · tinted section, ink flipped is not needed (surface stays light) ---- */
+.sign {
+  border-top: var(--rule-hairline) solid var(--color-rule);
+  background: var(--color-paper-2);
+  padding-block: var(--space-xl) var(--space-2xl);
+}
+.sign__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: var(--lh-heading);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin-bottom: var(--space-md);
+}
+.sign p { max-width: 60ch; }
+.sign__line {
+  border: var(--rule-hairline) solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
+  padding: var(--space-md);
+  font-size: var(--text-md);
+  line-height: var(--lh-lede);
+  margin-top: var(--space-md);
+}
+.sign__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-sm);
+  min-height: 1lh;
+}
+.sign__status { line-height: 1; }
+.sign__aside {
+  margin-top: var(--space-md);
+  color: var(--color-neutral);
+}
+
+/* ---- colophon · Ft4: statement footer, no link columns ---- */
+.colophon {
+  border-top: var(--rule-strong) solid var(--color-ink);
+  padding-block: var(--space-lg) var(--space-xl);
+}
+.colophon__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-sm);
+}
+.colophon__wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+  line-height: 1;
+}
+.colophon p {
+  max-width: 60ch;
+  color: var(--color-neutral);
+}
+.colophon a { color: var(--color-ink); }
+
+/* ---- motion · there is none; the one press-transform is guarded anyway ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  .btn:active { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead" id="top">
+  <div class="wrap masthead__row">
+    <span class="masthead__wordmark">Slow Web</span>
+    <span class="masthead__label">A manifesto in seven articles</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1 class="hero__title">The web can wait.</h1>
+      <p class="hero__lede">A manifesto for people who make pages — and the people who read them. Seven articles, one file, nothing that moves. This page is the argument and the demonstration.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#sign">Sign the manifesto</a>
+        <span class="hero__note">Seven articles first, then a sentence to keep.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="preamble" aria-label="Preamble">
+    <div class="wrap">
+      <div class="preamble__text">
+        <p>Somewhere between the feed and the notification, reading turned into grazing. Pages stopped ending. Sites began to behave like casinos with better typography — every scroll another pull of the lever, every visit measured in seconds wrung out of you. We are not against the web. We are against the hurry.</p>
+        <p>We want the other thing back: the page that is <em>finished</em>. The site that is one person’s shelf, dusted twice a year. The essay you close, and then think about at dinner. Slowness here is not nostalgia, and it is not lo-fi for its own sake — it is a decision about who the page serves. It serves the reader. Then it lets the reader go.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="articles" aria-label="The seven articles">
+    <div class="wrap">
+      <div class="articles__col">
+
+        <article class="article">
+          <span class="article__num">Article I</span>
+          <h2 class="article__title">One page is enough.</h2>
+          <p>A site can be a single page revised for years. Documents do not need growth strategies; they need care. Before adding a page, ask what the existing one would say about it.</p>
+        </article>
+
+        <article class="article">
+          <span class="article__num">Article II</span>
+          <h2 class="article__title">Load once, then hold still.</h2>
+          <p>Everything the reader needs arrives with the first response. No infinite scroll, no content that shuffles itself while being read. A finished page does not refresh itself.</p>
+        </article>
+
+        <article class="article">
+          <span class="article__num">Article III</span>
+          <h2 class="article__title">Nothing moves unless the reader moves it.</h2>
+          <p>No autoplay, no carousels, no paragraphs that fade in as if the writing were performing. Motion answers a reader’s gesture, or it does not happen. This page keeps that rule: nothing on it animates.</p>
+        </article>
+
+        <article class="article">
+          <span class="article__num">Article IV</span>
+          <h2 class="article__title">Weigh less than you say.</h2>
+          <p>Text is the densest medium the web has. A page should survive a weak signal in a stairwell — if the words arrive and nothing else does, the page should still work.</p>
+        </article>
+
+        <article class="article">
+          <span class="article__num">Article V</span>
+          <h2 class="article__title">The reader sets the pace.</h2>
+          <p>No countdowns, no streaks, no “only three left.” Urgency is a sales tool, not a reading aid. Whatever this page says today, it will still say next month — slightly better edited.</p>
+        </article>
+
+        <article class="article">
+          <span class="article__num">Article VI</span>
+          <h2 class="article__title">Leave the door unlocked.</h2>
+          <p>No interstitial asking for an email before the first sentence has been read. Come in, read, leave. Subscribing is something a reader decides at the end, on their own — or never.</p>
+        </article>
+
+        <article class="article">
+          <span class="article__num">Article VII</span>
+          <h2 class="article__title">Publish less; keep it longer.</h2>
+          <p>Revise instead of replace. Keep the URLs alive. A link that still works after ten years is a small public promise, kept — the web’s version of a stone bench.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="lists" aria-label="Refusals and keepings">
+    <div class="wrap">
+      <h2 class="lists__title">Refusals &amp; keepings</h2>
+      <div class="lists__grid">
+        <div>
+          <h3 class="lists__head">We refuse</h3>
+          <ul>
+            <li>Autoplay, in any form.</li>
+            <li>Infinite scroll.</li>
+            <li>Notification badges and their little red urgency.</li>
+            <li>Countdown timers on things that do not expire.</li>
+            <li>“Engagement” as a unit of worth.</li>
+            <li>Pop-ups that speak before the writing does.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="lists__head">We keep</h3>
+          <ul>
+            <li>RSS, faithfully.</li>
+            <li>Permalinks that outlive redesigns.</li>
+            <li>Alt text, written like it matters.</li>
+            <li>The back button, unbroken.</li>
+            <li>Margins wide enough to rest in.</li>
+            <li>The right to leave without being asked why.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sign" id="sign" aria-label="How to sign">
+    <div class="wrap">
+      <h2 class="sign__title">How to sign</h2>
+      <p>There is no form, and no list of names to scroll. Signing is something you do on your own site, in your own footer. Add the line below to your colophon, your about page, or the bottom of whatever you keep on the web — then live up to it.</p>
+      <p class="sign__line" id="the-line">This is a slow web page. It loads once, says its piece, and lets you go.</p>
+      <div class="sign__actions">
+        <button class="btn" type="button" id="copy-line">Copy the line</button>
+        <span class="sign__status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="sign__aside">No account, no counter, no confirmation. We won’t know you signed. That is the point.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="colophon">
+  <div class="wrap colophon__inner">
+    <span class="colophon__wordmark">Slow Web</span>
+    <p>This manifesto is one HTML file. No analytics, no cookies, no script that watches you — the only script on this page copies a sentence, and only when you ask.</p>
+    <p>Set in Fraunces, Newsreader, and Geist Mono. Written to be revised, not replaced. <a href="#top">Back to the top</a>.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById("copy-line");
+  var status = document.getElementById("copy-status");
+  var line = document.getElementById("the-line");
+  if (!btn || !status || !line) return;
+  btn.addEventListener("click", function () {
+    var text = line.textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        status.textContent = "Copied. Paste it into your footer.";
+      }, fallback);
+    } else {
+      fallback();
+    }
+    function fallback() {
+      var range = document.createRange();
+      range.selectNodeContents(line);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      status.textContent = "Couldn’t copy — the line is selected. Copy it yourself.";
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

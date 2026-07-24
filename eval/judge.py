@@ -74,6 +74,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--brief", help="only this brief id")
     p.add_argument("--arm", help="only run dirs starting with this arm id")
     p.add_argument("--force", action="store_true", help="re-judge even if judge.json exists")
+    p.add_argument("--provider", choices=["operator", "anthropic", "together"], default="operator",
+                   help="operator (default): the Claude Code operator reviews the shots, no API spend; "
+                        "anthropic / together: automated vision judge (spends that key)")
     p.add_argument("--dry-run", action="store_true", help="list what would be judged; no API calls")
     return p.parse_args()
 
@@ -222,6 +225,17 @@ def judge_one(api_key: str, run: dict) -> dict:
     ]
     used_model = JUDGE_MODEL
     usage = None
+    if globals().get("_FORCE_TOGETHER"):
+        text = call_api_together(api_key, blocks)
+        used_model = FALLBACK_MODEL
+        parsed = parse_judgement(text)
+        result = {"model": used_model, "generatedAt": datetime.now(timezone.utc).isoformat(), "usage": None}
+        if parsed is None:
+            result["error"] = "unparseable judge response"; result["raw"] = text[:4000]
+        else:
+            result["axes"] = parsed.get("axes"); result["gates"] = parsed.get("gates")
+            result["overall"] = parsed.get("overall"); result["rationale"] = parsed.get("rationale")
+        return result
     try:
         resp = call_api(api_key, blocks)
         text = "".join(
@@ -280,9 +294,22 @@ def main() -> int:
         print("nothing to judge")
         return 0
 
-    api_key = get_api_key()
+    if args.provider == "operator":
+        print("operator judge mode (no API spend). Review these shots and score by the rubric:")
+        for run in todo:
+            print(f"  {run['brief_id']}/{run['cell']}: {run['hero']} + {run['mobile']}")
+        print("\nRun with --provider together (or anthropic) for an automated pass.")
+        print("Rubric axes: philosophy, hierarchy, execution, specificity, restraint, variety (1-5); overall 1-10.")
+        return 0
+
+    if args.provider == "together":
+        api_key = load_env_key(FALLBACK_ENV)
+        globals()["_FORCE_TOGETHER"] = True
+    else:
+        api_key = get_api_key()
     if not api_key:
-        print("error: ANTHROPIC_API_KEY not set and not found in keyFiles", file=sys.stderr)
+        who = FALLBACK_ENV if args.provider == "together" else "ANTHROPIC_API_KEY"
+        print(f"error: {who} not set and not found in keyFiles", file=sys.stderr)
         return 1
 
     for run in todo:

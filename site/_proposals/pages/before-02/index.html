@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight">
+<head>
+  <script>document.documentElement.classList.add("js");</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nocturne — a drum machine for the small hours</title>
+  <meta name="description" content="Nocturne is a browser-based drum machine built for after midnight. Tap a pattern, set the tempo, and the loop plays in the tab. Nothing to install, nothing to save until you want to." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./tokens.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#sequencer">Skip to the drum machine</a>
+
+  <!-- N5 · Floating pill -->
+  <nav class="nav-pill" aria-label="Primary">
+    <a class="nav-pill__brand" href="#top" aria-label="Nocturne, home">
+      <span class="nav-pill__mark" aria-hidden="true"></span>
+      Nocturne
+    </a>
+    <ul class="nav-pill__links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#kit">The kit</a></li>
+      <li><a href="#browser">In the browser</a></li>
+    </ul>
+    <a class="btn btn--fill nav-pill__cta" href="#sequencer">Open the machine</a>
+  </nav>
+
+  <main id="top">
+
+    <!-- HERO · Marquee — the working sequencer IS the page above the fold -->
+    <section class="hero" id="sequencer" aria-labelledby="hero-title">
+      <div class="hero__copy reveal" style="--i:0">
+        <p class="hero__eyebrow">A drum machine for the small hours</p>
+        <h1 class="hero__title" id="hero-title">Lay a beat before the tab sleeps.</h1>
+        <p class="hero__lede">
+          Nocturne runs in this tab. Tap the grid, press play, and the loop
+          stays in the room with you. No account, no export until you ask —
+          just sixteen steps and a quiet hour.
+        </p>
+      </div>
+
+      <!-- The instrument: pure CSS/SVG panel, driven by Web Audio in script.js -->
+      <section class="machine reveal" style="--i:1" aria-label="Step sequencer" id="machine">
+        <header class="machine__bar">
+          <div class="transport">
+            <button type="button" class="transport__play" id="play" aria-pressed="false">
+              <span class="transport__glyph transport__glyph--play" aria-hidden="true"></span>
+              <span class="transport__glyph transport__glyph--stop" aria-hidden="true"></span>
+              <span class="transport__label" id="play-label">Play</span>
+            </button>
+            <div class="tempo">
+              <label class="tempo__label" for="tempo">Tempo</label>
+              <input class="tempo__range" id="tempo" type="range" min="60" max="160" value="92" step="1"
+                     aria-describedby="tempo-readout" />
+              <output class="tempo__readout" id="tempo-readout" for="tempo">92 BPM</output>
+            </div>
+          </div>
+          <div class="machine__tools">
+            <span class="machine__name">RX&nbsp;Mark&nbsp;II</span>
+            <button type="button" class="btn btn--ghost" id="clear">Clear grid</button>
+          </div>
+        </header>
+
+        <!-- 16-step waveform readout, hand-built SVG -->
+        <figure class="scope" aria-hidden="true">
+          <svg class="scope__svg" viewBox="0 0 320 40" preserveAspectRatio="none" role="presentation">
+            <polyline class="scope__line" id="scope-line" points="" fill="none" />
+          </svg>
+        </figure>
+
+        <!-- The grid is built in script.js so it stays in sync with the audio model.
+             A static fallback pattern is rendered here for no-JS / first paint. -->
+        <div class="grid" id="grid" role="group" aria-label="Pattern grid, four tracks by sixteen steps">
+          <!-- rows injected by script.js -->
+        </div>
+
+        <p class="machine__hint" id="machine-hint">
+          Tap any square to switch a hit on or off. Press play to hear the loop.
+        </p>
+      </section>
+    </section>
+
+    <!-- HOW · F4 step sequence — the workflow -->
+    <section class="band" id="how" aria-labelledby="how-title">
+      <div class="band__head reveal">
+        <h2 class="band__title" id="how-title">Four moves, then a loop.</h2>
+        <p class="band__sub">
+          Nocturne is a workflow, not a wall of knobs. You can have something
+          playing inside a minute, and the depth is there when you want it.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li class="step reveal" style="--i:0">
+          <span class="step__no">1.0</span>
+          <h3 class="step__title">Tap the grid.</h3>
+          <p class="step__body">
+            Each row is a drum, each column a sixteenth note. Tap the squares
+            where you want a hit. The kick on one, the snare on five and
+            thirteen — the classics are two taps away.
+          </p>
+        </li>
+        <li class="step reveal" style="--i:1">
+          <span class="step__no">2.0</span>
+          <h3 class="step__title">Set the tempo.</h3>
+          <p class="step__body">
+            Drag the tempo slider from a slow 60 to a brisk 160. The playhead
+            sweeps the grid in time, so you always see which step is sounding.
+          </p>
+        </li>
+        <li class="step reveal" style="--i:2">
+          <span class="step__no">3.0</span>
+          <h3 class="step__title">Sit in it.</h3>
+          <p class="step__body">
+            The loop repeats until you stop it. Mute a track, add a hat, take
+            the clap out again. Nothing commits — the pattern is yours to keep
+            rearranging.
+          </p>
+        </li>
+        <li class="step reveal" style="--i:3">
+          <span class="step__no">4.0</span>
+          <h3 class="step__title">Share the link.</h3>
+          <p class="step__body">
+            When a pattern is worth keeping, copy the address. The grid packs
+            into the URL, so a friend opens the same beat in their own tab —
+            no upload, no file, no sign-in.
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- KIT · the sound roster, hand-built tiles (varied, not a 3-up icon grid) -->
+    <section class="band band--kit" id="kit" aria-labelledby="kit-title">
+      <div class="band__head reveal">
+        <h2 class="band__title" id="kit-title">One kit, voiced for the dark.</h2>
+        <p class="band__sub">
+          Every sound is synthesised live in the tab — no samples to download.
+          Four voices, tuned warm and a little dry, so the loop sits low enough
+          to play at 2&nbsp;a.m. without waking the building.
+        </p>
+      </div>
+
+      <ul class="kit">
+        <li class="kit__voice kit__voice--wide reveal" style="--i:0">
+          <span class="kit__tag">Track 1</span>
+          <h3 class="kit__name">Kick</h3>
+          <p class="kit__note">
+            A short sine drop with a touch of click on the transient. Tuned to
+            55&nbsp;Hz so it reads as weight, not boom, through laptop speakers.
+          </p>
+          <span class="kit__meter" aria-hidden="true" data-shape="kick"></span>
+        </li>
+        <li class="kit__voice reveal" style="--i:1">
+          <span class="kit__tag">Track 2</span>
+          <h3 class="kit__name">Snare</h3>
+          <p class="kit__note">
+            Filtered noise over a tuned body. Snappy, never harsh.
+          </p>
+          <span class="kit__meter" aria-hidden="true" data-shape="snare"></span>
+        </li>
+        <li class="kit__voice reveal" style="--i:2">
+          <span class="kit__tag">Track 3</span>
+          <h3 class="kit__name">Hat</h3>
+          <p class="kit__note">
+            High-passed noise with a fast decay. The metronome of the loop.
+          </p>
+          <span class="kit__meter" aria-hidden="true" data-shape="hat"></span>
+        </li>
+        <li class="kit__voice kit__voice--wide reveal" style="--i:3">
+          <span class="kit__tag">Track 4</span>
+          <h3 class="kit__name">Clap</h3>
+          <p class="kit__note">
+            Three noise bursts a few milliseconds apart, so it lands like a room
+            full of hands instead of one. Drop it on the off-beats and the loop
+            opens up.
+          </p>
+          <span class="kit__meter" aria-hidden="true" data-shape="clap"></span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- BROWSER · feature notes, asymmetric two-column prose, no icon tiles -->
+    <section class="band band--browser" id="browser" aria-labelledby="browser-title">
+      <div class="browser__grid">
+        <div class="browser__lead reveal">
+          <h2 class="band__title" id="browser-title">It lives in the tab.</h2>
+          <p class="band__sub">
+            There is no app to install and no project to manage. Nocturne is one
+            page that happens to make sound. Close the tab and the room goes
+            quiet; open it tomorrow and start again.
+          </p>
+        </div>
+        <dl class="notes reveal">
+          <div class="note">
+            <dt class="note__term">Nothing to install</dt>
+            <dd class="note__desc">
+              The whole instrument is HTML, CSS, and the Web Audio API your
+              browser already ships. Open the link and it runs.
+            </dd>
+          </div>
+          <div class="note">
+            <dt class="note__term">Silent until you press play</dt>
+            <dd class="note__desc">
+              Audio waits for your first tap on play — the way browsers want it,
+              and the way a late-night tool should behave.
+            </dd>
+          </div>
+          <div class="note">
+            <dt class="note__term">Keyboard all the way</dt>
+            <dd class="note__desc">
+              Tab to any square, press space or enter to toggle a hit. Space
+              over the play button starts and stops the loop.
+            </dd>
+          </div>
+          <div class="note">
+            <dt class="note__term">The pattern is the URL</dt>
+            <dd class="note__desc">
+              Your grid encodes into the address bar. Bookmark a beat, or paste
+              it to a friend — no server keeps a copy.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <!-- Ft5 · Statement footer -->
+  <footer class="foot" aria-labelledby="foot-line">
+    <p class="foot__line" id="foot-line">Some beats only make sense after midnight.</p>
+    <div class="foot__meta">
+      <span class="foot__brand">
+        <span class="nav-pill__mark" aria-hidden="true"></span>
+        Nocturne
+      </span>
+      <span class="foot__credit">Built for the small hours · 2026</span>
+    </div>
+  </footer>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>

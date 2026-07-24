@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Slow Web Manifesto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,500;6..72,1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · macrostructure: Manifesto · tone: austere · anchor hue: 60
+ * theme: Newsprint · nav: N8 (minimal wordmark) · footer: Ft8 (colophon)
+ * enrichment: none · contrast: pass (40-41) · mobile: pass (34, 49, 50-57)
+ * honest: pass (46) · chrome: pass (47) · tokens: pass (48) · icons: pass (30)
+ * pre-emit critique: P5 H4 E5 S4 R5 V5
+ * fixes: gate 38a (lede em now roman, accent stroke) · gate 54 (tenet number stacked above heading)
+ */
+
+:root {
+  /* Paper — warm oat, hue 80 */
+  --color-paper:    oklch(96% 0.012 80);
+  --color-paper-2:  oklch(93% 0.014 80);
+  --color-paper-3:  oklch(89% 0.014 80);
+  --color-rule:     oklch(82% 0.010 80);
+  --color-rule-2:   oklch(72% 0.012 80);
+  --color-neutral:  oklch(56% 0.008 80);
+  --color-muted:    oklch(40% 0.010 70);
+  --color-ink:      oklch(18% 0.010 60);
+  --color-ink-soft: oklch(28% 0.010 60);
+  --color-accent:   oklch(58% 0.16 45);
+  --color-accent-ink: oklch(98% 0.010 80);
+  --color-focus:    oklch(55% 0.18 45);
+
+  /* Fonts — 2+1: Fraunces display, Newsreader body, JetBrains Mono outlier (masthead + colophon only) */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "Newsreader", ui-serif, Georgia, serif;
+  --font-outlier: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Scale — major third (1.25), 16px base */
+  --text-xs:   0.64rem;
+  --text-sm:   0.8rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.5625rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-3xl:  3.0518rem;
+  --text-4xl:  3.8147rem;
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+
+  /* Line-heights */
+  --lh-tight: 1.0;
+  --lh-snug: 1.15;
+  --lh-display: 1.05;
+  --lh-body: 1.6;
+
+  /* Spacing — 4pt scale */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-1: 1rem;
+  --space-2: 1.5rem;
+  --space-3: 2rem;
+  --space-4: 3rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+  --space-7: 8rem;
+  --space-8: 12rem;
+
+  /* Rules */
+  --rule-hair: 1px;
+  --rule-thin: 2px;
+
+  /* Radii */
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 4px;
+
+  /* Easings */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur-med: 240ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: var(--lh-body);
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-rule-2);
+  transition: text-decoration-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+a:hover { text-decoration-color: var(--color-accent); }
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-1);
+}
+a:active { color: var(--color-accent); }
+
+/* ── Masthead ─────────────────────────────────────── */
+
+.masthead {
+  border-bottom: var(--rule-thin) solid var(--color-ink);
+  padding: var(--space-1) var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.masthead__wordmark {
+  font-family: var(--font-outlier);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.masthead__wordmark:hover { text-decoration: none; }
+
+.masthead__meta {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* ── Hero ─────────────────────────────────────────── */
+
+.hero {
+  padding: var(--space-7) var(--space-3) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero__display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--text-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--color-ink);
+  max-width: 14ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.hero__lede {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--lh-snug);
+  max-width: 52ch;
+  margin: var(--space-4) 0 0;
+  color: var(--color-ink-soft);
+  font-weight: 400;
+}
+
+/* Roman emphasis in lede — accent stroke, not italic (gate 38a) */
+.hero__lede .emph {
+  font-style: normal;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--color-accent);
+}
+
+/* ── Preamble ─────────────────────────────────────── */
+
+.preamble {
+  padding: var(--space-5) var(--space-3) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.preamble__text {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--lh-body);
+  max-width: 62ch;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.preamble__text p { margin: 0 0 var(--space-2); }
+.preamble__text p:last-child { margin-bottom: 0; }
+/* Italic allowed in running body copy (gate 38a body exemption) */
+.preamble__text em { font-style: italic; }
+
+/* ── Tenets ───────────────────────────────────────── */
+
+.tenets {
+  padding: var(--space-3) var(--space-3) var(--space-7);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tenets__head {
+  display: block;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-1) 0;
+  margin-bottom: var(--space-5);
+}
+
+.tenets__head h2 {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1;
+}
+
+.tenets__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Tenet: number stacked ABOVE heading in same column (gate 54) */
+.tenet {
+  display: block;
+  padding: var(--space-5) 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.tenet:first-child { border-top: none; padding-top: 0; }
+.tenet:last-child { padding-bottom: 0; }
+
+.tenet__number {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.tenet__numeral {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--text-3xl);
+  line-height: 1;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.tenet__mark {
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent);
+  display: inline-block;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.tenet__body {
+  max-width: 70ch;
+}
+
+.tenet__body h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-xl);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-1);
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.tenet__body p {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--lh-body);
+  margin: 0;
+  max-width: 56ch;
+  color: var(--color-ink-soft);
+}
+.tenet__body p + p { margin-top: var(--space-1); }
+.tenet__body em { font-style: italic; color: var(--color-ink); }
+
+/* ── Signatures ──────────────────────────────────── */
+
+.signatures {
+  padding: var(--space-6) var(--space-3) var(--space-7);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.signatures__head {
+  display: block;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-1) 0;
+  margin-bottom: var(--space-4);
+}
+
+.signatures__head h2 {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1;
+}
+
+.signatures__intro {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--lh-body);
+  max-width: 62ch;
+  margin: 0 0 var(--space-4);
+  color: var(--color-ink-soft);
+}
+
+.signatures__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: var(--space-1);
+  align-items: end;
+  max-width: 720px;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.field__label {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.field__input {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.4;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-1);
+  padding: 0.6rem 0.75rem;
+  height: 44px;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out);
+  min-width: 0;
+  font-feature-settings: "kern" 1;
+}
+.field__input::placeholder {
+  color: var(--color-neutral);
+  font-style: italic;
+}
+.field__input:hover {
+  border-color: var(--color-muted);
+}
+.field__input:focus-visible {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+  background: var(--color-paper-2);
+}
+.field__input:active {
+  background: var(--color-paper-2);
+}
+.field__input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-color: var(--color-rule);
+}
+.field__input[aria-invalid="true"] {
+  border-color: var(--color-accent);
+  background: oklch(96% 0.04 45);
+}
+
+.field__helper {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  min-height: 1lh;
+  line-height: 1.4;
+  margin-top: var(--space-3xs);
+}
+.field__helper--error {
+  color: var(--color-accent);
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-1);
+  padding: 0 1.4rem;
+  height: 44px;
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.btn:active {
+  background: var(--color-ink-soft);
+  border-color: var(--color-ink-soft);
+  color: var(--color-paper);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--color-paper);
+  color: var(--color-muted);
+  border-color: var(--color-rule-2);
+}
+
+.signatures__count {
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  max-width: 720px;
+  line-height: 1.5;
+}
+
+.signatures__count strong {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-md);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Colophon ─────────────────────────────────────── */
+
+.colophon {
+  border-top: var(--rule-thin) solid var(--color-ink);
+  padding: var(--space-3) var(--space-3) var(--space-4);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.colophon__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-3) var(--space-4);
+  align-items: start;
+}
+
+.colophon__label {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.colophon__text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+  color: var(--color-ink-soft);
+  margin: 0;
+  max-width: 60ch;
+}
+.colophon__text a {
+  color: var(--color-ink);
+  text-decoration-color: var(--color-rule-2);
+}
+/* Italic allowed in running body copy (gate 38a body exemption) */
+.colophon__text em { font-style: italic; }
+
+.colophon__base {
+  margin-top: var(--space-4);
+  padding-top: var(--space-2);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.colophon__base p {
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.colophon__base a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+.colophon__base a:hover { color: var(--color-ink); }
+
+/* ── Responsive ───────────────────────────────────── */
+
+@media (max-width: 48rem) {
+  html { font-size: 17px; }
+
+  .masthead { padding: var(--space-1) var(--space-2); }
+
+  .hero { padding: var(--space-5) var(--space-2) var(--space-5); }
+  .hero__lede { margin-top: var(--space-3); }
+
+  .preamble { padding: var(--space-4) var(--space-2) var(--space-5); }
+
+  .tenets { padding: var(--space-3) var(--space-2) var(--space-6); }
+  .tenet {
+    padding: var(--space-4) 0;
+  }
+  .tenet__number { margin-bottom: var(--space-1); }
+  .tenet__numeral { font-size: var(--text-2xl); }
+
+  .signatures { padding: var(--space-5) var(--space-2) var(--space-6); }
+  .signatures__form {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  .btn { width: 100%; }
+
+  .colophon { padding: var(--space-3) var(--space-2) var(--space-4); }
+  .colophon__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-1) var(--space-3);
+  }
+  .colophon__base { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+}
+
+@media (max-width: 22rem) {
+  html { font-size: 16px; }
+  .masthead__meta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="masthead__wordmark" href="#top">The Slow Web</a>
+  <p class="masthead__meta">Manifesto · MMXXVI · Edition One</p>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 class="hero__display" id="hero-title">We are done with the scroll.</h1>
+    <p class="hero__lede">
+      A manifesto for the people who closed the tab before it finished loading, who muted the autoplay, who left the group chat on read — and <span class="emph">meant it</span>.
+    </p>
+  </section>
+
+  <section class="preamble" aria-label="Preamble">
+    <div class="preamble__text">
+      <p>
+        The web was sold to us as a library. It became a casino. Every page is a slot machine tuned to the same variable reward: the next thing, the new ping, the little red dot that means someone thought of you for half a second.
+      </p>
+      <p>
+        We are not asking to go back. We are asking to <em>arrive</em>. To read one thing and finish it. To write one thing and mean it. To close the laptop and feel that the hour was ours.
+      </p>
+      <p>
+        What follows is not a product, a platform, or a protocol. It is a posture. Five tenets we hold, and a line where you can hold them with us.
+      </p>
+    </div>
+  </section>
+
+  <section class="tenets" aria-labelledby="tenets-title">
+    <header class="tenets__head">
+      <h2 id="tenets-title">The Five Tenets</h2>
+    </header>
+
+    <ol class="tenets__list">
+      <li class="tenet">
+        <div class="tenet__number">
+          <span class="tenet__numeral">01</span>
+          <span class="tenet__mark" aria-hidden="true"></span>
+        </div>
+        <div class="tenet__body">
+          <h3>One thing at a time.</h3>
+          <p>A page is a page. It is not a feed. It does not refresh. It does not have a "next post" button. When you finish reading, you are finished — and that is the design.</p>
+        </div>
+      </li>
+      <li class="tenet">
+        <div class="tenet__number">
+          <span class="tenet__numeral">02</span>
+          <span class="tenet__mark" aria-hidden="true"></span>
+        </div>
+        <div class="tenet__body">
+          <h3>No infinite scroll.</h3>
+          <p>The bottom of the page is a feature, not a bug. Reaching it is a small mercy. We design for the moment the reader looks up, not the moment they look down again.</p>
+        </div>
+      </li>
+      <li class="tenet">
+        <div class="tenet__number">
+          <span class="tenet__numeral">03</span>
+          <span class="tenet__mark" aria-hidden="true"></span>
+        </div>
+        <div class="tenet__body">
+          <h3>No engagement metrics.</h3>
+          <p>No likes. No views. No streaks. No little red dots. A piece of writing is not improved by the count of people who glanced at it. We refuse to measure attention in fractions of a second.</p>
+        </div>
+      </li>
+      <li class="tenet">
+        <div class="tenet__number">
+          <span class="tenet__numeral">04</span>
+          <span class="tenet__mark" aria-hidden="true"></span>
+        </div>
+        <div class="tenet__body">
+          <h3>Slow is a feature.</h3>
+          <p>Pages may take a moment to load. Letters may take a day to be answered. We do not apologise for this. The pause is where the meaning gets in.</p>
+        </div>
+      </li>
+      <li class="tenet">
+        <div class="tenet__number">
+          <span class="tenet__numeral">05</span>
+          <span class="tenet__mark" aria-hidden="true"></span>
+        </div>
+        <div class="tenet__body">
+          <h3>Close the tab.</h3>
+          <p>The highest compliment a reader can pay this page is to close it, walk away, and remember what it said. We are not building a return audience. We are building a memory.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="signatures" aria-labelledby="signatures-title">
+    <header class="signatures__head">
+      <h2 id="signatures-title">Signatures</h2>
+    </header>
+
+    <p class="signatures__intro">
+      If you have read this far, you have already signed it in private. If you would like to sign it in public, leave a name. We will not email you, follow you, or count you. We will simply remember that you were here.
+    </p>
+
+    <form class="signatures__form" id="sign-form" novalidate>
+      <div class="field">
+        <label class="field__label" for="sig-name">Your name</label>
+        <input
+          class="field__input"
+          type="text"
+          id="sig-name"
+          name="name"
+          placeholder="As you'd like to be remembered"
+          autocomplete="name"
+          required
+          maxlength="80"
+          aria-describedby="sig-helper"
+        >
+        <span class="field__helper" id="sig-helper" aria-live="polite">Optional. No surname required.</span>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="sig-place">Where you read this</label>
+        <input
+          class="field__input"
+          type="text"
+          id="sig-place"
+          name="place"
+          placeholder="A city, a kitchen, a train"
+          autocomplete="off"
+          maxlength="80"
+          aria-describedby="sig-helper-place"
+        >
+        <span class="field__helper" id="sig-helper-place" aria-live="polite">Optional.</span>
+      </div>
+
+      <button class="btn" type="submit" id="sig-submit">Sign it</button>
+    </form>
+
+    <p class="signatures__count" id="sig-count" aria-live="polite">
+      <strong id="sig-number">0</strong> signatures. Yours would be the first.
+    </p>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <div class="colophon__grid">
+    <p class="colophon__label">Colophon</p>
+    <p class="colophon__text">
+      This page was written in one sitting and edited in three. It is set in <em>Fraunces</em> and <em>Newsreader</em>, with <em>JetBrains&nbsp;Mono</em> in the masthead and colophon. It loads in a single file. It does not track you. It does not remember you between visits. If you want to share it, copy the URL by hand — the way you would copy a sentence out of a book.
+    </p>
+  </div>
+  <div class="colophon__base">
+    <p>The Slow Web · MMXXVI · No rights reserved.</p>
+    <p><a href="#top">Return to the top ↑</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('sign-form');
+  var nameInput = document.getElementById('sig-name');
+  var placeInput = document.getElementById('sig-place');
+  var helper = document.getElementById('sig-helper');
+  var submit = document.getElementById('sig-submit');
+  var countEl = document.getElementById('sig-count');
+  var numberEl = document.getElementById('sig-number');
+  var count = 0;
+
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = nameInput.value.trim();
+
+    if (!name) {
+      nameInput.setAttribute('aria-invalid', 'true');
+      nameInput.focus({ preventScroll: true });
+      helper.textContent = 'A name is needed to sign. A first name is enough.';
+      helper.classList.add('field__helper--error');
+      return;
+    }
+
+    if (nameInput.getAttribute('aria-invalid') === 'true') {
+      nameInput.removeAttribute('aria-invalid');
+      helper.textContent = 'Optional. No surname required.';
+      helper.classList.remove('field__helper--error');
+    }
+
+    submit.disabled = true;
+    submit.textContent = 'Signed';
+
+    count = count + 1;
+    numberEl.textContent = String(count);
+    countEl.innerHTML = '<strong>' + count + '</strong> signature' + (count === 1 ? '' : 's') + '. You are among them.';
+
+    nameInput.value = '';
+    placeInput.value = '';
+    nameInput.disabled = true;
+    placeInput.disabled = true;
+  });
+
+  nameInput.addEventListener('input', function () {
+    if (nameInput.getAttribute('aria-invalid') === 'true') {
+      nameInput.removeAttribute('aria-invalid');
+      helper.textContent = 'Optional. No surname required.';
+      helper.classList.remove('field__helper--error');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

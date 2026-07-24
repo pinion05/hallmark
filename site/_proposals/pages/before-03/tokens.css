@@ -1,0 +1,105 @@
+/* Hallmark · tokens · custom (tuned) · vibe: "warm paper, unhurried, hand-set, anti-acceleration"
+ * paper oklch(96% 0.013 70) · accent oklch(50% 0.13 38) clay-warm · Fraunces + Newsreader + Space Mono
+ * axes — paper-band: light (>85%) · display-style: high-contrast-serif (Fraunces) · accent-hue: warm (38°)
+ * Every colour + font in the build references a token here. No mid-render improvisation.
+ */
+
+:root {
+  /* ── Paper / surfaces — warm cream, never #fff ─────────────── */
+  --color-paper:     oklch(96% 0.013 70);
+  --color-paper-2:   oklch(93% 0.016 68);
+  --color-paper-3:   oklch(89% 0.020 64);
+
+  /* ── Rules / dividers ──────────────────────────────────────── */
+  --color-rule:      oklch(80% 0.014 60);
+  --color-rule-2:    oklch(62% 0.016 52);
+
+  /* ── Neutrals — warm-tinted, never zero chroma ─────────────── */
+  --color-muted:     oklch(48% 0.018 48);
+  --color-neutral:   oklch(38% 0.020 44);
+
+  /* ── Ink — warm near-black, never #000 ─────────────────────── */
+  --color-ink-2:     oklch(28% 0.022 42);
+  --color-ink:       oklch(20% 0.024 40);
+  --color-paper-dim: oklch(82% 0.014 64);  /* lifted paper for body text on the dark ink band (AA) */
+
+  /* ── Accent — one muted clay, < 5% footprint ───────────────── */
+  --color-accent:    oklch(50% 0.13 38);   /* fills, marks, underlines */
+  --color-accent-2:  oklch(58% 0.13 44);   /* hover lift of the accent */
+  --color-link:      oklch(41% 0.115 35);  /* inline link text on paper — AA body */
+  --color-accent-ink: oklch(97% 0.012 72); /* text ON an accent fill (>=18px / bold only) */
+  --color-focus:     oklch(45% 0.16 38);
+
+  /* ── State colours ─────────────────────────────────────────── */
+  --color-error:     oklch(50% 0.17 28);
+  --color-error-ink: oklch(97% 0.012 72);
+
+  /* ── Type families — 3 max: display · body · outlier ───────── */
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body:    "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono:    "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ── Type scale — perfect fourth (1.333) off 16px body ─────── */
+  --text-xs:   0.75rem;    /* 12px  — print-shop labels */
+  --text-sm:   0.875rem;   /* 14px  */
+  --text-base: 1rem;       /* 16px  */
+  --text-md:   1.1875rem;  /* 19px  — lede */
+  --text-lg:   1.5rem;     /* 24px  */
+  --text-xl:   2rem;       /* 32px  */
+  --text-2xl:  2.625rem;   /* 42px  */
+  --text-3xl:  3.5rem;     /* 56px  */
+  --text-display:   clamp(2.875rem, 4.4vw + 1.4rem, 5.25rem);
+  --text-display-s: clamp(2.25rem, 3vw + 1.2rem, 3.75rem);
+
+  /* ── Line heights ──────────────────────────────────────────── */
+  --lh-display: 1.04;
+  --lh-tight:   1.12;
+  --lh-body:    1.62;
+
+  /* ── Weights ───────────────────────────────────────────────── */
+  --wt-body:    420;
+  --wt-medium:  560;
+  --wt-display: 600;
+  --wt-heavy:   800;
+
+  /* ── Spacing — 4pt scale, named by role ────────────────────── */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* ── Page rhythm ───────────────────────────────────────────── */
+  --page-gutter: clamp(1.25rem, 5vw, 5rem);
+  --measure:     63ch;
+  --banner-height: 4rem;
+
+  /* ── Rules / radii ─────────────────────────────────────────── */
+  --rule-hair: 1px;
+  --rule-bold: 2px;
+  --radius-input: 2px;
+
+  /* ── Easings — three named curves, never browser default ───── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ── Durations ─────────────────────────────────────────────── */
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  /* ── Z-index — six named levels ────────────────────────────── */
+  --z-base:     1;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-sticky-nav: 300;
+  --z-modal:    400;
+  --z-toast:    500;
+}

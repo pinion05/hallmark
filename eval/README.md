@@ -102,3 +102,7 @@ Per arm, on the enabled matrix:
 - **Rotation:** no macrostructure repeated more than twice within any arm's six briefs; component brief correctly skipped the page stamp. Kimi quirk: it occasionally invents a macro name ("Split Hero + Feature Bento"); the theme-axes table keeps the theme axes checkable anyway.
 - **Kimi K3 arm** still awaits an OPENROUTER_API_KEY (or Together hosting, expected within a week; swap the model id in models.json). K2.7-Code is the documented stand-in.
 - Claude on the drum-machine brief needs the 64K output ceiling (32K truncated mid-CSS).
+
+## API keys
+
+The eval harness never uses your Anthropic key by default. Generation arms run on Together (GLM, Kimi stand-in); the baseline uses whatever `ANTHROPIC_API_KEY` you set only if you run that arm. The vision judge defaults to **operator mode** (`python3 judge.py`): it lists the screenshots for the Claude Code operator (Opus 4.8 on your subscription) to score by the rubric, spending nothing. `--provider together` runs an automated pass on a Together vision model; `--provider anthropic` is opt-in and the only path that touches your Anthropic key.

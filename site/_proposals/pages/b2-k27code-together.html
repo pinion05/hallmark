@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Latebeat · Browser Drum Machine</title>
+  <meta name="description" content="A late-night, browser-based drum machine. No installs, no accounts — just sixteen steps and five synthesized voices.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Tomorrow:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+/* Hallmark · macrostructure: Workbench · tone: atmospheric · anchor hue: 250 · theme: Midnight · nav: N5 · footer: Ft1 · contrast: pass (40–41) · mobile: pass (34, 49, 50–57) */
+/* Hallmark · pre-emit critique: P4 H5 E5 S4 R5 V5 */
+
+:root {
+  /* Palette — midnight surface, warm amber signal */
+  --color-paper:          oklch(13% 0.012 250);
+  --color-paper-2:        oklch(17% 0.015 250);
+  --color-paper-3:        oklch(22% 0.018 250);
+  --color-rule:           oklch(30% 0.020 250);
+  --color-neutral:        oklch(55% 0.015 250);
+  --color-muted:          oklch(72% 0.012 250);
+  --color-ink:            oklch(94% 0.007 80);
+  --color-accent:         oklch(72% 0.180 60);
+  --color-accent-2:       oklch(78% 0.160 60);
+  --color-accent-ink:     oklch(18% 0.040 60);
+  --color-focus:          oklch(82% 0.140 60);
+
+  /* Typography */
+  --font-body:            "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:         "Tomorrow", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:            "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-wordmark:        "Tomorrow", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Type scale — major third */
+  --text-xs:              0.64rem;   /* ~10px */
+  --text-sm:              0.8rem;    /* ~13px */
+  --text-base:            1rem;      /* 16px */
+  --text-md:              1.25rem;   /* 20px */
+  --text-lg:              1.5625rem; /* 25px */
+  --text-xl:              1.9531rem; /* 31px */
+  --text-2xl:             2.4414rem; /* 39px */
+  --text-3xl:             3.0518rem; /* 49px */
+  --text-4xl:             3.8147rem; /* 61px */
+  --text-display:         clamp(2.75rem, 5vw + 1rem, 5rem);
+
+  --lh-tight:             1.08;
+  --lh-body:              1.6;
+  --measure:              65ch;
+
+  /* Spacing — 4pt scale in rem */
+  --space-3xs:            0.25rem;
+  --space-2xs:            0.5rem;
+  --space-xs:             0.75rem;
+  --space-s:              1rem;
+  --space-m:              1.5rem;
+  --space-l:              2rem;
+  --space-xl:             3rem;
+  --space-2xl:            4rem;
+  --space-3xl:            6rem;
+  --space-4xl:            8rem;
+
+  /* Radius */
+  --radius:               0.5rem;
+  --radius-pill:          9999px;
+
+  /* Motion */
+  --ease-out:             cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-out-expo:        cubic-bezier(0.19, 1, 0.22, 1);
+  --dur-fast:             0.15s;
+  --dur-base:             0.25s;
+
+  /* Layers */
+  --z-base:               0;
+  --z-nav:                100;
+  --z-sticky:             200;
+  --z-modal:              300;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--lh-body);
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+h1 { font-size: var(--text-display); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-lg); }
+
+a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--color-neutral);
+  transition: text-decoration-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+p, li {
+  max-width: var(--measure);
+}
+
+/* Layout utilities */
+.container {
+  width: min(100% - var(--space-xl), 73rem);
+  margin-inline: auto;
+  padding-inline: var(--space-s);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Masthead — sparse, low-contrast, no chrome */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  padding-block: var(--space-s);
+  background-color: var(--color-paper);
+}
+
+.masthead__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+.wordmark {
+  font-family: var(--font-wordmark);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.wordmark:hover {
+  color: var(--color-accent);
+}
+
+.masthead__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.masthead__nav a {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.masthead__nav a:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-neutral);
+}
+
+/* Hero — content-height, left-weighted, not centred-everything */
+.hero {
+  padding-block-start: clamp(var(--space-3xl), 12vh, var(--space-4xl));
+  padding-block-end: var(--space-2xl);
+}
+
+.hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-block-end: var(--space-2xs);
+}
+
+.hero__title {
+  margin-block-end: var(--space-m);
+  max-width: 18ch;
+}
+
+.hero__lede {
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  max-width: 52ch;
+  line-height: 1.5;
+  margin-block-end: var(--space-xl);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  height: 2.75rem;
+  padding-inline: var(--space-m);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-base);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out-expo),
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover {
+  background-color: var(--color-accent-2);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  border-color: var(--color-rule);
+  color: var(--color-ink);
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-paper-2);
+  border-color: var(--color-neutral);
+}
+
+/* Workbench — the drum machine */
+.workbench {
+  padding-block: var(--space-xl);
+}
+
+.machine {
+  background-color: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius);
+  padding: var(--space-m);
+}
+
+@media (min-width: 48rem) {
+  .machine {
+    padding: var(--space-l);
+  }
+}
+
+.machine__title {
+  font-size: var(--text-xl);
+  margin-block-end: var(--space-s);
+}
+
+.machine__note {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-block-end: var(--space-l);
+  max-width: 60ch;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+  margin-block-end: var(--space-l);
+  padding-block-end: var(--space-m);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.control-group label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.control-group output {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  min-width: 2.5ch;
+}
+
+/* Range inputs */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8rem;
+  height: 0.25rem;
+  background: var(--color-rule);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:focus::-moz-range-thumb {
+  transform: scale(1.15);
+}
+
+/* Sequencer */
+.sequencer__scroll {
+  overflow-x: auto;
+  padding-block-end: var(--space-xs);
+}
+
+.sequencer__grid {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: var(--space-xs);
+  min-width: 36rem;
+}
+
+.sequencer__labels {
+  display: grid;
+  grid-template-rows: repeat(5, 2.75rem);
+  gap: var(--space-2xs);
+}
+
+.sequencer__label {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.sequencer__rows {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.sequencer__row {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: var(--space-3xs);
+}
+
+/* Step pads */
+.pad {
+  position: relative;
+  appearance: none;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius);
+  background-color: var(--color-paper-3);
+  color: var(--color-muted);
+  height: 2.75rem;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out-expo),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.pad:hover {
+  background-color: var(--color-paper-2);
+  border-color: var(--color-neutral);
+  color: var(--color-ink);
+}
+
+.pad:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.pad:active {
+  transform: translateY(1px);
+}
+
+.pad:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pad--active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.pad--active:hover {
+  background-color: var(--color-accent-2);
+}
+
+.pad--playing {
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.pad:nth-child(4n) {
+  margin-inline-end: var(--space-2xs);
+}
+
+/* Details */
+.details {
+  padding-block: var(--space-3xl);
+}
+
+.section-title {
+  margin-block-end: var(--space-xl);
+}
+
+.detail-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-l);
+  counter-reset: detail;
+}
+
+.detail-list__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-width: 56ch;
+}
+
+.detail-list__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.detail-list__item h3 {
+  font-size: var(--text-md);
+}
+
+.detail-list__item p {
+  color: var(--color-muted);
+}
+
+/* Footer */
+.site-foot {
+  padding-block: var(--space-l);
+  border-top: 1px solid var(--color-rule);
+}
+
+.site-foot__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+.site-foot small {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.site-foot__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.site-foot__links a {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-foot__links a:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Very narrow viewports */
+@media (max-width: 22rem) {
+  .masthead__nav {
+    display: none;
+  }
+
+  .controls {
+    gap: var(--space-s);
+  }
+
+  input[type="range"] {
+    width: 6rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="container masthead__inner">
+      <a class="wordmark" href="#">Latebeat</a>
+      <nav class="masthead__nav" aria-label="Primary">
+        <a href="#machine">Machine</a>
+        <a href="#details">Details</a>
+        <a href="#help">Help</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="hero__eyebrow">Browser drum machine</p>
+        <h1 class="hero__title">Make beats inside your browser.</h1>
+        <p class="hero__lede">No plugins, no accounts, no waiting. Sixteen steps, five drum voices, and a tempo you control. Built for headphones after midnight.</p>
+        <div class="hero__actions">
+          <button id="heroStartBtn" class="btn" type="button">Start the machine</button>
+          <a class="btn btn--ghost" href="#details">How it works</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="machine" class="workbench">
+      <div class="container">
+        <h2 class="machine__title">The machine</h2>
+        <p class="machine__note">Click the pads to turn steps on or off. Space-bar not needed — press Play and the sequencer starts.</p>
+
+        <div class="machine">
+          <div class="controls">
+            <button id="playBtn" class="btn" type="button">Play</button>
+
+            <div class="control-group">
+              <label for="bpm">Tempo</label>
+              <input id="bpm" type="range" min="60" max="180" value="110" aria-label="Beats per minute">
+              <output id="bpmValue" for="bpm">110</output>
+            </div>
+
+            <div class="control-group">
+              <label for="gain">Volume</label>
+              <input id="gain" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Master volume">
+            </div>
+
+            <button id="clearBtn" class="btn btn--ghost" type="button">Clear pattern</button>
+            <button id="randomBtn" class="btn btn--ghost" type="button">Randomise</button>
+          </div>
+
+          <div class="sequencer" aria-label="16-step drum sequencer">
+            <div class="sequencer__scroll">
+              <div class="sequencer__grid">
+                <div class="sequencer__labels" aria-hidden="true">
+                  <span class="sequencer__label">Kick</span>
+                  <span class="sequencer__label">Snare</span>
+                  <span class="sequencer__label">Hi-hat</span>
+                  <span class="sequencer__label">Tom</span>
+                  <span class="sequencer__label">Clap</span>
+                </div>
+                <div id="sequencerRows" class="sequencer__rows"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="details" class="details">
+      <div class="container">
+        <h2 class="section-title">Built for one tab.</h2>
+        <ol class="detail-list">
+          <li class="detail-list__item">
+            <span class="detail-list__num">01</span>
+            <h3>Browser-first</h3>
+            <p>Everything runs in the tab. No installation, no sign-up wall, no sample packs to download. Open it, make a loop, close it.</p>
+          </li>
+          <li class="detail-list__item">
+            <span class="detail-list__num">02</span>
+            <h3>Five voices, synthesized</h3>
+            <p>Kick, snare, hi-hat, tom, and clap are generated with the Web Audio API — not sampled, not tracked, not compressed.</p>
+          </li>
+          <li class="detail-list__item">
+            <span class="detail-list__num">03</span>
+            <h3>Fast enough to jam</h3>
+            <p>A lookahead scheduler keeps timing tight, a tempo slider runs 60–180 BPM, and the master gain is right here in the surface.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="container site-foot__inner">
+      <small>© 2026 Latebeat · Built with the Web Audio API.</small>
+      <div class="site-foot__links">
+        <a href="#">License</a>
+        <a href="#">Source</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  'use strict';
+
+  const bpmInput = document.getElementById('bpm');
+  const bpmOutput = document.getElementById('bpmValue');
+  const gainInput = document.getElementById('gain');
+  const playBtn = document.getElementById('playBtn');
+  const heroStartBtn = document.getElementById('heroStartBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const randomBtn = document.getElementById('randomBtn');
+  const rowsContainer = document.getElementById('sequencerRows');
+
+  const instrumentConfigs = [
+    { name: 'kick', label: 'Kick', defaultPattern: [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0] },
+    { name: 'snare', label: 'Snare', defaultPattern: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0] },
+    { name: 'hat', label: 'Hi-hat', defaultPattern: [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1] },
+    { name: 'tom', label: 'Tom', defaultPattern: [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1] },
+    { name: 'clap', label: 'Clap', defaultPattern: [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0] }
+  ];
+
+  let pattern = instrumentConfigs.map(c => c.defaultPattern.slice());
+  let audioCtx = null;
+  let masterGain = null;
+  let noiseBuffer = null;
+  let isPlaying = false;
+  let currentStep = 0;
+  let nextNoteTime = 0.0;
+  let timerID = null;
+  let pads = [];
+
+  const lookahead = 25.0;
+  const scheduleAheadTime = 0.1;
+
+  function initAudio() {
+    if (audioCtx) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AudioContext();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = parseFloat(gainInput.value);
+    masterGain.connect(audioCtx.destination);
+    noiseBuffer = createNoiseBuffer();
+  }
+
+  function createNoiseBuffer() {
+    const bufferSize = audioCtx.sampleRate * 2;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    return buffer;
+  }
+
+  function triggerKick(time) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(masterGain);
+    osc.frequency.setValueAtTime(150, time);
+    osc.frequency.exponentialRampToValueAtTime(40, time + 0.25);
+    gain.gain.setValueAtTime(1, time);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.5);
+    osc.start(time);
+    osc.stop(time + 0.5);
+  }
+
+  function triggerSnare(time) {
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    const noiseFilter = audioCtx.createBiquadFilter();
+    noiseFilter.type = 'highpass';
+    noiseFilter.frequency.value = 900;
+    const noiseGain = audioCtx.createGain();
+    noise.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(masterGain);
+    noiseGain.gain.setValueAtTime(0.8, time);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.18);
+    noise.start(time);
+    noise.stop(time + 0.18);
+
+    const tone = audioCtx.createOscillator();
+    const toneGain = audioCtx.createGain();
+    tone.type = 'triangle';
+    tone.frequency.setValueAtTime(200, time);
+    tone.connect(toneGain);
+    toneGain.connect(masterGain);
+    toneGain.gain.setValueAtTime(0.4, time);
+    toneGain.gain.exponentialRampToValueAtTime(0.001, time + 0.12);
+    tone.start(time);
+    tone.stop(time + 0.12);
+  }
+
+  function triggerHat(time) {
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'highpass';
+    filter.frequency.value = 8000;
+    const gain = audioCtx.createGain();
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(masterGain);
+    gain.gain.setValueAtTime(0.55, time);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.06);
+    noise.start(time);
+    noise.stop(time + 0.06);
+  }
+
+  function triggerTom(time) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(masterGain);
+    osc.frequency.setValueAtTime(120, time);
+    osc.frequency.exponentialRampToValueAtTime(60, time + 0.3);
+    gain.gain.setValueAtTime(0.9, time);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.35);
+    osc.start(time);
+    osc.stop(time + 0.35);
+  }
+
+  function triggerClap(time) {
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 1500;
+    filter.Q.value = 1;
+    const gain = audioCtx.createGain();
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(masterGain);
+    gain.gain.setValueAtTime(0, time);
+    gain.gain.linearRampToValueAtTime(0.9, time + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.14);
+    noise.start(time);
+    noise.stop(time + 0.15);
+  }
+
+  function triggerInstrument(name, time) {
+    if (!audioCtx) return;
+    switch (name) {
+      case 'kick': triggerKick(time); break;
+      case 'snare': triggerSnare(time); break;
+      case 'hat': triggerHat(time); break;
+      case 'tom': triggerTom(time); break;
+      case 'clap': triggerClap(time); break;
+    }
+  }
+
+  function nextNote() {
+    const secondsPerBeat = 60.0 / getBpm();
+    const sixteenth = secondsPerBeat / 4.0;
+    nextNoteTime += sixteenth;
+    currentStep = (currentStep + 1) % 16;
+  }
+
+  function scheduleNote(step, time) {
+    instrumentConfigs.forEach((inst, i) => {
+      if (pattern[i][step]) {
+        triggerInstrument(inst.name, time);
+      }
+    });
+  }
+
+  function scheduler() {
+    while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime) {
+      scheduleNote(currentStep, nextNoteTime);
+      nextNote();
+    }
+  }
+
+  function updatePlayButton() {
+    playBtn.textContent = isPlaying ? 'Pause' : 'Play';
+  }
+
+  function start() {
+    initAudio();
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    if (isPlaying || timerID) return;
+    isPlaying = true;
+    currentStep = 0;
+    nextNoteTime = audioCtx.currentTime + 0.05;
+    timerID = window.setInterval(scheduler, lookahead);
+    updatePlayButton();
+  }
+
+  function stop() {
+    isPlaying = false;
+    if (timerID) {
+      window.clearInterval(timerID);
+      timerID = null;
+    }
+    updatePlayButton();
+  }
+
+  function togglePlay() {
+    if (isPlaying) stop(); else start();
+  }
+
+  function getBpm() {
+    return parseInt(bpmInput.value, 10);
+  }
+
+  function renderGrid() {
+    rowsContainer.innerHTML = '';
+    pads = [];
+    instrumentConfigs.forEach((inst, rowIndex) => {
+      const row = document.createElement('div');
+      row.className = 'sequencer__row';
+      row.dataset.instrument = inst.name;
+      const rowPads = [];
+      for (let step = 0; step < 16; step++) {
+        const btn = document.createElement('button');
+        btn.className = 'pad' + (pattern[rowIndex][step] ? ' pad--active' : '');
+        btn.type = 'button';
+        btn.dataset.row = rowIndex;
+        btn.dataset.step = step;
+        btn.setAttribute('aria-pressed', pattern[rowIndex][step] ? 'true' : 'false');
+        btn.setAttribute('aria-label', `${inst.label} step ${step + 1}, ${pattern[rowIndex][step] ? 'on' : 'off'}`);
+        if ((step + 1) % 4 === 1 && step !== 0) {
+          btn.style.marginInlineStart = '0';
+        }
+        btn.addEventListener('click', () => {
+          initAudio();
+          const nowOn = !pattern[rowIndex][step];
+          pattern[rowIndex][step] = nowOn ? 1 : 0;
+          btn.classList.toggle('pad--active', nowOn);
+          btn.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
+          btn.setAttribute('aria-label', `${inst.label} step ${step + 1}, ${nowOn ? 'on' : 'off'}`);
+          if (nowOn && audioCtx) {
+            triggerInstrument(inst.name, audioCtx.currentTime);
+          }
+        });
+        row.appendChild(btn);
+        rowPads.push(btn);
+      }
+      rowsContainer.appendChild(row);
+      pads.push(rowPads);
+    });
+  }
+
+  function updatePlayhead() {
+    for (let r = 0; r < pads.length; r++) {
+      for (let s = 0; s < 16; s++) {
+        pads[r][s].classList.toggle('pad--playing', s === currentStep);
+      }
+    }
+  }
+
+  function clearPattern() {
+    for (let i = 0; i < pattern.length; i++) {
+      pattern[i].fill(0);
+    }
+    pads.forEach(row => row.forEach(btn => {
+      btn.classList.remove('pad--active');
+      btn.setAttribute('aria-pressed', 'false');
+    }));
+  }
+
+  function randomisePattern() {
+    for (let i = 0; i < pattern.length; i++) {
+      for (let s = 0; s < 16; s++) {
+        const on = Math.random() < 0.22;
+        pattern[i][s] = on ? 1 : 0;
+        const btn = pads[i][s];
+        btn.classList.toggle('pad--active', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      }
+    }
+  }
+
+  // Render loop for playhead (decoupled from audio scheduler)
+  function renderLoop() {
+    if (isPlaying) updatePlayhead();
+    requestAnimationFrame(renderLoop);
+  }
+
+  playBtn.addEventListener('click', togglePlay);
+  heroStartBtn.addEventListener('click', () => {
+    start();
+    document.getElementById('machine').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  clearBtn.addEventListener('click', clearPattern);
+  randomBtn.addEventListener('click', randomisePattern);
+
+  bpmInput.addEventListener('input', () => {
+    bpmOutput.textContent = bpmInput.value;
+  });
+
+  gainInput.addEventListener('input', () => {
+    initAudio();
+    if (masterGain) {
+      masterGain.gain.value = parseFloat(gainInput.value);
+    }
+  });
+
+  renderGrid();
+  requestAnimationFrame(renderLoop);
+})();
+  </script>
+</body>
+</html>

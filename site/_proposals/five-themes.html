@@ -63,6 +63,12 @@ body {
 
 .footer { padding: 48px 0 72px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
 
+.mock-open { position: absolute; inset: 0; z-index: 6; display: flex; align-items: flex-end; justify-content: flex-end; padding: 12px; text-decoration: none; opacity: 0; transition: opacity 160ms var(--ease, ease); }
+.mock-open span { font-family: var(--font-mono); font-size: 12px; color: oklch(20% 0.01 70); background: oklch(97% 0.01 80 / 0.94); border: 1px solid var(--rule); border-radius: 99px; padding: 6px 12px; box-shadow: 0 6px 18px oklch(0% 0 0 / 0.25); }
+.mock:hover .mock-open, .mock-open:focus-visible { opacity: 1; }
+.mock-open:focus-visible { outline: 2px solid oklch(55% 0.19 30); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .mock-open { transition: none; } }
+
 /* ============ 01 · PLATE ============ */
 .m-plate {
   --pl-ink: oklch(97% 0.01 75);
@@ -263,6 +269,7 @@ body {
   <h1>Five proposed themes, two alternates.</h1>
   <p>Each candidate fills a hole the current twenty themes leave open, and each is grounded in real, professionally designed sites rather than invented aesthetics. The mockups below are drawn in each candidate's draft tokens with a deliberately different structure per theme. Nothing ships until you pick.</p>
   <div class="note">Photography in mockups is placeholder CSS art. Fonts shown are free-baseline picks from the Hallmark canon.</div>
+  <div class="note">Hover any mockup and click <b>Open full page</b> to see the theme carried through a complete landing page.</div>
 </header>
 
 <!-- ==================== 01 PLATE ==================== -->
@@ -289,6 +296,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-plate">
+        <a class="mock-open" href="themes/plate.html" target="_blank" rel="noopener" aria-label="Open the full Plate page"><span>Open full page &#8599;</span></a>
         <div class="p-nav"><span class="mark">Kiln</span><span class="links"><span>Collection</span><span>Stockists</span><span>Journal</span></span></div>
         <div class="photo-plate"></div>
         <div class="annot">
@@ -327,6 +335,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-grid">
+        <a class="mock-open" href="themes/grid.html" target="_blank" rel="noopener" aria-label="Open the full Grid page"><span>Open full page &#8599;</span></a>
         <div class="g-nav"><span>büro grid</span><span>work</span><span>method</span><span>contact</span><span>de / en</span></div>
         <div class="g-title"><h2>schedule,<br />then ship<span class="dot">.</span></h2></div>
         <div class="g-marker"></div>
@@ -366,6 +375,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-bench">
+        <a class="mock-open" href="themes/bench.html" target="_blank" rel="noopener" aria-label="Open the full Bench page"><span>Open full page &#8599;</span></a>
         <div class="b-head"><h2>FR-2 field recorder</h2><div class="chips"><span>48kHz</span><span>340g</span><span class="hot">ships Q4</span></div></div>
         <div class="device"><div class="grille"></div><div class="dial"></div></div>
         <svg class="dims" viewBox="0 0 800 500" preserveAspectRatio="none" aria-hidden="true">
@@ -413,6 +423,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-maison">
+        <a class="mock-open" href="themes/maison.html" target="_blank" rel="noopener" aria-label="Open the full Maison page"><span>Open full page &#8599;</span></a>
         <nav class="ms-nav"><span>Maison</span><span>Collection</span><span>Atelier</span><span>Contact</span></nav>
         <div class="lockup">
           <div class="no">N° 04 · AUTUMN</div>
@@ -455,6 +466,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-field">
+        <a class="mock-open" href="themes/field.html" target="_blank" rel="noopener" aria-label="Open the full Field page"><span>Open full page &#8599;</span></a>
         <div class="f-nav"><span class="mark">Fieldnote</span><span class="links"><span>Product</span><span>Pricing</span><span class="btn-s">Sign in</span></span></div>
         <div class="f-left">
           <h2>Meetings that end<br />with <mark>a plan</mark>.</h2>
@@ -501,6 +513,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-ledger">
+        <a class="mock-open" href="themes/ledger.html" target="_blank" rel="noopener" aria-label="Open the full Ledger page"><span>Open full page &#8599;</span></a>
         <div class="l-nav"><span class="mark">Meridian</span><span class="links"><span>Product</span><span>Pricing</span><span class="open">Open account</span></span></div>
         <div class="l-hero">
           <h2>Treasury, reconciled<br />while you sleep.</h2>
@@ -543,6 +556,7 @@ body {
     </div>
     <figure class="mock">
       <div class="mock-frame m-arcade">
+        <a class="mock-open" href="themes/arcade.html" target="_blank" rel="noopener" aria-label="Open the full Arcade page"><span>Open full page &#8599;</span></a>
         <div class="a-top">FREE PLAY · EVENT 07</div>
         <h2>SUMMER JAM<br />26<span class="cursor"></span></h2>
         <div class="a-sub">a 48-hour game jam for people with day jobs</div>
