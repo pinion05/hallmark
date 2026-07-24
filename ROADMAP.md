@@ -1,28 +1,28 @@
 # Roadmap
 
-What's next. (v1.2 shipped: the `variants` verb + picker, the custom art-direction ritual with the draw and the direction atlas, the sloplint mechanical checker, open-model hardening + the eval harness, and the big token diet.)
+What's next. (v1.3 shipped: the edit-time lint hook, four new themes with the image hook, spec files for all 24 themes, the Tier A conformance harness, and variants v2 with progressive reveal + grafts + thumbnails + scoped injection.)
 
 ---
 
 ## Now
 
-**Land the new themes.** Five candidates + two alternates are proposed with visuals in `site/_proposals/five-themes.html` (Plate, Grid, Bench, Maison, Field; Ledger, Arcade). Waiting on the pick; each chosen theme gets tokens, axes comments, a spec file, and two example builds.
+**Run the eval matrices on real endpoints.** Tier B (`gen-direct.py`) and Tier A (`gen-cli.mjs`) are built. Run the 6-brief matrix on GLM (Together) and Kimi (OpenRouter) for Tier B, and the Claude conformance pass for Tier A in a logged-in terminal; iterate the skill text until the acceptance criteria in `eval/README.md` hold. Add Z.ai + Moonshot tokens to unlock the Tier A open-model arms.
 
-**Run the eval matrix on real endpoints.** `eval/` is built; run the 6-brief matrix against GLM (Together) and Kimi (OpenRouter), iterate the skill text until the acceptance criteria in `eval/README.md` hold, and publish the compare gallery. Re-run when Together lands Kimi K3.
+**Measure the variants speedup.** `eval/variants-bench.md` documents the four-config protocol; run it on a real authenticated machine and publish the wall-clock + token table (parallel + sketch + progressive vs the v1 baseline).
 
-**Nanobanana hook for image-heavy briefs.** Recommend-only today. First-class hook: write the prompt, invoke the API, ingest the image, wire it into the build (cache by prompt hash). Pairs with the Plate theme candidate.
+**Second example builds for the four new themes.** Each shipped with a canonical `-01`; add a `-02` on a second brief, and marketing cards on the homepage gallery.
 
 ---
 
 ## Next
 
-**sloplint as an edit-time hook.** The checker currently runs at Step 7. Wire it as a PostToolUse hook so mechanical slop is caught the moment a file is written, before the model moves on.
+**sloplint as an edit-time hook, on by default.** The hook exists (`scripts/install-hook.mjs`) and is opt-in. Consider shipping a project `.claude/settings.json` with it pre-wired, or a one-line prompt in `init`.
 
-**Theme spec files for the remaining 16 themes.** Only Carnival, Cobalt, Hum, and Lumen carry signature-move specs today. Cap each at ~150 lines; the tokens block cannot encode voice.
+**Grow the direction atlas + rate the draw.** More lineages, usage-weighted dealing, a ratings pass so strong directions surface more often.
 
-**Tier A harness runs.** `eval/gen-cli.mjs`: drive the real Claude Code binary headless per model (Z.ai / Moonshot Anthropic-shaped endpoints) to test skill triggering and load-order discipline, not just instruction-following.
+**Variants v2.1.** Screenshot thumbnails in the picker are in; next: DOM-injection with write-back for non-file-router apps (the hard AST-codemod path deliberately deferred), and a live variants demo wired on usehallmark.com.
 
-**Brand-first flow.** From a short product description, generate a complete brand (palette, type, voice, imagery) locked into a `design.md`; then every page builds against it.
+**Brand-first flow.** From a short product description, generate a complete brand (palette, type, voice, imagery via the image hook) locked into a `design.md`; then every page builds against it.
 
 **Theme-aware motion tokens.** Per-theme `--dur-micro` / `--dur-short` / `--dur-long`; Atelier should feel slower than Brutal.
 
@@ -30,18 +30,15 @@ What's next. (v1.2 shipped: the `variants` verb + picker, the custom art-directi
 
 **`study` reads your own codebase.** Third input mode: a path. Walk the files, extract the tokens + fingerprint in use, emit the same `design.md`.
 
-**Structural cookbook.** Twelve to twenty worked fingerprints with short HTML/CSS sketches; patterns are easier to reach for than principles.
-
 **Charts reference.** A `data-viz.md`: small multiples over dense singles, one accent + neutrals, the worst chart types banned outright.
 
 ---
 
 ## Later
 
-- **Grow the direction atlas.** More lineages, usage-weighted dealing, a ratings pass so strong directions surface more often.
 - **Per-harness prebuilt bundles.** Compiled copies for Gemini CLI, Copilot, OpenCode and friends, with placeholder substitution per harness.
 - **`hallmark explain`** - narrate the choices axis by axis; the skill teaches.
 - **Negative-capability rules** - for each anti-pattern, the perceptual reason it fails.
-- **Emotion-first prompting** - *nostalgic · optimistic · sceptical* instead of tone adjectives.
+- **Emotion-first prompting** - *nostalgic, optimistic, sceptical* instead of tone adjectives.
 - **Sound + haptic policy** - when web sound is acceptable without kitsch.
-- **Live preview as an MCP server** - watch, render, screenshot, feed back into the gate sweep (the `--render` tier is the seed of this).
+- **Live preview as an MCP server** - watch, render, screenshot, feed back into the gate sweep (the `--render` tier and `gen-cli.mjs` are the seeds of this).

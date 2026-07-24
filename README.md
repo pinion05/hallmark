@@ -96,7 +96,7 @@ It stays a quiet branch; vanilla briefs never see it. The protocol lives in [`cu
 
 ## Variants <sup>NEW</sup>
 
-`hallmark variants <brief>` runs the ceremony once, then builds **three complete directions**: different macrostructure, different theme (one dark, one mid, one light paper, forced), different nav, different footer. A tiny zero-dependency picker server (`skills/hallmark/scripts/variants/`) shows all three as live frames; in an existing app each direction is a temporary route your own dev server renders, with a small chip in the corner to flip and pick. Choose one and Hallmark promotes it, archives the others under `.hallmark/variants/`, and logs the whole run. Say `riff` for a fourth direction. No Node available? The picker degrades to a static compare page, and a chat reply ("pick 2") always works.
+`hallmark variants <brief>` runs the ceremony once, then builds **three structurally distinct directions** (different macrostructure, theme, nav, footer) and serves a local picker to flip between them and choose. v2 makes it fast and smooth: the picker opens immediately and fills **progressively** (you evaluate direction 1 while 2 and 3 finish), directions generate **in parallel** at **sketch depth** by default (only the winner completes to full), the grid shows screenshot **thumbnails** (so it survives dev servers that block iframes), and the verdict can be **compositional** ("direction 2, but the pricing from 3" grafts that section in). After the pick you can **zoom** to riff a single section, every round is logged to `.hallmark/variants/<run>/decisions.md`, and in a Vite/Astro/SvelteKit app a dev-only overlay previews each direction in place. No Node? A static compare page and a chat reply ("pick 2") always work.
 
 ---
 
