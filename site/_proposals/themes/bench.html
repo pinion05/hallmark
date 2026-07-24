@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FR-2 Field Recorder · Meridian Instruments</title>
+<meta name="description" content="The FR-2 is a pocket field recorder machined from a single billet: two matched capsules, a 24-detent dial you can set without looking, and 48 kHz / 24-bit to card.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · macrostructure: Workbench · theme: Bench (candidate) · tone: industrial/precise */
+
+:root {
+  /* ---- colour (OKLCH, cool anchor ~250, one safety-orange accent hue 45) ---- */
+  --color-paper:      oklch(94% 0.006 240);   /* cool light sheet */
+  --color-paper-2:    oklch(96.5% 0.005 240); /* raised panel */
+  --color-paper-3:    oklch(91% 0.008 245);   /* recessed chip / hole */
+  --color-ink:        oklch(24% 0.015 250);   /* primary ink */
+  --color-ink-2:      oklch(38% 0.014 250);   /* secondary ink */
+  --color-muted:      oklch(52% 0.014 250);   /* captions / helper */
+  --color-dim:        oklch(60% 0.020 250);   /* dimension + extension lines */
+  --color-rule:       oklch(84% 0.010 245);   /* faint hairline */
+  --color-rule-2:     oklch(74% 0.012 248);   /* drawn hairline */
+  --color-grid:       oklch(90% 0.006 245);   /* graph-paper grid */
+  --color-metal:      oklch(89% 0.006 245);   /* shell fill light */
+  --color-metal-2:    oklch(83% 0.009 248);   /* shell fill shade */
+  --color-dot:        oklch(72% 0.012 248);   /* grille dot */
+  --color-screen:     oklch(30% 0.020 250);   /* OLED surface */
+  --color-screen-ink: oklch(82% 0.030 200);   /* OLED readout */
+  --color-accent:     oklch(66% 0.19 45);     /* safety orange, instrument-only */
+  --color-accent-2:   oklch(61% 0.19 42);     /* orange, pressed */
+  --color-accent-ink: oklch(20% 0.04 45);     /* ink on orange (5.4:1) */
+  --color-focus:      oklch(34% 0.05 250);    /* dark cool focus ring */
+
+  /* ---- type ---- */
+  --font-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-xs:  0.75rem;
+  --text-sm:  0.8125rem;
+  --text-base:1rem;
+  --text-md:  1.125rem;
+  --text-lg:  1.375rem;
+  --text-xl:  1.75rem;
+  --text-2xl: 2.25rem;
+  --text-display: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+
+  /* ---- spacing (4pt) ---- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-s:   1rem;
+  --space-m:   1.5rem;
+  --space-l:   2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --rule:  1px solid var(--color-rule);
+  --hair:  1px solid var(--color-rule-2);
+  --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:   180ms;
+  --control-h: 2.75rem;
+}
+
+/* ---- base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  overflow-x: clip;
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+body {
+  overflow-x: clip;
+  margin: 0;
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background-color: var(--color-accent); color: var(--color-accent-ink); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+p { margin: 0; max-width: 68ch; }
+
+a { color: var(--color-ink); text-decoration-color: var(--color-rule-2); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--color-accent); }
+
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* the mono voice: every number, code, and label */
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+
+.wrap { max-width: 75rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 2.5rem); }
+
+.skip {
+  position: absolute; left: var(--space-s); top: var(--space-s); z-index: 5;
+  padding: var(--space-2xs) var(--space-s);
+  background-color: var(--color-paper-2); border: var(--hair); border-radius: var(--radius-xs);
+  transform: translateY(-200%);
+}
+.skip:focus-visible { transform: none; }
+
+/* ---- product identity bar ---- */
+.masthead { border-bottom: var(--hair); background-color: var(--color-paper-2); }
+.masthead__row {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--space-s);
+  padding-block: var(--space-s);
+}
+.brand { display: flex; align-items: baseline; gap: var(--space-s); text-decoration: none; }
+.brand__name {
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--text-sm);
+  text-transform: uppercase; letter-spacing: 0.14em; line-height: 1; white-space: nowrap;
+}
+.brand__no {
+  font-family: var(--font-mono); font-size: var(--text-2xs); line-height: 1;
+  color: var(--color-muted); white-space: nowrap;
+}
+.chips { display: flex; align-items: center; gap: var(--space-2xs); flex-wrap: wrap; }
+.chip {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--text-2xs); line-height: 1; white-space: nowrap;
+  padding: var(--space-3xs) var(--space-2xs);
+  color: var(--color-ink); background-color: var(--color-paper-3);
+  border: var(--hair); border-radius: var(--radius-xs);
+}
+
+/* ---- buttons + links ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2xs);
+  height: var(--control-h); padding-inline: var(--space-m);
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--text-sm);
+  letter-spacing: 0.04em; text-transform: uppercase; line-height: 1;
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  border: 1px solid var(--color-rule-2); border-radius: var(--radius-sm);
+  background-color: var(--color-paper-2); color: var(--color-ink);
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.btn:hover { background-color: var(--color-paper-3); border-color: var(--color-ink-2); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn--accent {
+  background-color: var(--color-accent); color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+.btn--accent:hover { background-color: var(--color-accent-2); border-color: var(--color-accent-2); }
+
+.link {
+  font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.02em;
+  color: var(--color-ink); text-decoration-line: underline;
+  text-decoration-color: var(--color-rule-2); text-underline-offset: 4px; white-space: nowrap;
+}
+.link:hover { text-decoration-color: var(--color-accent); }
+
+/* ---- eyebrow (label stacked ABOVE heading, never beside) ---- */
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono); font-size: var(--text-2xs); line-height: 1.1;
+  text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-muted);
+  margin-bottom: var(--space-s);
+}
+.eyebrow b { color: var(--color-ink); font-weight: 500; }
+
+/* ============================ HERO ============================ */
+.hero { padding-block: var(--space-l) var(--space-4xl); }
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: var(--space-2xl);
+  align-items: center;
+}
+.hero h1 { font-size: var(--text-display); max-width: 12ch; }
+.hero__lede { margin-top: var(--space-m); font-size: var(--text-md); color: var(--color-ink-2); max-width: 46ch; }
+.hero__cta { display: flex; align-items: center; gap: var(--space-m); margin-top: var(--space-l); flex-wrap: wrap; }
+
+/* the drawing */
+.drawing { margin: 0; }
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background-color: var(--color-paper-2);
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  border: var(--hair);
+  border-radius: var(--radius-sm);
+}
+
+/* CSS-art device parts, positioned on a 1500 x 1000 grid (% = unit / 15 or / 10) */
+.shell {
+  position: absolute; left: 21%; top: 22%; width: 58%; height: 48%;
+  border-radius: 18px;
+  background: radial-gradient(120% 140% at 30% 15%, var(--color-metal), var(--color-metal-2));
+  border: 2px solid var(--color-rule-2);
+  box-shadow: inset 0 0 0 6px var(--color-paper-2), inset 0 0 0 7px var(--color-rule);
+}
+.screen {
+  position: absolute; left: 25%; top: 30%; width: 17.33%; height: 13%;
+  background-color: var(--color-screen); color: var(--color-screen-ink);
+  border: 2px solid var(--color-rule-2); border-radius: var(--radius-xs);
+  padding: 4% 5%; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; gap: 0.3em;
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: 0;
+  font-size: clamp(0.4rem, 0.78vw, 0.7rem); line-height: 1.1;
+}
+.screen__row { display: flex; justify-content: space-between; gap: 0.6em; white-space: nowrap; }
+.grille {
+  position: absolute; left: 25%; top: 47%; width: 16.33%; height: 16.5%;
+  border: var(--hair); border-radius: var(--radius-xs);
+  background-image: radial-gradient(var(--color-dot) 1.3px, transparent 1.6px);
+  background-size: 10px 10px; background-position: 3px 3px;
+}
+.dial {
+  position: absolute; left: 57.33%; top: 35.5%; width: 14%; height: 21%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, var(--color-metal), var(--color-metal-2));
+  border: 2px solid var(--color-rule-2);
+  box-shadow: inset 0 0 0 7% var(--color-paper-2), inset 0 0 0 8% var(--color-rule-2);
+}
+.dial::before { /* knurled detent ring */
+  content: ""; position: absolute; inset: 6%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(var(--color-rule-2) 0deg 1.6deg, transparent 1.6deg 15deg);
+  -webkit-mask: radial-gradient(circle, transparent 60%, var(--color-ink) 62%);
+  mask: radial-gradient(circle, transparent 60%, var(--color-ink) 62%);
+}
+.dial::after { /* orange indicator tick */
+  content: ""; position: absolute; left: 50%; top: 8%;
+  width: 6px; height: 22%; transform: translateX(-50%);
+  background-color: var(--color-accent); border-radius: 2px;
+}
+.rec { /* record button: ink ring + orange centre LED */
+  position: absolute; left: 70.67%; top: 27%; width: 4%; height: 6%;
+  border-radius: 50%; background-color: var(--color-paper-2);
+  border: 2px solid var(--color-rule-2);
+  display: grid; place-items: center;
+}
+.rec::after { content: ""; width: 42%; height: 42%; border-radius: 50%; background-color: var(--color-accent); }
+.btnrow {
+  position: absolute; left: 45%; top: 58.5%; width: 16%; height: 4%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.btnrow span { width: 22%; height: 100%; border-radius: 50%; background-color: var(--color-paper-3); border: var(--hair); }
+
+/* SVG dimension + callout overlay — one coordinate system, scales with the stage */
+.dims { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.ext, .dln, .lead { fill: none; stroke: var(--color-dim); stroke-width: 2; }
+.d-arrow { fill: var(--color-dim); }
+.dlbl-bg { fill: var(--color-paper-2); }
+.dlbl, .dlbl2 {
+  font-family: var(--font-mono); fill: var(--color-ink-2);
+  font-size: 34px; text-anchor: middle; dominant-baseline: central; letter-spacing: 0.02em;
+}
+.dlbl2 { text-anchor: start; font-size: 30px; }
+.hole { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.tick { fill: var(--color-accent); }
+.balloon { fill: var(--color-paper-2); stroke: var(--color-ink); stroke-width: 2.5; }
+.bnum { font-family: var(--font-mono); font-weight: 500; fill: var(--color-ink); font-size: 32px; text-anchor: middle; dominant-baseline: central; }
+
+.drawing__cap {
+  margin-top: var(--space-s);
+  font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--color-muted);
+}
+
+/* ============================ SPECS ============================ */
+.section { padding-block: var(--space-3xl); border-top: var(--rule); }
+.section__head { max-width: 62ch; margin-bottom: var(--space-xl); }
+.section__head h2 { font-size: var(--text-2xl); }
+.section__head p { margin-top: var(--space-s); color: var(--color-ink-2); }
+
+.specs__grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl);
+}
+.specs__group h3 {
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--text-2xs);
+  text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-muted);
+  padding-bottom: var(--space-2xs); border-bottom: var(--hair);
+}
+.specs { margin: var(--space-s) 0 0; padding: 0; }
+.srow {
+  display: flex; align-items: baseline; gap: var(--space-2xs);
+  padding-block: var(--space-2xs);
+}
+.srow dt {
+  font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-muted);
+  white-space: nowrap;
+}
+.srow .ldr { flex: 1 1 auto; height: 0; border-bottom: 1px dotted var(--color-rule-2); transform: translateY(-0.28em); }
+.srow dd {
+  margin: 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--text-sm); color: var(--color-ink); text-align: right; white-space: nowrap;
+}
+
+/* ============================ CAPSULES ============================ */
+.caps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); }
+.cap {
+  padding: var(--space-l);
+  background-color: var(--color-paper-2); border: var(--hair); border-radius: var(--radius-sm);
+  display: flex; flex-direction: column; gap: var(--space-xs);
+}
+.cap__label {
+  font-family: var(--font-mono); font-size: var(--text-2xs); line-height: 1.1;
+  text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-muted);
+}
+.cap__fig {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 500;
+  font-size: var(--text-2xl); line-height: 1; color: var(--color-ink); letter-spacing: -0.01em;
+}
+.cap__fig small { font-size: var(--text-md); color: var(--color-muted); letter-spacing: 0; }
+.cap h3 { font-size: var(--text-md); }
+.cap p { font-size: var(--text-sm); color: var(--color-ink-2); max-width: 46ch; }
+
+/* ============================ MATERIALS ============================ */
+.parts { margin: 0; padding: 0; list-style: none; border-top: var(--hair); }
+.part {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+  gap: var(--space-m); align-items: baseline;
+  padding-block: var(--space-m); border-bottom: var(--hair);
+}
+.part__no { font-family: var(--font-mono); font-weight: 500; font-size: var(--text-lg); color: var(--color-accent-ink); }
+.part__no b { color: var(--color-accent); }
+.part__body h3 { font-size: var(--text-md); }
+.part__body p { margin-top: var(--space-3xs); font-size: var(--text-sm); color: var(--color-ink-2); max-width: 60ch; }
+.part__code {
+  font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: 0.06em;
+  color: var(--color-muted); white-space: nowrap; text-transform: uppercase;
+}
+
+/* ============================ RESERVE / TITLE-BLOCK ============================ */
+.reserve { padding-block: var(--space-3xl) var(--space-4xl); border-top: var(--rule); }
+.block {
+  border: 2px solid var(--color-rule-2); border-radius: var(--radius-sm);
+  background-color: var(--color-paper-2); overflow: hidden;
+}
+.block__meta {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 2px solid var(--color-rule-2);
+}
+.field-cell {
+  padding: var(--space-s) var(--space-m);
+  border-right: var(--hair);
+  display: flex; flex-direction: column; gap: var(--space-3xs);
+}
+.field-cell:last-child { border-right: 0; }
+.field-cell dt {
+  font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--color-muted);
+}
+.field-cell dd {
+  margin: 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--text-sm); color: var(--color-ink);
+}
+.block__body {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-2xl); align-items: end;
+  padding: var(--space-xl);
+}
+.block__body h2 { font-size: var(--text-xl); max-width: 18ch; }
+.block__body p { margin-top: var(--space-s); font-size: var(--text-sm); color: var(--color-ink-2); max-width: 52ch; }
+.form__label {
+  display: block; font-family: var(--font-mono); font-size: var(--text-2xs);
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-muted);
+  margin-bottom: var(--space-2xs);
+}
+.form__row { display: flex; gap: var(--space-2xs); }
+.field {
+  flex: 1 1 auto; min-width: 0; height: var(--control-h); padding-inline: var(--space-s);
+  font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-ink);
+  background-color: var(--color-paper); border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-sm); outline: 2px solid transparent; outline-offset: 1px;
+  transition: background-color var(--dur) var(--ease);
+}
+.field::placeholder { color: var(--color-muted); }
+.field:hover { background-color: var(--color-paper-3); }
+.field:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+.field:disabled { opacity: 0.5; cursor: not-allowed; }
+.form__note {
+  min-height: 1lh; margin-top: var(--space-2xs);
+  font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+.form__note.is-error { color: var(--color-accent-2); }
+
+/* ============================ FOOTER ============================ */
+.footer { border-top: 2px solid var(--color-rule-2); padding-block: var(--space-l); }
+.footer__line {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: var(--text-2xs); letter-spacing: 0.04em; color: var(--color-muted);
+  line-height: 1.7; overflow-wrap: anywhere;
+}
+.footer__line b { color: var(--color-ink); font-weight: 500; }
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width: 60rem) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .hero { padding-block: var(--space-m) var(--space-3xl); }
+  .specs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .block__body { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
+}
+@media (max-width: 40rem) {
+  .specs__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
+  .caps { grid-template-columns: minmax(0, 1fr); }
+  .block__meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field-cell:nth-child(2) { border-right: 0; }
+  .field-cell { border-bottom: var(--hair); }
+  .part { grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .part__code { grid-column: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .field { transition: none; }
+  .btn:active { transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__row">
+    <a class="brand" href="#top" id="top">
+      <span class="brand__name">Meridian Instruments</span>
+      <span class="brand__no">no. FR-2</span>
+    </a>
+    <div class="chips" aria-label="Key specifications">
+      <span class="chip">48 kHz / 24-bit</span>
+      <span class="chip">340 g</span>
+      <span class="chip">ships Q4</span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero__grid">
+      <div class="hero__intro">
+        <span class="eyebrow">Field recorder <b>·</b> FR-2 <b>·</b> sheet 1 of 1</span>
+        <h1 id="hero-title">FR-2 Field Recorder</h1>
+        <p class="hero__lede">A pocket recorder machined for the take you only get once. Two matched capsules, a dial you can set by feel, and 48 kHz to card.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#reserve">Reserve a unit</a>
+          <a class="link" href="#specs">Full specification</a>
+        </div>
+      </div>
+
+      <figure class="drawing">
+        <div class="stage">
+          <div class="shell" aria-hidden="true"></div>
+          <div class="screen" aria-hidden="true">
+            <div class="screen__row"><span>REC 48k</span><span>24b</span></div>
+            <div class="screen__row"><span>-12dB</span><span>01:24</span></div>
+          </div>
+          <div class="grille" aria-hidden="true"></div>
+          <div class="dial" aria-hidden="true"></div>
+          <div class="rec" aria-hidden="true"></div>
+          <div class="btnrow" aria-hidden="true"><span></span><span></span><span></span></div>
+
+          <svg class="dims" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+            <defs>
+              <marker id="arw" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="16" refX="17" refY="7" orient="auto-start-reverse">
+                <path class="d-arrow" d="M2 1 L18 7 L2 13 Z"></path>
+              </marker>
+              <marker id="arwp" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="16" refX="17" refY="7" orient="auto">
+                <path class="d-arrow" d="M2 1 L18 7 L2 13 Z"></path>
+              </marker>
+            </defs>
+
+            <!-- overall width, bottom -->
+            <line class="ext" x1="315" y1="710" x2="315" y2="812"></line>
+            <line class="ext" x1="1185" y1="710" x2="1185" y2="812"></line>
+            <line class="dln" x1="315" y1="790" x2="1185" y2="790" marker-start="url(#arw)" marker-end="url(#arw)"></line>
+            <rect class="dlbl-bg" x="690" y="772" width="120" height="36"></rect>
+            <text class="dlbl" x="750" y="791">132 mm</text>
+
+            <!-- overall height, left -->
+            <line class="ext" x1="305" y1="220" x2="198" y2="220"></line>
+            <line class="ext" x1="305" y1="700" x2="198" y2="700"></line>
+            <line class="dln" x1="240" y1="220" x2="240" y2="700" marker-start="url(#arw)" marker-end="url(#arw)"></line>
+            <g transform="rotate(-90 240 460)">
+              <rect class="dlbl-bg" x="182" y="442" width="116" height="36"></rect>
+              <text class="dlbl" x="240" y="461">76 mm</text>
+            </g>
+
+            <!-- dial diameter detail -->
+            <line class="lead" x1="1238" y1="612" x2="1052" y2="508" marker-end="url(#arwp)"></line>
+            <text class="dlbl2" x="1246" y="616">&#216; 26</text>
+
+            <!-- capsule ports on the top edge -->
+            <circle class="hole" cx="895" cy="214" r="9"></circle>
+            <circle class="hole" cx="955" cy="214" r="9"></circle>
+
+            <!-- numbered callouts: leader + orange tick + balloon -->
+            <line class="lead" x1="360" y1="250" x2="235" y2="140"></line>
+            <circle class="tick" cx="360" cy="250" r="6"></circle>
+            <circle class="balloon" cx="235" cy="140" r="32"></circle>
+            <text class="bnum" x="235" y="141">01</text>
+
+            <line class="lead" x1="505" y1="360" x2="560" y2="135"></line>
+            <circle class="tick" cx="505" cy="360" r="6"></circle>
+            <circle class="balloon" cx="560" cy="135" r="32"></circle>
+            <text class="bnum" x="560" y="136">04</text>
+
+            <line class="lead" x1="925" y1="206" x2="1015" y2="140"></line>
+            <circle class="tick" cx="925" cy="206" r="6"></circle>
+            <circle class="balloon" cx="1015" cy="140" r="32"></circle>
+            <text class="bnum" x="1015" y="141">03</text>
+
+            <line class="lead" x1="1060" y1="402" x2="1300" y2="235"></line>
+            <circle class="tick" cx="1060" cy="402" r="6"></circle>
+            <circle class="balloon" cx="1300" cy="235" r="32"></circle>
+            <text class="bnum" x="1300" y="236">02</text>
+          </svg>
+        </div>
+        <figcaption class="drawing__cap">FR-2 · front elevation · third-angle · drawn 1:2 · dimensions in mm</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap" id="specs" aria-labelledby="specs-title">
+    <div class="section__head">
+      <span class="eyebrow">Sheet A <b>·</b> technical specification</span>
+      <h2 id="specs-title">Every figure, measured.</h2>
+      <p>No rounded-up claims. These are the numbers the FR-2 is built and tested to, printed the way the bench prints them.</p>
+    </div>
+    <div class="specs__grid">
+      <div class="specs__group">
+        <h3>Audio</h3>
+        <dl class="specs">
+          <div class="srow"><dt>Sample rate</dt><span class="ldr" aria-hidden="true"></span><dd>48 kHz / 24-bit</dd></div>
+          <div class="srow"><dt>Also</dt><span class="ldr" aria-hidden="true"></span><dd>44.1 / 96 kHz</dd></div>
+          <div class="srow"><dt>Format</dt><span class="ldr" aria-hidden="true"></span><dd>WAV BWF, 2 / 4 trk</dd></div>
+          <div class="srow"><dt>Capsules</dt><span class="ldr" aria-hidden="true"></span><dd>matched cardioid</dd></div>
+          <div class="srow"><dt>Response</dt><span class="ldr" aria-hidden="true"></span><dd>20 Hz to 20 kHz</dd></div>
+          <div class="srow"><dt>Dynamic range</dt><span class="ldr" aria-hidden="true"></span><dd>114 dB (A)</dd></div>
+          <div class="srow"><dt>EIN</dt><span class="ldr" aria-hidden="true"></span><dd>-128 dBu (A)</dd></div>
+        </dl>
+      </div>
+      <div class="specs__group">
+        <h3>System</h3>
+        <dl class="specs">
+          <div class="srow"><dt>Display</dt><span class="ldr" aria-hidden="true"></span><dd>1.3" OLED, 240&#215;240</dd></div>
+          <div class="srow"><dt>Control</dt><span class="ldr" aria-hidden="true"></span><dd>24-detent encoder</dd></div>
+          <div class="srow"><dt>Inputs</dt><span class="ldr" aria-hidden="true"></span><dd>2&#215; XLR combo</dd></div>
+          <div class="srow"><dt>Phantom</dt><span class="ldr" aria-hidden="true"></span><dd>+48 V per ch</dd></div>
+          <div class="srow"><dt>Storage</dt><span class="ldr" aria-hidden="true"></span><dd>microSDXC 512 GB</dd></div>
+          <div class="srow"><dt>Power</dt><span class="ldr" aria-hidden="true"></span><dd>2&#215; AA / USB-C</dd></div>
+          <div class="srow"><dt>Runtime</dt><span class="ldr" aria-hidden="true"></span><dd>~ 11 h</dd></div>
+        </dl>
+      </div>
+      <div class="specs__group">
+        <h3>Body</h3>
+        <dl class="specs">
+          <div class="srow"><dt>Enclosure</dt><span class="ldr" aria-hidden="true"></span><dd>6063 aluminium</dd></div>
+          <div class="srow"><dt>Finish</dt><span class="ldr" aria-hidden="true"></span><dd>hard-anodised</dd></div>
+          <div class="srow"><dt>Dimensions</dt><span class="ldr" aria-hidden="true"></span><dd>132&#215;76&#215;28 mm</dd></div>
+          <div class="srow"><dt>Mass</dt><span class="ldr" aria-hidden="true"></span><dd>340 g w/ cells</dd></div>
+          <div class="srow"><dt>Rating</dt><span class="ldr" aria-hidden="true"></span><dd>IP52</dd></div>
+          <div class="srow"><dt>Operating</dt><span class="ldr" aria-hidden="true"></span><dd>-10 to 45 &#176;C</dd></div>
+          <div class="srow"><dt>Mount</dt><span class="ldr" aria-hidden="true"></span><dd>1/4"-20 insert</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="io-title">
+    <div class="section__head">
+      <span class="eyebrow">Sheet B <b>·</b> signal, storage, power</span>
+      <h2 id="io-title">Three things that end a take.</h2>
+      <p>Inputs, cards, and cells. The FR-2 is built so none of the three is the reason you missed it.</p>
+    </div>
+    <div class="caps">
+      <div class="cap">
+        <span class="cap__label">Input</span>
+        <span class="cap__fig">2<small> ch</small></span>
+        <h3>Two combo inputs</h3>
+        <p>XLR and 1/4" on the same jack, +48 V phantom per channel, pad and high-pass switched in hardware.</p>
+      </div>
+      <div class="cap">
+        <span class="cap__label">Storage</span>
+        <span class="cap__fig">512<small> GB</small></span>
+        <h3>Card, plus a mirror</h3>
+        <p>microSDXC to 512 GB, roughly 3 hours per GB at 48 k / 24-bit, with a mirrored safety track when you want it.</p>
+      </div>
+      <div class="cap">
+        <span class="cap__label">Power</span>
+        <span class="cap__fig">11<small> h</small></span>
+        <h3>Cells or the cable</h3>
+        <p>Two AA or USB-C PD, about eleven hours continuous, hot-swapped on the dock without dropping the file.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="parts-title">
+    <div class="section__head">
+      <span class="eyebrow">Sheet C <b>·</b> materials + parts</span>
+      <h2 id="parts-title">Four parts, named on the drawing.</h2>
+      <p>The callouts on the elevation, itemised. Each carries its own part number for service.</p>
+    </div>
+    <ol class="parts">
+      <li class="part">
+        <span class="part__no mono"><b>01</b></span>
+        <div class="part__body">
+          <h3>Anodised shell</h3>
+          <p>6063-T5 aluminium cut from a single billet, bead-blasted, then hard-anodised to a matte instrument grey.</p>
+        </div>
+        <span class="part__code">MI-FR2-01</span>
+      </li>
+      <li class="part">
+        <span class="part__no mono"><b>02</b></span>
+        <div class="part__body">
+          <h3>Rotary dial</h3>
+          <p>Stainless detent encoder, 24 positions, knurled cap. The orange tick reads at a glance in the dark.</p>
+        </div>
+        <span class="part__code">MI-FR2-02</span>
+      </li>
+      <li class="part">
+        <span class="part__no mono"><b>03</b></span>
+        <div class="part__body">
+          <h3>Capsule array</h3>
+          <p>Matched electret pair, shock-mounted and foam-gasketed against handling noise and wind on the top edge.</p>
+        </div>
+        <span class="part__code">MI-FR2-03</span>
+      </li>
+      <li class="part">
+        <span class="part__no mono"><b>04</b></span>
+        <div class="part__body">
+          <h3>OLED readout</h3>
+          <p>A 1.3-inch panel under chemically strengthened glass: levels, timecode, and file, nothing you did not ask for.</p>
+        </div>
+        <span class="part__code">MI-FR2-04</span>
+      </li>
+    </ol>
+  </section>
+
+  <section class="reserve wrap" id="reserve" aria-labelledby="reserve-title">
+    <div class="block">
+      <dl class="block__meta">
+        <div class="field-cell"><dt>Scale</dt><dd>1:2</dd></div>
+        <div class="field-cell"><dt>Rev</dt><dd>C</dd></div>
+        <div class="field-cell"><dt>Projection</dt><dd>third-angle</dd></div>
+        <div class="field-cell"><dt>Units</dt><dd>mm</dd></div>
+      </dl>
+      <div class="block__body">
+        <div>
+          <span class="eyebrow">Pre-order <b>·</b> REV C</span>
+          <h2 id="reserve-title">Reserve a unit from the first run.</h2>
+          <p>Leave an address and we write back once, when REV C units leave the bench in Q4. No list, no drip, one message with a date.</p>
+        </div>
+        <form class="form" novalidate>
+          <label class="form__label" for="reserve-email">Work email</label>
+          <div class="form__row">
+            <input class="field" id="reserve-email" name="email" type="email" autocomplete="email" placeholder="you@studio.example">
+            <button class="btn btn--accent" type="submit">Reserve</button>
+          </div>
+          <p class="form__note mono" id="reserve-note" role="status">One unit held per address until the run is spoken for.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__line mono"><b>Meridian Instruments</b> · FR-2 Field Recorder · REV C · 2026-07-24 · tolerances &#177;0.1 mm unless noted · dimensions in mm · third-angle projection · sheet 1 of 1 · &#169; 2026</p>
+  </div>
+</footer>
+
+<script>
+  const form = document.querySelector(".form");
+  const note = document.getElementById("reserve-note");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if (!email || !email.includes("@") || !email.includes(".")) {
+      note.textContent = "That address is missing an @ or a domain. Check it and send again.";
+      note.classList.add("is-error");
+      form.email.focus({ preventScroll: true });
+      return;
+    }
+    note.classList.remove("is-error");
+    form.email.disabled = true;
+    form.querySelector("button").disabled = true;
+    note.textContent = "Held. We write back once, with a ship date, in Q4.";
+  });
+</script>
+</body>
+</html>
