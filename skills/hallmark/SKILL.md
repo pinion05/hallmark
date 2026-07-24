@@ -296,6 +296,8 @@ Emit code that satisfies the tone and the structural fingerprint. Match code com
 
 Component scope runs the Core-15 sweep named in `slop-test.md`. Update the preview's Slop test row with the real outcome. If any gate fails, fix it. Do not ship slop.
 
+**Edit-time linting (optional, Claude Code).** Instead of waiting for Step 7, the user can wire sloplint as a PostToolUse hook so every `.html`/`.css` artifact is linted the moment it is written and FAILs are fed back advisorily: `node <skill-dir>/scripts/install-hook.mjs` (project scope; `--global` for all projects; `--remove` to undo). It never blocks a write and no-ops on non-artifacts; Step 7 still runs regardless. Off Claude Code the hook never fires and Step 7 is the only sweep.
+
 ---
 
 ## Fast mode

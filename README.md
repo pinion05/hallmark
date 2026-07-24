@@ -123,6 +123,18 @@ The `[1m]` suffix on GLM is load-bearing; dropping it silently shrinks the conte
 
 ---
 
+## Edit-time linting <sup>NEW</sup>
+
+By default the slop test runs once, at the end. On Claude Code you can move it to the keystroke: a PostToolUse hook lints every `.html`/`.css` Hallmark artifact the moment it is written and feeds any failures back to the model advisorily, so slop gets fixed while the context is small instead of in a big end-of-run pass.
+
+```bash
+node skills/hallmark/scripts/install-hook.mjs
+```
+
+`--global` targets `~/.claude/settings.json` (all projects); `--print` shows the settings block without writing; `--remove` undoes it. The hook is **advisory only**: it never blocks or reverts a write, no-ops silently on non-artifacts, and the Step 7 sweep still runs regardless. It is Claude-Code-only (Cursor/Codex have no hook surface and rely on Step 7).
+
+---
+
 ## Install
 
 ```
