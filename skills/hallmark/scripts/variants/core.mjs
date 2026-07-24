@@ -182,6 +182,57 @@ export function buildChipJs() {
 }
 
 // ---------------------------------------------------------------------------
+// inject.js: the scoped-preview overlay served at /inject/<n>.js. The user
+// drops <script src="http://127.0.0.1:<port>/inject/2.js"></script> into their
+// own running dev app (Vite/Astro/SvelteKit) - or the agent injects it - and it
+// mounts a fixed full-viewport iframe of the direction's route ON TOP of the
+// app, plus the chip controls (flip / pick / riff / dismiss). PREVIEW ONLY: it
+// paints the variant over the app, it never edits the app's source. It no-ops
+// off localhost, guards arrows against focused inputs, sits at max z-index, and
+// is fully dismissible (x, Esc). Flip and pick/riff post to the helper origin.
+// The iframe points at <appOrigin>/hallmark-v<n> (the routes-mode recipe).
+
+export function buildInjectJs(n, total, port) {
+  const origin = "http://127.0.0.1:" + port;
+  return '(function(){\n' +
+    '"use strict";\n' +
+    'var h=location.hostname;\n' +
+    'if(h!=="localhost"&&h!=="127.0.0.1"&&h!=="[::1]")return;\n' +
+    'if(window.__hallmarkInject)return;window.__hallmarkInject=true;\n' +
+    'var n=' + Number(n) + ',total=' + Number(total) + ',origin="' + origin + '";\n' +
+    'var routeBase=location.origin+"/hallmark-v";\n' +
+    'var reduce=false;try{reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}\n' +
+    'var wrap=document.createElement("div");\n' +
+    'wrap.setAttribute("data-hallmark-inject","");\n' +
+    'wrap.style.cssText="position:fixed;inset:0;z-index:2147483646;background:#0b0b0d;";\n' +
+    'var frame=document.createElement("iframe");\n' +
+    'frame.setAttribute("title","hallmark variant preview");\n' +
+    'frame.style.cssText="position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;";\n' +
+    'wrap.appendChild(frame);\n' +
+    'function urlFor(k){return routeBase+k}\n' +
+    'function load(){frame.src=urlFor(n)}\n' +
+    'var pill=document.createElement("div");\n' +
+    'pill.setAttribute("data-hallmark-chip","");\n' +
+    'pill.style.cssText="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:2147483647;display:flex;align-items:center;gap:2px;background:rgba(17,17,19,.94);color:#e9e7e2;font:12px/1 system-ui,sans-serif;border-radius:999px;padding:5px 7px;box-shadow:0 10px 30px -10px rgba(0,0,0,.55);"+(reduce?"":"transition:opacity .2s ease;");\n' +
+    'function btn(label,title,fn,pad){var b=document.createElement("button");b.type="button";b.textContent=label;b.title=title;b.style.cssText="font:inherit;border:0;background:none;color:inherit;cursor:pointer;padding:6px "+(pad||10)+"px;border-radius:999px;";b.addEventListener("mouseenter",function(){b.style.background="rgba(255,255,255,.14)"});b.addEventListener("mouseleave",function(){b.style.background=b.getAttribute("data-bg")||"none"});b.addEventListener("click",fn);pill.appendChild(b);return b}\n' +
+    'function go(d){var k=n+d;if(k<1)k=total;if(k>total)k=1;n=k;label.textContent="Direction "+n+"/"+total;load()}\n' +
+    'function dismiss(){wrap.remove();pill.remove();document.removeEventListener("keydown",onKey,true)}\n' +
+    'btn("\\u2039","previous direction (ArrowLeft)",function(){go(-1)});\n' +
+    'var label=document.createElement("span");label.textContent="Direction "+n+"/"+total;label.style.cssText="padding:6px 5px;white-space:nowrap;letter-spacing:.02em;";pill.appendChild(label);\n' +
+    'btn("\\u203a","next direction (ArrowRight)",function(){go(1)});\n' +
+    'var pickBtn=btn("Pick","keep this direction",function(){post({action:"pick",choice:n},"Picked "+n+" \\u2713")});\n' +
+    'pickBtn.style.background="rgba(255,255,255,.12)";pickBtn.setAttribute("data-bg","rgba(255,255,255,.12)");pickBtn.style.fontWeight="600";pickBtn.style.margin="0 2px";\n' +
+    'btn("Riff","ask for one more direction",function(){var steer=window.prompt("Optional steer for the new direction (leave blank for a free riff):","");if(steer===null)return;post({action:"riff",choice:n,steer:steer.trim()},"Riff queued \\u2713")});\n' +
+    'btn("\\u00d7","close preview (Esc)",dismiss,8);\n' +
+    'function post(body,ok){fetch(origin+"/api/pick",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){if(!r.ok)throw new Error("bad status");label.textContent=ok}).catch(function(){label.textContent="picker offline: tell your agent - pick "+n})}\n' +
+    'function onKey(e){var el=document.activeElement;if(el&&(el.tagName==="INPUT"||el.tagName==="TEXTAREA"||el.isContentEditable))return;if(e.key==="ArrowLeft"){e.preventDefault();go(-1)}else if(e.key==="ArrowRight"){e.preventDefault();go(1)}else if(e.key==="Escape"){e.preventDefault();dismiss()}}\n' +
+    'document.addEventListener("keydown",onKey,true);\n' +
+    'function mount(){var root=document.body||document.documentElement;root.appendChild(wrap);root.appendChild(pill);load()}\n' +
+    'if(document.body)mount();else document.addEventListener("DOMContentLoaded",mount);\n' +
+    '})();\n';
+}
+
+// ---------------------------------------------------------------------------
 // shared shell CSS for the two host pages (dark neutral, system-ui, no
 // external fonts, fully self-contained)
 
@@ -213,6 +264,7 @@ export function buildPickerPage() {
     '.thumb{width:var(--tw);height:var(--th);overflow:hidden;position:relative;border:1px solid var(--line);border-radius:10px;background:#fff}\n' +
     '.card:hover .thumb,.card:focus-visible .thumb{border-color:var(--acc)}\n' +
     '.thumb iframe{width:1280px;height:800px;border:0;transform:scale(var(--scale));transform-origin:top left;pointer-events:none}\n' +
+    '.thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}\n' +
     '.thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--card);color:var(--mut);font-family:var(--mono);font-size:12px}\n' +
     '.meta{display:flex;flex-direction:column;gap:3px;padding:10px 2px 0}\n' +
     '.meta .t{font-weight:650;font-size:14px}.meta .t i{font-style:normal;color:var(--mut);font-family:var(--mono);font-size:12px;margin-right:8px}\n' +
@@ -234,8 +286,8 @@ export function buildPickerPage() {
     '<button id="back" title="back to the grid (Esc)">‹ grid</button>\n' +
     '<button id="prev" title="previous (ArrowLeft)">‹</button><button id="next" title="next (ArrowRight)">›</button>\n' +
     '<span class="t" id="st"></span><span class="m" id="sm"></span>\n' +
-    '<span class="keys">arrows flip · P pick · R riff · Esc grid</span>\n' +
-    '<button class="pick" id="pickBtn">Pick this (P)</button>\n<button id="riffBtn">Riff (R)</button>\n' +
+    '<span class="keys">arrows flip · P pick · R riff · G graft · Esc grid</span>\n' +
+    '<button class="pick" id="pickBtn">Pick this (P)</button>\n<button id="riffBtn">Riff (R)</button>\n<button id="graftBtn">Graft (G)</button>\n' +
     '</div>\n<iframe id="sframe" title="direction preview"></iframe>\n</div>\n' +
     '<script>\n(function(){\n' +
     'var st=null,lastJson="",view="grid",dirs=[],picked=null;\n' +
@@ -249,13 +301,18 @@ export function buildPickerPage() {
     '  picked=j.manifest?j.manifest.picked:null;render();\n' +
     '}).catch(function(){note("server offline","bad")})}\n' +
     'function render(){\n' +
+    '  var bust=Date.now();\n' +
     '  $("run").textContent=st.run+" · "+((st.manifest&&st.manifest.mode)||"");\n' +
     '  if(picked)note("picked: direction "+picked+" ✓ - back to your chat","ok");else note("");\n' +
     '  var g=$("grid");g.innerHTML="";$("empty").hidden=dirs.length>0;\n' +
     '  dirs.forEach(function(d){\n' +
     '    var ready=!d.status||d.status==="ready";\n' +
+    '    var inner;\n' +
+    '    if(!ready)inner=\'<div class="ph">building...</div>\';\n' +
+    '    else if(d.thumb===true)inner=\'<img loading="lazy" alt="" src="/thumb/\'+d.n+\'.png?\'+bust+\'">\';\n' +
+    '    else inner=\'<iframe loading="lazy" scrolling="no" tabindex="-1" src="\'+esc(d.url)+\'"></iframe>\';\n' +
     '    var b=document.createElement("button");b.className="card";\n' +
-    '    b.innerHTML=\'<div class="thumb">\'+(ready?\'<iframe loading="lazy" scrolling="no" tabindex="-1" src="\'+esc(d.url)+\'"></iframe>\':\'<div class="ph">building...</div>\')+\'</div>\'+\n' +
+    '    b.innerHTML=\'<div class="thumb">\'+inner+\'</div>\'+\n' +
     '      \'<div class="meta"><span class="t"><i>\'+d.n+\'</i>\'+esc(d.title||("Direction "+d.n))+(picked===d.n?" ✓":"")+\'</span><span class="m">\'+esc(metaOf(d))+\'</span>\'+(d.axes?\'<span class="m">\'+esc(d.axes)+\'</span>\':"")+\'</div>\';\n' +
     '    b.addEventListener("click",function(){openDir(d.n)});g.appendChild(b);\n' +
     '  });\n' +
@@ -277,11 +334,20 @@ export function buildPickerPage() {
     'function riff(){var steer=window.prompt("Optional steer for the new direction (leave blank for a free riff):","");if(steer===null)return;\n' +
     '  var body={action:"riff",steer:steer.trim()};if(view!=="grid")body.choice=view;\n' +
     '  api(body,"riff queued ✓ - a new direction will appear here")}\n' +
+    'function graft(){if(view==="grid")return;\n' +
+    '  var ans=window.prompt("Take which section from which direction? e.g. \\u2018pricing from 3\\u2019","");\n' +
+    '  if(ans===null)return;ans=ans.trim();if(!ans)return;\n' +
+    '  var m=ans.match(/^(.*?)\\s+from\\s+(\\d+)$/i);\n' +
+    '  if(!m){note("could not parse - try \\u2018pricing from 3\\u2019","bad");return}\n' +
+    '  var section=m[1].trim(),from=parseInt(m[2],10);\n' +
+    '  if(!section||!from){note("could not parse - try \\u2018pricing from 3\\u2019","bad");return}\n' +
+    '  api({action:"graft",choice:view,from:from,section:section},"graft queued ✓ - \'"+section+"\' from "+from+" into "+view)}\n' +
     '$("back").addEventListener("click",closeSingle);\n' +
     '$("prev").addEventListener("click",function(){cycle(-1)});\n' +
     '$("next").addEventListener("click",function(){cycle(1)});\n' +
     '$("pickBtn").addEventListener("click",pick);\n' +
     '$("riffBtn").addEventListener("click",riff);\n' +
+    '$("graftBtn").addEventListener("click",graft);\n' +
     'document.addEventListener("keydown",function(e){\n' +
     '  var el=document.activeElement;if(el&&(el.tagName==="INPUT"||el.tagName==="TEXTAREA"||el.isContentEditable))return;\n' +
     '  var k=parseInt(e.key,10);\n' +
@@ -291,6 +357,7 @@ export function buildPickerPage() {
     '  else if(e.key==="ArrowRight")cycle(1);\n' +
     '  else if(e.key==="p"||e.key==="P")pick();\n' +
     '  else if(e.key==="r"||e.key==="R")riff();\n' +
+    '  else if(e.key==="g"||e.key==="G")graft();\n' +
     '  else if(k>=1&&k<=dirs.length)openDir(dirs[k-1].n);\n' +
     '});\n' +
     'setInterval(poll,2000);poll();\n' +

@@ -20,7 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   parseArgs, runPaths, readJsonSafe, atomicWrite, nowIso, defaultManifest,
-  nextRequestId, MIME, buildPickerPage, buildChipJs,
+  nextRequestId, MIME, buildPickerPage, buildChipJs, buildInjectJs,
 } from "./core.mjs";
 
 const args = parseArgs(process.argv.slice(2));
@@ -110,6 +110,36 @@ function serveFrame(res, pathname) {
 }
 
 // ---------------------------------------------------------------------------
+// /thumb/<n>.png : the pre-rendered thumbnail thumbs.mjs wrote to
+// <RUN>/thumbs/<n>.png. 200 image/png, or 404 before thumbs has run.
+
+function serveThumb(res, pathname) {
+  const m = pathname.match(/^\/thumb\/(\d+)\.png$/);
+  if (!m) return send(res, 404, "expected /thumb/<n>.png");
+  const n = Number(m[1]);
+  if (!Number.isInteger(n) || n < 1 || n > 99) return send(res, 404, "not found");
+  const file = path.join(P.RUN, "thumbs", n + ".png");
+  let body;
+  try { body = fs.readFileSync(file); } catch { return send(res, 404, "not found"); }
+  return send(res, 200, body, { "Content-Type": MIME[".png"] });
+}
+
+// ---------------------------------------------------------------------------
+// /inject/<n>.js : the scoped-preview overlay script (core.buildInjectJs). The
+// direction total is read fresh so a riff's later directions flip correctly.
+
+function serveInject(res, pathname) {
+  const m = pathname.match(/^\/inject\/(\d+)\.js$/);
+  if (!m) return send(res, 404, "expected /inject/<n>.js");
+  const n = Number(m[1]);
+  if (!Number.isInteger(n) || n < 1 || n > 99) return send(res, 404, "not found");
+  const manifest = readManifest();
+  const total = Math.max(n, (manifest.directions ?? []).length || n);
+  const js = buildInjectJs(n, total, boundPort ?? PORT_WANTED);
+  return send(res, 200, js, { "Content-Type": MIME[".js"], "Access-Control-Allow-Origin": "*" });
+}
+
+// ---------------------------------------------------------------------------
 // server
 
 const server = http.createServer(async (req, res) => {
@@ -136,6 +166,8 @@ const server = http.createServer(async (req, res) => {
         return send(res, 200, CHIP_JS, { "Content-Type": MIME[".js"], "Access-Control-Allow-Origin": "*" });
       }
       if (p.startsWith("/frame/")) return serveFrame(res, p);
+      if (p.startsWith("/thumb/")) return serveThumb(res, p);
+      if (p.startsWith("/inject/")) return serveInject(res, p);
       return send(res, 404, "not found");
     }
 
@@ -143,12 +175,24 @@ const server = http.createServer(async (req, res) => {
       if (p === "/api/pick") {
         const body = await readBody(req);
         const action = body?.action;
-        if (action !== "pick" && action !== "riff") return sendJson(res, 400, { error: 'action must be "pick" or "riff"' }, CORS);
+        if (action !== "pick" && action !== "riff" && action !== "graft") {
+          return sendJson(res, 400, { error: 'action must be "pick", "riff", or "graft"' }, CORS);
+        }
         const fields = {};
         if (action === "pick") {
           const choice = Number(body.choice);
           if (!Number.isInteger(choice) || choice < 1) return sendJson(res, 400, { error: "pick needs a direction number in choice" }, CORS);
           fields.choice = choice;
+        } else if (action === "graft") {
+          const choice = Number(body.choice);
+          const from = Number(body.from);
+          const section = String(body.section ?? "").trim().slice(0, 120);
+          if (!Number.isInteger(choice) || choice < 1) return sendJson(res, 400, { error: "graft needs the winner direction number in choice" }, CORS);
+          if (!Number.isInteger(from) || from < 1) return sendJson(res, 400, { error: "graft needs the source direction number in from" }, CORS);
+          if (!section) return sendJson(res, 400, { error: "graft needs a section name" }, CORS);
+          fields.choice = choice;
+          fields.from = from;
+          fields.section = section;
         } else {
           if (body.choice != null && Number.isInteger(Number(body.choice))) fields.choice = Number(body.choice);
           fields.steer = String(body.steer ?? "").slice(0, 500);

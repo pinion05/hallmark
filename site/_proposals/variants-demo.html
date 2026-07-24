@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hallmark variants · the picker loop</title>
+<style>
+:root{
+  --bg:#141416; --card:#1d1d21; --line:#2c2c31; --fg:#e9e7e2; --mut:#8f8d86;
+  --acc:#6ea8fe; --ok:#3ecf8e; --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:clip}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased; min-height:100vh; padding-bottom:64px;
+}
+header{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:16px clamp(18px,4vw,28px); border-bottom:1px solid var(--line);
+  position:sticky; top:0; background:var(--bg); z-index:5;
+}
+header b{font-size:15px; letter-spacing:.01em}
+header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
+#note{margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--mut)}
+#note.ok{color:var(--ok)}
+.hbtn{
+  font:inherit; font-size:12px; color:var(--fg); cursor:pointer;
+  border:1px solid var(--line); background:var(--card); border-radius:999px; padding:5px 12px;
+}
+.hbtn:hover{border-color:var(--acc)}
+
+/* -------- grid of directions -------- */
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:26px 22px; padding:26px clamp(18px,4vw,28px) 8px;
+  max-width:1160px; margin:0 auto;
+}
+.card{background:none; border:0; padding:0; text-align:left; cursor:pointer; color:inherit; font:inherit}
+.thumb{
+  position:relative; width:100%; aspect-ratio:1024/640; overflow:hidden;
+  border:1px solid var(--line); border-radius:10px; background:#0c0c0e;
+}
+.card:hover .thumb,.card:focus-visible .thumb{border-color:var(--acc)}
+.card:focus-visible{outline:none}
+.meta{display:flex; flex-direction:column; gap:3px; padding:10px 2px 0}
+.meta .t{font-weight:650; font-size:14px}
+.meta .t i{font-style:normal; color:var(--mut); font-family:var(--mono); font-size:12px; margin-right:8px}
+.meta .m{font-family:var(--mono); font-size:11px; color:var(--mut)}
+
+/* -------- skeleton (building) -------- */
+.ph{position:absolute; inset:0; display:flex; flex-direction:column; gap:10px; padding:16px; background:var(--card)}
+.ph .b{background:linear-gradient(90deg,#232329,#2c2c33,#232329); background-size:200% 100%; border-radius:6px; animation:sh 1.4s ease-in-out infinite}
+.ph .b1{height:16px; width:52%}
+.ph .b2{height:44px; width:82%; margin-top:4px}
+.ph .b3{flex:1; width:100%}
+.ph .lbl{position:absolute; left:16px; bottom:14px; font-family:var(--mono); font-size:11px; color:var(--mut)}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* -------- scaled mock stage -------- */
+.stage{position:absolute; inset:0; background:#fff}
+.stage .page{position:absolute; top:0; left:0; width:1024px; height:640px; transform:scale(var(--s,.27)); transform-origin:top left}
+
+/* -------- single view -------- */
+#single{position:fixed; inset:0; background:var(--bg); display:none; flex-direction:column; z-index:20}
+#single.on{display:flex}
+#sbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:10px clamp(12px,3vw,18px); border-bottom:1px solid var(--line)}
+#sbar button{font:inherit; font-size:12px; color:var(--fg); border:1px solid var(--line); background:var(--card); border-radius:999px; padding:6px 13px; cursor:pointer}
+#sbar button:hover{border-color:var(--acc)}
+#sbar .pick{background:var(--acc); border-color:var(--acc); color:#0d1420; font-weight:650}
+#sbar .count{font-family:var(--mono); font-size:11px; color:var(--mut); padding:0 2px}
+#sbar .st{font-weight:650; font-size:13px}
+#sbar .sm{font-family:var(--mono); font-size:11px; color:var(--mut)}
+#sbar .keys{margin-left:auto; font-family:var(--mono); font-size:10.5px; color:var(--mut)}
+#swrap{flex:1; display:grid; place-items:center; padding:clamp(14px,3vw,30px); min-height:0}
+#sstage{position:relative; width:min(1024px,100%); max-height:100%; aspect-ratio:1024/640; overflow:hidden; border:1px solid var(--line); border-radius:12px; background:#fff}
+#sstage .page{position:absolute; top:0; left:0; width:1024px; height:640px; transform:scale(var(--s,.6)); transform-origin:top left}
+
+/* graft prompt */
+.graftbox{
+  position:absolute; top:52px; right:clamp(12px,3vw,18px); z-index:30;
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:14px; width:min(320px,88vw); box-shadow:0 18px 44px -16px rgba(0,0,0,.7);
+  display:none; flex-direction:column; gap:10px;
+}
+.graftbox.on{display:flex}
+.graftbox p{font-size:12.5px; color:var(--mut); line-height:1.45}
+.graftbox input{
+  font:inherit; font-size:13px; color:var(--fg); background:#141417;
+  border:1px solid var(--line); border-radius:8px; padding:8px 10px;
+}
+.graftbox input:focus{outline:none; border-color:var(--acc)}
+.graftbox .rowb{display:flex; gap:8px; justify-content:flex-end}
+.graftbox button{font:inherit; font-size:12px; cursor:pointer; border-radius:999px; padding:6px 13px}
+.graftbox .go{background:var(--acc); border:1px solid var(--acc); color:#0d1420; font-weight:650}
+.graftbox .cancel{background:none; border:1px solid var(--line); color:var(--fg)}
+
+/* caption */
+.caption{max-width:760px; margin:34px auto 0; padding:0 clamp(18px,4vw,28px)}
+.caption h2{font-size:16px; font-weight:650; margin-bottom:6px}
+.caption p{font-size:13.5px; color:var(--mut); line-height:1.6; margin-top:10px}
+.caption b{color:var(--fg); font-weight:600}
+.caption .legend{
+  margin-top:16px; display:grid; gap:8px; font-family:var(--mono); font-size:11.5px; color:var(--mut);
+  border:1px solid var(--line); border-radius:10px; padding:14px;
+}
+.caption .legend span b{color:var(--fg)}
+
+/* ============ the three mock layouts (base 1024x640) ============ */
+/* 1 · the broadsheet - warm newsprint, roman serif, columned */
+.m1{background:#f4efe4; color:#23201a; font-family:Georgia,"Times New Roman",serif; padding:44px 52px}
+.m1-mast{display:flex; justify-content:space-between; align-items:baseline; font-family:var(--mono); font-size:13px; letter-spacing:.28em; text-transform:uppercase; color:#6b5f4d; border-bottom:3px solid #23201a; padding-bottom:12px}
+.m1-h{font-size:74px; line-height:1.02; letter-spacing:-.015em; margin:26px 0 8px; max-width:15ch}
+.m1-deck{font-style:italic; font-size:22px; color:#5a5140; margin-bottom:24px}
+.m1-body{column-count:3; column-gap:34px; font-size:15px; line-height:1.62; color:#3a352b; text-align:justify}
+.m1-body p{margin-bottom:12px}
+.m1-drop{float:left; font-size:58px; line-height:.8; padding:4px 8px 0 0; font-weight:700}
+.m1-cut{break-inside:avoid; height:120px; margin:6px 0 12px; border-radius:4px; background:linear-gradient(135deg,#c9b48f,#9c8560)}
+
+/* 2 · the control room - dark cobalt workbench, mono, tiles */
+.m2{background:#0f1620; color:#d7e3f2; font-family:var(--mono); padding:38px 44px}
+.m2-bar{display:flex; align-items:center; gap:12px; font-size:16px; letter-spacing:.02em; padding-bottom:22px; border-bottom:1px solid #1f2e40}
+.m2-dot{width:11px; height:11px; border-radius:99px; background:#3ecf8e; box-shadow:0 0 12px #3ecf8e}
+.m2-chips{margin-left:auto; display:flex; gap:8px}
+.m2-chips i{font-style:normal; font-size:12px; color:#8fb4e0; border:1px solid #26405c; border-radius:6px; padding:4px 10px}
+.m2-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; grid-auto-rows:118px; gap:16px; margin-top:24px}
+.m2-kpi{grid-row:span 2; background:#14202e; border:1px solid #22384f; border-radius:12px; padding:22px; display:flex; flex-direction:column; justify-content:space-between}
+.m2-kpi b{font-size:64px; font-weight:600; color:#eaf2fc; letter-spacing:-.02em}
+.m2-kpi span{font-size:14px; color:#7f9cbc}
+.m2-tile{background:#14202e; border:1px solid #22384f; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:12px}
+.m2-tile u{font-style:normal; text-decoration:none; font-size:13px; color:#7f9cbc}
+.m2-tile b{font-size:30px; font-weight:600; color:#eaf2fc}
+.m2-spark{margin-top:auto; display:flex; align-items:flex-end; gap:4px; height:34px}
+.m2-spark i{flex:1; background:#2f6fd6; border-radius:2px}
+.m2-chart{grid-column:span 2; background:#14202e; border:1px solid #22384f; border-radius:12px; padding:16px 18px; display:flex; align-items:flex-end; gap:10px}
+.m2-chart i{flex:1; background:linear-gradient(180deg,#4b8ef0,#2f6fd6); border-radius:3px 3px 0 0}
+
+/* 3 · the poster wall - midnight manifesto, chromatic, display type */
+.m3{background:#1b1822; color:#efe9f5; font-family:"Helvetica Neue",Arial,sans-serif; padding:48px 52px; display:flex; flex-direction:column; justify-content:center}
+.m3-eye{font-family:var(--mono); font-size:13px; letter-spacing:.34em; text-transform:uppercase; color:#b39cf0}
+.m3-h{font-size:118px; line-height:.9; font-weight:800; letter-spacing:-.03em; margin:18px 0 26px; color:#f7d774}
+.m3-h em{font-style:normal; color:#f78f6a}
+.m3-row{display:flex; gap:12px; flex-wrap:wrap}
+.m3-row i{font-style:normal; font-size:16px; color:#efe9f5; border:1px solid #4a4160; border-radius:999px; padding:9px 20px}
+.m3-row i:first-child{background:#efe9f5; color:#1b1822; border-color:#efe9f5; font-weight:600}
+
+@media (max-width:520px){
+  .m1-body{column-count:1}
+  .m3-h{font-size:92px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ph .b{animation:none; background:#26262d}
+  *{transition:none !important}
+}
+</style>
+</head>
+<body>
+<header>
+  <b>hallmark variants</b>
+  <span class="tag">· interactive demo (no server)</span>
+  <button class="hbtn" id="replay" type="button">Replay reveal</button>
+  <span id="note"></span>
+</header>
+
+<main class="grid" id="grid" aria-label="direction previews"></main>
+
+<section class="caption">
+  <h2>What you are looking at</h2>
+  <p>This is a client-only mock of the real <b>hallmark variants</b> picker. One
+  brief, three structurally distinct directions, side by side in your own browser.
+  In a real run each card is a live full-size page; here they are simple CSS mocks
+  so the loop is the point, not the pixels.</p>
+  <p>The cards fill in <b>one at a time</b>: that is progressive reveal. The real
+  picker writes each direction to the manifest as <b>generating</b>, then flips it
+  to <b>ready</b> the moment its files land, so the first direction is viewable
+  after roughly one direction's worth of work instead of waiting for all three.</p>
+  <p>Click a card, or press <b>1</b> / <b>2</b> / <b>3</b>, to open the single
+  surface. <b>Arrow keys</b> flip between directions on the same spot, so you
+  compare by muscle memory rather than by hunting tabs. <b>Pick</b> keeps one
+  direction: only the winner gets finished and shipped. <b>Graft</b> composes,
+  it takes one section from another direction into the winner (try "pricing from
+  3"). And in a real run a plain chat reply naming a direction is always a valid
+  pick, so the flow never dead-ends.</p>
+  <div class="legend" aria-hidden="true">
+    <span><b>arrows</b> flip directions in place</span>
+    <span><b>1 2 3</b> jump to a direction</span>
+    <span><b>P</b> pick this one (only the winner ships)</span>
+    <span><b>G</b> graft a section from another direction</span>
+    <span><b>Esc</b> back to the grid</span>
+  </div>
+</section>
+
+<!-- single view -->
+<div id="single" role="dialog" aria-modal="true" aria-label="direction single view">
+  <div id="sbar">
+    <button id="back" type="button" title="back to the grid (Esc)">‹ grid</button>
+    <button id="prev" type="button" title="previous (ArrowLeft)">‹</button>
+    <button id="next" type="button" title="next (ArrowRight)">›</button>
+    <span class="count" id="count"></span>
+    <span class="st" id="st"></span><span class="sm" id="sm"></span>
+    <span class="keys">arrows flip · P pick · G graft · Esc grid</span>
+    <button class="pick" id="pickBtn" type="button">Pick this (P)</button>
+    <button id="graftBtn" type="button">Graft (G)</button>
+  </div>
+  <div id="swrap"><div id="sstage"></div></div>
+  <div class="graftbox" id="graftbox">
+    <p>Take a section from another direction into this one. Format: <b>section from N</b>.</p>
+    <input id="graftInput" type="text" value="pricing from 3" aria-label="graft instruction" />
+    <div class="rowb">
+      <button class="cancel" id="graftCancel" type="button">Cancel</button>
+      <button class="go" id="graftGo" type="button">Graft</button>
+    </div>
+  </div>
+</div>
+
+<!-- mock templates, base 1024x640 -->
+<template id="tpl1"><div class="page m1">
+  <div class="m1-mast"><span>The Broadsheet</span><span>Vol. IX · Friday</span></div>
+  <h1 class="m1-h">A quieter way to read the long stuff</h1>
+  <p class="m1-deck">Unhurried, columned, set in a warm roman serif.</p>
+  <div class="m1-body">
+    <p><span class="m1-drop">O</span>ne column bleeds into the next, the way a
+    printed page asks you to slow down and follow a single thread from the top
+    of the sheet to the fold without a card or a tile in the way.</p>
+    <div class="m1-cut"></div>
+    <p>The measure is narrow on purpose. Short lines keep the eye from losing
+    its place, and the justification squares the page into something that feels
+    edited rather than generated.</p>
+    <p>A footer rule closes it, the masthead opens it, and everything between is
+    body text doing the work that body text is supposed to do.</p>
+  </div>
+</div></template>
+
+<template id="tpl2"><div class="page m2">
+  <div class="m2-bar"><span class="m2-dot"></span>control room<span class="m2-chips"><i>live</i><i>v2.4</i><i>ok</i></span></div>
+  <div class="m2-grid">
+    <div class="m2-kpi"><b>98.6%</b><span>fleet uptime · trailing 30 days</span></div>
+    <div class="m2-tile"><u>throughput</u><b>1.2k/s</b><div class="m2-spark"><i style="height:40%"></i><i style="height:65%"></i><i style="height:48%"></i><i style="height:82%"></i><i style="height:70%"></i><i style="height:100%"></i></div></div>
+    <div class="m2-tile"><u>p95 latency</u><b>42ms</b><div class="m2-spark"><i style="height:70%"></i><i style="height:55%"></i><i style="height:60%"></i><i style="height:40%"></i><i style="height:35%"></i><i style="height:30%"></i></div></div>
+    <div class="m2-chart"><i style="height:52%"></i><i style="height:68%"></i><i style="height:44%"></i><i style="height:80%"></i><i style="height:62%"></i><i style="height:90%"></i><i style="height:58%"></i><i style="height:74%"></i></div>
+  </div>
+</div></template>
+
+<template id="tpl3"><div class="page m3">
+  <div class="m3-eye">Manifesto / N.03</div>
+  <h1 class="m3-h">Say it<br>once.<br>Say it loud.</h1>
+  <div class="m3-row"><i>bold</i><i>plain</i><i>certain</i><i>no filler</i></div>
+</div></template>
+
+<script>
+(function(){
+  "use strict";
+  var DIRS=[
+    {n:1,title:"The broadsheet",macro:"Long Document",theme:"Newsprint",delay:700,ready:false},
+    {n:2,title:"The control room",macro:"Workbench",theme:"Cobalt",delay:1500,ready:false},
+    {n:3,title:"The poster wall",macro:"Manifesto",theme:"Midnight",delay:2400,ready:false}
+  ];
+  var view="grid"; // "grid" or a direction number
+  var timers=[];
+  var reduce=false; try{reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
+
+  function $(id){return document.getElementById(id)}
+  function note(msg,ok){var el=$("note");el.textContent=msg||"";el.className=ok?"ok":""}
+  function dir(n){for(var i=0;i<DIRS.length;i++)if(DIRS[i].n===n)return DIRS[i];return null}
+  function readyList(){return DIRS.filter(function(d){return d.ready})}
+
+  // one shared observer keeps every scaled mock fit to its container
+  var ro=new ResizeObserver(function(entries){
+    for(var i=0;i<entries.length;i++){
+      var w=entries[i].contentRect.width;
+      entries[i].target.style.setProperty("--s",(w/1024).toFixed(4));
+    }
+  });
+  function mockPage(n){return $("tpl"+n).content.firstElementChild.cloneNode(true)}
+  function makeStage(n){
+    var s=document.createElement("div");s.className="stage";
+    s.appendChild(mockPage(n));ro.observe(s);return s;
+  }
+
+  // ---- grid ----
+  function skeleton(){
+    var ph=document.createElement("div");ph.className="ph";
+    ph.innerHTML='<div class="b b1"></div><div class="b b2"></div><div class="b b3"></div><span class="lbl">building...</span>';
+    return ph;
+  }
+  function buildGrid(){
+    var g=$("grid");g.innerHTML="";
+    DIRS.forEach(function(d){
+      var card=document.createElement("button");card.className="card";card.type="button";
+      card.setAttribute("data-n",d.n);
+      var thumb=document.createElement("div");thumb.className="thumb";
+      thumb.appendChild(d.ready?makeStage(d.n):skeleton());
+      var meta=document.createElement("div");meta.className="meta";
+      meta.innerHTML='<span class="t"><i>'+d.n+'</i>'+d.title+'</span><span class="m">'+d.macro+' · '+d.theme+'</span>';
+      card.appendChild(thumb);card.appendChild(meta);
+      card.addEventListener("click",function(){if(d.ready)openDir(d.n)});
+      g.appendChild(card);
+    });
+  }
+
+  // ---- progressive reveal ----
+  function startReveal(){
+    timers.forEach(clearTimeout);timers=[];
+    DIRS.forEach(function(d){d.ready=false});
+    view="grid";$("single").classList.remove("on");
+    buildGrid();
+    note("building 3 directions...");
+    DIRS.forEach(function(d){
+      timers.push(setTimeout(function(){
+        d.ready=true;buildGrid();
+        var done=readyList().length;
+        if(done===DIRS.length)note("3 directions ready · flip with arrows, Pick when one clicks",true);
+        else note("direction "+done+" ready · still building "+(DIRS.length-done)+"...");
+      },reduce?60*d.n:d.delay));
+    });
+  }
+
+  // ---- single view ----
+  function openDir(n){var d=dir(n);if(!d||!d.ready)return;view=n;$("single").classList.add("on");sync()}
+  function closeSingle(){view="grid";$("single").classList.remove("on");closeGraft()}
+  function cycle(step){
+    var list=readyList();if(!list.length)return;
+    var idx=0;for(var i=0;i<list.length;i++)if(list[i].n===view)idx=i;
+    idx=(idx+step+list.length)%list.length;view=list[idx].n;sync();
+  }
+  function sync(){
+    var d=dir(view);if(!d){closeSingle();return}
+    var list=readyList(),pos=1;for(var i=0;i<list.length;i++)if(list[i].n===view)pos=i+1;
+    $("count").textContent="Direction "+pos+"/"+list.length;
+    $("st").textContent=d.n+" · "+d.title;
+    $("sm").textContent=d.macro+" · "+d.theme;
+    var wrap=$("sstage");wrap.innerHTML="";
+    var page=mockPage(d.n);wrap.appendChild(page);ro.observe(wrap);
+    $("pickBtn").textContent="Pick this (P)";
+    closeGraft();
+  }
+  function pick(){
+    if(view==="grid")return;var d=dir(view);
+    note("picked: "+d.title+" ✓ · only the winner gets finished and shipped",true);
+    $("pickBtn").textContent="Picked ✓";
+  }
+
+  // ---- graft ----
+  function openGraft(){if(view==="grid")return;$("graftbox").classList.add("on");var i=$("graftInput");i.focus();i.select()}
+  function closeGraft(){$("graftbox").classList.remove("on")}
+  function doGraft(){
+    var raw=$("graftInput").value.trim();
+    var m=raw.match(/^(.+?)\s+from\s+(\d+)$/i);
+    if(!m){note("graft needs the form: section from N (e.g. pricing from 3)");return}
+    var section=m[1].trim(),from=parseInt(m[2],10),into=dir(view);
+    if(!dir(from)||from===view){note("pick a different, ready direction to graft from");return}
+    closeGraft();
+    note("grafted the "+section+" section from direction "+from+" into "+into.title+" ✓",true);
+  }
+
+  // ---- keys (guarded against focused inputs) ----
+  document.addEventListener("keydown",function(e){
+    var el=document.activeElement;
+    if(el&&(el.tagName==="INPUT"||el.tagName==="TEXTAREA"||el.isContentEditable)){
+      if(e.key==="Escape"){closeGraft();el.blur()}
+      return;
+    }
+    var k=parseInt(e.key,10);
+    if(view==="grid"){if(k>=1&&k<=DIRS.length)openDir(k);return}
+    if(e.key==="Escape")closeSingle();
+    else if(e.key==="ArrowLeft"){e.preventDefault();cycle(-1)}
+    else if(e.key==="ArrowRight"){e.preventDefault();cycle(1)}
+    else if(e.key==="p"||e.key==="P")pick();
+    else if(e.key==="g"||e.key==="G")openGraft();
+    else if(k>=1&&k<=DIRS.length)openDir(k);
+  });
+
+  $("back").addEventListener("click",closeSingle);
+  $("prev").addEventListener("click",function(){cycle(-1)});
+  $("next").addEventListener("click",function(){cycle(1)});
+  $("pickBtn").addEventListener("click",pick);
+  $("graftBtn").addEventListener("click",function(){$("graftbox").classList.contains("on")?closeGraft():openGraft()});
+  $("graftCancel").addEventListener("click",closeGraft);
+  $("graftGo").addEventListener("click",doGraft);
+  $("graftInput").addEventListener("keydown",function(e){if(e.key==="Enter")doGraft()});
+  $("replay").addEventListener("click",startReveal);
+
+  startReveal();
+})();
+</script>
+</body>
+</html>
