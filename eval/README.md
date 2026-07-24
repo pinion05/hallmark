@@ -6,7 +6,7 @@ Repo-internal tooling for benchmarking the Hallmark skill across models and prom
 ## Two-tier design
 
 - **Tier B (this directory, implemented)**: bare API calls. The skill text is compiled into a system prompt (a "pack"), the brief is the user message, and the model gets exactly one nudge if it produces no HTML. No tools, no file system, no vision. This measures how much of Hallmark survives as pure prompt.
-- **Tier A (future work)**: a real-harness wrapper that runs each arm inside its native agentic harness (Claude Code with the installed skill, plus equivalent open-model harnesses), where the skill can read its own reference files and run `sloplint.mjs` itself. The run layout below is designed so Tier A cells can drop into the same `runs/` tree under different arm ids.
+- **Tier A (`gen-cli.mjs`)**: drives the REAL Claude Code binary (`claude -p "/hallmark <brief>"`) with the skill copied into a scratch project, and parses the stream-json transcript for conformance: skill loaded (stamp present), files written, reference-read count + load-order discipline, cost. NOTE (measured): skills do not auto-trigger in `claude -p`, so we invoke by name; this is a CONFORMANCE harness, not an auto-trigger test. The `claude` arm uses your subscription (no key, must be logged in); `glm`/`kimi` arms are Anthropic-shaped (Z.ai / Moonshot) and disabled until you add their auth tokens (Together/OpenRouter cannot back `claude -p`). Cells drop into the same `runs/` tree as `<brief>/<arm>-cli/`. Run: `node gen-cli.mjs --arm claude --brief all` in a logged-in terminal.
 
 ## Files
 
