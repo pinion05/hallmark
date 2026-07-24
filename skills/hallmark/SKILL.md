@@ -244,7 +244,7 @@ A custom system is complete (palette + pairing + axes), never a colour swap; its
 
 Then run the image-need table at [`references/hero-enrichment.md` § Image-need detection](references/hero-enrichment.md). Default is typography-only. Photographic briefs without user assets use the placeholder strategy in [`references/assets.md`](references/assets.md); non-photographic briefs prefer [`references/imagery-kit.md`](references/imagery-kit.md). Never ship invented stock photos as final design.
 
-**The enrichment hierarchy is non-negotiable:** typography only → pure CSS art → hand-built SVG → generated still → customised library asset → Lottie, last resort. Reaching for Lottie when CSS would build it is the new tell. (Construction guidance lives in `references/craft/`; its files are lettered by construction method - css, svg, animation, webgl, generated, lottie - so match by name.) State the decision in one sentence; it goes into the stamp.
+**The enrichment hierarchy is non-negotiable:** typography only → pure CSS art → hand-built SVG → generated still → customised library asset → Lottie, last resort. Reaching for Lottie when CSS would build it is the new tell. (Construction guidance lives in `references/craft/`; its files are lettered by construction method - css, svg, animation, webgl, generated, lottie - so match by name.) The **generated-still** rung has an opt-in callable hook, `scripts/imagegen.mjs` (Together images, cache-by-hash), used only when the user asks for real imagery and `TOGETHER_API_KEY` is set; with no key it falls back to CSS-art / placeholder (see [`references/craft/tier-e-generated.md`](references/craft/tier-e-generated.md)). State the decision in one sentence; it goes into the stamp.
 
 ### 5. Preview
 

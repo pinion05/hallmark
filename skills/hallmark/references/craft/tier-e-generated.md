@@ -9,6 +9,16 @@ When characters or specific scenes are needed and hand-build is uneconomical (th
 | **[Midjourney v8](https://www.midjourney.com)** | ~$0.14 / image | Aesthetic beauty, artistic direction, atmospheric stills | PNG |
 | **[Flux 2](https://blackforestlabs.ai/)** | ~$0.03 / image | Photorealism, skin / fabric / product detail | PNG |
 
+### The callable hook (opt-in)
+
+When `TOGETHER_API_KEY` is set and the user has asked for a generated image, you can fetch one instead of recommending a manual round-trip:
+
+```
+node <skill-dir>/scripts/imagegen.mjs "<prompt>" --size 1536x1024 [--model ...] [--out <path>]
+```
+
+Default model `black-forest-labs/FLUX.1.1-pro` (photoreal, ~$0.04/MP); `--model google/gemini-3-pro-image` for legible in-image text and brand consistency (carries a SynthID watermark). It caches by prompt hash under `.hallmark/img-cache/` and writes a provenance sidecar. **With no key it exits gracefully (code 3) and you fall back to CSS-art or a labelled placeholder** - the recommend-only behaviour below. Never auto-fire it; it serves image-heavy briefs on request, and every generated asset is still post-processed and provenance-stamped per the discipline below.
+
 ### Discipline when generating
 
 - **Always post-process.** Add grain, asymmetric crop, hand-drawn overlays, colour grading. Raw model output reads as AI 100 % of the time. The post-process is what makes it ours.
