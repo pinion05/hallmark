@@ -6,9 +6,9 @@ Loaded eagerly by SKILL.md Step 3 when the catalog pick is `riso`. Tokens: [`sit
 
 ## Axes (diversification)
 
-- **Paper band** - light warm blush, `oklch(91% 0.034 30)`. A soft pink/peach newsprint ground, ink `oklch(18% 0.060 30)`. Not white, not cool - everything tinted hue 30.
+- **Paper band** - **mid warm pink stock**, `oklch(84% 0.048 30)`. True riso stock (real risograph paper ships saturated), ink `oklch(18% 0.060 30)` at 11.5:1. Not white, not cool - everything tinted hue 30.
 - **Display style** - grotesk-sans: **Public Sans 800/900**, tight `--tracking-display: -0.04em`, `--lh-tight: 0.92`. Heavy poster grotesk, distinct from every serif-display sibling.
-- **Accent hue** - cool riso cyan/teal, `oklch(58% 0.170 220)`, paired with riso yellow `oklch(78% 0.180 95)`. Two spot inks overprinted, never flooded.
+- **Accent hue** - cool riso blue, `oklch(46% 0.140 220)` (deep enough to hold a 3:1 focus ring on the pink stock), paired with riso yellow `oklch(78% 0.180 95)`. Two spot inks overprinted, never flooded; accent text runs >= 18px bold or sits on an ink underline.
 
 ## Reference register
 
@@ -29,11 +29,11 @@ The aesthetic: the risograph poster and small-press catalogue - warm stock, spot
 
 ## Signature moves
 
-1. **Off-register overprint (THE move)** - a key headline word and the wordmark get a misregistered echo: `::before` in cyan `oklch(58% 0.170 220)` nudged up-left ~2px, `::after` in a riso pink nudged down-right ~2px, both `mix-blend-mode: multiply` over the black `data-text`. The colour fringes read as ink that missed the drum. Use on 1-2 focal words only, never every heading.
+1. **Off-register overprint (THE move)** - a key headline word and the wordmark get a misregistered echo: `::before` in riso blue `oklch(46% 0.140 220)` nudged up-left ~2px, `::after` in a riso pink nudged down-right ~2px, both `mix-blend-mode: multiply` over the black `data-text`. The colour fringes read as ink that missed the drum. Use on 1-2 focal words only, never every heading.
 
-2. **Warm blush paper, never white** - ground is `oklch(91% 0.034 30)`, panels step to `--color-paper-2` / `--color-paper-3` (87% / 82%, same hue). Ink is warm near-black `oklch(18% 0.060 30)`, body `--color-neutral` `oklch(34% 0.060 30)`. Every neutral tilts hue 30.
+2. **Warm pink stock, never white** - ground is `oklch(84% 0.048 30)`, panels step to `--color-paper-2` / `--color-paper-3` (80% / 75%, same hue). Ink is warm near-black `oklch(18% 0.060 30)`, body `--color-neutral` `oklch(34% 0.060 30)`. Every neutral tilts hue 30.
 
-3. **Two spot inks, overprinted and multiply-blended** - cyan 220° + yellow 95° are the only colours. Where they cross, `mix-blend-mode: multiply` makes a third hue for free. The pure-CSS riso plate centrepiece = three ink shapes stacked, misregistered, multiplied, with a grain layer on top.
+3. **Two spot inks, overprinted and multiply-blended** - blue 220° + yellow 95° are the only colours. Where they cross, `mix-blend-mode: multiply` makes a third hue for free. The pure-CSS riso plate centrepiece = three ink shapes stacked, misregistered, multiplied, with a grain layer on top.
 
 4. **Halftone / paper grain** - a faint noise or dot-grain overlay sits on the ink art (and optionally very lightly on paper) so fills read printed, not vector. Riso is the one editorial theme where texture belongs - keep it on the ink, subtle, never a loud full-page flood.
 
@@ -58,7 +58,7 @@ Quiet and printed. Section reveals fade + rise once. The misregistration may set
 - **No drop shadows, no boxed or card-in-card layouts** - hairlines and overprint carry structure.
 - **No floating pill nav, no pill-gradient CTA** - masthead + a solid rectangle button.
 - **Don't drown the page in ink** - two spot colours as accents (< ~15% of any viewport); the blush paper stays dominant.
-- **Don't borrow Carnival's kit** - its offset is a hard solid box-shadow and its duo is mustard/oxblood. Riso's offset is ink misregistration; its duo is cyan/yellow. Keep them apart.
+- **Don't borrow Carnival's kit** - its offset is a hard solid box-shadow and its duo is mustard/oxblood. Riso's offset is ink misregistration; its duo is blue/yellow. Keep them apart.
 
 ## Macrostructure affinity / rejection
 
@@ -93,8 +93,8 @@ Never any of: *seamless, cutting-edge, revolutionary, synergy, leverage, premium
 
 | vs | what settles it instantly |
 |---|---|
-| **Carnival** (loud editorial sibling) | Carnival = duotone mustard + oxblood, chunky variable display, hard-offset **box-shadow**, decorative ornaments. Riso = cyan + yellow **spot inks**, off-register overprint + grain (misregistration, not a solid shadow), warm blush paper. Offset-as-ink vs offset-as-shadow. |
-| **Newsprint** (paper sibling) | Newsprint = warm cream stock, columns, one-brick ink-only restraint (no spot colour). Riso = warm pink paper + two saturated spot inks (cyan + yellow) + printed grain. Spot colour and print-artifact texture settle it. |
+| **Carnival** (loud editorial sibling) | Carnival = duotone mustard + oxblood, chunky variable display, hard-offset **box-shadow**, decorative ornaments. Riso = blue + yellow **spot inks**, off-register overprint + grain (misregistration, not a solid shadow), warm pink stock. Offset-as-ink vs offset-as-shadow. |
+| **Newsprint** (paper sibling) | Newsprint = warm cream stock, columns, one-brick ink-only restraint (no spot colour). Riso = warm pink stock + two saturated spot inks (blue + yellow) + printed grain. Spot colour and print-artifact texture settle it. |
 | **Brutal** (editorial sibling) | Brutal = raw system type, hard mono borders, cold. Riso = crafted print object - grotesk + serif, spot inks, grain, warmth. Craft and colour vs raw and monochrome. |
 
 ## Test brief expectations
@@ -125,7 +125,7 @@ body { background: var(--color-paper); color: var(--color-ink);
 .riso-mis::before, .riso-mis::after {
   content: attr(data-text); position: absolute; inset: 0;
   mix-blend-mode: multiply; pointer-events: none; }
-.riso-mis::before { color: var(--color-accent);  transform: translate(-2px, -2px); } /* cyan */
+.riso-mis::before { color: var(--color-accent);  transform: translate(-2px, -2px); } /* riso blue */
 .riso-mis::after  { color: oklch(64% 0.19 12);   transform: translate( 2px,  2px); } /* pink */
 
 /* Hairlines + solid rectangle button, never a pill or shadow */
@@ -136,4 +136,4 @@ mark { background: var(--color-accent-2); color: var(--color-ink); } /* yellow b
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 ```
 
-Plus the Public Sans + Newsreader + Geist Mono link and the small reveal script. Reference build: [`site/examples/riso-01/`](../../../../site/examples/riso-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.
+Plus the Public Sans + Newsreader + Geist Mono link and the small reveal script. Reference build: [`site/examples/riso-01/`](../../../../site/examples/riso-01/) (built on the pre-2026-07 tokens; example builds are dated artifacts and are never retro-edited when a theme’s tokens move) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

@@ -1,13 +1,13 @@
 # Theme - Coral
 
-Modern-minimal, warm SaaS register. The page for a **SaaS product, a platform, a billing or payments tool, a B2B dashboard, a startup landing** done in warmth, not cool steel. A warm-grey ground (never pure white), warm charcoal ink (never black), exactly ONE warm coral signal, Geist for everything, and soft pills. The confident-but-human school: calm, generous, typographic. It reads like a product that is easy to trust.
+Modern-minimal, warm SaaS register. The page for a **SaaS product, a platform, a billing or payments tool, a B2B dashboard, a startup landing** done in warmth, not cool steel. A warm-grey ground (never pure white), warm charcoal ink (never black), exactly ONE warm coral signal, General Sans for everything, and soft pills. The confident-but-human school: calm, generous, typographic. It reads like a product that is easy to trust.
 
 Loaded eagerly by SKILL.md Step 3 when the catalog pick is `coral`. Tokens: `site/css/tokens.css` `[data-theme="coral"]`. Coral is the canonical modern-minimal theme; the rotation walks Coral (warm) to Cobalt (cool).
 
 ## Axes (diversification)
 
 - **Paper band** - warm light (`oklch(96.5% 0.005 50)`, hue 50, very low chroma). A warm near-white grey, not Cobalt's cool-white and not Garden's oat-cream.
-- **Display style** - geometric-sans (Geist 600, `-0.025em` tracking). Single-family, distinct from Cobalt's Space Grotesk and from every serif.
+- **Display style** - grotesk-sans (General Sans 600, `-0.025em` tracking). Single-family, distinct from Cobalt's Space Grotesk and from every serif.
 - **Accent hue** - warm coral (`oklch(64% 0.165 28)`). One warm signal, sits clear of Cobalt's electric blue and Garden's leaf green. Used as a signal, never a flood.
 
 ## Reference register
@@ -18,9 +18,10 @@ Stripe · Linear · Vercel · ElevenLabs · Framer · Raycast · Resend · Mercu
 
 ## Required dependencies
 
-1. **Fonts** - **Geist** (display 600/500, body 400/500) and **Geist Mono** (small UPPERCASE labels, meta, code). One sans family top to bottom; no serif, no second sans. Google Fonts:
+1. **Fonts** - **General Sans** (display 600/500, body 400/500, Fontshare) and **Geist Mono** (small UPPERCASE labels, meta, code). One sans family top to bottom; no serif, no second sans:
    ```html
-   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+   <link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap" rel="stylesheet" />
+   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
    ```
 2. **A small reveal script** (optional, restrained) - one `IntersectionObserver` adding `.is-in` (fade + ~8px rise, ease-out ~500ms). Coral is composed; keep reveals subtle or off. No type-in, no autoplay.
 
@@ -30,7 +31,7 @@ Stripe · Linear · Vercel · ElevenLabs · Framer · Raycast · Resend · Mercu
 
 2. **One warm coral signal, used sparingly** (< 5% of any viewport) - `oklch(64% 0.165 28)`. Spend it on the eyebrow tick, a link's hover underline, focus rings, one stat figure, OR a single coral-filled pill. Pick one, do not flood. Everything else is warm-ink-on-warm-grey. Never a coral background wash, never gradient text.
 
-3. **Geist single-family discipline** - display, body, meta, and code all Geist / Geist Mono. Display 600 at `-0.025em`. No serif anywhere, no second sans. Coral is warmed by paper and accent, never by a font swap.
+3. **General Sans single-family discipline** - display and body all General Sans; meta and code Geist Mono. Display 600 at `-0.025em`. No serif anywhere, no second sans. Coral is warmed by paper and accent, never by a font swap.
 
 4. **Soft pills** - `999px` (`--radius-pill`) on CTAs and chips; cards at `8px` (`--radius-card`), inputs at `6px`. The rounded, friendly control vocabulary, the opposite of Cobalt's ruler-drawn 6px tightness. This is a load-bearing sibling separator.
 
@@ -49,7 +50,7 @@ Composed and sparse. Optional section reveals fade and rise ~8px, once. Hover: c
 - **No cool paper** - cool grey or blue is Cobalt's. Coral is warm (hue 35-50).
 - **No pure `#fff` / `#000`** - the genre allows white, but Coral commits to warm grey paper and warm charcoal ink. That commitment is its identity.
 - **No code / API / terminal hero** - that is Cobalt's move. Coral leads typographically.
-- **No second typeface** - Geist only. No serif, no Space Grotesk, no mono-as-display.
+- **No second typeface** - General Sans only (Geist Mono for meta/code). No serif, no Space Grotesk, no mono-as-display.
 - **No tight ruler radii** - Coral is soft pills (999px), not 6px bordered controls.
 - **No coral flood, gradient, or coral background wash** - the accent is a < 5% signal.
 - **No glassmorphism, no aurora / mesh blob, no background texture** - warm paper, thin borders, and whitespace carry the page.
@@ -85,8 +86,8 @@ Never: *seamless, robust, cutting-edge, leverage, synergy, revolutionary, unlock
 
 | vs | what settles it instantly |
 |---|---|
-| **Cobalt** (modern-minimal sibling) | Coral is warm-grey paper + coral accent + Geist + soft 999px pills + a quiet typographic hero. Cobalt is cool-white + electric blue + Space Grotesk / JetBrains Mono + tight 6px bordered controls + a live code hero. Same genre, opposite temperature; the rotation walks between them. |
-| **Garden** (warm paper neighbour) | Both are warm and light, but Garden is oat-cream botanical *editorial* with green ink and a hand-built specimen artefact. Coral is warm-*grey* modern-minimal SaaS, all Geist, coral signal. Register (product vs field-journal) settles it. |
+| **Cobalt** (modern-minimal sibling) | Coral is warm-grey paper + coral accent + General Sans + soft 999px pills + a quiet typographic hero. Cobalt is cool-white + electric blue + Space Grotesk / JetBrains Mono + tight 6px bordered controls + a live code hero. Same genre, opposite temperature; the rotation walks between them. |
+| **Garden** (warm paper neighbour) | Both are warm and light, but Garden is oat-cream botanical *editorial* with green ink and a hand-built specimen artefact. Coral is warm-*grey* modern-minimal SaaS, all General Sans, coral signal. Register (product vs field-journal) settles it. |
 | **Lumen** (warm-family accent) | Lumen is a premium AI *apparatus* page with a classical serif headline and a built light-instrument. Coral is light, all-sans SaaS with soft pills and no artefact. Serif + apparatus vs sans + pills settles it. |
 
 ## Test brief expectations
@@ -105,7 +106,7 @@ html, body { overflow-x: clip; }
 body { background: var(--color-paper); color: var(--color-ink-2);
        font-family: var(--font-body); font-weight: 400; }
 
-/* Display - Geist 600, tight */
+/* Display - General Sans 600, tight */
 .display { font-family: var(--font-display); font-weight: var(--display-weight);
            letter-spacing: var(--tracking-display); font-size: var(--text-display); }
 
@@ -130,4 +131,4 @@ body { background: var(--color-paper); color: var(--color-ink-2);
 }
 ```
 
-Plus the Geist + Geist Mono link and the small reveal script.
+Plus the General Sans + Geist Mono links and the small reveal script.

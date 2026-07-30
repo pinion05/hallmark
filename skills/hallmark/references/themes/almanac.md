@@ -1,12 +1,12 @@
 # Theme - Almanac
 
-Editorial-reference register. The page for a **data yearbook, a field guide, a reference manual, a technical handbook, an index or catalogue of entries** - the almanac / whole-catalog school, executed in **cool bond-grey, not white**, with **tables and figures as the hero**. A cool paper ground (`oklch(94% 0.008 245)`), ruler-drawn hairlines, tabular figures that line up to the decimal, and one **deep bookish ink-blue** that never gets loud. It reads like a trusted reference: dense, indexed, exact.
+Editorial-reference register. The page for a **data yearbook, a field guide, a reference manual, a technical handbook, an index or catalogue of entries** - the almanac / whole-catalog school, executed in **cool slate-grey stock, not white**, with **tables and figures as the hero**. A cool mid-band paper ground (`oklch(84% 0.012 245)`), ruler-drawn hairlines, tabular figures that line up to the decimal, and one **deep bookish ink-blue** that never gets loud. It reads like a trusted reference: dense, indexed, exact.
 
 Loaded eagerly by SKILL.md Step 3 when the catalog pick is `almanac`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="almanac"]`.
 
 ## Axes (diversification)
 
-- **Paper band** - light **cool** (`L 94%`, hue 245, chroma 0.008). A grey *bond paper*, a full notch darker than an engineered near-white - distinct from Cobalt's `98.5%` and from Newsprint's warm `92%`.
+- **Paper band** - **mid cool** (`L 84%`, hue 245, chroma 0.012). A slate *ledger stock*, the catalog's first mid-band paper - unmistakably deeper than Cobalt's `98.5%` near-white and Newsprint's warm `92%`.
 - **Display style** - **grotesk-sans**, Hanken Grotesk `600`, tight tracking `-0.014em`. A workmanlike Swiss grotesk, not a serif and not geometric-Geist.
 - **Accent hue** - **deep ink-blue** (`oklch(38% 0.135 250)`) - dark and quiet, a library-stamp blue. Explicitly *not* Cobalt's electric `L58`; Almanac's signal is bookish, never live.
 
@@ -27,7 +27,7 @@ Works in Progress · Our World in Data · Stripe Press · Low-Tech Magazine · W
 
 ## Signature moves
 
-1. **Cool bond paper, never `#fff`** - `oklch(94% 0.008 245)`, with `paper-2` (`91%`) for alternating table rows and `paper-3` (`86%`) for the side-rail well and callout blocks. Ink is cool near-black `oklch(16% 0.020 245)`, never `#000`; muted meta sits at `oklch(46% 0.014 245)`.
+1. **Cool slate stock, never `#fff`** - `oklch(84% 0.012 245)`, with `paper-2` (`81%`) for alternating table rows and `paper-3` (`77%`) for the side-rail well and callout blocks. Ink is cool near-black `oklch(16% 0.020 245)`, never `#000` (11.9:1 on the stock); muted meta sits at `oklch(42% 0.016 245)`.
 
 2. **Tables and figures are the hero** - the almanac *is* its data. Hairline-ruled tables with `font-variant-numeric: tabular-nums`, right-aligned numerics, decimals that line up, units in mono. Lead with a data block, an index, or a spec table - never a photograph.
 
@@ -91,7 +91,7 @@ Never any of: *seamless, revolutionary, magical, effortless, game-changing, cutt
 
 | vs | difference |
 |---|---|
-| **Newsprint** (editorial, light, dense) | Newsprint is warm `92%` paper + roman-serif display (Playfair) + brick accent + justified broadsheet columns + a masthead. Almanac is cool `94%` bond + grotesk display (Hanken) + ink-blue + a ragged three-column encyclopedia grid + a side-rail. Broadsheet vs reference book settles it. |
+| **Newsprint** (editorial, light, dense) | Newsprint is warm `92%` paper + roman-serif display (Playfair) + brick accent + justified broadsheet columns + a masthead. Almanac is cool `84%` slate stock + grotesk display (Hanken) + ink-blue + a ragged three-column encyclopedia grid + a side-rail. Broadsheet vs reference book settles it. |
 | **Cobalt** (modern-minimal, cool, blue) | Same cool + blue + mono labels, but Cobalt is `98.5%` engineered near-white + **electric** `L58` cobalt + Space Grotesk + code-as-hero + a dark graphite band + ⌘K. Almanac is greyer bond + **deep** `L38` bookish blue + a Newsreader serif + tables-as-hero + a side-rail. Reference book vs dev-tool. |
 | **Garden** (editorial, light) | Garden is warm `95.5%` + roman-serif (Young Serif) + leaf-green + marginalia + generous negative space + calm springs. Almanac is cool + grotesk + ink-blue + dense three-column + functional `0.85×` motion. Botanical calm vs data density. |
 
