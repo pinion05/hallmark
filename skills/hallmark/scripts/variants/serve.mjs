@@ -160,7 +160,9 @@ const server = http.createServer(async (req, res) => {
       if (p === "/api/state") {
         lastPoll = Date.now();
         const manifest = readManifest();
-        return sendJson(res, 200, { run: P.RUN_ID, runDir: P.RUN, mode: manifest.mode, port: boundPort, manifest });
+        // CORS *: the chip on a routes-mode page (user's dev-server origin)
+        // reads state to learn titles + the live direction count.
+        return sendJson(res, 200, { run: P.RUN_ID, runDir: P.RUN, mode: manifest.mode, port: boundPort, manifest }, { "Access-Control-Allow-Origin": "*" });
       }
       if (p === "/chip.js") {
         return send(res, 200, CHIP_JS, { "Content-Type": MIME[".js"], "Access-Control-Allow-Origin": "*" });

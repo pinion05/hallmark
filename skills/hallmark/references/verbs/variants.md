@@ -159,16 +159,16 @@ self-contained. Stamp the CSS with `direction: <n> of 3 · run: <run-id>`.
 **Routes mode target:** the framework route from the § 2 table. Author the chip script tag into each generated route, exactly this shape (adjust `data-direction`, port, and base):
 
 ```html
-<script src="http://127.0.0.1:<port>/chip.js" data-direction="2" data-of="3" data-mode="routes" data-base="http://localhost:3000/hallmark-v"></script>
+<script src="http://127.0.0.1:<port>/chip.js" data-direction="2" data-of="3" data-mode="routes" data-base="http://localhost:3000/hallmark-v" data-title="The control room"></script>
 ```
 
-Greenfield frames carry the chip too, with `data-mode="greenfield"` and `data-base="http://127.0.0.1:<port>/frame/"`. What the chip does (so you can describe it, not so you can rebuild it):
+Greenfield frames carry the chip too, with `data-mode="greenfield"` and `data-base="http://127.0.0.1:<port>/frame/"`. `data-title` is the direction's plan-table title (optional but write it). What the chip does (so you can describe it, not so you can rebuild it):
 
-- Renders a small fixed bottom-center pill: "Direction 2/3", dismissible with an x.
-- Arrow buttons and ArrowLeft/ArrowRight flip to the sibling direction via `data-base` + n, guarded against focused inputs.
-- A Pick and a Riff button POST to `/api/pick` on the chip's own origin.
-- On fetch failure the pill swaps to the text *"picker offline: tell your agent - pick 2"*, so the flow survives the server dying.
-- Respects `prefers-reduced-motion`; nothing animates beyond opacity.
+- Renders the **corner dock**: a compact glass bar pinned bottom-right, inside a shadow root so the page's own CSS cannot touch it. The page stays full-bleed; nothing wraps it.
+- The bar: `‹ 1 2 3 ›` (numbers jump straight to a direction; the current one is filled), the direction title in small caps, **Pick**, a `⋯` tray with meta + Riff + Graft, and an `×` to dismiss. ArrowLeft/ArrowRight flip too, guarded against focused inputs.
+- On load it fetches `/api/state` from the helper origin to learn live titles, meta, and the real direction count, so a riffed direction 4 is reachable even when the embedded `data-of` is stale; the data attributes are only the offline fallback.
+- Pick / Riff / Graft POST to `/api/pick` on the chip's own origin. On failure the bar swaps to *"picker offline · tell your agent: pick 2"*, so the flow survives the server dying.
+- Respects `prefers-reduced-motion`; nothing animates beyond opacity/transform.
 
 Assume port 4180 when writing the tags; § 9 covers the walk-up case.
 
@@ -212,8 +212,8 @@ What the user sees (built by `core.mjs`, dark neutral shell, system-ui, self-con
 
 - An overview grid of the directions: a PNG thumbnail per direction once `thumbs.mjs` has run (a scaled live 1280x800 iframe when no thumbnail yet), and a "building..." skeleton card for any direction still at `status:"generating"`.
 - Each card labelled with the direction's title (as `n · title`) and its macro/theme/nav/footer meta.
-- Click or 1/2/3 enters full-size single view (a live iframe); a labeled counter and input-guarded arrows cycle directions.
-- P or the Pick button confirms; R or the Riff button deals a fourth, with an optional one-line steer; G or the Graft button borrows a section from another direction (§ Smoothness).
+- Click or 1/2/3 enters single view: the direction FULL-BLEED in a live iframe, nothing framing it. Every control lives in the **corner dock**, a compact glass bar pinned bottom-right: a grid glyph back to the overview, `‹ 1 2 3 ›` with direct number jump (a still-generating direction shows as a dimmed, pulsing number until it lands), the direction title, **Pick**, and a `⋯` tray carrying the tuple meta, Riff, Graft, and the key hints.
+- Keys: arrows flip (ready directions only), 1-9 jump, P pick, R riff (optional one-line steer), G graft (§ Smoothness), Esc back to the grid; all guarded against focused inputs.
 - The page binds to 127.0.0.1 only and polls `/api/state` every 2 seconds, so manifest updates (a direction flipping to ready, a thumbnail arriving, a riff landing, the pick recorded) appear without a restart.
 
 **No-server variant:** `node <skill-dir>/scripts/variants/start.mjs --run <run-dir> --static` skips the server, writes `compare.html` into the run dir (self-contained, srcdoc-inlined iframes of v1-v3, keyboard 1/2/3 and arrows, a banner telling the user to reply "pick N" in chat), and prints its path. Reach for it when a long-lived process is unwelcome but node exists.
@@ -222,7 +222,7 @@ What the user sees (built by `core.mjs`, dark neutral shell, system-ui, self-con
 
 Vite, Astro, and SvelteKit only. **Preview-only: it shows the variant over your running app, it never edits your app's source.** Next.js is out (no clean dev-only injection hook that stays preview-only); for Next, use routes mode or greenfield sketches. There is no write-back: the winner still ships as a normal Hallmark build after the pick.
 
-When the app runs a Vite/Astro/SvelteKit dev server, preview each direction as a full-viewport overlay inside the real app without adding throwaway routes. serve.mjs serves `GET /inject/<n>.js` (built by `core.mjs buildInjectJs(n,total,port)`); loaded inside the dev app it mounts a fixed, max-z-index, full-viewport overlay iframe pointing at the direction's preview URL, plus the chip controls (the same flip/pick/riff, posting to the helper origin). It guards arrow keys against focused inputs, is dev-only (a no-op unless `location.hostname` is `localhost` or `127.0.0.1`), and is dismissible.
+When the app runs a Vite/Astro/SvelteKit dev server, preview each direction as a full-viewport overlay inside the real app without adding throwaway routes. serve.mjs serves `GET /inject/<n>.js` (built by `core.mjs buildInjectJs(n,total,port)`); loaded inside the dev app it mounts a fixed, max-z-index, full-viewport overlay iframe pointing at the direction's preview URL, plus the same corner dock (flip / number jump / pick / riff / graft, posting to the helper origin; titles and count refresh from `/api/state`). It guards arrow keys against focused inputs, is dev-only (a no-op unless `location.hostname` is `localhost` or `127.0.0.1`), and is dismissible (x, Esc).
 
 Wire it in dev config only, and get the user's ok first (it loads a script from the helper origin into their dev app). Swap the `1` in `/inject/1.js` for the direction you want on top first; the overlay's own flip controls move between directions once loaded. Use the picker port that `start.mjs` printed for `<port>`.
 
@@ -320,20 +320,20 @@ Pick the rung your harness supports:
 
    Between turns, `--drain` prints ALL queued requests as a JSON array (exit 2 when empty); drain at the top of any turn where the user might have clicked meanwhile.
 
-2. **One-shot harnesses (Cursor, Codex):** short loops:
+2. **Codex CLI / OpenCode (short-turn harnesses):** short loops:
 
    ```
    node <abs-path>/await.mjs --run <run-dir> --timeout 60
    ```
 
-   After 3 consecutive idle exits, stop polling and ask in chat: *"Reply 1, 2, or 3 (or riff, or graft e.g. 'pricing from 3')."*
+   After 3 consecutive idle exits, stop polling and ask in chat: *"Reply 1, 2, or 3 (or riff, or graft e.g. 'pricing from 3')."* On Codex, the sandbox may refuse the server outright (see [`harnesses/codex.md`](../harnesses/codex.md)); go straight to rung 3.
 
-3. **No node / no scripts installed** (the Cursor `.mdc` install channel ships no scripts): skip the server entirely. Write `compare.html` by hand into the run dir, in the static template shape, and ask for the verdict in chat. The hand-written file must be:
+3. **No node / no server allowed** (a sandbox that blocks the bind, or an install channel without scripts): skip the server entirely. Write `compare.html` by hand into the run dir, in the static template shape, and ask for the verdict in chat. The hand-written file must be:
 
-   - Fully self-contained: each direction's page inlined into an iframe `srcdoc` attribute (escape quotes), no external requests.
-   - Navigable: keyboard 1/2/3 jumps to a direction, arrow keys cycle, plus visible buttons for mouse users.
-   - Honest about the channel: a fixed banner reading "Reply in chat: pick 1, 2, or 3 (or riff, or graft)". No Pick button that pretends to work.
-   - Labelled: each frame shows its direction title and macro/theme meta from the plan table.
+   - Fully self-contained: each direction's page inlined into an iframe `srcdoc` attribute (escape quotes), no external requests, frames full-bleed one at a time.
+   - Navigable: keyboard 1/2/3 jumps to a direction, arrow keys cycle, plus a visible bottom-right dock for mouse users.
+   - Honest about the channel: the dock carries a `pick N` chip that copies the reply to paste in chat, and its tray says "no server · your chat is the channel: reply 'pick N' (or riff / graft)". No Pick button that pretends to work.
+   - Labelled: the dock shows the current direction's title, and its tray the macro/theme meta from the plan table.
 
 **THE FLOW NEVER DEAD-ENDS.** A chat reply naming a verdict ("2", "pick 2", "the poster one", "2 but the pricing from 3") is a valid channel at every rung, always, even while the server is up. After acting on a chat verdict, run `--drain` once and ack anything stale so `requests/` ends empty.
 
@@ -372,7 +372,7 @@ Each `variants[]` row carries that direction's title, macrostructure, theme, nav
 
 ## Smoothness
 
-The point of variants is a fast, honest decision loop. The picker already carries the ergonomics: a labeled counter (`n · title`), input-guarded arrow flip (arrows never fire while a prompt input is focused), and side-by-side thumbnails in the grid (§ Thumbnails). Build on that with three moves.
+The point of variants is a fast, honest decision loop. The picker already carries the ergonomics: the corner dock (title, `‹ 1 2 3 ›` number jump, Pick, tray), input-guarded arrow flip (arrows never fire while a prompt input is focused), and side-by-side thumbnails in the grid (§ Thumbnails). Build on that with three moves.
 
 **Compositional grafts (the key unlock).** The verdict is rarely "2 is perfect." It is usually "2, but the pricing section from 3." Handle it whether it arrives in chat or through the picker's Graft button.
 
@@ -407,7 +407,7 @@ On `{"action": "riff", "steer": "..."}` (steer optional) or a chat ask ("riff", 
 
 - Plan direction 4: a macrostructure different from all three, from whichever structural family remains; a theme distinct on as many axes as remain. With only three paper bands, direction 4 relaxes to >= 2 axes distinct against each earlier direction; say so in the one-line plan.
 - Honor the steer line as art direction ("warmer", "like 2 but dark"). Where the steer and the divergence default conflict, the steer wins; the user is telling you where the target is.
-- Build v4 under the same fragment contract and sketch depth, write `v4/` (or the `hallmark-v4` route with a chip tag reading `data-direction="4" data-of="4"`), append its tuple to `manifest.json` `directions` at `status:"generating"` then flip to `"ready"` when it lands, and ack the riff request. Run `thumbs.mjs` again so direction 4 gets a thumbnail. The picker's 2-second poll shows the new direction without a restart. Bump the earlier chips' `data-of` to 4 when you touch those files anyway; stale chips wrap at 3 and never reach direction 4, so mention direction 4 in chat either way.
+- Build v4 under the same fragment contract and sketch depth, write `v4/` (or the `hallmark-v4` route with a chip tag reading `data-direction="4" data-of="4" data-title="<its title>"`), append its tuple to `manifest.json` `directions` at `status:"generating"` then flip to `"ready"` when it lands, and ack the riff request. Run `thumbs.mjs` again so direction 4 gets a thumbnail. The picker's 2-second poll shows the new direction without a restart, and the earlier chips learn the new count live from `/api/state`, so direction 4 is reachable from them too; the embedded `data-of` only matters as the offline fallback (bump it when you touch those files anyway).
 - A second riff repeats the ritual as direction 5. If the user riffs twice without picking, ask what is missing instead of dealing a sixth.
 
 ## 9 · Risks and edge notes

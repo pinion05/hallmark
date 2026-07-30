@@ -62,24 +62,39 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
 .stage{position:absolute; inset:0; background:#fff}
 .stage .page{position:absolute; top:0; left:0; width:1024px; height:640px; transform:scale(var(--s,.27)); transform-origin:top left}
 
-/* -------- single view -------- */
-#single{position:fixed; inset:0; background:var(--bg); display:none; flex-direction:column; z-index:20}
-#single.on{display:flex}
-#sbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:10px clamp(12px,3vw,18px); border-bottom:1px solid var(--line)}
-#sbar button{font:inherit; font-size:12px; color:var(--fg); border:1px solid var(--line); background:var(--card); border-radius:999px; padding:6px 13px; cursor:pointer}
-#sbar button:hover{border-color:var(--acc)}
-#sbar .pick{background:var(--acc); border-color:var(--acc); color:#0d1420; font-weight:650}
-#sbar .count{font-family:var(--mono); font-size:11px; color:var(--mut); padding:0 2px}
-#sbar .st{font-weight:650; font-size:13px}
-#sbar .sm{font-family:var(--mono); font-size:11px; color:var(--mut)}
-#sbar .keys{margin-left:auto; font-family:var(--mono); font-size:10.5px; color:var(--mut)}
-#swrap{flex:1; display:grid; place-items:center; padding:clamp(14px,3vw,30px); min-height:0}
-#sstage{position:relative; width:min(1024px,100%); max-height:100%; aspect-ratio:1024/640; overflow:hidden; border:1px solid var(--line); border-radius:12px; background:#fff}
-#sstage .page{position:absolute; top:0; left:0; width:1024px; height:640px; transform:scale(var(--s,.6)); transform-origin:top left}
+/* -------- single view: the direction full-bleed, controls in the corner dock -------- */
+#single{position:fixed; inset:0; background:var(--bg); display:none; z-index:20}
+#single.on{display:block}
+#sstage{position:absolute; inset:0; overflow:hidden; background:#fff}
+#sstage .page{position:absolute; left:50%; top:50%; width:1024px; height:640px; transform:translate(-50%,-50%) scale(var(--s,1)); transform-origin:center}
 
-/* graft prompt */
+/* the corner dock (mirrors the real picker's HmDock) */
+.dock{position:fixed; right:16px; bottom:16px; z-index:40; display:flex; flex-direction:column; align-items:flex-end; gap:8px; user-select:none; -webkit-user-select:none; text-align:left}
+.glass{background:rgba(16,16,19,.88); -webkit-backdrop-filter:blur(16px) saturate(150%); backdrop-filter:blur(16px) saturate(150%); border:1px solid rgba(255,255,255,.09); border-radius:14px; box-shadow:0 18px 44px -18px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.05)}
+.dbar{display:flex; align-items:center; gap:1px; padding:4px}
+.dbtn{appearance:none; border:0; background:none; color:#c6c4bd; font:500 12px/1 ui-sans-serif,system-ui,sans-serif; cursor:pointer; padding:8px 9px; border-radius:10px; display:inline-flex; align-items:center; gap:8px}
+.dbtn:hover{background:rgba(255,255,255,.1); color:#fff}
+.dbtn:focus-visible{outline:2px solid #9db8e8; outline-offset:-1px}
+.dnum{display:flex; gap:1px; padding:0 1px}
+.dnum .dbtn{min-width:24px; justify-content:center; font-variant-numeric:tabular-nums; color:#929088; padding:8px 4px}
+.dnum .dbtn.on{background:#e8e6e1; color:#131316; font-weight:650}
+.dnum .dbtn.gen{opacity:.35; cursor:default}
+.dtitle{max-width:15ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; font-weight:650; letter-spacing:.14em; text-transform:uppercase; color:#a5a29a; padding:0 10px}
+.dsep{width:1px; height:15px; background:rgba(255,255,255,.1); margin:0 4px; flex:none}
+.dpick{background:#e8e6e1; color:#131316; font-weight:650; padding:8px 13px; margin-left:2px}
+.dpick:hover{background:#fff; color:#000}
+.dtray{display:none; flex-direction:column; min-width:224px; padding:4px}
+.dtray.on{display:flex}
+.dtray .dbtn{justify-content:space-between; width:100%; padding:9px 11px}
+.dk{font-size:10px; color:#75736c; letter-spacing:.06em}
+.dmeta{padding:9px 11px 8px; font-size:10.5px; line-height:1.55; color:#929088; border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:3px}
+.dmeta b{display:block; color:#e8e6e1; font-size:11px; margin-bottom:2px}
+.dhint{padding:8px 11px 6px; font-size:10px; color:#6f6d66; letter-spacing:.04em; border-top:1px solid rgba(255,255,255,.08); margin-top:3px; line-height:1.6}
+@media (max-width:640px){.dtitle{display:none}.dtitle+.dsep{display:none}.dock{right:10px; bottom:10px}}
+
+/* graft prompt (sits above the dock) */
 .graftbox{
-  position:absolute; top:52px; right:clamp(12px,3vw,18px); z-index:30;
+  position:fixed; right:16px; bottom:76px; z-index:41;
   background:var(--card); border:1px solid var(--line); border-radius:12px;
   padding:14px; width:min(320px,88vw); box-shadow:0 18px 44px -16px rgba(0,0,0,.7);
   display:none; flex-direction:column; gap:10px;
@@ -175,13 +190,15 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
   picker writes each direction to the manifest as <b>generating</b>, then flips it
   to <b>ready</b> the moment its files land, so the first direction is viewable
   after roughly one direction's worth of work instead of waiting for all three.</p>
-  <p>Click a card, or press <b>1</b> / <b>2</b> / <b>3</b>, to open the single
-  surface. <b>Arrow keys</b> flip between directions on the same spot, so you
-  compare by muscle memory rather than by hunting tabs. <b>Pick</b> keeps one
-  direction: only the winner gets finished and shipped. <b>Graft</b> composes,
-  it takes one section from another direction into the winner (try "pricing from
-  3"). And in a real run a plain chat reply naming a direction is always a valid
-  pick, so the flow never dead-ends.</p>
+  <p>Click a card, or press <b>1</b> / <b>2</b> / <b>3</b>, to open a direction
+  <b>full-bleed</b>: the page fills the viewport and every control lives in the
+  small <b>corner dock</b>, bottom right, out of the design's way. <b>Arrow
+  keys</b> (or the dock's numbers) flip between directions on the same spot, so
+  you compare by muscle memory rather than by hunting tabs. <b>Pick</b> keeps
+  one direction: only the winner gets finished and shipped. <b>Graft</b>
+  composes, it takes one section from another direction into the winner (try
+  "pricing from 3"). And in a real run a plain chat reply naming a direction is
+  always a valid pick, so the flow never dead-ends.</p>
   <div class="legend" aria-hidden="true">
     <span><b>arrows</b> flip directions in place</span>
     <span><b>1 2 3</b> jump to a direction</span>
@@ -191,19 +208,28 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
   </div>
 </section>
 
-<!-- single view -->
+<!-- single view: full-bleed direction + corner dock -->
 <div id="single" role="dialog" aria-modal="true" aria-label="direction single view">
-  <div id="sbar">
-    <button id="back" type="button" title="back to the grid (Esc)">‹ grid</button>
-    <button id="prev" type="button" title="previous (ArrowLeft)">‹</button>
-    <button id="next" type="button" title="next (ArrowRight)">›</button>
-    <span class="count" id="count"></span>
-    <span class="st" id="st"></span><span class="sm" id="sm"></span>
-    <span class="keys">arrows flip · P pick · G graft · Esc grid</span>
-    <button class="pick" id="pickBtn" type="button">Pick this (P)</button>
-    <button id="graftBtn" type="button">Graft (G)</button>
+  <div id="sstage"></div>
+  <div class="dock" aria-label="direction controls">
+    <div class="dtray glass" id="dtray">
+      <div class="dmeta" id="dmeta"></div>
+      <button class="dbtn" id="graftBtn" type="button">Graft · borrow a section<span class="dk">G</span></button>
+      <div class="dhint">arrows flip · 1-3 jump · P pick · G graft · Esc grid</div>
+    </div>
+    <div class="dbar glass">
+      <button class="dbtn" id="back" type="button" title="back to the grid (Esc)"><svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor" aria-hidden="true"><rect x="0" y="0" width="5" height="5" rx="1"/><rect x="6" y="0" width="5" height="5" rx="1"/><rect x="0" y="6" width="5" height="5" rx="1"/><rect x="6" y="6" width="5" height="5" rx="1"/></svg></button>
+      <span class="dsep"></span>
+      <button class="dbtn" id="prev" type="button" title="previous (ArrowLeft)">‹</button>
+      <span class="dnum" id="dnum"></span>
+      <button class="dbtn" id="next" type="button" title="next (ArrowRight)">›</button>
+      <span class="dsep"></span>
+      <span class="dtitle" id="dtitle"></span>
+      <span class="dsep"></span>
+      <button class="dbtn dpick" id="pickBtn" type="button">Pick</button>
+      <button class="dbtn" id="moreBtn" type="button" title="more" aria-expanded="false">⋯</button>
+    </div>
   </div>
-  <div id="swrap"><div id="sstage"></div></div>
   <div class="graftbox" id="graftbox">
     <p>Take a section from another direction into this one. Format: <b>section from N</b>.</p>
     <input id="graftInput" type="text" value="pricing from 3" aria-label="graft instruction" />
@@ -265,11 +291,13 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
   function dir(n){for(var i=0;i<DIRS.length;i++)if(DIRS[i].n===n)return DIRS[i];return null}
   function readyList(){return DIRS.filter(function(d){return d.ready})}
 
-  // one shared observer keeps every scaled mock fit to its container
+  // one shared observer keeps every scaled mock fit to its container.
+  // grid cards fit by width; the full-bleed single stage covers the viewport.
   var ro=new ResizeObserver(function(entries){
     for(var i=0;i<entries.length;i++){
-      var w=entries[i].contentRect.width;
-      entries[i].target.style.setProperty("--s",(w/1024).toFixed(4));
+      var r=entries[i].contentRect, t=entries[i].target;
+      var s=t.id==="sstage"?Math.max(r.width/1024,r.height/640):r.width/1024;
+      t.style.setProperty("--s",s.toFixed(4));
     }
   });
   function mockPage(n){return $("tpl"+n).content.firstElementChild.cloneNode(true)}
@@ -318,7 +346,7 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
 
   // ---- single view ----
   function openDir(n){var d=dir(n);if(!d||!d.ready)return;view=n;$("single").classList.add("on");sync()}
-  function closeSingle(){view="grid";$("single").classList.remove("on");closeGraft()}
+  function closeSingle(){view="grid";$("single").classList.remove("on");closeGraft();toggleTray(false)}
   function cycle(step){
     var list=readyList();if(!list.length)return;
     var idx=0;for(var i=0;i<list.length;i++)if(list[i].n===view)idx=i;
@@ -326,19 +354,30 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
   }
   function sync(){
     var d=dir(view);if(!d){closeSingle();return}
-    var list=readyList(),pos=1;for(var i=0;i<list.length;i++)if(list[i].n===view)pos=i+1;
-    $("count").textContent="Direction "+pos+"/"+list.length;
-    $("st").textContent=d.n+" · "+d.title;
-    $("sm").textContent=d.macro+" · "+d.theme;
+    var nums=$("dnum");nums.innerHTML="";
+    DIRS.forEach(function(x){
+      var b=document.createElement("button");b.type="button";b.className="dbtn"+(x.n===view?" on":"")+(x.ready?"":" gen");
+      b.textContent=x.n;b.title=x.ready?(x.n+" · "+x.title):"still building...";
+      b.addEventListener("click",function(){if(x.ready)openDir(x.n)});
+      nums.appendChild(b);
+    });
+    $("dtitle").textContent=d.title;
+    $("dmeta").innerHTML="<b></b><span></span>";
+    $("dmeta").firstChild.textContent=d.title;
+    $("dmeta").lastChild.textContent=d.macro+" · "+d.theme;
     var wrap=$("sstage");wrap.innerHTML="";
     var page=mockPage(d.n);wrap.appendChild(page);ro.observe(wrap);
-    $("pickBtn").textContent="Pick this (P)";
+    $("pickBtn").textContent="Pick";
     closeGraft();
   }
   function pick(){
     if(view==="grid")return;var d=dir(view);
     note("picked: "+d.title+" ✓ · only the winner gets finished and shipped",true);
     $("pickBtn").textContent="Picked ✓";
+  }
+  function toggleTray(force){
+    var on=$("dtray").classList.toggle("on",force);
+    $("moreBtn").setAttribute("aria-expanded",String(on));
   }
 
   // ---- graft ----
@@ -375,6 +414,7 @@ header .tag{font-family:var(--mono); font-size:11px; color:var(--mut)}
   $("prev").addEventListener("click",function(){cycle(-1)});
   $("next").addEventListener("click",function(){cycle(1)});
   $("pickBtn").addEventListener("click",pick);
+  $("moreBtn").addEventListener("click",function(){toggleTray()});
   $("graftBtn").addEventListener("click",function(){$("graftbox").classList.contains("on")?closeGraft():openGraft()});
   $("graftCancel").addEventListener("click",closeGraft);
   $("graftGo").addEventListener("click",doGraft);
