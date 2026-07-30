@@ -1,6 +1,6 @@
 # Roadmap
 
-What's next. (v1.4 shipped: the harness pivot - one core, per-harness adapters for Claude Code / Codex / OpenCode, the multi-harness installer, and the variants corner dock. v1.3 shipped: the edit-time lint hook, four new themes with the image hook, spec files for all 24 themes, the Tier A conformance harness, and variants v2 with progressive reveal + grafts + thumbnails + scoped injection.)
+What's next. (v1.2 shipped: four new themes with the image hook, spec files for all 24 themes, the edit-time lint hook, the Tier A conformance harness, variants v2 with progressive reveal + grafts + thumbnails + scoped injection and the corner dock, and the harness pivot - one core with per-harness adapters for Claude Code / Codex / OpenCode plus the multi-harness installer.)
 
 ---
 

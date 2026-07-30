@@ -128,7 +128,7 @@ const THEME_GENRES = {
   carnival:  "editorial",
   lumen:     "atmospheric",
   hum:       "playful",
-  // v1.3 themes
+  // v1.2 themes
   grid:      "editorial",       // the Swiss / grotesque exception in the editorial cluster
   ledger:    "modern-minimal",  // the cluster's one dark option, next to light Coral / Cobalt
   field:     "playful",
@@ -426,7 +426,7 @@ const COPY = {
     letterBody: "The polished-SaaS school of restraint, but warmer. Warm-grey paper instead of pure white; coral accent on focus rings and small marks. Pill CTAs, two-column heroes, generous space.",
     signoff: "Yours,",
     captionA: "Coral",
-    captionB: "v1.1",
+    captionB: "v1.2",
   },
   aurora: {
     eyebrow: "Atmospheric · cool",
@@ -549,7 +549,7 @@ const COPY = {
     letterBody: "The dev-tool register, executed with restraint: a cool near-white canvas, hairlines doing the structural work, one electric cobalt accent reserved for the signal — a live request, a 200, a focused field. Space Grotesk for headings, Inter for prose, JetBrains Mono for the code.",
     signoff: "Ship it,",
     captionA: "Cobalt",
-    captionB: "v1.1",
+    captionB: "v1.2",
   },
   grid: {
     eyebrow: "Swiss international",
@@ -570,7 +570,7 @@ const COPY = {
     letterBody: "Swiss International, executed straight: the grid is not scaffolding you hide, it is the design. Content snaps to twelve columns, asymmetric spans make the rhythm, and a single red mark does all the emotional work.",
     signoff: "Flush left,",
     captionA: "Grid",
-    captionB: "v1.3",
+    captionB: "v1.2",
   },
   field: {
     eyebrow: "Warm productivity",
@@ -591,7 +591,7 @@ const COPY = {
     letterBody: "Warm-productivity SaaS without the cute: a serif display for weight, a humanist sans for the work, one marigold band on the phrase that carries the promise, and ink doodles that behave like margin notes rather than decoration.",
     signoff: "Noted,",
     captionA: "Field",
-    captionB: "v1.3",
+    captionB: "v1.2",
   },
   ledger: {
     eyebrow: "Fintech terminal-lux",
@@ -612,7 +612,7 @@ const COPY = {
     letterBody: "Fintech done as an instrument, not a brochure: a navy terminal ground, every figure set in tabular mono, the reconciled balance carried at display scale, and teal reserved for the one thing the eye should trust: the number that changed.",
     signoff: "Balanced,",
     captionA: "Ledger",
-    captionB: "v1.3",
+    captionB: "v1.2",
   },
   arcade: {
     eyebrow: "Free play · event 07",
@@ -633,7 +633,7 @@ const COPY = {
     letterBody: "Retro without the costume: the signal is a pixel display, a low scanline wash, a faint starfield, and a magenta-plus-cyan duo on violet-black, with body copy in a readable sans so it stays legible. The re-drawn-chrome ban still holds.",
     signoff: "Game on,",
     captionA: "Arcade",
-    captionB: "v1.3",
+    captionB: "v1.2",
   },
 };
 

@@ -1,7 +1,7 @@
 ---
 name: hallmark
 description: "Anti-AI-slop design skill for greenfield pages, audits, redesigns, design extraction from URLs or screenshots, and side-by-side design variations. Use when the user asks to build a new app or landing page, wants to redesign something, wants multiple design directions to pick from, invokes Hallmark by name, or uses audit/redesign/study/variants."
-version: 1.4.0
+version: 1.2.0
 ---
 
 # Hallmark
@@ -251,7 +251,7 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 **Do:** emit the preview block, then stop for a beat before writing code. This is the user's five-second redirect window.
 
 ```markdown
-**Hallmark · v1.4.0**
+**Hallmark · v1.2.0**
 
 - **Macrostructure** · Stat-Led
 - **Theme** · Coral (near-white paper · quiet neutrals · coral accent)

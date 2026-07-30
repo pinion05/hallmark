@@ -5,7 +5,7 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 ---
 
 *Long Document (editorial, motion-cut):*
-> **Hallmark · v1.3.0**
+> **Hallmark · v1.2.0**
 >
 > - **Macrostructure** · Long Document
 > - **Theme** · Newsprint (cool slate paper · steel-blue accent · geometric sans)
@@ -16,7 +16,7 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 > - **Diversification** · first run for this project
 
 *Bento Grid (SaaS, motion-on):*
-> **Hallmark · v1.3.0**
+> **Hallmark · v1.2.0**
 >
 > - **Macrostructure** · Bento Grid
 > - **Theme** · Newsprint (cool slate paper · steel-blue accent · geometric sans)
@@ -27,7 +27,7 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 > - **Diversification** · differs from Coral on paper hue (light-cool vs pure-white) + accent (indigo vs ink-blue)
 
 *Manifesto (declarative, no enrichment):*
-> **Hallmark · v1.3.0**
+> **Hallmark · v1.2.0**
 >
 > - **Macrostructure** · Manifesto
 > - **Theme** · Manifesto (dark · Inter Tight 900 · single red bleed)
@@ -38,7 +38,7 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 > - **Diversification** · differs from Newsprint on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
 
 *Custom (Coffeebox archival café):*
-> **Hallmark · v1.3.0**
+> **Hallmark · v1.2.0**
 >
 > - **Macrostructure** · Long Document
 > - **Direction** · the postal frank (draw 6/7, wildcard no)
