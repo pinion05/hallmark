@@ -69,7 +69,7 @@ If the input does not clearly map to a verb, treat it as default. If the user at
 
 ## Disciplines that hold across every verb
 
-1. **Pre-emit self-critique.** Before handing back any output, score it 1-5 on six axes: Philosophy, Hierarchy, Execution, Specificity, Restraint, Variety. Anything **< 3** triggers a revision pass. Stamp the scores at the top of the artifact (`/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 */`). See [`references/slop-test.md`](references/slop-test.md) § Pre-emit self-critique.
+1. **Pre-emit self-critique.** Before handing back any output, score it 1-5 on six axes: Philosophy, Hierarchy, Execution, Specificity, Restraint, Variety. Anything **< 3** triggers a revision pass, and at least one axis must score <= 4 with its reason and fix named in the stamp's `weakest:` clause (straight 5s = unexamined). Stamp: `/* Hallmark · pre-emit critique: P5 H4 E5 S3 R5 V4 · weakest: S - <reason; fix taken> */`. See [`references/slop-test.md`](references/slop-test.md) § Pre-emit self-critique.
 
 2. **Honest copy, no fabricated content.** If the user did not supply a metric, do not invent one. Stat layouts, comparison rows, and proof bars use real numbers, a labelled placeholder ("metric to confirm"), or a different macrostructure. Same for testimonials, logos, and case-study counts. See [`references/anti-patterns.md` § Invented metrics](references/anti-patterns.md) and gate **46**.
 
@@ -198,6 +198,8 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 
 The `axes` and `fingerprint` fields are how Rotation and gate 32 become checkable instead of remembered; older entries without them are treated as unconstrained. First run for a project: no constraint, note it in one line. User explicitly re-orders the same archetype: same shape, different knob values, and say the knob deltas.
 
+**The mirror test, before the block.** Would this exact macro + theme + nav + hero combination have come out for a NEIGHBOURING brief (same category, different product)? If yes, at least one pick must change, and the Picks block names which one in its parenthetical. A pick that survives the mirror is a decision; one that doesn't was a default.
+
 **The Picks block.** One compact fenced block, said once, replacing all narration:
 
 ```
@@ -299,6 +301,8 @@ Emit code that satisfies the tone and the structural fingerprint. Match code com
 3. No Node, or a `.tsx`-only emit the script cannot scan: walk all 58 manually (Core-15 for components).
 
 Component scope runs the Core-15 sweep named in `slop-test.md`. Update the preview's Slop test row with the real outcome. If any gate fails, fix it. Do not ship slop.
+
+**Verification is budgeted.** One batched inspection round (desktop 1280x800 AND mobile 375 together; `--render` on the sloplint call when Chrome is available), one batch of fixes, at most one confirming round, then stop polishing. Endless single-issue re-render loops are their own failure mode.
 
 **Edit-time linting (optional, Claude Code).** Instead of waiting for Step 7, the user can wire sloplint as a PostToolUse hook so every `.html`/`.css` artifact is linted the moment it is written and FAILs are fed back advisorily: `node <skill-dir>/scripts/install-hook.mjs` (project scope; `--global` for all projects; `--remove` to undo). It never blocks a write and no-ops on non-artifacts; Step 7 still runs regardless. Off Claude Code the hook never fires and Step 7 is the only sweep.
 

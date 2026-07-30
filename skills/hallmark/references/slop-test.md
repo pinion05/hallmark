@@ -27,7 +27,7 @@ Every gate below carries a class tag:
 - **[R/J]** Render-verifiable: confirm on the rendered page when rendering is available, else judge.
 - **[J]** Judged: the model verifies these at Step 7; no script can.
 
-When sloplint has run, walk the J and R/J gates, plus the judged halves of M/R gates when --render did not run, and confirm or dismiss every WARN; re-litigating M gates the script already passed is wasted judgment.
+When sloplint has run, walk the J and R/J gates, plus the judged halves of M/R gates when --render did not run, and confirm or dismiss every WARN; re-litigating M gates the script already passed is wasted judgment. Verification is budgeted: one batched inspection round, one fix batch, at most one confirm round, then stop.
 
 ---
 
@@ -37,16 +37,16 @@ Run this **before** the gate list, not after. Score the planned output 1–5 on 
 
 Two passes is normal. Three is a sign the brief is wrong, not the design — re-read the brief.
 
-| # | Axis | What you're scoring |
+| # | Axis | What you're scoring (what a 3 looks like vs a 5) |
 |---|---|---|
-| **A** | **Philosophy** | Is there a clear *why* — a position the page is taking? Or is it just a layout? |
-| **B** | **Hierarchy** | Can a reader tell, in 2 seconds, what's primary, secondary, tertiary? Or is everything the same weight? |
-| **C** | **Execution** | Are the details (rule weight, accent footprint, text-wrap, focus rings, contrast) all in spec, or is there sloppiness even if the bones are right? |
-| **D** | **Specificity** | Does this look like *this brief* — or does it look like a generic "page that could be anyone"? |
-| **E** | **Restraint** | Have you removed everything that isn't earning its place? Decoration, redundancy, padding-for-padding's-sake? |
-| **F** | **Variety** | Does this output share a structural fingerprint with a previous Hallmark output in the project? Score by structural distance, not visual distance — colour-swaps don't count as variety. |
+| **P** | **Philosophy** | Is there a clear *why* — a position the page is taking? A 3 has a tone; a 5 has an argument a reader could disagree with. |
+| **H** | **Hierarchy** | Can a reader tell, in 2 seconds, what's primary, secondary, tertiary? A 3 needs a second look; a 5 survives the squint test. |
+| **E** | **Execution** | Are the details (rule weight, accent footprint, text-wrap, focus rings, contrast) in spec? A 3 has two or three loose details; a 5 would pass the gates on the first sweep. |
+| **S** | **Specificity** | Does this look like *this brief*? A 3 fits the category; a 5 could belong to no other product. |
+| **R** | **Restraint** | Is everything earning its place? A 3 keeps one decoration too many; a 5 lost something you liked. |
+| **V** | **Variety** | Structural distance from the log's `fingerprint` entries, never visual distance — colour-swaps don't count. A 3 differs on three of the six axes; a 5 shares almost nothing with the last three runs. |
 
-Record the six scores in a one-line stamp comment directly below the macrostructure stamp (which stays line 1, per gate 20): `/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 */`. Future runs should be able to find this and avoid repeating the same weakness.
+Record the six scores in a one-line stamp comment directly below the macrostructure stamp (which stays line 1, per gate 20), with the weakest axis named and answered: `/* Hallmark · pre-emit critique: P5 H4 E5 S3 R5 V4 · weakest: S - hero could be any dev tool; added the ledger-rule motif */`. **At least one axis scores <= 4, with its reason and the fix taken in the `weakest:` clause. A straight-5s stamp is unexamined, not excellent; rewrite until one real weakness is found and addressed.** Future runs should be able to find this and avoid repeating the same weakness.
 
 ---
 

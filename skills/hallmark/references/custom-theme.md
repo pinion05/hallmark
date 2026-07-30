@@ -48,6 +48,8 @@ Name the category's obvious aesthetic AND the second-order trap, then reject bot
 
 Format: *"Reflex check: rejecting <first-order> (the category default) and <second-order> (the tasteful fallback)."* Landing on either after writing this line means the self-check failed; redirect before continuing.
 
+Third altitude, **the mirror**: if the slate you are about to write would fit the category's OTHER products unchanged, it is category gravity wearing a slate's clothes. Sharpen entries until at least three are only defensible for THIS product.
+
 ### R.2 · Spent defaults
 
 Hallmark's own house defaults count as already spent for this brief family. Declare it before writing the slate. The spent table:
