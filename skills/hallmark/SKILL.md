@@ -230,7 +230,7 @@ A custom system is complete (palette + pairing + axes), never a colour swap; its
 
 **Index-then-pick (read the slim index, load only the picks):**
 - [`references/macrostructures.md`](references/macrostructures.md) → one file from `references/macrostructures/`.
-- [`references/component-cookbook.md`](references/component-cookbook.md) → only the picked N / Ft / H / S / F / C / T files from `references/components/`. Loading the cookbook end-to-end or pre-loading more than one archetype per category is the single biggest token waste in the skill.
+- [`references/component-cookbook.md`](references/component-cookbook.md) → only the picked N / Ft / H / S / F / C / T files from `references/components/`. The cookbook is a slim index plus routing tables; knobs and mobile-collapse rules ride inside each archetype file, so pre-loading more than one archetype file per category is the single biggest token waste in the skill.
 - [`references/hero-enrichment.md`](references/hero-enrichment.md) → load its slim index at Step 4 to run the image-need check it contains; load an archetype file from `references/enrichment/` only when the answer is YES.
 - [`references/custom-craft.md`](references/custom-craft.md) → only when the picked enrichment requires construction, then only the picked tier / recipe file from `references/craft/` (the craft tiers are lettered by construction method; match by name, not letter).
 

@@ -15,3 +15,16 @@ The section number sits directly ABOVE the heading, same column, vertical stack;
 ```
 
 *Mobile:* already single-column; nothing collapses.
+
+## Knobs
+
+Vary at least one knob vs the last logged use of this archetype (gate 32):
+
+- Number style: `01 —` label · bare `01` · `No. 4`
+- Density: cap 1-2 per page
+- Label ink: muted · accent-tick
+
+## Mobile collapse
+
+- **Below 60rem:** unchanged (already a single-column stack)
+- **Below 40rem:** unchanged
