@@ -184,6 +184,7 @@ Pick a ratio. The default for Hallmark work is **1.25** (major third). Build the
   --text-3xl:  3.0518rem;
   --text-4xl:  3.8147rem;
   --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.2rem, 4vw + 0.75rem, 4.2rem); /* one 1.25 step below display at both ends; the step-down the headline brackets reference */
 }
 ```
 

@@ -35,7 +35,7 @@ These bind on every output, in every verb, on every model. Read nothing else and
 
 0. Pre-flight scan of the existing project.
 1. Ask Audience / Use case / Tone once; detect genre; note custom signals.
-2. Pick macrostructure + nav + footer from the slim indexes; run the Rotation rules; say the Picks block.
+2. Pick macrostructure + nav + footer + hero posture from the slim indexes; run the Rotation rules; say the Picks block.
 2.6. Theme route: studied-DNA, catalog, or custom (custom runs the ritual in [`references/custom-theme.md`](references/custom-theme.md)).
 3. Load ONLY the listed reference files.
 4. Enrichment decision (scene sentence first; most pages are typography-only).
@@ -177,19 +177,20 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 
 **Macrostructure first.** Read the index at [`references/macrostructures.md`](references/macrostructures.md), pick ONE of the 21 named shapes, then load ONLY that per-macro file from `references/macrostructures/`. Never load the whole catalogue. The macrostructure picks five of the six structural axes; the deeper axis catalogue in [`references/structure.md`](references/structure.md) is only for deviating.
 
-**Nav and footer at the same step.** Read the index + routing tables in [`references/component-cookbook.md`](references/component-cookbook.md); pick a nav archetype (N1a-N13, fourteen of them) and a footer archetype (Ft1-Ft8); load ONLY the picked files from `references/components/`. A typical build loads 5-7 archetype files total. **Default away from N1a and Ft3**, the two most-recognised AI fingerprints; reach for N1b / N5 / N11 / N13 and Ft1 / Ft2 / Ft4-Ft8 unless the page genuinely has two destinations or is a docs hub.
+**Nav, footer, and hero at the same step.** Read the index + routing tables in [`references/component-cookbook.md`](references/component-cookbook.md); pick a nav archetype (N1a-N13, fourteen of them) and a footer archetype (Ft1-Ft8); load ONLY the picked files from `references/components/`. A typical build loads 5-7 archetype files total. **Default away from N1a and Ft3**, the two most-recognised AI fingerprints; reach for N1b / N5 / N11 / N13 and Ft1 / Ft2 / Ft4-Ft8 unless the page genuinely has two destinations or is a docs hub. Then pick the **hero posture** (Settled · Banner · Poster · Ledge · Corridor · Stage) and content archetype (H1-H9); the envelope table lives in [`references/enrichment/hero-discipline.md`](references/enrichment/hero-discipline.md) § Hero postures.
 
 **Rotation (the canonical block - every other file defers here):**
 
 - **Macro:** must differ from the last three Hallmark outputs for this project (read `.hallmark/log.json`, newest first; a CSS stamp counts when the log is missing). Specimen is never a default; reach for it only on explicit editorial / foundry briefs.
 - **Theme:** two consecutive themes must differ on at least one of three axes: **paper band** (dark < 30% L · mid 30-85% · light > 85%), **display style**, **accent hue** (warm 10-60° · cool 200-300° · neutral · chromatic-other). The 24-row lookup lives in [`references/theme-axes.md`](references/theme-axes.md). Two of three matching: pick a more distant theme.
 - **Nav + footer:** across consecutive runs and across test builds of the same theme, no repeated N code and no repeated Ft code. This is the single most-violated rule; rotate deliberately through the routing table's alternates.
+- **Hero:** no non-Settled posture repeats back-to-back; Settled may repeat twice, never three runs in a row. The content archetype H# follows the nav/footer no-repeat rule.
 - **Enrichment:** do not repeat the previous run's E# archetype back-to-back.
 - **Log schema** (`.hallmark/log.json`, newest entry first, trimmed to 20):
 
 ```json
 { "date": "2026-04-30", "macrostructure": "Bento Grid", "theme": "Coral",
-  "nav": "N5", "footer": "Ft2", "enrichment": "E1 clipped-edge",
+  "hero": "Stage/H2", "nav": "N5", "footer": "Ft2", "enrichment": "E1 clipped-edge",
   "brief": "Tracejam · SaaS observability" }
 ```
 
@@ -199,8 +200,8 @@ First run for a project: no constraint, note it in one line. User explicitly re-
 
 ```
 Picks · genre: modern-minimal · macro: Workbench (last 3: Bento, Long Document, Manifesto)
-· theme: Cobalt (differs on paper band + display style) · nav: N13 (prev N5) · footer: Ft5
-· enrichment: tbd (Step 4) · custom: no
+· theme: Cobalt (differs on paper band + display style) · hero: Stage/H2 (prev Settled)
+· nav: N13 (prev N5) · footer: Ft5 · enrichment: tbd (Step 4) · custom: no
 ```
 
 The enrichment cell may read `tbd (Step 4)`; the decision lands there and the Step 5 preview carries the final value. On a custom run the Picks block emits after the 2.6 ritual instead, so it can carry the draw line.
@@ -220,7 +221,7 @@ A custom system is complete (palette + pairing + axes), never a colour swap; its
 
 **Do:** load exactly what this build needs; over-eager loading is the largest avoidable cost of running Hallmark.
 
-**Always (1-2 files):** the genre file from Step 1; plus `references/themes/<theme>.md` when it exists for the picked catalog theme (only some themes have one; silent no-op when absent; studied-DNA and custom skip this).
+**Always (2-3 files):** the genre file from Step 1; [`references/enrichment/hero-discipline.md`](references/enrichment/hero-discipline.md) (the posture envelope + hero rules bind on every page hero, enriched or not); plus `references/themes/<theme>.md` when it exists for the picked catalog theme (only some themes have one; silent no-op when absent; studied-DNA and custom skip this).
 
 **Index-then-pick (read the slim index, load only the picks):**
 - [`references/macrostructures.md`](references/macrostructures.md) → one file from `references/macrostructures/`.
@@ -280,7 +281,7 @@ Emit code that satisfies the tone and the structural fingerprint. Match code com
 - A distinctive display face + refined body face (single-font pages only when the single font IS the design).
 - Eight states for every interactive element; animate `transform` / `opacity` only; the three named easings, never `ease`, never bounce on UI state; `prefers-reduced-motion` support; instant `:focus-visible` ring at >= 3:1.
 - Microinteraction recipes per [`references/microinteractions.md`](references/microinteractions.md): silent success over toasts, optimistic + Undo over confirms, 800ms hover / 0ms focus tooltips. Cut motion before adding it.
-- **Stamp the output.** Canonical top-of-file order: line 1 the macrostructure stamp `/* Hallmark · macrostructure: <name> · tone: <tone> · anchor hue: <hue> */` plus the nav / footer / contrast / mobile records the gates ask for; line 2 the pre-emit critique comment; then (custom only) the direction contract block. Custom and studied-DNA stamps carry their extended fields per [`references/custom-theme.md`](references/custom-theme.md) § E and the output contract in [`references/study.md`](references/study.md).
+- **Stamp the output.** Canonical top-of-file order: line 1 the macrostructure stamp `/* Hallmark · macrostructure: <name> · tone: <tone> · anchor hue: <hue> · hero: <Posture>/<H#> */` plus the nav / footer / contrast / mobile records the gates ask for; line 2 the pre-emit critique comment; then (custom only) the direction contract block. Custom and studied-DNA stamps carry their extended fields per [`references/custom-theme.md`](references/custom-theme.md) § E and the output contract in [`references/study.md`](references/study.md).
 - **Append to project memory:** update `.hallmark/log.json` (schema in Step 2), newest first, trimmed to 20. Create `.hallmark/` if needed; respect any existing `.gitignore`.
 - **Never clobber an existing global stylesheet.** Entry stylesheets (`app/globals.css`, `src/index.css`, `src/styles/global.css`) are **append-only**: keep `@tailwind` / `@import "tailwindcss"` directives in place, add Hallmark's `:root` block and base rules below them, keep any new `@import` at the very top above all rules, and reuse the project's own token names (`--background`, `--foreground`, a Tailwind `@theme`) where they exist. Full rewrite only on explicit request: silently removing a framework's CSS entry directives un-styles the entire app. See [`references/contract.md`](references/contract.md).
 - **Always emit `tokens.css`** at the project root with every `--color-*`, `--font-*`, `--space-*`, `--text-*`, `--ease-*`, `--dur-*`, `--rule-*`, and `--radius-*` token used, imported by the page CSS (or included by the project's entry point). Even single-page builds. On `design.md` projects, also refresh the `## Exports` section with all four formats (tokens.css, Tailwind v4 `@theme`, DTCG `tokens.json`, shadcn/ui variables) per [`references/export-formats.md`](references/export-formats.md).

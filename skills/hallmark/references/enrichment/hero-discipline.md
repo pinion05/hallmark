@@ -1,14 +1,28 @@
 # Hero discipline: space, motion, and the ship gate
 
-Load this file alongside whichever archetype (E1-E8) or polish pattern (HP1-HP4) you picked. These rules bind on every hero; the eight pre-flight questions decide whether the enrichment ships at all.
+Load this file for EVERY page hero, enriched or not: the posture below is picked at Step 2 alongside nav and footer, and the eight pre-flight questions decide whether an enrichment ships at all.
+
+## Hero postures - pick one, stamp it
+
+The posture sets the hero's geometry envelope. **Settled is the neutral default**; every other posture is opt-in, named in the Picks block, the CSS stamp (`· hero: <Posture>/<H#>`), and the log. Gate 44 reads the posture from the stamp (no field = Settled). Fold-fit at 1280x800 and the two-centred-elements ceiling (gate 6) bind on all six. Rotation lives in SKILL.md § Rotation.
+
+| Posture | Character | Min-height | Padding rule | Alignment | Pairs with | Genre affinity |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Settled** | balanced fold; sits into the page | `clamp(60vh, 75dvh, 88dvh)` (70-90% of viewport) | block-end >= 1.3x block-start | <= 2 centred | any H1-H9 | any (default) |
+| **Banner** | compressed opener; the page starts fast | 40-55dvh (cap ~`min(52dvh, 34rem)`) | block-end >= 1.3x block-start | 0-1 centred, edge-led | H1 (short), H4, H5 | reference / docs / utility (Almanac, Ledger, Grid, Cobalt) |
+| **Poster** | full-bleed canvas; the fold IS the artwork | 92-100dvh (100dvh legal only here) | waived when content is edge/corner-anchored, else 1.3x | centred only under gate 6's genre carve-outs | H1, H6 | atmospheric · playful-canvas · Manifesto / Sport |
+| **Ledge** | tall top void; content rests at the base | 70-88dvh | inverted: block-start >= 2x block-end, content `align-content: end` | <= 1 centred | H1, H4, H6 | sport · brutal · manifesto · photographic |
+| **Corridor** | tall centred reading column | 66-85dvh | block-end >= 1.3x block-start | centred column <= 44ch; eyebrow OR CTA off-axis | H3, H5, H1 | editorial · atelier (gate 6 centred-narrow rule) |
+| **Stage** | text column + full-height visual that may bleed | 70-92dvh | 1.3x on the text column; visual may touch the hero's edges | <= 1 centred | H2, H7, H8 | modern-minimal · playful product |
+
+Mobile (< 48rem): every posture collapses to content height (`min-height: auto` or <= 60dvh); Poster may stay full-bleed. Fold-fit (gate 44b) is posture-independent: at 1280x800 the essential content is complete without scrolling on every posture, including Ledge (content bottom = hero bottom minus block-end padding, and the hero itself stays <= 88dvh) and Poster (content anchored inside the first 800px).
 
 ## Hero space discipline
 
-Every hero — enriched or not, polished or not — obeys these rules.
+These bind on every hero, whatever the posture.
 
-- **Footprint.** The hero takes 70–90 % of the first viewport's height — no more, no less. `min-height: 100vh / 100dvh` is the AI fingerprint (gate 6); a hero that's only 20 % of the viewport feels like a header. Aim for `min-height: clamp(60vh, 75dvh, 88dvh)` and let content settle inside.
-- **Fit the fold — content, not just the box.** The Footprint rule caps the hero's *height*; this caps its *content*. On a 13″ laptop (~800 px tall) the eyebrow + headline + lede + primary CTA must all be visible **without scrolling**. When they aren't, it's almost always wasted vertical space — an oversized display `clamp()` max, display line-height near 1.2, a 3-line lede, or `padding-block` bloat. Pull the clamp max down, set display line-height 1.0–1.1, hold the lede to ~2 lines, trim the padding. **Right-size, don't cramp** — a hero that already fits needs no shrinking, and this never means tiny type or no whitespace. Slop-test gate 44 enforces this.
-- **Asymmetric padding.** `padding-block-end` ≥ 1.3× `padding-block-start`. The hero sits *into* the page; symmetric padding floats. Slop-test gate 44 enforces this.
+- **Fit the fold — content, not just the box.** The posture caps the hero's *height*; this caps its *content*. On a 13″ laptop (~800 px tall) the eyebrow + headline + lede + primary CTA must all be visible **without scrolling**. When they aren't, it's almost always wasted vertical space — an oversized display `clamp()` max, display line-height near 1.2, a 3-line lede, or `padding-block` bloat. Pull the clamp max down, set display line-height 1.0–1.1, hold the lede to ~2 lines, trim the padding. **Right-size, don't cramp** — a hero that already fits needs no shrinking, and this never means tiny type or no whitespace. Slop-test gate 44 enforces this.
+- **Padding per posture.** The posture table above owns the padding rule (1.3x bottom-heavy on most, inverted on Ledge, waived on an anchored Poster). Symmetric padding on a Settled/Banner/Corridor/Stage hero floats off the page; gate 44 reads the stamped posture and enforces the matching rule.
 - **Never centre everything.** Eyebrow + title + lede + CTA all stacked centred is the AI fingerprint. Pick at most *two* centred elements; break alignment for the others. Gate 6 enforces this. Centred-narrow heroes are admissible only when the genre is editorial / atelier *and* the eyebrow or CTA breaks alignment.
 - **Entrance animation.** Pick one of {fade, sweep, none} per element — never both fade *and* sweep on the same element. Duration ≤ 220 ms. Disable on `prefers-reduced-motion: reduce`. Cross-reference the "One orchestrated reveal per page" rule below.
 - **Headline typography.** Prefer one display weight + tight tracking (-0.02em to -0.04em) over default 0; line-height 0.95–1.05 for display, never 1.2 (which inherits the body line-height and reads as un-set type). Avoid two display weights on the same headline (a `<strong>` in a different weight inside the title is AI's idea of "emphasis"; pick one weight, let the words carry).
