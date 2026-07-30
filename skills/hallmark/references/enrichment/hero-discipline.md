@@ -23,7 +23,7 @@ Cross-references [`motion.md`](../motion.md), [`microinteractions.md`](../microi
 **One orchestrated reveal per page.** Not eight. Not "everything fades in on scroll". One: the hero settles in 0.4–0.8 s with a single coordinated motion, then stops.
 
 **Banned for hero entrances:**
-- Bouncy elastic easing (`cubic-bezier(0.34, 1.56, ...)`) — reads as 2016 Framer demo
+- Bouncy elastic easing (`cubic-bezier(0.34, 1.56, ...)`) — reads as 2016 Framer demo. This ban is about hero ENTRANCES; a theme whose spec earns spring easing for micro press/pop interactions (Hum) keeps it there, never here
 - Scroll-fade-everything (every section fades in when it enters the viewport)
 - Mouse-follow gradients on SaaS landing pages (allowed only on portfolio / creative / agency work)
 - Parallax-on-mouse (motion sickness, gimmicky)

@@ -1,12 +1,8 @@
-# Imagery kit — curated abstract assets, hosted, ready
+# Imagery kit - the composition playbook (and, later, hosted assets)
 
-A small set of pre-generated abstract / decorative imagery that any Hallmark output can pull from when a brief allows non-photographic imagery. The kit lives at:
+The kit is two things. TODAY it is the composition playbook below: the category vocabulary and the layered, off-centre, blend-mode patterns that make abstract imagery read intentional. LATER it will also be a set of hosted assets at `https://www.usehallmark.com/imagery/<category>/<file>`, listed in the manifest section.
 
-```
-https://www.usehallmark.com/imagery/<category>/<file>
-```
-
-The skill doesn't ship the binaries — it ships the manifest. References are absolute URLs. If the asset is missing (404), the skill falls back to source canon #2 in [`assets.md` § Placeholder strategy](assets.md) (hand-built SVG) without erroring.
+**The hard rule: never emit a URL that is not listed in the manifest below.** While the manifest is empty, every kit asset is CONSTRUCTED in-page: washes and blobs via craft tier-a CSS or tier-b SVG (see [`custom-craft.md`](custom-craft.md)), textures via CSS gradients, generated stills via tier-e only when the user opted in and `TOGETHER_API_KEY` is set (`scripts/imagegen.mjs`). A URL that 404s in the shipped page is worse than no image; the fallback chain in [`assets.md` § Placeholder strategy](assets.md) exists for assets that go missing later, not as licence to emit dead links now.
 
 **Why this exists.** The v0.9.0 watercolor sprinkle was generated per-emit and was inconsistent. The kit recovers that aesthetic but as discrete, swappable, deliberately-composed assets. Compose with them like a senior frontend engineer: layered transparent PNG behind text, biased off-centre, intentionally large, mix-blend-mode where it earns its place. Not "abstract gradient on top of headline" — that's the AI default.
 
@@ -27,27 +23,21 @@ The skill doesn't ship the binaries — it ships the manifest. References are ab
 
 ---
 
-## Manifest (placeholder until generation pass ships)
+## Manifest (EMPTY - no hosted assets exist yet)
 
-When images land in `site/public/imagery/<category>/`, list them here as a key/value catalogue:
+The manifest is the allowlist: an asset may be referenced by URL only once it is listed here with dimensions and a description. Nothing is listed yet, so nothing is referenceable; construct instead (see the hard rule above). When images land in `site/public/imagery/<category>/`, they get listed in this shape:
 
 ```
-watercolor-warm-01.webp     1600×900   warm orange · cream paper      hero half-flood, atmospheric
-watercolor-cool-01.webp     1600×900   cool blue · greyscale          quote-behind wash
-transparent-brush-warm-01   1200×1200  burnt orange brushstroke       layered hero, off-centre
-transparent-blob-cool-01    1200×1200  cobalt organic shape           layered hero, behind headline
-ornament-stamp-01.svg       inline     ink-only stamp w/ numeral      label-gutter, letter close
-texture-grain-paper-01      512×512    cream paper grain (tileable)   body grain, blend-multiply
-silhouette-bottle-01.png    600×900    abstract bottle, transparent   empty product slot
-silhouette-card-01.png      900×600    abstract product card          comparison row
-pattern-cross-warm-01       400×400    cross-hatch warm (tileable)    section-band texture
+<category>-<palette-family>-<NN>.<ext>   <WxH>   <one-line description>   <intended use>
 ```
 
-The skill picks an asset by matching the active theme's palette family + the brief's tone, then references it by absolute URL. Picking logic lives in Step 4 of [SKILL.md](../SKILL.md) — eyeball the manifest, choose the closest match, fall back if the file 404s.
+Once entries exist, the picking logic is: match the active theme's palette family + the brief's tone, reference the listed URL, and keep the constructed fallback in reach.
 
 ---
 
 ## Usage patterns — how a senior engineer would compose these
+
+(The `…/imagery/` paths in the examples below show the future manifest shape. Today, per the hard rule, swap in the constructed equivalent: inline tier-b SVG for ornaments and silhouettes, gradient washes for fields, CSS grain for texture, tier-e generation only when the user opted in.)
 
 ### Layered hero composition (the masterclass move)
 
@@ -79,7 +69,7 @@ Bias to one side (left or right, never centred). The text sits at `z-index: 1`, 
 
 ### Section background wash
 
-A watercolor file as a full-bleed section accent. One section per page, never global.
+A painterly field as a full-bleed section accent. One section per page, never global. While the manifest is empty the wash is CONSTRUCTED (layered radial gradients at low alpha read painterly; a manifest asset would slot into the same `background` line later):
 
 ```css
 .section--wash { position: relative; isolation: isolate; }
@@ -87,8 +77,9 @@ A watercolor file as a full-bleed section accent. One section per page, never gl
   content: "";
   position: absolute;
   inset: 0;
-  background: url("https://www.usehallmark.com/imagery/watercolor/watercolor-warm-01.webp") center / cover no-repeat;
-  opacity: 0.6;
+  background:
+    radial-gradient(60% 48% at 22% 30%, oklch(from var(--color-accent) l c h / 0.14), transparent 70%),
+    radial-gradient(50% 42% at 78% 72%, oklch(from var(--color-accent) calc(l + 0.08) calc(c * 0.6) h / 0.10), transparent 72%);
   z-index: -1;
   pointer-events: none;
 }

@@ -60,7 +60,7 @@ These are the theme's *vocabulary*, not a layout: which moves appear is shared, 
 
 ### 1. The button system - three variations, the press is the feedback
 
-Hum ships **one button system, three style variations**, structured as `.btn` (base = *push*) + a style modifier (`.btn--soft` | `.btn--outline`) + a colour modifier (`.btn--pear` | `--coral` | `--cyan` | `--lav` | `--mint` | `--ink`) + size (`.btn--sm` | `.btn--lg`). The canonical, reviewed implementation is the `.btn` CSS block inlined below - **copy that `.btn` system verbatim into every Hum build.** Do not re-improvise button CSS per build (that is how the broken version proliferated).
+Hum ships **one button system, three style variations**, structured as `.btn` (base = *push*) + a style modifier (`.btn--soft` | `.btn--outline`) + a colour modifier (`.btn--pear` | `--coral` | `--cyan` | `--lav` | `--mint` | `--ink`) + size (`.btn--sm` | `.btn--lg`). The reviewed `.btn` block below is the RECIPE: the press mechanics (edge shadow anatomy, hover-lift, active-press, the two bug fixes) are mandatory in every Hum build; the skin (colour modifiers, radius, size steps) restyles freely to the build. Keep the mechanics, restyle the skin; do not re-derive the press physics from scratch (that is how the broken version proliferated).
 
 **The anatomy that matters (the two bugs this fixes):**
 
@@ -150,7 +150,7 @@ Hum's motion stack is **the loudest in the catalog**. Almost every interactive e
 | Scroll | Lenis (`duration: 0.8, lerp: 0.10` - a soft, slightly elastic glide for the playful feel) |
 
 Available easings:
-- `--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)` (bouncy overshoot - the canonical Hum easing)
+- `--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)` (bouncy overshoot - the signature Hum easing, for MICRO press/pop interactions only; hero entrances stay bounce-free everywhere, per hero-discipline.md)
 - `--ease-snap: cubic-bezier(0.22, 1, 0.36, 1)` (easeOutExpo - for tick-ups and reveals)
 - `--ease-out`, `--ease-in-out` (standard fallbacks)
 

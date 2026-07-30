@@ -2,7 +2,7 @@
 
 Retro-nostalgia in the **playful** cluster. A coin-op cabinet rendered entirely in CSS: a violet-black CRT ground, a fixed starfield, scanlines, **pixel display type with a magenta ghost**, and hard-offset press buttons. Loud but tasteful - two neon accents, never a rainbow. The page for a **game jam, an indie launch, a demo night, a launch party, a playful community event**.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `arcade`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="arcade"]`. Canonical build: [`site/examples/arcade-01/`](../../../../site/examples/arcade-01/). The full-page proposal [`site/_proposals/themes/arcade.html`](../../../../site/_proposals/themes/arcade.html) is the structural source of truth.
+Loaded eagerly by SKILL.md Step 3 when the catalog pick is `arcade`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="arcade"]`. Reference build: [`site/examples/arcade-01/`](../../../../site/examples/arcade-01/). The full-page proposal [`site/_proposals/themes/arcade.html`](../../../../site/_proposals/themes/arcade.html) is the structural source of truth.
 
 ## Axes (diversification)
 
@@ -104,7 +104,7 @@ Calm / corporate / trust-led routes to Cobalt or Coral; sustained editorial read
 
 ## Build hint
 
-The palette tokens (`--color-*`) come from `[data-theme="arcade"]`. The starfield / scanline / neon-glow vars below (`--star*`, `--scanline`, `--shadow-cyn`, `--shadow-mag`, `--line-lit`, `--ring`) are **page-local decorative tokens**: define them in your page `:root` as in the canonical build `site/examples/arcade-01/` (gate 48 allows page-defined tokens).
+The palette tokens (`--color-*`) come from `[data-theme="arcade"]`. The starfield / scanline / neon-glow vars below (`--star*`, `--scanline`, `--shadow-cyn`, `--shadow-mag`, `--line-lit`, `--ring`) are **page-local decorative tokens**: define them in your page `:root` as in the reference build `site/examples/arcade-01/` (gate 48 allows page-defined tokens).
 
 The first lines of CSS establish Arcade's anchor moves:
 
@@ -142,4 +142,4 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 40;
 }
 ```
 
-Plus the Silkscreen + Hanken Grotesk link above. Canonical build to mirror: [`site/examples/arcade-01/`](../../../../site/examples/arcade-01/).
+Plus the Silkscreen + Hanken Grotesk link above. Reference build: [`site/examples/arcade-01/`](../../../../site/examples/arcade-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

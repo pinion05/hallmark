@@ -2,7 +2,7 @@
 
 Warm, credible, hand-drawn SaaS. The page for a **productivity / collaboration / notes / meetings / small-team** product that wants to feel friendly **and** serious - the warm-cream playful lane, executed as **calm marigold-on-cream, one signal accent, hand-drawn ink**. Cream paper, a Source Serif headline over Public Sans body, a marigold highlighter behind one phrase, and a tilted content artifact (a sticky note, not app chrome). It reads like a plain-spoken team that ships.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `field`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) `[data-theme="field"]`. Canonical build: [`site/examples/field-01/`](../../../../site/examples/field-01/).
+Loaded eagerly by SKILL.md Step 3 when the catalog pick is `field`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) `[data-theme="field"]`. Reference build: [`site/examples/field-01/`](../../../../site/examples/field-01/).
 
 ## Axes (diversification)
 
@@ -131,4 +131,4 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600;
 }
 ```
 
-Plus the Public Sans + Source Serif 4 link. The canonical build to mirror is [`site/examples/field-01/`](../../../../site/examples/field-01/).
+Plus the Public Sans + Source Serif 4 link. Reference build: [`site/examples/field-01/`](../../../../site/examples/field-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

@@ -2,7 +2,7 @@
 
 Swiss / neo-grotesque systems design. The page for a **design studio, an identity or signage practice, a type specimen, an institutional index, an editorial programme** - the object-poster / transit-signage school, executed on a **near-white cool sheet with an exposed 12-column hairline grid, one heavy grotesk, and exactly ONE signal red used as a geometric mark**. Giant lowercase Archivo 800 slams to the left margin, the column rules stay visible behind the content, and every surface butts against a hairline. It reads like a wayfinding manual: rational, gridded, set once and built to outlast its brief.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `grid`. Tokens: `site/css/tokens.css` under `[data-theme="grid"]`. Canonical build: `site/examples/grid-01/`.
+Loaded eagerly by SKILL.md Step 3 when the catalog pick is `grid`. Tokens: `site/css/tokens.css` under `[data-theme="grid"]`. Reference build: `site/examples/grid-01/`.
 
 > **The editorial exception.** The editorial cluster is otherwise serif-led (Newsprint, Editorial, Specimen). Grid is its Swiss neo-grotesque slot: no serif anywhere, structure carried by an exposed grid and hairlines, warmth carried by one red. If it wants a roman serif or a soft column, it is a different editorial theme.
 
@@ -128,4 +128,4 @@ body { background: var(--color-paper); color: var(--color-ink);
 }
 ```
 
-Plus the Archivo link above (Archivo only). Mirror the canonical build at `site/examples/grid-01/`.
+Plus the Archivo link above (Archivo only). Reference build: `site/examples/grid-01/` - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

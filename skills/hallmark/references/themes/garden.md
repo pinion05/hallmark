@@ -2,7 +2,7 @@
 
 Warm-botanical editorial. The page for a **small farm, apiary, cidery, seed company, herbalist, nursery, or single-maker food brand** - the naturalist field-journal / herbarium-sheet school. A **warm oat-cream ground** (`oklch(95.5% 0.022 92)`, never grey-sage), **botanical green ink** (`oklch(24% 0.052 152)` - a warm near-black green, never `#000`), one **living leaf-green** accent, and a **hand-built botanical specimen** as the focal artefact. It reads like a well-kept field notebook: honest, seasonal, grown-not-manufactured.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `garden`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) `[data-theme="garden"]`. Canonical build: [`site/examples/garden-01/`](../../../../site/examples/garden-01/) (Hollowback Apiary - single-ridge Vermont honey, catalogue of seasonal lots).
+Loaded eagerly by SKILL.md Step 3 when the catalog pick is `garden`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) `[data-theme="garden"]`. Reference build: [`site/examples/garden-01/`](../../../../site/examples/garden-01/) (Hollowback Apiary - single-ridge Vermont honey, catalogue of seasonal lots).
 
 ## Axes (diversification)
 
@@ -23,7 +23,7 @@ The aesthetic: the naturalist's brand story - warm paper, roman serif, a hand-dr
    <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
    ```
 2. **A small reveal script** - one `IntersectionObserver` adding an in-view class (fade + short rise, staggered by `--i`, <=500ms, reveal-once/unobserve). Reduced-motion ships static + fully visible.
-3. **Any form-as-CTA** (a standing-order / harvest-note signup) gets honest idle -> loading -> success/error states narrated in `aria-live`, per the canonical build's standing-jar form.
+3. **Any form-as-CTA** (a standing-order / harvest-note signup) gets honest idle -> loading -> success/error states narrated in `aria-live`, per the reference build's standing-jar form.
 
 ## Signature moves
 
@@ -123,4 +123,4 @@ body { background: var(--color-paper); color: var(--color-ink-2);
   .reveal { opacity: 1; transform: none; transition: none; } }
 ```
 
-Plus the Young Serif + Hanken Grotesk + Newsreader + Geist Mono link and the small reveal script. Mirror [`site/examples/garden-01/`](../../../../site/examples/garden-01/).
+Plus the Young Serif + Hanken Grotesk + Newsreader + Geist Mono link and the small reveal script. Reference build: [`site/examples/garden-01/`](../../../../site/examples/garden-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

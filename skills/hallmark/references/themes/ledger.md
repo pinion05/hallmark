@@ -2,7 +2,7 @@
 
 Modern-minimal, fintech-terminal register. The page for **treasury software, a business bank, a payments API, an accounting or reconciliation product, a finance dashboard**: the Mercury / Ramp school, or Bloomberg density tamed. A dark navy instrument panel, ruler-drawn hairlines, exactly ONE teal signal on the figures that matter, and **data as the hero**: a reconciled balance and a live ledger, not a hero illustration. It reads like a closed book at 06:00 UTC: precise, calm, audited.
 
-Loaded eagerly by SKILL.md Step 3 whenever the catalog pick is `ledger`. The OKLCH palette + font stack live in [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="ledger"]`. Canonical build: [`site/examples/ledger-01/`](../../../../site/examples/ledger-01/) (a treasury landing whose hero is an account panel: reconciled balance, sparkline, live transaction table).
+Loaded eagerly by SKILL.md Step 3 whenever the catalog pick is `ledger`. The OKLCH palette + font stack live in [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="ledger"]`. Reference build: [`site/examples/ledger-01/`](../../../../site/examples/ledger-01/) (a treasury landing whose hero is an account panel: reconciled balance, sparkline, live transaction table).
 
 > **The one dark option in the modern-minimal cluster.** Coral and Cobalt own the light lane; Ledger fills the dark, data-as-hero fintech slot. It is dark but **not atmospheric** (that is Midnight): no glow, no bloom, no serif, no thin display. Flat navy, tabular numerals, teal on the positive figures. An instrument panel, not a mood.
 
@@ -147,4 +147,4 @@ body { background: linear-gradient(180deg, var(--color-paper-2) 0%, var(--color-
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
 ```
 
-Plus the Hanken Grotesk + IBM Plex Mono link and the small pulse/count-up script. The canonical build to mirror is [`site/examples/ledger-01/`](../../../../site/examples/ledger-01/).
+Plus the Hanken Grotesk + IBM Plex Mono link and the small pulse/count-up script. Reference build: [`site/examples/ledger-01/`](../../../../site/examples/ledger-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

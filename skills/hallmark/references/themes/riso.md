@@ -2,7 +2,7 @@
 
 Risograph-print register. The page for a **print fair, zine fest, small press, poster shop, illustration studio, art-book event** - warm blush stock, two saturated spot inks printed slightly out of register, paper you can almost smell. It reads like a soy-ink poster that got a URL: heavy grotesk headlines misregistered in cyan and pink, a serif lede, a machine-set catalogue underneath.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `riso`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) `[data-theme="riso"]`. Canonical build: [`site/examples/riso-01/`](../../../../site/examples/riso-01/) (an "OFF-REGISTER" risograph print fair - masthead, misregistered hero mark, exhibitor catalogue).
+Loaded eagerly by SKILL.md Step 3 when the catalog pick is `riso`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) `[data-theme="riso"]`. Reference build: [`site/examples/riso-01/`](../../../../site/examples/riso-01/) (an "OFF-REGISTER" risograph print fair - masthead, misregistered hero mark, exhibitor catalogue).
 
 ## Axes (diversification)
 
@@ -136,4 +136,4 @@ mark { background: var(--color-accent-2); color: var(--color-ink); } /* yellow b
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 ```
 
-Plus the Public Sans + Newsreader + Geist Mono link and the small reveal script. The canonical build to mirror is [`site/examples/riso-01/`](../../../../site/examples/riso-01/).
+Plus the Public Sans + Newsreader + Geist Mono link and the small reveal script. Reference build: [`site/examples/riso-01/`](../../../../site/examples/riso-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.
