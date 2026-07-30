@@ -232,6 +232,8 @@ The `contract: kept (5/5)` line is written only after the finish review below co
   "wildcard": true,
   "theme_axes": "dark / grotesk-sans / chromatic-other (amber ~75)",
   "vibe": "industrial precision, cool, technical",
+  "hero": "Ledge/H4",
+  "fingerprint": "Stacked numbered|Two-column asymmetric|Hairline|Outlined|None|Number-tick",
   "nav": "N8", "footer": "Ft4",
   "enrichment": "none",
   "brief": "Loop · payment-rail observability" }

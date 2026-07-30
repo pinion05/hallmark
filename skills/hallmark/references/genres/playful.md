@@ -53,7 +53,7 @@ Brief mentions any of: *fun, consumer, casual, family, kids, friendly, approacha
 
 ## Nav and footer voice
 
-- **Default nav:** N7 Brutal slab — heavy uppercase wordmark + tracked uppercase links + 2 px border-bottom. The voice is loud but composed.
+- **Default nav:** N7 Brutal slab — heavy uppercase wordmark + tracked uppercase links + 2 px border-bottom. The voice is loud but composed. (Authoritative table: component-cookbook.md § Routing.)
 - **Acceptable also:** N1 Wordmark + 2 links (when destinations are minimal); N3 Side-rail (when the page is long-scroll and section-numbered, e.g. Studio).
 - **Default footer:** Ft8 Marquee scroll — horizontal repeating tagline + dot separator. Honours `prefers-reduced-motion: reduce`.
 - **Acceptable also:** Ft5 Statement; Ft3 Index columns (only when the page is a hub).

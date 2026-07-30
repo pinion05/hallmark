@@ -87,7 +87,7 @@ A fingerprint = one choice per axis. There are 8 × 7 × 5 × 5 × 5 × 6 = **42
 Two rules govern choices:
 
 1. **Coherence.** A Newsprint page with multi-column justified body should have a typographic CTA, not an oversized solid button — those don't share a voice. Pick choices that belong to the same *world*.
-2. **Anti-repetition.** Across consecutive pages built in the same session, no two should share more than three of the six axes. If the previous page used left-margin headings + single column + hairline divider + outlined button, this page should differ on at least three of those.
+2. **Anti-repetition.** Across consecutive pages, no two should share more than three of the six axes - compared against the `fingerprint` field in `.hallmark/log.json`, not against memory. If the previous entry logs left-margin headings + single column + hairline divider + outlined button, this page differs on at least three of those.
 
 ## Theme-suggested fingerprints
 

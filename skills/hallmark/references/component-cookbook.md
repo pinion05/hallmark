@@ -170,7 +170,7 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | editorial (Newsprint · Garden · Atelier · Carnival · …) | **N6 Masthead** | N1a, N9, N12 |
 | modern-minimal (Coral · Cobalt) | **N1b SaaS three-section** | N5, N11, N13, N9 |
 | atmospheric (Bloom · Aurora · Midnight · Lumen) | **N5 Floating pill** (blur backdrop sells the mood) | N9, N4, N13, N1b |
-| playful (Hum) | **N1b SaaS three-section** | N5, N11, N12, N13, N7 (rounded) |
+| playful (Hum · Field · Arcade) | **N7 Brutal slab** (rounded knobs for Hum) | N1b, N11, N12, N13 |
 | terminal / CLI (Terminal) | **N8 Terminal command** | N4 ⌘K-only, N13 |
 | docs / reference (Almanac) | **N3 Side-rail** | N13, N1a, N4 |
 | commerce / product launch | **N12 Banner + retract** | N1b, N11, N9 |

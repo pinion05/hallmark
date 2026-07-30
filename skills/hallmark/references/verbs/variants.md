@@ -362,8 +362,9 @@ Then implement the winning direction into the real app as a normal Hallmark buil
 - Append the log entry, winner fields at top level so SKILL.md § Rotation reads it like any other run:
 
 ```json
-{ "date": "...", "macrostructure": "<winner>", "theme": "<winner>", "nav": "...",
-  "footer": "...", "enrichment": "...", "brief": "...", "verb": "variants",
+{ "date": "...", "macrostructure": "<winner>", "theme": "<winner>", "hero": "<Posture>/<H#>",
+  "nav": "...", "footer": "...", "enrichment": "...", "axes": "<paper/display/accent>",
+  "fingerprint": "<heading|body|divider|button|image|reveal>", "brief": "...", "verb": "variants",
   "picked": 2,
   "variants": [ {"n": 1, "...": "..."}, {"n": 2, "...": "..."}, {"n": 3, "...": "..."} ] }
 ```

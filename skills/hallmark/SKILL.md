@@ -177,13 +177,13 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 
 **Macrostructure first.** Read the index at [`references/macrostructures.md`](references/macrostructures.md), pick ONE of the 21 named shapes, then load ONLY that per-macro file from `references/macrostructures/`. Never load the whole catalogue. The macrostructure picks five of the six structural axes; the deeper axis catalogue in [`references/structure.md`](references/structure.md) is only for deviating.
 
-**Nav, footer, and hero at the same step.** Read the index + routing tables in [`references/component-cookbook.md`](references/component-cookbook.md); pick a nav archetype (N1a-N13, fourteen of them) and a footer archetype (Ft1-Ft8); load ONLY the picked files from `references/components/`. A typical build loads 5-7 archetype files total. **Default away from N1a and Ft3**, the two most-recognised AI fingerprints; reach for N1b / N5 / N11 / N13 and Ft1 / Ft2 / Ft4-Ft8 unless the page genuinely has two destinations or is a docs hub. Then pick the **hero posture** (Settled · Banner · Poster · Ledge · Corridor · Stage) and content archetype (H1-H9); the envelope table lives in [`references/enrichment/hero-discipline.md`](references/enrichment/hero-discipline.md) § Hero postures.
+**Nav, footer, and hero at the same step.** Read the index + routing tables in [`references/component-cookbook.md`](references/component-cookbook.md); pick a nav archetype (N1/N1b through N13, fourteen of them; N1a is the older alias for N1) and a footer archetype (Ft1-Ft8); load ONLY the picked files from `references/components/`. A typical build loads 5-7 archetype files total. **Default away from N1a and Ft3**, the two most-recognised AI fingerprints; reach for N1b / N5 / N11 / N13 and Ft1 / Ft2 / Ft4-Ft8 unless the page genuinely has two destinations or is a docs hub. Then pick the **hero posture** (Settled · Banner · Poster · Ledge · Corridor · Stage) and content archetype (H1-H9); the envelope table lives in [`references/enrichment/hero-discipline.md`](references/enrichment/hero-discipline.md) § Hero postures.
 
 **Rotation (the canonical block - every other file defers here):**
 
 - **Macro:** must differ from the last three Hallmark outputs for this project (read `.hallmark/log.json`, newest first; a CSS stamp counts when the log is missing). Specimen is never a default; reach for it only on explicit editorial / foundry briefs.
 - **Theme:** two consecutive themes must differ on at least one of three axes: **paper band** (dark < 30% L · mid 30-85% · light > 85%), **display style**, **accent hue** (warm 10-60° · cool 200-300° · neutral · chromatic-other). The 24-row lookup lives in [`references/theme-axes.md`](references/theme-axes.md). Two of three matching: pick a more distant theme.
-- **Nav + footer:** across consecutive runs and across test builds of the same theme, no repeated N code and no repeated Ft code. This is the single most-violated rule; rotate deliberately through the routing table's alternates.
+- **Nav + footer:** no repeated N code and no repeated Ft code within the LAST THREE runs (same depth as macro), across consecutive runs and across test builds of the same theme. This is the single most-violated rule; rotate deliberately through the routing table's alternates.
 - **Hero:** no non-Settled posture repeats back-to-back; Settled may repeat twice, never three runs in a row. The content archetype H# follows the nav/footer no-repeat rule.
 - **Enrichment:** do not repeat the previous run's E# archetype back-to-back.
 - **Log schema** (`.hallmark/log.json`, newest entry first, trimmed to 20):
@@ -191,17 +191,20 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 ```json
 { "date": "2026-04-30", "macrostructure": "Bento Grid", "theme": "Coral",
   "hero": "Stage/H2", "nav": "N5", "footer": "Ft2", "enrichment": "E1 clipped-edge",
+  "axes": "light/grotesk-sans/warm",
+  "fingerprint": "Centered|Single column|Hairline|Outlined|Margin-aligned|Fade-up",
   "brief": "Tracejam · SaaS observability" }
 ```
 
-First run for a project: no constraint, note it in one line. User explicitly re-orders the same archetype: same shape, different knob values, and say the knob deltas.
+The `axes` and `fingerprint` fields are how Rotation and gate 32 become checkable instead of remembered; older entries without them are treated as unconstrained. First run for a project: no constraint, note it in one line. User explicitly re-orders the same archetype: same shape, different knob values, and say the knob deltas.
 
 **The Picks block.** One compact fenced block, said once, replacing all narration:
 
 ```
 Picks · genre: modern-minimal · macro: Workbench (last 3: Bento, Long Document, Manifesto)
 · theme: Cobalt (differs on paper band + display style) · hero: Stage/H2 (prev Settled)
-· nav: N13 (prev N5) · footer: Ft5 · enrichment: tbd (Step 4) · custom: no
+· nav: N13 (prev N5) · footer: Ft5 · deck: -logos +worked-example (SaaS decks only)
+· enrichment: tbd (Step 4) · custom: no
 ```
 
 The enrichment cell may read `tbd (Step 4)`; the decision lands there and the Step 5 preview carries the final value. On a custom run the Picks block emits after the 2.6 ritual instead, so it can carry the draw line.

@@ -52,8 +52,8 @@ The two differ on every axis a glance registers: Coral is warm-grey + coral + Ge
 
 ## Nav and footer voice
 
-- **Default nav:** N5 Floating pill — content-sized, detached from edges, blur backdrop, soft shadow. Vercel / Linear / Framer / Raycast vocabulary.
-- **Acceptable also:** N1 Wordmark + 2 links (when destinations are genuinely minimal); N9 Edge-aligned minimal (when the brand earns the silence).
+- **Default nav:** N1b SaaS three-section — the dense, balanced product bar (authoritative table: component-cookbook.md § Routing). N5 Floating pill is the close second when the page wants detachment: content-sized, blur backdrop, soft shadow.
+- **Acceptable also:** N5 Floating pill; N1 Wordmark + 2 links (when destinations are genuinely minimal); N9 Edge-aligned minimal (when the brand earns the silence).
 - **Default footer:** Ft2 Inline single line — wordmark + tagline + tiny credit, hairline rule above. Restrained.
 - **Acceptable also:** Ft1 Mast-headed; Ft5 Statement (when the page wants a closing line).
 - **Banned for modern-minimal:** N6 Newspaper masthead (editorial vocabulary); N7 Brutal slab (fights the restraint); Ft8 Marquee scroll (kinetic, wrong voice); Ft3 Index columns at full saturation (the AI-footer fingerprint — gate 43).
