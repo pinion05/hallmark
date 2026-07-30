@@ -65,7 +65,7 @@ Composed and sparse. The one hero type-in (plays once). Section reveals fade + r
 
 **Cobalt loves these.**
 
-- **SaaS / API Product** - hero + quick-start code + feature rows + pricing/CTA *(canonical - cobalt-01)*
+- **SaaS / API Product** - deck ingredients: a quick-start code card, benchmark figures, real pricing - dealt per macrostructures.md § deck, never a fixed run *(canonical - cobalt-01)*
 - **Dev-tool / CLI** - terminal hero + install + benchmark figures + docs CTA
 - **Docs home** - a calm index with a search-first nav
 - **Workbench** - the technical, tool-first shape

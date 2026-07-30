@@ -62,7 +62,7 @@ Composed and warm. Primary button lifts `translateY(-2px)` on hover; nav/link un
 
 ## Macrostructure affinity + rejection
 
-**Field loves.** Marquee Hero *(canonical - field-01)* · SaaS / Product (hero + how-it-works beats + feature rows + warm CTA band) · Letter (the small-team, still-early warm note - Field can be intimate where the cool themes cannot) · Feature Tour (alternating document rows).
+**Field loves.** Marquee Hero *(canonical - field-01)* · SaaS / Product (deck ingredients: how-it-works beats, feature rows, a warm CTA band - dealt, not sequenced) · Letter (the small-team, still-early warm note - Field can be intimate where the cool themes cannot) · Feature Tour (alternating document rows).
 
 **Field refuses.** Manifesto (too loud - Field is plain, not a shout) · Terminal / code-hero (that is the cool dev themes; Field shows a content artifact, not code) · Photographic / image-led (Field draws by hand) · Long Document / archive (prose-led editorial routes to the warm-editorial themes).
 

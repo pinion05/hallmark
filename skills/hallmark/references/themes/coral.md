@@ -60,7 +60,7 @@ Composed and sparse. Optional section reveals fade and rise ~8px, once. Hover: c
 
 **Coral loves:**
 - **Stat-Led** - a warm metrics page (teams onboarded, uptime, volume processed)
-- **Feature-stack / SaaS** - hero + feature rows + pricing + CTA
+- **Feature-stack / SaaS** - deck ingredients: calm feature rows, real pricing, one warm CTA - dealt per macrostructures.md § deck
 - **Bento Grid** - warm, restrained product-surface tiles
 - **Marquee Hero** - when the hero is one confident typographic statement
 - **Conversational FAQ** - a calm, human support voice

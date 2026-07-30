@@ -68,7 +68,7 @@ Composed and near-still. The `LIVE` dot pulses (opacity 1 → 0.4, `2.4s`). Ledg
 
 **Ledger loves these.**
 
-- **Stat-Led** - hero balance panel + how-it-works + datasheet + trust + CTA *(canonical - ledger-01)*
+- **Stat-Led** - deck ingredients: the hero balance panel, a numbered how-it-works trio, the datasheet, one trust row - dealt per macrostructures.md § deck *(canonical - ledger-01)*
 - **SaaS / Product** - fintech landing where the console is the proof
 - **Workbench** - the dashboard-first, tool-shaped page
 - **Comparison / datasheet** - dense spec tables, controller-facing
