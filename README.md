@@ -100,26 +100,27 @@ It stays a quiet branch; vanilla briefs never see it. The protocol lives in [`cu
 
 ---
 
-## Open models <sup>NEW</sup>
+## One skill, three harnesses <sup>NEW</sup>
 
-Hallmark v1.2 is written to hold up on open-weight models, not just Claude. The mechanically checkable gates now live in a zero-dependency checker the model runs instead of eyeballing:
+Hallmark is tuned for the three terminals where design work actually happens: **Claude Code**, **Codex CLI**, and **OpenCode**. One shared core (the same SKILL.md, references, gates, and scripts everywhere), plus a per-harness adapter each harness loads on its own: Claude Code runs the skill natively (hooks, subagents, preview pane); Codex reads [`harnesses/codex.md`](skills/hallmark/references/harnesses/codex.md) (sandbox and approval behaviour, sequential variants, `$hallmark` invocation); OpenCode reads [`harnesses/opencode.md`](skills/hallmark/references/harnesses/opencode.md) (permission model, parallel variants via its subagents). The mechanically checkable gates live in a zero-dependency checker every harness can run:
 
 ```
 node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --genre <genre>
 ```
 
-The skill carries a Critical floor that survives truncated reads, text-only fallbacks for every visual check (GLM has no vision; the skill knows), and a per-model quirks file ([`references/models.md`](skills/hallmark/references/models.md)) that loads only off-Claude.
-
-Run it inside Claude Code on an open model via an Anthropic-compatible endpoint:
+One command installs a lean copy (skill + references + scripts, ~1.5 MB, never the marketing site) everywhere it belongs:
 
 ```bash
-# GLM (Z.ai)                                  # Kimi (Moonshot)
-export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
-export ANTHROPIC_AUTH_TOKEN=<zai key>         # ANTHROPIC_BASE_URL=https://api.moonshot.ai/anthropic
-export ANTHROPIC_MODEL="glm-5.2[1m]"          # ANTHROPIC_MODEL=kimi-k3
+node skills/hallmark/scripts/install.mjs
 ```
 
-The `[1m]` suffix on GLM is load-bearing; dropping it silently shrinks the context. Kimi Code CLI users: it discovers skills in `~/.claude/skills/` only, so install Hallmark there rather than as a plugin.
+| Harness | Install location | Invoke |
+| --- | --- | --- |
+| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <brief>` or just describe the build |
+| Codex CLI | `~/.agents/skills/hallmark` (legacy `~/.codex/skills` refreshed too) | `$hallmark <brief>` or implicit |
+| OpenCode | auto-discovers the copies above via its compatibility paths | `/hallmark <brief>` or implicit |
+
+The installer detects which harnesses exist, replaces stale copies atomically, and `--remove` undoes everything.
 
 ---
 

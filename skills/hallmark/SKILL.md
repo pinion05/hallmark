@@ -1,7 +1,7 @@
 ---
 name: hallmark
 description: "Anti-AI-slop design skill for greenfield pages, audits, redesigns, design extraction from URLs or screenshots, and side-by-side design variations. Use when the user asks to build a new app or landing page, wants to redesign something, wants multiple design directions to pick from, invokes Hallmark by name, or uses audit/redesign/study/variants."
-version: 1.3.0
+version: 1.4.0
 ---
 
 # Hallmark
@@ -43,7 +43,7 @@ These bind on every output, in every verb, on every model. Read nothing else and
 6. Build: tokens, stamp, `tokens.css`, log append.
 7. Slop test: sloplint script first, then the judged gates.
 
-Verbs `audit`, `redesign`, `study`, and `variants` dispatch to their own files (below). If you are not Claude running in Claude Code (you are GLM, Kimi, DeepSeek, Qwen, MiniMax, or any model in another harness), read [`references/models.md`](references/models.md) before Step 0.
+Verbs `audit`, `redesign`, `study`, and `variants` dispatch to their own files (below). **Harness dispatch:** Hallmark is tuned for three harnesses. In **Claude Code** this file runs as written (hooks, subagents, and the preview pane all exist). In **Codex CLI**, read [`references/harnesses/codex.md`](references/harnesses/codex.md) before Step 0. In **OpenCode**, read [`references/harnesses/opencode.md`](references/harnesses/opencode.md) before Step 0. Any other harness: follow this file on the Critical floor with sequential tool calls, chat-text questions, and Step 7 as the only mechanical sweep.
 
 ---
 
@@ -251,7 +251,7 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 **Do:** emit the preview block, then stop for a beat before writing code. This is the user's five-second redirect window.
 
 ```markdown
-**Hallmark · v1.3.0**
+**Hallmark · v1.4.0**
 
 - **Macrostructure** · Stat-Led
 - **Theme** · Coral (near-white paper · quiet neutrals · coral accent)

@@ -1,12 +1,12 @@
 # Roadmap
 
-What's next. (v1.3 shipped: the edit-time lint hook, four new themes with the image hook, spec files for all 24 themes, the Tier A conformance harness, and variants v2 with progressive reveal + grafts + thumbnails + scoped injection.)
+What's next. (v1.4 shipped: the harness pivot - one core, per-harness adapters for Claude Code / Codex / OpenCode, the multi-harness installer, and the variants corner dock. v1.3 shipped: the edit-time lint hook, four new themes with the image hook, spec files for all 24 themes, the Tier A conformance harness, and variants v2 with progressive reveal + grafts + thumbnails + scoped injection.)
 
 ---
 
 ## Now
 
-**Run the eval matrices on real endpoints.** Tier B (`gen-direct.py`) and Tier A (`gen-cli.mjs`) are built. Run the 6-brief matrix on GLM (Together) and Kimi (OpenRouter) for Tier B, and the Claude conformance pass for Tier A in a logged-in terminal; iterate the skill text until the acceptance criteria in `eval/README.md` hold. Add Z.ai + Moonshot tokens to unlock the Tier A open-model arms.
+**Conformance on all three harnesses.** Tier A (`gen-cli.mjs`) drives Claude Code today; run it in a logged-in terminal. Next: the same conformance pass through `codex exec` and OpenCode's non-interactive run, asserting each harness loads its adapter (`harnesses/codex.md` / `harnesses/opencode.md`), holds the load-order discipline, and lands 0-FAIL sloplint. (The old Tier B bare-API open-model matrix is retired from the roadmap; the tooling stays in `eval/` as an archive.)
 
 **Measure the variants speedup.** `eval/variants-bench.md` documents the four-config protocol; run it on a real authenticated machine and publish the wall-clock + token table (parallel + sketch + progressive vs the v1 baseline).
 
@@ -36,7 +36,7 @@ What's next. (v1.3 shipped: the edit-time lint hook, four new themes with the im
 
 ## Later
 
-- **Per-harness prebuilt bundles.** Compiled copies for Gemini CLI, Copilot, OpenCode and friends, with placeholder substitution per harness.
+- **More harness adapters.** Claude Code, Codex, and OpenCode are first-class today; Gemini CLI / Copilot adapters only if demand shows up, same one-core-plus-adapter shape.
 - **`hallmark explain`** - narrate the choices axis by axis; the skill teaches.
 - **Negative-capability rules** - for each anti-pattern, the perceptual reason it fails.
 - **Emotion-first prompting** - *nostalgic, optimistic, sceptical* instead of tone adjectives.

@@ -1,7 +1,9 @@
 # Hallmark eval harness
 
-Repo-internal tooling for benchmarking the Hallmark skill across models and prompt packs.
+Repo-internal tooling for benchmarking the Hallmark skill across harnesses and prompt packs.
 **Not shipped with the skill**: the `package.json` `files` whitelist only includes `skills/`, so nothing in `eval/` reaches the published package.
+
+**Direction note (v1.4).** Hallmark now targets three harnesses (Claude Code, Codex CLI, OpenCode), not open-weight models. Tier B below is retained as an archive of the bare-API open-model experiments (the b1-b6 runs feed the gallery); it is no longer a development target. The conformance path forward is Tier A on Claude Code, then the same pass through `codex exec` and OpenCode's non-interactive runner.
 
 ## Two-tier design
 
