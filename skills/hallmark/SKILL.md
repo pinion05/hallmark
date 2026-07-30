@@ -173,7 +173,7 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 
 ### 2. Structure and rotation
 
-**Do:** pick macrostructure, nav, and footer from the slim indexes, run the Rotation rules, and say the Picks block before writing any code.
+**Do:** pick macrostructure, nav, footer, and hero posture from the slim indexes, run the Rotation rules, run the mirror test, and say the Picks block before writing any code.
 
 **Macrostructure first.** Read the index at [`references/macrostructures.md`](references/macrostructures.md), pick ONE of the 21 named shapes, then load ONLY that per-macro file from `references/macrostructures/`. Never load the whole catalogue. The macrostructure picks five of the six structural axes; the deeper axis catalogue in [`references/structure.md`](references/structure.md) is only for deviating.
 

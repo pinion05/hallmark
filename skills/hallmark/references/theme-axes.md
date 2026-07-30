@@ -16,7 +16,7 @@ Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **wa
 | Midnight | dark (15%, blue) | geometric-sans (Geist) | cool (~220°) |
 | Almanac | mid (84%, cool slate stock) | grotesk-sans (Hanken Grotesk) | cool (~250°) |
 | Garden | light (95.5%) | roman-serif (Young Serif) | chromatic-leaf (~140°) |
-| Riso | mid (84%, pink stock) | grotesk-sans (Public Sans) | cool (~220°) |
+| Riso | mid (84%, pink stock) | grotesk-heavy (Public Sans 800/900) | cool (~220°) |
 | Sport | light (98%) | display-condensed (Inter Tight) | warm (~35°) |
 | Bloom | light (97%) | geometric-sans (Geist) | warm (~35°) |
 | Coral | light (96.5%) | grotesk-sans (General Sans) | warm (coral ~28°) |
@@ -31,4 +31,4 @@ Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **wa
 | Ledger | dark (navy 20%) | grotesk-sans + tabular mono (Hanken) | chromatic-teal (~185) |
 | Arcade | dark (violet-black 16%) | pixel display (Silkscreen) | chromatic-magenta (~340) + cyan |
 
-When two candidate themes match on two of the three axes, pick a more distant one (Aurora ~172° and Ledger ~185° sit in the same teal family; that rule arbitrates between them). All display is roman; italic headers are banned globally (gate 38a).
+When two candidate themes match on two of the three axes, pick a more distant one. Known close pairs that rule arbitrates: Aurora ~172° vs Ledger ~185° (same teal family), Specimen vs Atelier (both light/high-contrast-serif/warm; faces and registers differ), Sport vs Editorial (both light/display-condensed/warm; scoreboard vs magazine register). All display is roman; italic headers are banned globally (gate 38a).
