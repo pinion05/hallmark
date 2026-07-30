@@ -5,7 +5,7 @@ Most AI-generated UI fails on colour. It picks blue. It uses pure black. It draw
 ## Principles
 
 - **OKLCH only.** Perceptually uniform; predictable lightness; consistent hue across tints. `hsl()` and `rgb()` lie about brightness.
-- **One accent.** Maximum two. Everything else is neutral. The accent should occupy **3% or less** of any given viewport.
+- **One accent.** Maximum two. Everything else is neutral. The accent should occupy **5% or less** of any given viewport (the one number; gate 23 measures it).
 - **No pure extremes.** No `#000`, no `#fff`. Always tint with a trace of chroma toward the palette's anchor hue.
 - **Tint the greys.** If your anchor hue is orange, your neutrals lean warm. If it's blue, they lean cool. A page with a warm accent and cool grey body copy looks wrong and most people can't name why.
 

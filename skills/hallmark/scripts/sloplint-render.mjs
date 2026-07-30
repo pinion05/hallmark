@@ -7,6 +7,7 @@
  *   49  two-line clickable affordances (a, button, [role=button], nav a)
  *   44  hero fold at 1280x800: first h1 + nearest CTA fully inside the fold
  *   40/41  computed-style contrast for visible text
+ *   23  painted accent area at 1280x800 vs the 5% budget (posture-aware)
  *   56  two position:sticky top:0 elements actually overlapping
  *
  * Requires puppeteer-core (optional) plus a Chrome executable at the standard
@@ -21,7 +22,8 @@ import { existsSync } from 'node:fs';
 const WIDTHS = [320, 375, 414, 768, 1280, 1920];
 const MAC_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
-export async function renderCheck(htmlFiles) {
+export async function renderCheck(htmlFiles, metaIn) {
+  const meta = { genre: null, postureByFile: {}, ...(metaIn || {}) };
   let puppeteer;
   try {
     puppeteer = (await import('puppeteer-core')).default;
@@ -42,10 +44,11 @@ export async function renderCheck(htmlFiles) {
       const page = await browser.newPage();
       try {
         await page.goto('file://' + file, { waitUntil: 'networkidle0', timeout: 20000 }).catch(() => {});
+        const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
         for (const width of WIDTHS) {
           await page.setViewport({ width, height: 800 });
           await new Promise((r) => setTimeout(r, 120));
-          const res = await page.evaluate(observe, width === 1280);
+          const res = await page.evaluate(observe, width === 1280, pageMeta);
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${width}px] ${f.evidence}` });
         }
       } catch (e) {
@@ -68,7 +71,8 @@ export async function renderCheck(htmlFiles) {
 }
 
 /* Runs inside the page. checkFold is true only at 1280x800. */
-function observe(checkFold) {
+function observe(checkFold, meta) {
+  meta = meta || { genre: null, posture: 'restrained' };
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
   const describe = (el) => {
@@ -180,6 +184,94 @@ function observe(checkFold) {
           push(41, 'FAIL', `button text ~ button fill on ${key} (${r.toFixed(2)}:1)`,
             'Use accent-ink or paper for the label');
         }
+      }
+    }
+  }
+
+  /* gate 23: painted accent area at 1280x800. Runs only when no colour
+     posture is declared (a stamped posture is the gate's own carve-out and
+     stays judged); dark papers can never match the accent RGB, so the
+     dark-theme exception is automatic. Union grid = no double-counting. */
+  if (checkFold && meta.posture === 'restrained') {
+    const cs0 = getComputedStyle(document.documentElement);
+    /* Modern Chrome keeps oklch() in computed values AND in canvas fillStyle
+       serialization, so normalize by parsing: hex, rgb/rgba, color(srgb),
+       and oklch via the same math sloplint.mjs uses. */
+    const oklchToRgb = (L, C, H) => {
+      const hr = (H * Math.PI) / 180;
+      const a = C * Math.cos(hr), b = C * Math.sin(hr);
+      const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+      const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+      const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+      const l = l_ ** 3, mm = m_ ** 3, ss = s_ ** 3;
+      return [
+        4.0767416621 * l - 3.3077115913 * mm + 0.2309699292 * ss,
+        -1.2684380046 * l + 2.6097574011 * mm - 0.3413193965 * ss,
+        -0.0041960863 * l - 0.7034186147 * mm + 1.7076147010 * ss,
+      ].map((c) => {
+        const cl = Math.min(1, Math.max(0, c));
+        const g = cl <= 0.0031308 ? 12.92 * cl : 1.055 * cl ** (1 / 2.4) - 0.055;
+        return Math.round(g * 255);
+      });
+    };
+    const toRgb = (str) => {
+      if (!str) return null;
+      str = str.trim();
+      let m;
+      if ((m = /^#([0-9a-f]{6})([0-9a-f]{2})?$/i.exec(str))) {
+        const h = m[1];
+        return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16), m[2] ? parseInt(m[2], 16) / 255 : 1];
+      }
+      if ((m = /^rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)$/.exec(str))) {
+        return [+m[1], +m[2], +m[3], m[4] == null ? 1 : +m[4]];
+      }
+      if ((m = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/.exec(str))) {
+        return [Math.round(+m[1] * 255), Math.round(+m[2] * 255), Math.round(+m[3] * 255), m[4] == null ? 1 : +m[4]];
+      }
+      if ((m = /^oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)(?:deg)?\s*(?:\/\s*([\d.]+%?))?\s*\)$/.exec(str))) {
+        const L = m[1].endsWith('%') ? parseFloat(m[1]) / 100 : parseFloat(m[1]);
+        const alpha = m[4] == null ? 1 : (m[4].endsWith('%') ? parseFloat(m[4]) / 100 : parseFloat(m[4]));
+        return [...oklchToRgb(L, parseFloat(m[2]), parseFloat(m[3])), alpha];
+      }
+      return null;
+    };
+    const targets = ['--color-accent', '--color-accent-2']
+      .map((t) => toRgb(cs0.getPropertyValue(t).trim())).filter(Boolean);
+    if (targets.length) {
+      const near = (str) => {
+        const p = toRgb(str);
+        if (!p || p[3] < 0.5) return false; // alpha-thinned tints don't count
+        return targets.some((t) => Math.abs(t[0] - p[0]) + Math.abs(t[1] - p[1]) + Math.abs(t[2] - p[2]) <= 30);
+      };
+      const CW = 16, COLS = Math.ceil(innerWidth / CW), ROWS = Math.ceil(800 / CW);
+      const grid = new Uint8Array(COLS * ROWS);
+      let walked = 0;
+      for (const el of document.querySelectorAll('body, body *')) {
+        if (++walked > 4000) break; // perf bound
+        if (el !== document.body && !visible(el)) continue;
+        const cs = getComputedStyle(el);
+        const isBg = near(cs.backgroundColor);
+        const isTxt = near(cs.color) && parseFloat(cs.fontSize) >= 32 &&
+          [...el.childNodes].some((nd) => nd.nodeType === 3 && nd.textContent.trim());
+        if (!isBg && !isTxt) continue;
+        const r = el.getBoundingClientRect();
+        const x0 = Math.max(0, Math.floor(r.left / CW));
+        const x1 = Math.min(COLS - 1, Math.floor((Math.min(r.right, innerWidth) - 1) / CW));
+        const y0 = Math.max(0, Math.floor(r.top / CW));
+        const y1 = Math.min(ROWS - 1, Math.floor((Math.min(r.bottom, 800) - 1) / CW));
+        for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) grid[y * COLS + x] = 1;
+      }
+      let filled = 0;
+      for (const c of grid) filled += c;
+      const pct = (100 * filled) / (COLS * ROWS);
+      const warnAt = meta.genre === 'atmospheric' ? 20 : 5;
+      const failAt = meta.genre === 'atmospheric' ? 30 : 8;
+      if (pct > failAt) {
+        push(23, 'FAIL', `accent paints ~${pct.toFixed(1)}% of the 1280x800 viewport (> ${failAt}%)`,
+          'Retreat the accent to <= 5%; large colour belongs to paper/field tokens or a declared posture');
+      } else if (pct > warnAt) {
+        push(23, 'WARN', `accent paints ~${pct.toFixed(1)}% of the 1280x800 viewport`,
+          'Confirm this is a declared posture surface, else retreat to <= 5%');
       }
     }
   }

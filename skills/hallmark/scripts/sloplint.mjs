@@ -49,6 +49,9 @@
  *   11  uniform hover-scale across multiple selectors
  *   17  tooltip focus delay equals hover delay
  *   18  infinite auto-rotating animation without pause-on-hover
+ *   23  accent token on viewport-scale backgrounds / display-size accent text
+ *       (WARN; posture-aware via the stamp; --render measures painted area
+ *       against the 5% budget and can FAIL)
  *   25  prose measure outside 45-75ch
  *   28  video/LCP hygiene (autoplay w/o muted, no poster, lazy hero media)
  *   30  two or more icon libraries mixed - the WARN half
@@ -847,6 +850,46 @@ function check22(ctx) {
   }
 }
 
+/* gate 23: accent-footprint heuristic (WARN) - static half; --render measures the real area */
+function check23(ctx) {
+  const heads = [
+    ...ctx.cssFiles.map((f) => f.raw),
+    ...ctx.docs.flatMap((d) => d.styles.map((st) => st.css)),
+  ].map((t) => t.split('\n').slice(0, 40).join('\n')).join('\n');
+  const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(heads)?.[1] || 'restrained').toLowerCase();
+  if (posture === 'drenched') return; // the surface IS the colour, by declaration
+  const ACC = /var\(\s*--color-accent(?:-2)?\s*[,)]/;
+  const SURFACE = /(^|[\s,>~+])(body|html|main|section|header|footer|aside)(\b|$)|\bhero\b|__hero|banner|\bstrip\b|\bband\b/i;
+  const big = (r) => r.decls.some((d) =>
+    (/^(min-)?height$/.test(d.prop) && (parseFloat((/([\d.]+)\s*(vh|dvh|svh)/.exec(d.value) || [])[1] || 0) >= 40 || (pxOf(d.value) ?? 0) >= 320)) ||
+    (d.prop === 'inset' && /^0(px)?(\s|$)/.test(d.value.trim())));
+  for (const r of ctx.rules) {
+    if (isTokenRule(r) || r.keyframes) continue;
+    for (const d of r.decls) {
+      if (!/^background(-color|-image)?$/.test(d.prop) || !ACC.test(d.value)) continue;
+      if (/\/\s*0?\.[0-2]\d*/.test(d.value)) continue;            // alpha-thinned tint or wash, not a fill
+      if (ctx.genre === 'atmospheric' && /radial-gradient/i.test(d.value)) continue; // the bloom licence; area judged at the gate
+      if (SURFACE.test(r.selector) || big(r)) {
+        report(23, 'WARN', r.file, d.line,
+          `accent background on viewport-scale rule "${trunc(r.selector, 44)}"`,
+          'Accent stays <= 5% of a viewport; large fills belong to paper/field tokens or a declared posture in the stamp');
+      }
+    }
+    const col = r.decls.find((d) => d.prop === 'color' && ACC.test(d.value));
+    const fsDecl = r.decls.find((d) => d.prop === 'font-size');
+    if (col && fsDecl) {
+      const rv = resolveVars(fsDecl.value, ctx.tokens);
+      const clampMax = /,\s*([^,()]+)\)\s*$/.exec(rv);
+      const maxPx = pxOf(rv) ?? (clampMax ? pxOf(clampMax[1].trim()) : null);
+      if ((maxPx != null && maxPx >= 48) || /--text-display\b/.test(fsDecl.value)) {
+        report(23, 'WARN', r.file, col.line,
+          `display-size text set in accent on "${trunc(r.selector, 44)}"`,
+          'Accent marks emphasis; set display type in ink and keep accent for small signals');
+      }
+    }
+  }
+}
+
 /* gate 24: off-scale px spacing */
 function check24(ctx) {
   const props = /^(padding|margin|gap|row-gap|column-gap)(-[a-z]+)?$/;
@@ -1567,7 +1610,7 @@ function checkCopyTell(ctx) {
 /* -------------------------------------------------------------- runner --- */
 
 const CHECKS = [check1, check2, check3, check4, check5, check7, check10, check11,
-  check12, check14, check15, check17, check18, check19, check20, check22, check24,
+  check12, check14, check15, check17, check18, check19, check20, check22, check23, check24,
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
   check39, check40_41, check42, check43, check46, check47, check48, check49,
   check50, check51, check52, check53, check54, check55, check56, checkCopyTell];
@@ -1617,7 +1660,13 @@ if (opts.render) {
   const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
   try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck(htmlFiles);
+    const postureByFile = {};
+    for (const f of htmlFiles) {
+      let head = '';
+      try { head = readFileSync(f, 'utf8').split('\n').slice(0, 60).join('\n'); } catch { /* unreadable */ }
+      postureByFile[f] = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(head)?.[1] || 'restrained').toLowerCase();
+    }
+    const extra = await mod.renderCheck(htmlFiles, { genre: opts.genre, postureByFile });
     for (const f of extra) {
       findings.push({ ...f, file: rel(f.file), evidence: trunc(String(f.evidence)) });
     }
