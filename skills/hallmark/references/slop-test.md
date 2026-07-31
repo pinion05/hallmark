@@ -63,7 +63,7 @@ Record the six scores in a one-line stamp comment directly below the macrostruct
 ## Structural
 
 8. **[J]** Does the page reuse a structure it shouldn't — either the generic AI template (Hero → 3 features → CTA → footer), **or** the *same* structural fingerprint / macrostructure as a previous Hallmark output in this project? Read the file system: if `.hallmark/log.json` entries or a CSS macrostructure stamp exist, this build's macrostructure must differ from the last three (SKILL.md § Rotation).
-9. **[J]** Are sections separated only by equal whitespace, with no rule, no ornament, no colour shift — every section identical in rhythm?
+9. **[J]** Are sections separated only by equal whitespace, with no rule, no ornament, no colour shift — every section identical in rhythm? The fix vocabulary is the escalation ladder in layout-and-space.md § Surfaces: different regions climb different rungs (whitespace, hairline, tinted well, card).
 
 ## Microinteractions
 
