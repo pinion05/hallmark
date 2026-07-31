@@ -1,0 +1,23 @@
+{
+  "brief": "b1",
+  "arm": "hallmark-agent",
+  "tier": "A-subagent",
+  "model": "claude-sonnet-5",
+  "skill": true,
+  "runner": "in-session subagent (headless `claude -p` could not authenticate in this environment)",
+  "effort": "inherited from session (per-agent override not available)",
+  "durationSec": 2157.9,
+  "tokensTotal": 379966,
+  "toolUses": 121,
+  "costUSD_subscription_marginal": 0,
+  "sloplint": {
+    "fail": 0,
+    "warn": 1
+  },
+  "filesWritten": [
+    "index.html",
+    "styles.css",
+    "tokens.css"
+  ],
+  "generatedAt": "2026-07-31"
+}

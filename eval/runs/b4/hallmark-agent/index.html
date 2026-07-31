@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<title>Relay Desk: turn a shared inbox into a shared queue</title>
+<meta name="description" content="Relay Desk turns a shared support inbox into a shared queue your small team can see, claim, and resolve together. No reply-all guessing, no dropped threads." />
+
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header>
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__wordmark" href="#top">Relay Desk</a>
+    <ul class="nav__links">
+      <li><a href="#workflow">How it works</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn--primary nav__cta" href="#start">Start free</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <h1 class="hero__title reveal" data-load style="--i:0">Stop replying to the same email twice</h1>
+        <p class="hero__lede reveal" data-load style="--i:1">Relay Desk turns your shared inbox into one queue your team can see, claim, and clear together.</p>
+        <div class="hero__actions reveal" data-load style="--i:2">
+          <a class="btn btn--primary" href="#start">Start free</a>
+          <a class="btn btn--secondary" href="#workflow">See how it works</a>
+        </div>
+      </div>
+      <div class="hero__visual reveal" data-load style="--i:3">
+        <div class="queue-card" role="img" aria-label="Example shared queue: three support tickets shown as unclaimed, claimed by a teammate, and resolved.">
+          <p class="queue-card__label" aria-hidden="true">Shared queue</p>
+          <ul class="queue-card__rows" aria-hidden="true">
+            <li class="queue-row">
+              <span class="queue-row__subject">Can’t reset my password</span>
+              <span class="queue-row__meta">
+                <span class="chip">Account</span>
+                <span class="chip chip--unclaimed"><span class="status-dot"></span>Unclaimed</span>
+              </span>
+            </li>
+            <li class="queue-row">
+              <span class="queue-row__subject">Refund for order 4471</span>
+              <span class="queue-row__meta">
+                <span class="chip">Billing</span>
+                <span class="chip chip--claimed"><span class="status-dot"></span>Claimed</span>
+              </span>
+            </li>
+            <li class="queue-row">
+              <span class="queue-row__subject">Export is timing out</span>
+              <span class="queue-row__meta">
+                <span class="chip">Bug</span>
+                <span class="chip chip--resolved"><span class="status-dot"></span>Resolved</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="workflow" id="workflow">
+    <div class="workflow__inner">
+      <h2 class="workflow__intro">How the queue works</h2>
+      <div class="stages">
+        <article class="stage reveal" data-scroll>
+          <header class="stage__head">
+            <p class="stage__num">1.0</p>
+            <h3 class="stage__title">Arrives</h3>
+          </header>
+          <div class="stage__body">
+            <p>Messages come in through the support address you already give customers. Nothing new for them to learn.</p>
+          </div>
+        </article>
+
+        <article class="stage reveal" data-scroll>
+          <header class="stage__head">
+            <p class="stage__num">2.0</p>
+            <h3 class="stage__title">Sorts</h3>
+          </header>
+          <div class="stage__body">
+            <p>Every message lands in one shared queue instead of one inbox. Tag it, route it, or leave it for the next person. Everyone sees the same list.</p>
+            <span class="chip chip--unclaimed stage__chip"><span class="status-dot"></span>Unclaimed</span>
+          </div>
+        </article>
+
+        <article class="stage reveal" data-scroll>
+          <header class="stage__head">
+            <p class="stage__num">3.0</p>
+            <h3 class="stage__title">Claims</h3>
+          </header>
+          <div class="stage__body">
+            <p>One click and a ticket is yours. Teammates see it’s claimed before they start typing, so nobody answers the same email twice.</p>
+            <span class="chip chip--claimed stage__chip"><span class="status-dot"></span>Claimed</span>
+          </div>
+        </article>
+
+        <article class="stage reveal" data-scroll>
+          <header class="stage__head">
+            <p class="stage__num">4.0</p>
+            <h3 class="stage__title">Resolves</h3>
+          </header>
+          <div class="stage__body">
+            <p>Mark it resolved and it drops out of the queue, logged and searchable. The next similar question is one search away.</p>
+            <span class="chip chip--resolved stage__chip"><span class="status-dot"></span>Resolved</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="capabilities" id="capabilities">
+    <div class="cap-head reveal" data-scroll>
+      <h2>The parts a shared inbox never had</h2>
+      <p>Same inbox. A few things email was never designed to do.</p>
+    </div>
+    <div class="cap-list">
+      <div class="cap-row">
+        <p class="cap-row__name">Ownership</p>
+        <p class="cap-row__desc">Claim a ticket so two people don’t answer it.</p>
+      </div>
+      <div class="cap-row">
+        <p class="cap-row__name">Internal notes</p>
+        <p class="cap-row__desc">Coordinate with a teammate before you reply. Customers never see them.</p>
+      </div>
+      <div class="cap-row">
+        <p class="cap-row__name">Tags and routing</p>
+        <p class="cap-row__desc">Sort messages by topic, team, or priority as they arrive.</p>
+      </div>
+      <div class="cap-row">
+        <p class="cap-row__name">Search</p>
+        <p class="cap-row__desc">Every resolved conversation stays put and stays searchable.</p>
+      </div>
+      <div class="cap-row">
+        <p class="cap-row__name">One address</p>
+        <p class="cap-row__desc">Keep the support email your customers already have saved.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="faq__inner">
+      <h2>Common questions</h2>
+
+      <details class="faq-item">
+        <summary>Do my customers need to do anything different?<span class="faq__icon" aria-hidden="true"></span></summary>
+        <p>No. They keep emailing the same address they always have. Relay Desk changes what your team sees, not what they see.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is Relay Desk live, or still being built?<span class="faq__icon" aria-hidden="true"></span></summary>
+        <p>It’s live. We’re early and don’t have case studies to point to yet, just a tool built the way we describe on this page. Start a queue and see for yourself.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What happens to our current shared inbox?<span class="faq__icon" aria-hidden="true"></span></summary>
+        <p>You keep it. Relay Desk organizes what comes through the address you already use. Nothing to migrate, nothing to export later.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How many people can share a queue?<span class="faq__icon" aria-hidden="true"></span></summary>
+        <p>As many as your team needs. Add teammates as you grow past what a shared inbox can handle.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="cta-strip" id="start">
+    <div class="cta-strip__inner">
+      <h2 class="reveal" data-scroll>Turn the inbox into a queue</h2>
+      <p class="lede reveal" data-scroll>Free while we’re in beta. No credit card.</p>
+      <form class="cta-form reveal" data-scroll novalidate>
+        <div class="field">
+          <label for="email">Work email</label>
+          <div class="cta-form__row">
+            <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+            <button type="submit" class="btn btn--primary">Start free</button>
+          </div>
+          <p class="cta-form__hint" id="email-hint" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="footer__line">Your inbox was never built for a team.</p>
+  <div class="footer__meta">
+    <span class="wordmark">Relay Desk</span>
+    <span class="muted">© 2026 Relay Desk</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // Scroll-triggered reveals: reveal once, never re-fire.
+  var scrollTargets = document.querySelectorAll(".reveal[data-scroll]");
+  if ("IntersectionObserver" in window && scrollTargets.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.15 });
+    scrollTargets.forEach(function (el) { io.observe(el); });
+  } else {
+    scrollTargets.forEach(function (el) { el.classList.add("is-in"); });
+  }
+
+  // Load-time hero reveal: fires once, immediately.
+  requestAnimationFrame(function () {
+    document.querySelectorAll(".reveal[data-load]").forEach(function (el) {
+      el.classList.add("is-in");
+    });
+  });
+
+  // CTA form: no backend to submit to, so this validates and gives honest
+  // client-side feedback only. It never claims to have sent anything.
+  var form = document.querySelector(".cta-form");
+  if (form) {
+    var input = form.querySelector("#email");
+    var hint = form.querySelector("#email-hint");
+    var submitBtn = form.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!input.value || !input.validity.valid) {
+        hint.textContent = "Enter a valid work email so we know where to send setup steps.";
+        hint.dataset.tone = "error";
+        input.setAttribute("aria-invalid", "true");
+        input.focus();
+        return;
+      }
+
+      input.removeAttribute("aria-invalid");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+      hint.textContent = "";
+      hint.removeAttribute("data-tone");
+
+      window.setTimeout(function () {
+        submitBtn.textContent = "Check your inbox →";
+        hint.textContent = "We sent a link to " + input.value + " to finish setup.";
+        hint.dataset.tone = "success";
+        input.disabled = true;
+      }, 500);
+    });
+
+    input.addEventListener("blur", function () {
+      if (input.value && !input.validity.valid) {
+        hint.textContent = "That email address looks incomplete.";
+        hint.dataset.tone = "error";
+        input.setAttribute("aria-invalid", "true");
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formant, AI Voice Cloning Studio</title>
+<meta name="description" content="Formant clones any voice from six seconds of audio and speaks it in 40+ languages. Studio quality voice AI, built with verified consent from day one.">
+<meta name="theme-color" content="#0b0a09">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230B0A09'/%3E%3Crect x='20' y='52' width='16' height='30' rx='6' fill='%23FF5A36'/%3E%3Crect x='42' y='20' width='16' height='62' rx='6' fill='%23FF5A36'/%3E%3Crect x='64' y='36' width='16' height='46' rx='6' fill='%23FF5A36'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important;}.faq-a{max-height:none!important;}.mobile-nav{max-height:none!important;position:static!important;}</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="nav-inner container">
+    <a class="logo" href="#" aria-label="Formant, back to top">
+      <svg class="logo-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="22" height="22">
+        <rect x="2" y="13" width="4" height="8" rx="1.5"></rect>
+        <rect x="10" y="5" width="4" height="16" rx="1.5"></rect>
+        <rect x="18" y="9" width="4" height="12" rx="1.5"></rect>
+      </svg>
+      <span class="logo-text">FORMANT</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#how-it-works">Product</a>
+      <a href="#voices">Voices</a>
+      <a href="#use-cases">Use cases</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="button button--primary button--small" href="#pricing">Start free</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#how-it-works">Product</a>
+    <a href="#voices">Voices</a>
+    <a href="#use-cases">Use cases</a>
+    <a href="#pricing">Pricing</a>
+    <a class="button button--primary button--block" href="#pricing">Start free</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner container">
+      <div class="hero-content">
+        <p class="kicker"><span class="rec-dot" aria-hidden="true"></span>REAL-TIME VOICE CLONING</p>
+        <h1 class="hero-title">Clone a voice from six seconds of audio.</h1>
+        <p class="hero-sub">Formant learns pitch, timbre, and cadence from a short recording, then speaks any script you write, in over 40 languages. Studio quality, without the studio.</p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="#pricing">Try it free</a>
+          <a class="button button--secondary" href="#voices">Browse voice library</a>
+        </div>
+        <p class="hero-note">No credit card required &middot; 10 minutes of audio free every month</p>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="player player--hero" data-duration="41">
+          <div class="player-top">
+            <div class="player-id">
+              <span class="player-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="player-name">Marlowe</p>
+                <p class="player-tag">Warm, Deep &middot; Narration</p>
+              </div>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+
+          <div class="waveform" data-bars="56" aria-hidden="true"></div>
+
+          <p class="player-transcript">&ldquo;We didn't just launch a product. We changed how the whole team thought about shipping.&rdquo;</p>
+
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:41</span></span>
+            <span class="player-badge">SYNTHETIC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-band container reveal">
+      <div class="stat">
+        <p class="stat-num">6 sec</p>
+        <p class="stat-label">Shortest sample to start a clone</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">40+</p>
+        <p class="stat-label">Languages, same voice</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">180 ms</p>
+        <p class="stat-label">Real-time API latency</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">99%</p>
+        <p class="stat-label">Listener match rate</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="marquee-band" aria-label="Supported languages">
+    <span class="marquee-label">40+ LANGUAGES<br>SUPPORTED</span>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span>ENGLISH</span><span>ESPA&Ntilde;OL</span><span>FRAN&Ccedil;AIS</span><span>DEUTSCH</span><span>&#20013;&#25991;</span><span>&#26085;&#26412;&#35486;</span><span>PORTUGU&Ecirc;S</span><span>ITALIANO</span><span>&#54620;&#44397;&#50612;</span><span>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</span><span>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</span><span>&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span><span>NEDERLANDS</span><span>POLSKI</span><span>T&Uuml;RK&Ccedil;E</span>
+        </div>
+        <div class="marquee-group">
+          <span>ENGLISH</span><span>ESPA&Ntilde;OL</span><span>FRAN&Ccedil;AIS</span><span>DEUTSCH</span><span>&#20013;&#25991;</span><span>&#26085;&#26412;&#35486;</span><span>PORTUGU&Ecirc;S</span><span>ITALIANO</span><span>&#54620;&#44397;&#50612;</span><span>&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</span><span>&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</span><span>&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span><span>NEDERLANDS</span><span>POLSKI</span><span>T&Uuml;RK&Ccedil;E</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works" aria-labelledby="how-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="eyebrow-num">02</span>Process</p>
+        <h2 class="section-title" id="how-heading">From sample to studio in four steps.</h2>
+        <p class="section-sub">No studio time, no engineer, no waiting on a callback. Four steps, start to finished audio.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step reveal" style="--delay:0">
+          <p class="step-num">01</p>
+          <h3 class="step-title">Upload a sample</h3>
+          <p class="step-text">Six seconds is enough to start. Two to six minutes gets a near-perfect match. A voice memo, a podcast clip, an old interview: any clean recording works.</p>
+        </div>
+        <div class="step reveal" style="--delay:0.08">
+          <p class="step-num">02</p>
+          <h3 class="step-title">We model the voice</h3>
+          <p class="step-text">Formant's network isolates pitch, timbre, cadence, and breath pattern, then builds a private model that belongs only to your account.</p>
+        </div>
+        <div class="step reveal" style="--delay:0.16">
+          <p class="step-num">03</p>
+          <h3 class="step-title">Write or paste a script</h3>
+          <p class="step-text">Type anything, or paste a full chapter. Adjust pace, emphasis, and emotion with simple controls, no audio engineering required.</p>
+        </div>
+        <div class="step reveal" style="--delay:0.24">
+          <p class="step-num">04</p>
+          <h3 class="step-title">Generate in 40+ languages</h3>
+          <p class="step-text">The model keeps the voice and swaps the language, accent included. Export as WAV or MP3, or stream it live through the API.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="voices" aria-labelledby="voices-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="eyebrow-num">03</span>Voice library</p>
+        <h2 class="section-title" id="voices-heading">Six voices. Infinite scripts.</h2>
+        <p class="section-sub">A small sample from the public library. Every voice below is fully synthetic and cleared for commercial use.</p>
+      </div>
+
+      <div class="voices-grid">
+
+        <div class="player player--card voice-card reveal" data-duration="47" style="--delay:0">
+          <div class="voice-card-top">
+            <div>
+              <h3 class="voice-name">Marlowe</h3>
+              <p class="voice-tag">Warm, Deep &middot; Narration</p>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+          <div class="waveform" data-bars="34" aria-hidden="true"></div>
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:47</span></span>
+          </div>
+        </div>
+
+        <div class="player player--card voice-card reveal" data-duration="32" style="--delay:0.05">
+          <div class="voice-card-top">
+            <div>
+              <h3 class="voice-name">Ivy</h3>
+              <p class="voice-tag">Bright, Young &middot; Commercial</p>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+          <div class="waveform" data-bars="34" aria-hidden="true"></div>
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:32</span></span>
+          </div>
+        </div>
+
+        <div class="player player--card voice-card reveal" data-duration="28" style="--delay:0.1">
+          <div class="voice-card-top">
+            <div>
+              <h3 class="voice-name">Sable</h3>
+              <p class="voice-tag">Smoky, Low &middot; Trailer</p>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+          <div class="waveform" data-bars="34" aria-hidden="true"></div>
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:28</span></span>
+          </div>
+        </div>
+
+        <div class="player player--card voice-card reveal" data-duration="55" style="--delay:0">
+          <div class="voice-card-top">
+            <div>
+              <h3 class="voice-name">Kestrel</h3>
+              <p class="voice-tag">Crisp, Neutral &middot; E-learning</p>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+          <div class="waveform" data-bars="34" aria-hidden="true"></div>
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:55</span></span>
+          </div>
+        </div>
+
+        <div class="player player--card voice-card reveal" data-duration="41" style="--delay:0.05">
+          <div class="voice-card-top">
+            <div>
+              <h3 class="voice-name">Rio</h3>
+              <p class="voice-tag">Warm &middot; Spanish (LatAm) &middot; Dubbing</p>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+          <div class="waveform" data-bars="34" aria-hidden="true"></div>
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:41</span></span>
+          </div>
+        </div>
+
+        <div class="player player--card voice-card reveal" data-duration="36" style="--delay:0.1">
+          <div class="voice-card-top">
+            <div>
+              <h3 class="voice-name">Nova</h3>
+              <p class="voice-tag">Energetic &middot; Gaming</p>
+            </div>
+            <button class="play-btn" type="button" aria-label="Play sample">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5L18.5 12L8 18.5V5.5Z" fill="currentColor"></path></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+          <div class="waveform" data-bars="34" aria-hidden="true"></div>
+          <div class="player-bottom">
+            <span class="time"><span class="time-current">0:00</span><span class="time-sep">/</span><span class="time-total">0:36</span></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="use-cases" aria-labelledby="usecases-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="eyebrow-num">04</span>Use cases</p>
+        <h2 class="section-title" id="usecases-heading">One voice model. Every format you publish in.</h2>
+        <p class="section-sub">One accurate model of a voice, published everywhere that voice needs to show up.</p>
+      </div>
+
+      <div class="usecases-grid">
+        <div class="usecase-card reveal" style="--delay:0">
+          <span class="usecase-icon" aria-hidden="true"><span class="micro-wave">
+            <span style="height:40%"></span><span style="height:75%"></span><span style="height:55%"></span><span style="height:90%"></span><span style="height:35%"></span>
+          </span></span>
+          <h3 class="usecase-title">Audiobooks &amp; publishing</h3>
+          <p class="usecase-text">Turn a finished manuscript into a finished audiobook without booking a single studio day.</p>
+        </div>
+
+        <div class="usecase-card reveal" style="--delay:0.05">
+          <span class="usecase-icon" aria-hidden="true"><span class="micro-wave">
+            <span style="height:60%"></span><span style="height:30%"></span><span style="height:80%"></span><span style="height:45%"></span><span style="height:65%"></span>
+          </span></span>
+          <h3 class="usecase-title">Film &amp; TV dubbing</h3>
+          <p class="usecase-text">Keep the actor's original performance and voice, now speaking a language they've never studied.</p>
+        </div>
+
+        <div class="usecase-card reveal" style="--delay:0.1">
+          <span class="usecase-icon" aria-hidden="true"><span class="micro-wave">
+            <span style="height:85%"></span><span style="height:50%"></span><span style="height:70%"></span><span style="height:25%"></span><span style="height:60%"></span>
+          </span></span>
+          <h3 class="usecase-title">Gaming &amp; interactive</h3>
+          <p class="usecase-text">Generate thousands of unique NPC lines on demand, in the same consistent voice every time.</p>
+        </div>
+
+        <div class="usecase-card reveal" style="--delay:0">
+          <span class="usecase-icon" aria-hidden="true"><span class="micro-wave">
+            <span style="height:45%"></span><span style="height:65%"></span><span style="height:30%"></span><span style="height:80%"></span><span style="height:50%"></span>
+          </span></span>
+          <h3 class="usecase-title">Podcasts &amp; voiceover</h3>
+          <p class="usecase-text">Fix a flubbed line or record a whole intro segment without ever turning the mic back on.</p>
+        </div>
+
+        <div class="usecase-card reveal" style="--delay:0.05">
+          <span class="usecase-icon" aria-hidden="true"><span class="micro-wave">
+            <span style="height:55%"></span><span style="height:80%"></span><span style="height:40%"></span><span style="height:60%"></span><span style="height:30%"></span>
+          </span></span>
+          <h3 class="usecase-title">Customer support</h3>
+          <p class="usecase-text">Give your IVR and voice assistant one consistent, human voice across every single call.</p>
+        </div>
+
+        <div class="usecase-card reveal" style="--delay:0.1">
+          <span class="usecase-icon" aria-hidden="true"><span class="micro-wave">
+            <span style="height:70%"></span><span style="height:40%"></span><span style="height:90%"></span><span style="height:35%"></span><span style="height:55%"></span>
+          </span></span>
+          <h3 class="usecase-title">Voice preservation</h3>
+          <p class="usecase-text">Bank a voice before illness takes it, so the people who love it can still hear it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section trust-section" id="trust" aria-labelledby="trust-heading">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-intro reveal">
+          <p class="eyebrow"><span class="eyebrow-num">05</span>Trust &amp; safety</p>
+          <h2 class="section-title" id="trust-heading">Consent isn't a checkbox here. It's the architecture.</h2>
+          <p class="section-sub">Voice cloning only earns trust if it is built to deserve it. Here is what runs under every clone on Formant.</p>
+        </div>
+
+        <div class="trust-points">
+          <div class="trust-point reveal" style="--delay:0">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"></circle>
+              <path d="M7.5 12.3L10.3 15.1L16.5 8.9" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <div>
+              <h3 class="trust-point-title">Verified consent</h3>
+              <p class="trust-point-text">Every cloned voice requires a recorded consent statement from the speaker before we train a single model.</p>
+            </div>
+          </div>
+
+          <div class="trust-point reveal" style="--delay:0.06">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"></circle>
+              <path d="M7.5 12.3L10.3 15.1L16.5 8.9" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <div>
+              <h3 class="trust-point-title">Inaudible watermarking</h3>
+              <p class="trust-point-text">Every generated clip carries an embedded watermark that traces back to the account that created it.</p>
+            </div>
+          </div>
+
+          <div class="trust-point reveal" style="--delay:0.12">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"></circle>
+              <path d="M7.5 12.3L10.3 15.1L16.5 8.9" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <div>
+              <h3 class="trust-point-title">Opt-out registry</h3>
+              <p class="trust-point-text">Public figures and voice actors can pre-register to block their voice from ever being cloned on Formant.</p>
+            </div>
+          </div>
+
+          <div class="trust-point reveal" style="--delay:0.18">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"></circle>
+              <path d="M7.5 12.3L10.3 15.1L16.5 8.9" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <div>
+              <h3 class="trust-point-title">Revocable, always</h3>
+              <p class="trust-point-text">Delete a voice model and every future clip loses the ability to generate from it, instantly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow"><span class="eyebrow-num">06</span>Customer stories</p>
+        <h2 class="section-title" id="testimonials-heading">Teams already shipping with it.</h2>
+        <p class="section-sub">A few of the teams already shipping with a cloned voice in production.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <blockquote class="testimonial reveal" style="--delay:0">
+          <p class="testimonial-quote">Formant cut our audiobook turnaround from six weeks to four days. Our narrator recorded once, we generated the other nine language editions ourselves.</p>
+          <footer class="testimonial-cite">
+            <span class="cite-name">Priya Anand</span>
+            <span class="cite-role">Production Lead, Harrow &amp; Vale Audio</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="testimonial reveal" style="--delay:0.08">
+          <p class="testimonial-quote">We voice eleven thousand lines of dialogue with a cast of four actors. Nobody asks anymore which lines are synthetic.</p>
+          <footer class="testimonial-cite">
+            <span class="cite-name">Dez Okafor</span>
+            <span class="cite-role">Audio Director, Little Fox Games</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="testimonial reveal" style="--delay:0.16">
+          <p class="testimonial-quote">I banked my father's voice two years before ALS took it. His voicemail still sounds like him.</p>
+          <footer class="testimonial-cite">
+            <span class="cite-name">Wren Castillo</span>
+            <span class="cite-role">Formant user</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing" aria-labelledby="pricing-heading">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow"><span class="eyebrow-num">07</span>Pricing</p>
+        <h2 class="section-title" id="pricing-heading">Start free. Scale when you're ready.</h2>
+        <p class="section-sub">Every plan includes the full voice model. Higher tiers add capacity, speed, and commercial rights.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card reveal" style="--delay:0">
+          <p class="price-plan-name">Free</p>
+          <p class="price-amount"><span class="price-num">$0</span><span class="price-period">/mo</span></p>
+          <p class="price-desc">For trying Formant out</p>
+          <a class="button button--secondary button--block" href="#">Start free</a>
+          <ul class="price-features">
+            <li>1 voice clone</li>
+            <li>10 minutes generated audio / month</li>
+            <li>Standard generation queue</li>
+            <li>Personal use license</li>
+          </ul>
+        </div>
+
+        <div class="price-card price-card--featured reveal" style="--delay:0.08">
+          <span class="price-badge">Most popular</span>
+          <p class="price-plan-name">Studio</p>
+          <p class="price-amount"><span class="price-num">$39</span><span class="price-period">/mo</span></p>
+          <p class="price-desc">For creators and small teams</p>
+          <a class="button button--primary button--block" href="#">Start Studio</a>
+          <ul class="price-features">
+            <li>10 voice clones</li>
+            <li>5 hours generated audio / month</li>
+            <li>Real-time streaming API</li>
+            <li>Commercial use license</li>
+            <li>Priority generation queue</li>
+          </ul>
+        </div>
+
+        <div class="price-card reveal" style="--delay:0.16">
+          <p class="price-plan-name">Enterprise</p>
+          <p class="price-amount"><span class="price-num">Custom</span></p>
+          <p class="price-desc">For studios and platforms</p>
+          <a class="button button--secondary button--block" href="#">Talk to sales</a>
+          <ul class="price-features">
+            <li>Unlimited voice clones</li>
+            <li>Dedicated generation capacity</li>
+            <li>SSO and audit logs</li>
+            <li>Custom SLA and support</li>
+            <li>Dedicated onboarding</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow"><span class="eyebrow-num">08</span>FAQ</p>
+        <h2 class="section-title" id="faq-heading">Questions, answered plainly.</h2>
+        <p class="section-sub">Everything we get asked before a team's first clone.</p>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-a-1" id="faq-q-1">
+            <span>How much audio do I need to clone a voice?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
+            <div class="faq-a-inner"><p>Six seconds is enough for a rough clone. For a production-ready match, we recommend two to six minutes of clean, single-speaker audio.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-a-2" id="faq-q-2">
+            <span>Do I need the speaker's permission?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
+            <div class="faq-a-inner"><p>Yes, always. You'll record a short consent statement in the speaker's own voice before we train any model. This applies even if the voice is your own.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-a-3" id="faq-q-3">
+            <span>What languages can Formant speak?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
+            <div class="faq-a-inner"><p>Over 40 languages and growing, including English, Spanish, French, German, Mandarin, Japanese, Portuguese, Hindi, and Arabic. The cloned voice keeps its character in every language.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-a-4" id="faq-q-4">
+            <span>Can I use the audio commercially?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
+            <div class="faq-a-inner"><p>Studio and Enterprise plans include a commercial license. Free plan audio is for personal and evaluation use only.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-a-5" id="faq-q-5">
+            <span>Is there an API?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5">
+            <div class="faq-a-inner"><p>Yes. Studio and Enterprise plans include REST and streaming API access, with sub-200 millisecond latency for real-time applications.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-a-6" id="faq-q-6">
+            <span>How is this different from text-to-speech?</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6">
+            <div class="faq-a-inner"><p>Traditional text-to-speech uses a fixed set of voices. Formant builds a new model from a specific person's voice, so the output sounds like them, not like a generic narrator.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner reveal">
+      <h2 class="cta-title">Your voice can be everywhere at once.</h2>
+      <p class="cta-sub">Start with six seconds of audio. Hear what it sounds like in about a minute.</p>
+      <div class="cta-actions">
+        <a class="button button--primary" href="#pricing">Try Formant free</a>
+      </div>
+      <p class="cta-note">No credit card required.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="#" aria-label="Formant, back to top">
+          <svg class="logo-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="22" height="22">
+            <rect x="2" y="13" width="4" height="8" rx="1.5"></rect>
+            <rect x="10" y="5" width="4" height="16" rx="1.5"></rect>
+            <rect x="18" y="9" width="4" height="12" rx="1.5"></rect>
+          </svg>
+          <span class="logo-text">FORMANT</span>
+        </a>
+        <p class="footer-tagline">Studio-grade voice cloning, built with consent from day one.</p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#how-it-works">Voice cloning</a></li>
+            <li><a href="#">Real-time API</a></li>
+            <li><a href="#">Dubbing suite</a></li>
+            <li><a href="#voices">Voice library</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press kit</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API reference</a></li>
+            <li><a href="#">System status</a></li>
+            <li><a href="#">Support center</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Consent policy</a></li>
+            <li><a href="#">Voice opt-out registry</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Formant Voice Labs. All rights reserved.</p>
+      <p>Every voice on this page is synthetic.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* Header scroll state */
+  var header = document.getElementById('site-header');
+  function onScroll() {
+    if (window.scrollY > 8) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* Mobile nav toggle */
+  var navToggle = document.getElementById('nav-toggle');
+  navToggle.addEventListener('click', function () {
+    var isOpen = document.body.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  document.querySelectorAll('.mobile-nav a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      document.body.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* Build waveform bars */
+  function buildWaveforms() {
+    var waveforms = document.querySelectorAll('.waveform');
+    waveforms.forEach(function (wf, wfIndex) {
+      var count = parseInt(wf.getAttribute('data-bars') || '40', 10);
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < count; i++) {
+        var bar = document.createElement('span');
+        bar.className = 'bar';
+        var t = i / count;
+        var wave = Math.sin(t * Math.PI * 3.1 + wfIndex * 1.7) * 0.5 + 0.5;
+        var jitter = Math.random() * 0.38;
+        var h = Math.min(1, wave * 0.55 + jitter + 0.14);
+        h = Math.max(0.12, h);
+        bar.style.height = (h * 100).toFixed(0) + '%';
+        bar.style.setProperty('--i', String(i));
+        frag.appendChild(bar);
+      }
+      wf.appendChild(frag);
+    });
+  }
+
+  function formatTime(totalSeconds) {
+    var m = Math.floor(totalSeconds / 60);
+    var s = (totalSeconds % 60).toString().padStart(2, '0');
+    return m + ':' + s;
+  }
+
+  /* Play / pause behaviour, one active player at a time */
+  function initPlayers() {
+    var players = document.querySelectorAll('.player');
+    var active = null;
+
+    function stopActive() {
+      if (!active) return;
+      clearInterval(active.interval);
+      active.card.classList.remove('is-playing');
+      active.btn.setAttribute('aria-label', 'Play sample');
+      active = null;
+    }
+
+    players.forEach(function (card) {
+      var btn = card.querySelector('.play-btn');
+      var timeEl = card.querySelector('.time-current');
+      var duration = parseInt(card.getAttribute('data-duration') || '30', 10);
+      if (!btn) return;
+
+      btn.addEventListener('click', function () {
+        var wasActive = active && active.card === card;
+        stopActive();
+        if (wasActive) return;
+
+        var elapsed = 0;
+        card.classList.add('is-playing');
+        btn.setAttribute('aria-label', 'Pause sample');
+        if (timeEl) timeEl.textContent = formatTime(elapsed);
+
+        var interval = setInterval(function () {
+          elapsed += 1;
+          if (timeEl) timeEl.textContent = formatTime(elapsed);
+          if (elapsed >= duration) {
+            stopActive();
+            if (timeEl) timeEl.textContent = formatTime(0);
+          }
+        }, 1000);
+
+        active = { card: card, btn: btn, interval: interval };
+      });
+    });
+
+    return players;
+  }
+
+  /* Reveal on scroll */
+  function initReveal() {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('in-view'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  /* FAQ accordion */
+  function initFaq() {
+    var faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function (item) {
+      var btn = item.querySelector('.faq-q');
+      var panel = item.querySelector('.faq-a');
+      btn.addEventListener('click', function () {
+        var isOpen = btn.getAttribute('aria-expanded') === 'true';
+        faqItems.forEach(function (other) {
+          if (other !== item) {
+            other.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            other.querySelector('.faq-a').style.maxHeight = '0px';
+          }
+        });
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        panel.style.maxHeight = !isOpen ? panel.scrollHeight + 'px' : '0px';
+      });
+    });
+  }
+
+  function revealAllNow() {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      el.classList.add('in-view');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    /* Each step runs in isolation: one failing (e.g. a waveform edge case)
+       must never block the reveal-on-scroll content from ever appearing. */
+    try { buildWaveforms(); } catch (e) { /* decorative only, safe to skip */ }
+    try { initPlayers(); } catch (e) { /* decorative only, safe to skip */ }
+    try { initFaq(); } catch (e) { /* accordion js failed, native focus still works */ }
+    try { initReveal(); } catch (e) { revealAllNow(); }
+
+    /* Safety net: whatever happens above, content is never left invisible. */
+    setTimeout(revealAllNow, 2500);
+
+    /* Auto-demonstrate the hero player once, shortly after load */
+    try {
+      var heroCard = document.querySelector('.player--hero');
+      if (heroCard) {
+        var heroBtn = heroCard.querySelector('.play-btn');
+        setTimeout(function () {
+          if (heroBtn) heroBtn.click();
+        }, 900);
+      }
+    } catch (e) { /* purely decorative */ }
+  });
+})();
+</script>
+
+</body>
+</html>

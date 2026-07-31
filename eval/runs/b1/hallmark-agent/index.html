@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>timbre · AI voice cloning studio</title>
+<meta name="description" content="timbre clones a voice from ninety seconds of audio, then lets you type anything in it. Built for podcasters, game studios, e-learning teams, and localization houses who need one consistent voice at scale.">
+<meta name="theme-color" content="#0e0c15">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav" data-open="false">
+  <div class="nav__inner">
+    <a class="nav__brand" href="#top">timbre</a>
+    <nav class="nav__center" id="navCenter" aria-label="Primary">
+      <a class="nav__link" href="#how-it-works">How it works</a>
+      <a class="nav__link" href="#consent">Consent</a>
+      <a class="nav__link" href="#" rel="noopener">Docs</a>
+    </nav>
+    <div class="nav__right">
+      <a class="btn btn--text nav__signin" href="#">Sign in</a>
+      <a class="btn btn--primary" href="#start">
+        <span class="btn__label">Start free</span>
+        <span class="btn__spinner" aria-hidden="true"></span>
+      </a>
+      <button class="nav__toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navCenter" aria-label="Open menu">
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">00 · voice synthesis</p>
+        <h1 class="hero__title">built to&nbsp;<em>sound</em>&nbsp;like you.</h1>
+        <p class="hero__lede">Give timbre ninety seconds of your voice. Type anything after that, in any language, in the same voice.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#start">
+            <span class="btn__label">Start cloning free</span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </a>
+          <a class="btn btn--outline" href="#how-it-works">See how it works →</a>
+        </div>
+      </div>
+
+      <figure class="apparatus" aria-label="A live input dial reading a voice sample: 44.1 kilohertz mono, a fourteen second clip, voice ID vx-014, running in realtime mode">
+        <svg class="apparatus__dial" viewBox="0 0 240 240" aria-hidden="true">
+          <circle class="apparatus__track" cx="120" cy="120" r="90" stroke-width="8"
+            stroke-dasharray="424.1 141.4" transform="rotate(135 120 120)" />
+          <circle class="apparatus__active" cx="120" cy="120" r="90" stroke-width="8" stroke-linecap="round"
+            stroke-dasharray="297 270" transform="rotate(135 120 120)" />
+          <g class="apparatus__ticks">
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(225 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(252 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(279 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(306 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(333 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(0 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(27 120 120)" />
+            <line class="apparatus__tick apparatus__tick--live" x1="120" y1="24" x2="120" y2="42" transform="rotate(54 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(81 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(108 120 120)" />
+            <line class="apparatus__tick" x1="120" y1="26" x2="120" y2="40" transform="rotate(135 120 120)" />
+          </g>
+          <line class="apparatus__needle" x1="120" y1="108" x2="120" y2="50" transform="rotate(54 120 120)" />
+          <circle class="apparatus__hub" cx="120" cy="120" r="7" stroke-width="1" />
+        </svg>
+
+        <ul class="apparatus__callouts" aria-hidden="true">
+          <li class="callout callout--tl"><span class="callout__line"></span><span class="callout__text">44.1 kHz · mono</span></li>
+          <li class="callout callout--tr"><span class="callout__text">clip · 00:14</span><span class="callout__line"></span></li>
+          <li class="callout callout--bl"><span class="callout__line"></span><span class="callout__text">voice id · vx-014</span></li>
+          <li class="callout callout--br"><span class="callout__text">mode · realtime</span><span class="callout__line"></span></li>
+        </ul>
+
+        <dl class="apparatus__legend" aria-hidden="true">
+          <div><dt>sample</dt><dd>44.1 kHz · mono</dd></div>
+          <div><dt>clip</dt><dd>00:14</dd></div>
+          <div><dt>voice id</dt><dd>vx-014</dd></div>
+          <div><dt>mode</dt><dd>realtime</dd></div>
+        </dl>
+      </figure>
+    </div>
+  </section>
+
+  <div class="meter">
+    <div class="meter__inner">
+      <p class="meter__label meter__label--left">input · voice</p>
+      <div class="meter__bars" id="meterBars" aria-hidden="true"></div>
+      <p class="meter__label meter__label--right">output · cloned</p>
+    </div>
+  </div>
+
+  <section id="how-it-works">
+    <div class="container">
+      <header class="head-numbered">
+        <p class="eyebrow">01 · how it works</p>
+        <h2>Record once. Direct forever.</h2>
+      </header>
+      <ol class="steps">
+        <li class="step reveal" style="--i:0">
+          <span class="step__num">1.0</span>
+          <div class="step__body">
+            <h3>Record.</h3>
+            <p>Give it ninety seconds. Read anything: a voicemail, a script, a bedtime story.</p>
+          </div>
+        </li>
+        <li class="step reveal" style="--i:1">
+          <span class="step__num">2.0</span>
+          <div class="step__body">
+            <h3>Clone.</h3>
+            <p>timbre isolates the texture of your voice: pitch, pace, the small catch at the end of a sentence.</p>
+          </div>
+        </li>
+        <li class="step reveal" style="--i:2">
+          <span class="step__num">3.0</span>
+          <div class="step__body">
+            <h3>Direct.</h3>
+            <p>Type a script. Pick a mood. The clone reads it back in seconds.</p>
+          </div>
+        </li>
+        <li class="step reveal" style="--i:3">
+          <span class="step__num">4.0</span>
+          <div class="step__body">
+            <h3>Export.</h3>
+            <p>Download broadcast-ready audio, or pull it through the API.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="built-for">
+    <div class="container">
+      <header class="head-numbered">
+        <p class="eyebrow">02 · built for</p>
+        <h2>Made for the people who talk for a living.</h2>
+      </header>
+      <div class="audience">
+        <div class="card reveal" style="--i:0">
+          <p class="audience__role">Podcast producers</p>
+          <p class="audience__desc">Voice a narrator line at midnight without re-booking the booth.</p>
+        </div>
+        <div class="card reveal" style="--i:1">
+          <p class="audience__role">Game &amp; film studios</p>
+          <p class="audience__desc">Dub a character into twelve languages without recasting the part.</p>
+        </div>
+        <div class="card reveal" style="--i:2">
+          <p class="audience__role">E-learning teams</p>
+          <p class="audience__desc">Keep one consistent narrator across a thousand lessons.</p>
+        </div>
+        <div class="card reveal" style="--i:3">
+          <p class="audience__role">Dubbing &amp; localization houses</p>
+          <p class="audience__desc">Match lip timing without losing the actor’s original performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="consent">
+    <div class="container">
+      <div class="consent">
+        <header class="head-numbered">
+          <p class="eyebrow">03 · consent</p>
+          <h2>No clone without a spoken yes.</h2>
+          <p style="margin-block-start: var(--space-md); color: var(--color-ink-2); max-width: 42ch; text-transform: lowercase;">A voice is not a font. Every clone at timbre starts with the speaker’s own consent, recorded in their own words.</p>
+        </header>
+        <div class="consent__list">
+          <div class="consent__item reveal" style="--i:0">
+            <span class="consent__mark">01</span>
+            <p>The speaker records a consent clip on camera, stating their name and agreement, before a clone is trained.</p>
+          </div>
+          <div class="consent__item reveal" style="--i:1">
+            <span class="consent__mark">02</span>
+            <p>We match the consent clip’s voice against the training sample. A mismatch stops the clone before it starts.</p>
+          </div>
+          <div class="consent__item reveal" style="--i:2">
+            <span class="consent__mark">03</span>
+            <p>Every generated clip carries an inaudible watermark, so a clone can always be traced back to its source.</p>
+          </div>
+          <div class="consent__item reveal" style="--i:3">
+            <span class="consent__mark">04</span>
+            <p>The speaker can revoke and delete their voice at any time. Deletion removes the model, not just the account.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="start">
+    <div class="container">
+      <header class="head-numbered">
+        <p class="eyebrow">04 · start</p>
+        <h2>Your next line is thirty seconds away.</h2>
+      </header>
+      <div class="cta-section__actions">
+        <a class="btn btn--primary" href="#">
+          <span class="btn__label">Start cloning free</span>
+          <span class="btn__spinner" aria-hidden="true"></span>
+        </a>
+        <a class="btn btn--outline" href="#">Talk to us</a>
+      </div>
+      <p class="cta-section__note">No card required to try it. Every clone still needs a recorded consent clip before it renders.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot-stmt">
+  <div class="foot-stmt__inner">
+    <p class="foot-stmt__line">Your voice was always the instrument.</p>
+    <div class="foot-stmt__meta">
+      <span class="foot-stmt__wordmark">timbre</span>
+      <nav class="foot-stmt__links" aria-label="Footer">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#consent">Consent policy</a>
+      </nav>
+      <span class="foot-stmt__copy">© 2026 timbre</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('navToggle');
+  var center = document.getElementById('navCenter');
+
+  if (toggle && nav && center) {
+    toggle.addEventListener('click', function () {
+      var open = nav.getAttribute('data-open') === 'true';
+      nav.setAttribute('data-open', String(!open));
+      toggle.setAttribute('aria-expanded', String(!open));
+    });
+    center.addEventListener('click', function (e) {
+      if (e.target && e.target.matches('a')) {
+        nav.setAttribute('data-open', 'false');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') {
+        nav.setAttribute('data-open', 'false');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (nav.getAttribute('data-open') === 'true' && !nav.contains(e.target)) {
+        nav.setAttribute('data-open', 'false');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Meter strip: procedural bars drawn from a layered sine envelope, never a uniform row.
+  var bars = document.getElementById('meterBars');
+  if (bars) {
+    var n = 56;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < n; i++) {
+      var t = i / (n - 1);
+      var envelope = 0.30 * Math.sin(t * Math.PI * 2.4 + 0.6) * Math.sin(t * Math.PI * 0.8)
+        + 0.16 * Math.sin(t * Math.PI * 6.0 + 1.2);
+      var h = Math.max(0.10, Math.min(1, 0.5 + envelope));
+      var span = document.createElement('span');
+      span.style.setProperty('--h', (h * 100).toFixed(0) + '%');
+      span.style.setProperty('--o', (0.35 + h * 0.5).toFixed(2));
+      frag.appendChild(span);
+    }
+    bars.appendChild(frag);
+  }
+
+  // One-shot reveal on view - fires once, never re-triggers on re-scroll.
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    targets.forEach(function (el) { el.classList.add('is-seen'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-seen');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>

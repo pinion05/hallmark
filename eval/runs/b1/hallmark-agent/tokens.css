@@ -1,0 +1,90 @@
+/* Hallmark · tokens: theme Lumen (Night Foundry) · genre atmospheric · anchor hue 50 (molten brass)
+ * Paper band dark (13% L, hue 265 violet-black) · display classical-serif-lowercase (Instrument Serif)
+ * accent warm ~50deg (brass) with coral-chord secondary ~18deg. OKLCH throughout, no pure #000 / #fff.
+ */
+
+:root {
+  /* === Colour: paper (surface) === */
+  --color-paper:    oklch(13% 0.014 265);
+  --color-paper-2:  oklch(16% 0.016 265);
+  --color-paper-3:  oklch(19% 0.018 265);
+  --color-paper-emit: oklch(76% 0.17 50 / 0.05);
+
+  /* === Colour: ink (text) === */
+  --color-ink:      oklch(96% 0.006 262);
+  --color-ink-2:    oklch(84% 0.012 265);
+  --color-muted:    oklch(64% 0.016 265);
+
+  /* === Colour: rules / hairlines === */
+  --color-rule:     oklch(28% 0.020 265);
+  --color-rule-2:   oklch(38% 0.024 265);
+  --rule-blueprint: oklch(96% 0.006 262 / 0.045);
+
+  /* === Colour: accent (molten brass, emits) === */
+  --color-accent:        oklch(76% 0.17 50);
+  --color-accent-hover:  oklch(80% 0.17 50);
+  --color-accent-active: oklch(72% 0.17 50);
+  --color-accent-ink:  oklch(17% 0.03 50);
+  --color-accent-2:    oklch(68% 0.16 18);   /* coral chord: the verb landmark colour */
+  --color-glow:        oklch(80% 0.16 50 / 0.40);
+  --color-focus:       oklch(74% 0.17 18);   /* distinct from accent fill so the ring never vanishes */
+
+  /* === Typography: three families, the 2+1 ceiling === */
+  --font-display: "Instrument Serif", "Tiempos Headline", ui-serif, Georgia, serif;
+  --font-body:    "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* === Scale: 1.25 major third, 16px base === */
+  --text-xs:   0.64rem;
+  --text-sm:   0.8rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.5625rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-3xl:  3.0518rem;
+  --text-4xl:  3.8147rem;
+  --text-display:   clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.2rem, 4vw + 0.75rem, 4.2rem);
+  --text-label: 0.6875rem; /* 11px - mono eyebrows, callouts, meter labels */
+
+  /* === Spacing: 4pt base, nine steps === */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* === Layout === */
+  --page-max: 78rem;
+  --page-gutter: clamp(1.25rem, 4vw, 3rem);
+
+  /* === Radius: machined, not soft-pill === */
+  --radius-card:   0.75rem;
+  --radius-button: 0.5rem;
+  --radius-input:  0.5rem;
+
+  /* === Motion: three named easings + Lumen's soft/pulse === */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft:   cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+  --dur-pulse: 4s;
+
+  /* === Z-index: six named levels === */
+  --z-base:     1;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+}

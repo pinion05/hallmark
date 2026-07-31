@@ -1,0 +1,22 @@
+{
+  "brief": "b4",
+  "arm": "bare-agent",
+  "tier": "A-subagent",
+  "model": "claude-sonnet-5",
+  "skill": false,
+  "runner": "in-session subagent (headless `claude -p` could not authenticate in this environment)",
+  "effort": "inherited from session (per-agent override not available)",
+  "durationSec": 2560.2,
+  "tokensTotal": 347354,
+  "toolUses": 188,
+  "costUSD_subscription_marginal": 0,
+  "sloplint": {
+    "fail": 78,
+    "warn": 13
+  },
+  "filesWritten": [
+    "index.html",
+    "style.css"
+  ],
+  "generatedAt": "2026-07-31"
+}

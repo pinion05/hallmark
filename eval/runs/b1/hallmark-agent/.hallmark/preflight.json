@@ -1,0 +1,14 @@
+{
+  "scanned": "2026-07-31",
+  "target": "/Users/youssef/design-skill/eval/runs/b1/hallmark-agent",
+  "signals": {
+    "designMd": false,
+    "brandSpec": false,
+    "fontStack": null,
+    "palette": null,
+    "motionDeps": null,
+    "spacingScale": null,
+    "framework": "none (empty directory, static HTML build)"
+  },
+  "note": "No pre-flight signals - proceeding with full Hallmark stack. First Hallmark run for this project; no prior .hallmark/log.json to constrain rotation."
+}

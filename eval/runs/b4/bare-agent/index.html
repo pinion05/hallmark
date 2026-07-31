@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relay Desk: turn a shared inbox into a queue your team can run</title>
+<meta name="description" content="Relay Desk turns a shared support inbox into a queue your small team can actually run: clear owners, live status, and internal notes, without changing your email address.">
+<meta name="theme-color" content="#faf7f1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2317171B'/%3E%3Crect x='6.5' y='14.4' width='13' height='3.2' rx='1.6' fill='%23FAF7F1' transform='rotate(-30 13 16)'/%3E%3Crect x='12.5' y='14.4' width='13' height='3.2' rx='1.6' fill='%23C2410C' transform='rotate(-30 19 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,440;0,9..144,500;0,9..144,600;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Icon sprite, referenced throughout via <use> -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <symbol id="i-inbox" viewBox="0 0 24 24">
+      <path d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/>
+      <path d="M4 7l8 6 8-6"/>
+    </symbol>
+    <symbol id="i-queue" viewBox="0 0 24 24">
+      <rect x="4" y="5.5" width="16" height="3.2" rx="1.6"/>
+      <rect x="4" y="10.4" width="16" height="3.2" rx="1.6"/>
+      <rect x="4" y="15.3" width="10" height="3.2" rx="1.6"/>
+    </symbol>
+    <symbol id="i-assign" viewBox="0 0 24 24">
+      <circle cx="10" cy="8.2" r="3.2"/>
+      <path d="M4.2 19.5c0-3.5 2.6-6 5.8-6s5.8 2.5 5.8 6"/>
+      <path d="M15.6 12.6l1.8 1.8 3.2-3.6"/>
+    </symbol>
+    <symbol id="i-note" viewBox="0 0 24 24">
+      <rect x="3.5" y="4.5" width="17" height="12" rx="3"/>
+      <path d="M8 20l3.2-3.5"/>
+      <line x1="7.2" y1="9" x2="16.8" y2="9"/>
+      <line x1="7.2" y1="12.4" x2="13.5" y2="12.4"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8.3"/>
+      <path d="M12 7.2v5l3.4 2"/>
+    </symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8.3"/>
+      <path d="M8.2 12.3l2.6 2.6 5-5.6"/>
+    </symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24">
+      <path d="M11.3 3h6.2A1.5 1.5 0 0 1 19 4.5v6.2a2 2 0 0 1-.6 1.4l-7.5 7.5a2 2 0 0 1-2.8 0l-4.7-4.7a2 2 0 0 1 0-2.8l7.5-7.5a2 2 0 0 1 1.4-.6z"/>
+      <circle cx="14.8" cy="8.2" r="1.2"/>
+    </symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24">
+      <path d="M5.5 3v18"/>
+      <path d="M5.5 4.2h11.3l-2.3 3.6 2.3 3.6H5.5"/>
+    </symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24">
+      <line x1="4.5" y1="12" x2="18.5" y2="12"/>
+      <polyline points="13 6.5 19 12 13 17.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="var(--ink)"/>
+        <rect x="6.5" y="14.4" width="13" height="3.2" rx="1.6" fill="var(--paper)" transform="rotate(-30 13 16)"/>
+        <rect x="12.5" y="14.4" width="13" height="3.2" rx="1.6" fill="var(--accent)" transform="rotate(-30 19 16)"/>
+      </svg>
+      Relay Desk
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#how-it-works">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary" href="#early-access">Get early access</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-glow-2" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="badge"><span class="badge-dot" aria-hidden="true"></span>Relay Desk is in early access</p>
+        <h1>Every message gets a <em>clean handoff</em>.</h1>
+        <p class="hero-sub">Relay Desk turns your team's shared inbox into a queue you can actually run: one clear owner for every message, from first reply to resolved.</p>
+        <div class="hero-actions">
+          <a href="#early-access" class="btn btn-primary btn-lg">Get early access</a>
+          <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works</a>
+        </div>
+        <p class="hero-note">No migration. Keep the inbox address you already give customers.</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-inner">
+          <div class="float-chip float-chip--claim">
+            <span class="avatar" style="--c:var(--slate)">JK</span>
+            Claimed by Jordan
+          </div>
+          <div class="float-chip float-chip--sla">
+            <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
+            3h left to respond
+          </div>
+
+          <div class="mock-window">
+            <div class="mock-titlebar">
+              <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+              <span class="mock-titlebar-label">
+                <svg class="mock-titlebar-mark" viewBox="0 0 32 32" aria-hidden="true">
+                  <rect width="32" height="32" rx="9" fill="var(--ink)"/>
+                  <rect x="6.5" y="14.4" width="13" height="3.2" rx="1.6" fill="var(--paper)" transform="rotate(-30 13 16)"/>
+                  <rect x="12.5" y="14.4" width="13" height="3.2" rx="1.6" fill="var(--accent)" transform="rotate(-30 19 16)"/>
+                </svg>
+                Relay Desk, support@yourcompany.com
+              </span>
+            </div>
+            <div class="mock-body">
+              <aside class="mock-sidebar">
+                <div class="mock-side-item is-active"><span>Queue</span><span class="count">8</span></div>
+                <div class="mock-side-item"><span>Assigned to me</span><span class="count">3</span></div>
+                <div class="mock-side-item"><span>Unassigned</span><span class="count">2</span></div>
+                <div class="mock-side-item"><span>Resolved</span></div>
+              </aside>
+              <div class="mock-list">
+                <div class="mock-row">
+                  <span class="avatar" style="--c:var(--slate)">JK</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Priya Shah</span>
+                    <span class="mock-subject">Trial expired, locked out</span>
+                  </div>
+                  <span class="pill pill-open">Open</span>
+                  <span class="mock-time">4m</span>
+                </div>
+                <div class="mock-row">
+                  <span class="avatar" style="--c:var(--accent)">AN</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Devon Wallace</span>
+                    <span class="mock-subject">Question about seats</span>
+                  </div>
+                  <span class="pill pill-pending">Pending</span>
+                  <span class="mock-time">45m</span>
+                </div>
+                <div class="mock-row">
+                  <span class="avatar is-empty">·</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Nina Petrov</span>
+                    <span class="mock-subject">API rate limit errors</span>
+                  </div>
+                  <span class="pill pill-new">New</span>
+                  <span class="mock-time">9m</span>
+                </div>
+                <div class="mock-row">
+                  <span class="avatar" style="--c:var(--sage)">JK</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Community team</span>
+                    <span class="mock-subject">Feature request roundup</span>
+                  </div>
+                  <span class="pill pill-resolved">Resolved</span>
+                  <span class="mock-time">2d</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM ============ -->
+  <section class="section" id="problem">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">The problem</p>
+        <h2>A shared inbox is not a system.</h2>
+        <p class="section-sub">It's just a room everyone can walk into. Here's what that usually looks like by week two.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="problem-num">01</span>
+          <h3>Who's on this?</h3>
+          <p>Two teammates draft a reply to the same message because neither could tell the other already had it open.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-num">02</span>
+          <h3>Lost in the scroll</h3>
+          <p>A message that needed an answer slides down the list and out of sight, until the customer follows up, annoyed.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-num">03</span>
+          <h3>No sense of what's open</h3>
+          <p>There's no way to see what's outstanding, what's urgent, or who owns what, without opening every thread by hand.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-num">04</span>
+          <h3>Context lives in forwards</h3>
+          <p>Looping in a teammate means forwarding the whole thread and hoping they read it before they hit reply.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEFORE / AFTER ============ -->
+  <section class="section is-tinted" id="compare">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">The fix</p>
+        <h2>Same inbox. A completely different way of working.</h2>
+        <p class="section-sub">Relay Desk sits on top of the inbox your team already uses and turns every message into something you can see, claim, and track together.</p>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-col">
+          <p class="compare-label is-before">
+            <svg class="icon" aria-hidden="true"><use href="#i-inbox"></use></svg>
+            A shared inbox
+          </p>
+          <div class="mock-window">
+            <div class="mock-titlebar">
+              <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+              <span class="mock-titlebar-label">support@yourcompany.com</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-list" style="padding:0;">
+                <div class="before-row">
+                  <span class="before-dot"></span>
+                  <div class="before-main">
+                    <div class="before-sender-row">
+                      <span class="before-sender">Priya Shah</span>
+                      <span class="before-time">12m</span>
+                    </div>
+                    <div class="before-subject-row">
+                      <span class="before-subject">Re: Re: Password reset</span>
+                      <span class="cc-stack" aria-hidden="true">
+                        <span class="cc-chip">+</span>
+                        <span class="cc-chip">+</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="before-row">
+                  <span class="before-dot"></span>
+                  <div class="before-main">
+                    <div class="before-sender-row">
+                      <span class="before-sender">Billing Team</span>
+                      <span class="before-time">1h</span>
+                    </div>
+                    <div class="before-subject-row">
+                      <svg class="before-flag" aria-hidden="true"><use href="#i-flag"></use></svg>
+                      <span class="before-subject">Fwd: Fwd: Invoice</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="before-row">
+                  <span class="before-dot is-read"></span>
+                  <div class="before-main">
+                    <div class="before-sender-row">
+                      <span class="before-sender is-read">Marco Diaz</span>
+                      <span class="before-time">5m</span>
+                    </div>
+                    <div class="before-subject-row">
+                      <span class="before-subject is-read">CSV export, possible?</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="before-row">
+                  <span class="before-dot"></span>
+                  <div class="before-main">
+                    <div class="before-sender-row">
+                      <span class="before-sender">Sam Okafor</span>
+                      <span class="before-time">2d</span>
+                    </div>
+                    <div class="before-subject-row">
+                      <span class="before-subject">Re: Can't log in after update</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="compare-caption">Everyone sees everything. No one knows what's theirs.</p>
+        </div>
+
+        <div class="compare-arrow" aria-hidden="true">
+          <svg class="icon"><use href="#i-arrow-right"></use></svg>
+        </div>
+
+        <div class="compare-col">
+          <p class="compare-label is-after">
+            <svg class="icon" aria-hidden="true"><use href="#i-queue"></use></svg>
+            A Relay Desk queue
+          </p>
+          <div class="mock-window">
+            <div class="mock-titlebar">
+              <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+              <span class="mock-titlebar-label">Relay Desk, support@yourcompany.com</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-list" style="padding:0;">
+                <div class="mock-row" style="padding-inline:14px;">
+                  <span class="avatar" style="--c:var(--slate)">JK</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Priya Shah</span>
+                    <span class="mock-subject">Password reset issue</span>
+                  </div>
+                  <span class="pill pill-open">Open</span>
+                  <span class="mock-time">12m</span>
+                </div>
+                <div class="mock-row" style="padding-inline:14px;">
+                  <span class="avatar" style="--c:var(--accent)">AN</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Billing Team</span>
+                    <span class="mock-subject">Invoice question</span>
+                  </div>
+                  <span class="pill pill-pending">Pending</span>
+                  <span class="mock-time">1h</span>
+                </div>
+                <div class="mock-row" style="padding-inline:14px;">
+                  <span class="avatar is-empty">·</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Marco Diaz</span>
+                    <span class="mock-subject">CSV export, possible?</span>
+                  </div>
+                  <span class="pill pill-new">New</span>
+                  <span class="mock-time">5m</span>
+                </div>
+                <div class="mock-row" style="padding-inline:14px;">
+                  <span class="avatar" style="--c:var(--sage)">JK</span>
+                  <div class="mock-row-main">
+                    <span class="mock-sender">Sam Okafor</span>
+                    <span class="mock-subject">Can't log in after update</span>
+                  </div>
+                  <span class="pill pill-resolved">Resolved</span>
+                  <span class="mock-time">2d</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="compare-caption">Every message has an owner and a status, at a glance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">How it works</p>
+        <h2>Up and running before your coffee's cold.</h2>
+        <p class="section-sub">No migration, no new inbox for customers to learn. Just structure, layered on top of what you already have.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-top">
+            <div class="step-icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-inbox"></use></svg></div>
+            <span class="step-number">01</span>
+          </div>
+          <h3>Connect your inbox</h3>
+          <p>Forward support@yourcompany.com to Relay Desk, or add us as an alias. It takes about five minutes, and nothing changes for your customers.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <div class="step-icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-queue"></use></svg></div>
+            <span class="step-number">02</span>
+          </div>
+          <h3>Messages become queue items</h3>
+          <p>Every email becomes a card your team can see: who it's from, what it's about, and how long it's been waiting.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <div class="step-icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-assign"></use></svg></div>
+            <span class="step-number">03</span>
+          </div>
+          <h3>Claim it, assign it, discuss it</h3>
+          <p>One click to say "I've got this," or hand it to a teammate. Leave internal notes right on the thread, invisible to the customer.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <div class="step-icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"></use></svg></div>
+            <span class="step-number">04</span>
+          </div>
+          <h3>Track it to resolved</h3>
+          <p>Every item carries a status: open, pending, or resolved, so anyone on the team can see where things stand without asking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section is-tinted" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">What's inside</p>
+        <h2>Everything a small support team needs.</h2>
+        <p class="section-sub">No ticket forms to configure, no seat-based sprawl. If your team can use email, they can use this.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-queue"></use></svg></div>
+          <h3>Shared queues</h3>
+          <p>See every open message in one ordered view, instead of six people refreshing the same inbox.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-assign"></use></svg></div>
+          <h3>Claim and assign</h3>
+          <p>One click to take a message, or hand it to a teammate. Ownership is always visible to the whole team.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-note"></use></svg></div>
+          <h3>Internal notes</h3>
+          <p>Pull a teammate into a thread privately. The customer only ever sees the reply, never the conversation behind it.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-tag"></use></svg></div>
+          <h3>Status at a glance</h3>
+          <p>Open, pending, resolved, snoozed. Know what needs attention without opening a single thread.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-inbox"></use></svg></div>
+          <h3>Keep your inbox</h3>
+          <p>Works with the email address you already give customers. Nothing to migrate, nothing new to announce.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg></div>
+          <h3>A clock on every message</h3>
+          <p>See how long something has been waiting, so nothing quietly ages into a complaint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY WE'RE BUILDING THIS ============ -->
+  <section class="section founder-section" id="about">
+    <div class="container">
+      <span class="founder-quote-mark" aria-hidden="true">&#8221;</span>
+      <p class="eyebrow">Why we're building this</p>
+      <h2>Built for small teams, by a small team.</h2>
+      <p class="founder-body">Relay Desk started the ordinary way: our own small team kept losing track of replies in an inbox built for one person, not five. Every tool we tried was sized for hundred-person support departments, with the setup time and price tag to match. We wanted something a small team could turn on in an afternoon and actually keep using, so that's what we're building, closely, with the first teams who join us.</p>
+      <div class="founder-actions">
+        <a href="#early-access" class="btn btn-primary">Get early access</a>
+        <a href="mailto:hello@relaydesk.com" class="btn btn-ghost">
+          Email the founders
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section is-tinted" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Questions</p>
+        <h2>Answers before you ask.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Do we need a new email address?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">No. Keep support@yourcompany.com exactly as it is. Relay Desk connects to it; it doesn't replace it.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How long does setup take?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">Most teams are up and running in under fifteen minutes: forward your inbox, invite your team, and you're already looking at a queue.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What will it cost?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">We haven't locked in pricing yet. Teams who join during early access keep a preferential rate for as long as they stay with us.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is this only for support inboxes?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">Not at all. It works for any small team sharing an inbox: support, sales, ops, or that one "hello@" address everyone dreads opening.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens when we outgrow "small"?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">We're building Relay Desk to grow with your team. It's designed first for teams of two to twenty; if you're bigger than that, we'd still like to talk.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is our data safe?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">Security and privacy are core to how we're building this from day one. Full details on our data handling will be published before general launch.</p>
+        </details>
+        <details class="faq-item">
+          <summary>When can we start?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">We're bringing on early access teams a few at a time, so we can build this closely with each one. Request access below and we'll follow up personally.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="section" id="early-access">
+    <div class="container">
+      <div class="cta-section">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <p class="eyebrow">Early access</p>
+        <h2>Let's fix your inbox.</h2>
+        <p class="cta-sub">Join the early access list. We're onboarding a handful of teams at a time, so we can build this with you instead of just for you.</p>
+
+        <div id="cta-form-wrap">
+          <form id="early-access-form" class="cta-form" novalidate>
+            <label class="visually-hidden" for="cta-email">Work email</label>
+            <input id="cta-email" name="email" type="email" required placeholder="you@company.com" autocomplete="email">
+            <button type="submit" class="btn btn-primary">Request access</button>
+          </form>
+        </div>
+
+        <p class="cta-fineprint">We'll never share your email. One note when it's your turn, that's it.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="9" fill="var(--ink)"/>
+            <rect x="6.5" y="14.4" width="13" height="3.2" rx="1.6" fill="var(--paper)" transform="rotate(-30 13 16)"/>
+            <rect x="12.5" y="14.4" width="13" height="3.2" rx="1.6" fill="var(--accent)" transform="rotate(-30 19 16)"/>
+          </svg>
+          Relay Desk
+        </a>
+        <p>The shared inbox, organized. Built for small teams who are done losing track of replies.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">Why we're building this</a></li>
+          <li><a href="mailto:hello@relaydesk.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&#169; 2026 Relay Desk. Built for small teams.</span>
+      <span>Currently in early access.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('early-access-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var emailInput = form.querySelector('input[type="email"]');
+      var email = emailInput && emailInput.value ? emailInput.value.trim() : 'you';
+      var wrap = document.getElementById('cta-form-wrap');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      var p = document.createElement('p');
+      p.className = 'form-success';
+      p.textContent = "Thanks, we'll be in touch at " + email + " when it's your turn.";
+      wrap.appendChild(p);
+    });
+  })();
+</script>
+
+</body>
+</html>
