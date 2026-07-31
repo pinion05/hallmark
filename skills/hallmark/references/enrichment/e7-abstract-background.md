@@ -8,7 +8,7 @@ A two-colour CSS gradient at low chroma, overlaid with SVG `<feTurbulence>` grai
 **Knobs:**
 - Gradient direction (45° / 135° / radial)
 - Grain amount (off · subtle · textured)
-- Animation (none · slow drift · scroll-linked parallax)
+- Animation (none · slow drift) - parallax is banned page-wide (motion.md); scroll-linked motion lives only in scroll-choreography.md
 
 **Example.** A small podcast site (when the host wants more visual heat than Tide's typography-only quote). Two-stop CSS gradient at 135° (warm-cream → barely-orange, both at < 0.04 chroma) over the *hero only* — never page-wide. SVG `<feTurbulence>` grain overlay at 0.06 opacity, `mix-blend-mode: multiply`. No animation. Resists every aurora-blob temptation.
 

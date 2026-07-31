@@ -41,7 +41,7 @@ Cross-references [`motion.md`](../motion.md), [`microinteractions.md`](../microi
 - Scroll-fade-everything (every section fades in when it enters the viewport)
 - Mouse-follow gradients on SaaS landing pages (allowed only on portfolio / creative / agency work)
 - Parallax-on-mouse (motion sickness, gimmicky)
-- Particle / starfield backgrounds (2010s nostalgia, distracting)
+- Particle / starfield backgrounds (2010s nostalgia, distracting). One scoped exception: Arcade's FIXED starfield + scanlines are that theme's sanctioned retro signal ([`texture.md`](../texture.md) § Scanline; the field never animates)
 - Auto-rotating hero carousels (WCAG 2.2.2 fail unless paused-on-hover-and-focus is implemented)
 
 **Allowed:**
@@ -76,7 +76,7 @@ The slop test ([`SKILL.md`](../../SKILL.md) §5) carries four binary gates that 
 
 - **Defaulting to E5 illustration on every brief.** Most heroes don't want an illustration. Reach for E0 (typography only) first; reach for E1–E4 when there's a *thing* to show; reach for E5 only when illustration genuinely matches the tone.
 - **Using a stock Lottie checkmark as the hero animation.** That's tier E used to skip tiers A–D. Build the checkmark in pure CSS (`stroke-dasharray` animated to draw the tick); it's 8 lines.
-- **Adding a grain background everywhere.** Grain is a treatment, not a default. Half the existing themes already carry texture (Riso, Atelier, Specimen). Don't double up.
+- **Adding a grain background everywhere.** Grain is a treatment, not a default: it is a budgeted recipe in [`texture.md`](../texture.md) for the themes that earn it (Riso, Carnival, Arcade). Specimen and Atelier BAN texture; don't add it there at all.
 - **Treating the abstract background as the hero.** It isn't. The headline is. The background is paper.
 - **Shipping the unmodified Storyset SVG.** That's tier D ungrounded — the library look. Customise the colour to your anchor hue at minimum; recompose if you can.
 - **A clipped-edge video on mobile.** The clip reads as broken on a 375-px viewport. Always collapse to stacked at < 60 rem.

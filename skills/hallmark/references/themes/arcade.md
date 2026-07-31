@@ -24,7 +24,7 @@ A tiny cursor-blink keyframe (steps(1)) is the only script-free animation; no JS
 
 ## The signature moves
 
-1. **Violet-black CRT ground + fixed starfield** - `--color-paper` `oklch(16% 0.020 300)` behind ~8 layered `radial-gradient` stars (white / cyan / dim, using `--star` `--star-cyan` `--star-dim`), `background-attachment: fixed` so the field sits still while content scrolls. A full-viewport scanline overlay via `body::after` (`repeating-linear-gradient`, `--scanline`, `z-index: 40`, `pointer-events: none`). **Gate-47 carve-out:** scanlines + starfield ARE the sanctioned retro signal - decorative, never blocking input, never a fake monitor bezel.
+1. **Violet-black CRT ground + fixed starfield** - `--color-paper` `oklch(16% 0.020 300)` behind ~8 layered `radial-gradient` stars (white / cyan / dim, using `--star` `--star-cyan` `--star-dim`), `background-attachment: fixed` so the field sits still while content scrolls. A full-viewport scanline overlay via `body::after` (`repeating-linear-gradient`, `--scanline`, `z-index: 40`, `pointer-events: none`). **Gate-47 carve-out:** scanlines + starfield ARE the sanctioned retro signal - decorative, never blocking input, never a fake monitor bezel. (Scanline budget and the portable recipe: [`texture.md`](../texture.md) § Scanline.)
 
 2. **Pixel display with a magenta ghost** - Silkscreen 700 for hero/section display, `text-shadow: 0.085em 0.085em 0 var(--color-accent)` for the offset drop-shadow. Display and Silkscreen **labels only**. Body copy is Hanken Grotesk - never set a paragraph in Silkscreen (unreadable past ~3 words). Section titles use Hanken 800, not pixel.
 

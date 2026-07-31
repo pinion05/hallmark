@@ -177,7 +177,7 @@ The theme's seven tics. A Carnival build should exhibit at least five of them.
 
 5. **All-caps headlines with Big Shoulders variable-width, tightly tracked.** `font-variation-settings: "wdth" 110, "wght" 800;`. Track them **tight**, not loose: `letter-spacing: -0.005em` on the hero word, `0.02em` on section heads. The loose `0.04em` look reads as AI-spread and is reserved **only** for the marquee banner (where horizontal spread is the point). Keep line-height tight too: `0.82` for single hero words, `0.92` for multi-line heads. The effect is a marquee poster set by a typographer, not a stretched default.
 
-6. **Halftone pattern fills** in placeholder image regions. Pure CSS, no images:
+6. **Halftone pattern fills** in placeholder image regions (budget and generalized recipe: [`texture.md`](../texture.md) § Halftone). Pure CSS, no images:
 
    ```css
    .halftone {

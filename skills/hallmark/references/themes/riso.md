@@ -35,7 +35,7 @@ The aesthetic: the risograph poster and small-press catalogue - warm stock, spot
 
 3. **Two spot inks, overprinted and multiply-blended** - blue 220° + yellow 95° are the only colours. Where they cross, `mix-blend-mode: multiply` makes a third hue for free. The pure-CSS riso plate centrepiece = three ink shapes stacked, misregistered, multiplied, with a grain layer on top.
 
-4. **Halftone / paper grain** - a faint noise or dot-grain overlay sits on the ink art (and optionally very lightly on paper) so fills read printed, not vector. Riso is the one editorial theme where texture belongs - keep it on the ink, subtle, never a loud full-page flood.
+4. **Halftone / paper grain** - a faint noise or dot-grain overlay sits on the ink art (and optionally very lightly on paper) so fills read printed, not vector. Riso is the one editorial theme where texture belongs - keep it on the ink, subtle, never a loud full-page flood. Recipes and budget: [`texture.md`](../texture.md) § Grain and § Misregistration.
 
 5. **Newspaper masthead + catalogue body** - N6 masthead: issue line (`Edition 04 · Govanhill · Free entry`), big wordmark, thin nav, double rule. The page body is a **Catalogue/Specimen** - a uniform, filterable grid of exhibitors/items. Riso is an index, not a sales pitch.
 

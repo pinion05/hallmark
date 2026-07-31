@@ -181,6 +181,10 @@ Same hue as accent, chroma 0.18-0.22, L ±5% of accent. `:focus-visible` only; a
 
 Text on accent fills: accent L > 50 uses ink; accent L <= 50 uses paper. Verify APCA >= Lc 60 / WCAG 4.5:1 for body, 3:1 for large text.
 
+### B.6b · Texture (print-lineage draws only)
+
+When the drawn direction's lineage is print (riso zine, letterpress, ticket stock, line-printer), it may draw ONE artifact from [`texture.md`](texture.md) under that file's budget tokens. Digital-native draws take none; texture is earned by lineage, never added for warmth.
+
 ### B.7 · Verification
 
 Gate 7 (no pure #000/#fff): paper and ink both carry chroma. Gate 22 (no zero-chroma neutrals): every grey >= 0.005. Gate 23 (accent footprint): plan the accent's role; under Committed / Drenched the carried colour lives in field / paper tokens and the accent proper still keeps to a signal.
