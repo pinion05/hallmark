@@ -2,7 +2,7 @@
 
 Twenty-one named landing-page shapes. **Pick one before you write code.** Each is a complete fingerprint — heading placement, body composition, divider language, button voice, image treatment, reveal pattern — bundled as a single named choice. Picking a macrostructure is faster, less error-prone, and *categorically more varied* than choosing six independent axes from `structure.md`.
 
-The Specimen macrostructure (left-margin numbered labels + huge serif + asymmetric spans + typographic CTA) is one of these twenty-one. **It is no longer a default.** Reach for it only when the brief is explicitly editorial, foundry-adjacent, or the user has named it.
+The Specimen macrostructure (huge serif + asymmetric spans + hairline rules + typographic CTA) is one of these twenty-one. **It is no longer a default.** Reach for it only when the brief is explicitly editorial, foundry-adjacent, or the user has named it.
 
 ## Diversification rule (mandatory)
 
@@ -34,7 +34,7 @@ Each macrostructure also implies a **nav archetype** (N1a–N13) and a **footer 
 - **07 · Manifesto** — Polemical large type. Declaration energy. The page tells the reader what to believe before it tells them what to buy. Often political-poster aesthetic. [`macrostructures/07-manifesto.md`](macrostructures/07-manifesto.md)
 - **08 · Photographic** — A single huge image dominates each fold. Text is small annotation, not headline. The design says *look* before it says *read*. [`macrostructures/08-photographic.md`](macrostructures/08-photographic.md)
 - **09 · Quote-Led** — The hero is a pull-quote with attribution. The headline is borrowed credibility, not the brand's voice. The page leads with social proof. [`macrostructures/09-quote-led.md`](macrostructures/09-quote-led.md)
-- **10 · Specimen** — Numbered left-margin labels, huge serif display, asymmetric column spans, hairline rules, typographic-only CTA, generous whitespace. Editorial / type-foundry energy. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
+- **10 · Specimen** — Huge serif display, asymmetric column spans, hairline rules, typographic-only CTA, generous whitespace. Editorial / type-foundry energy. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
 - **11 · Catalogue** — Uniform grid of variations of the same thing — typefaces, colour palettes, product SKUs. The page is a visual index of inventory. [`macrostructures/11-catalogue.md`](macrostructures/11-catalogue.md)
 - **12 · Letter** — First-person, written, intimate. Opens with a greeting ("Dear friend,"). No buttons in the fold. Reads as a personal note from the founder. [`macrostructures/12-letter.md`](macrostructures/12-letter.md)
 - **13 · Index-First** — The page IS a list of links. No hero image, no narrative flow. Pure navigation as design. [`macrostructures/13-index-first.md`](macrostructures/13-index-first.md)

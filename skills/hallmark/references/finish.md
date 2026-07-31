@@ -1,6 +1,6 @@
 # Finish - the last 2% that separates set from generated
 
-Loaded on every build, with the universal set. These are the micro-decisions a good design engineer makes without thinking and a model skips without noticing. Most are mechanically checked by sloplint's F-tier (F1-F9); an F finding is polish feedback, never counted in the 58 gates.
+Loaded on every build, with the universal set. These are the micro-decisions a good design engineer makes without thinking and a model skips without noticing. Most are mechanically checked by sloplint's F-checks (F1-F9), which sit in the Finish tier alongside gates 31, 35, 36, 38 and 39c. A Finish finding is polish feedback and never blocks a ship.
 
 ## Type finish
 

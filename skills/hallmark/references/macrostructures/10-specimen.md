@@ -1,9 +1,9 @@
 ## 10 · Specimen *(no longer the default)*
 
-Numbered left-margin labels, huge serif display, asymmetric column spans, hairline rules, typographic-only CTA, generous whitespace. Editorial / type-foundry energy.
+Huge serif display, asymmetric column spans, hairline rules, typographic-only CTA, generous whitespace. Editorial / type-foundry energy.
 
-- **Heading:** left-margin number + label (`01 — HELLO.`) beside a large serif phrase.
-- **Body:** asymmetric spans — narrow label column / wide content column.
+- **Heading:** a large serif phrase, standing alone. When the run is genuinely ordinal the figure is generated on the heading itself (`<ol>` + `counter()`, S1); a number typed beside or above it is an eyebrow and gate 54 bans it.
+- **Body:** asymmetric spans — narrow marginalia column (captions, dates, sidenotes) / wide content column.
 - **Divider:** hairline rules between sections.
 - **Button:** typographic link with arrow ("Open your studio →"); no box, no fill.
 - **Image:** none, or a hand-drawn SVG accent in the wide left margin.
@@ -22,8 +22,7 @@ Reference: type foundry homepages (Klim, Pangram Pangram, Production Type), some
 
 ```html
 <header class="specimen">
-  <p class="num-label">01 — HELLO.</p>
-  <h1 class="serif-xxl">A quiet <em>instrument.</em></h1>
+  <h1 class="serif-xxl">A quiet instrument.</h1>
   <p class="lede narrow">…</p>
   <a class="link">Open your studio →</a>
 </header>

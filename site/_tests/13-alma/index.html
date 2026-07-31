@@ -172,15 +172,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   gap: var(--space-md);
 }
 
-.hero__eyebrow {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-block-end: var(--space-sm);
-}
-
 .hero__quote {
   margin: 0;
   padding: 0;
@@ -205,13 +196,19 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   color: var(--color-accent);
 }
 
-.hero__attrib {
-  margin-block-start: var(--space-md);
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
+/* The page's real heading sits under the quote, on a hairline, the way a plate
+   is identified under the plate. Nothing announces the quote before it. */
+.hero__title {
+  margin: 0;
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-lg);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+  max-width: 30ch;
 }
 
 .hero__lede {
@@ -303,12 +300,16 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   .two-min { grid-template-columns: 1fr; gap: var(--space-md); }
 }
 
-.two-min__label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
+/* Marginalia: it sits in the outer column beside the body, not above the
+   heading, and it carries a fact the heading does not. */
+.two-min__aside {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--lh-relaxed);
   color: var(--color-muted);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+  padding-block-start: var(--space-sm);
 }
 
 .two-min__body {
@@ -411,14 +412,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   align-content: start;
 }
 
-.privacy__label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
 .privacy__title {
   font-family: var(--font-display);
   font-weight: 500;
@@ -503,13 +496,12 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
     </nav>
   </header>
 
-  <section class="hero" aria-labelledby="h-quote">
+  <section class="hero" aria-labelledby="h-title">
     <div class="hero__copy">
-      <p class="hero__eyebrow">A voice journal</p>
       <blockquote class="hero__quote">
-        <p id="h-quote">"Two minutes a day. The <em>dark</em> holds the rest."</p>
+        <p>"Two minutes a day. The <em>dark</em> holds the rest."</p>
       </blockquote>
-      <p class="hero__attrib">— What Alma is</p>
+      <h1 class="hero__title" id="h-title">Alma is a voice journal that forgets by default.</h1>
       <p class="hero__lede">
         Speak for two minutes on the way home. Alma transcribes the audio, leaves the file in your private library, and forgets the entry after a year — unless you say keep it. There is no feed. No share button. No coach.
       </p>
@@ -532,7 +524,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   </section>
 
   <section class="two-min" id="how" aria-labelledby="t-title">
-    <p class="two-min__label">02 / The two minutes</p>
+    <p class="two-min__aside">The session is two minutes long and it ends by itself. There is no countdown ring, no way to extend it, and no reminder if you skip a day.</p>
     <div class="two-min__body">
       <h2 class="two-min__title" id="t-title">Speak. Alma <em>writes it down</em>. The session ends on its own.</h2>
       <ol class="two-min__steps">
@@ -558,8 +550,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
 
   <section class="privacy" id="privacy" aria-labelledby="p-title">
     <header class="privacy__head">
-      <p class="privacy__label">04 / The ledger</p>
-      <h2 class="privacy__title" id="p-title">What stays on your <em>phone</em>. What never leaves.</h2>
+      <h2 class="privacy__title" id="p-title">The ledger: what stays on your <em>phone</em>, and what never leaves.</h2>
     </header>
     <ul class="privacy__list">
       <li class="privacy__row"><span class="privacy__row-key">Audio recording</span><span class="privacy__row-value">on device only</span></li>

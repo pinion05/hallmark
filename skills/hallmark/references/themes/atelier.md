@@ -1,8 +1,8 @@
 # Theme - Atelier
 
-The considered-object page: a fashion house, a fragrance, a gallery or exhibition, a furniture / ceramics / architecture studio, a made-in-small-numbers brand story. The Aesop / couture-masthead / gallery-placard school, rendered in **warm plaster and umber** - not cream, not grey. A near-neutral plaster ground (`oklch(94% 0.005 60)`), one **fat high-contrast Didone masthead** (Playfair Display 900, optical 144), grotesk captions, wide-tracked mono placards, and a single amber ember for the only warm signal. It reads hand-set and unhurried: an object *presented*, never sold.
+The considered-object register: the Aesop / couture-masthead / gallery-placard school, rendered in **warm plaster and umber** - not cream, not grey. A near-neutral plaster ground, one **fat high-contrast Didone**, grotesk body, wide-tracked mono placards, and a single amber ember for the only warm signal. It reads hand-set and unhurried: an object *presented*, never sold.
 
-Loaded eagerly by SKILL.md Step 3 whenever the catalog pick is `atelier`. The OKLCH palette + font stack live in [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="atelier"]`.
+The material, in one line: **plaster paper, a fatface Didone, hairlines and air, one amber ember.**
 
 ## Axes (diversification)
 
@@ -12,104 +12,109 @@ Loaded eagerly by SKILL.md Step 3 whenever the catalog pick is `atelier`. The OK
 
 ## Reference register
 
-Aesop · a couture / fashion-house masthead · gallery + museum exhibition pages · Kinfolk / Cereal editorial · Studio Nicholson, The Row, Toteme · Frama, Byredo, Le Labo · an architecture-studio portfolio.
+Aesop · a couture fashion-house masthead · gallery and museum exhibition pages · Kinfolk / Cereal editorial · Studio Nicholson, The Row, Toteme · Frama, Byredo, Le Labo · an architecture-studio portfolio. **Never name any of these in the output.**
 
-The aesthetic: the object presented under a dramatic serif crown with a spec-sheet caption - warm plaster canvas, hairline structure, one amber ember, imagery treated like a gallery print. **Never name any of these in the output.**
+The material to match: the object presented under a dramatic serif crown with a spec-sheet caption - warm plaster canvas, hairline structure, one amber ember, imagery treated like a gallery print. Internally: *Aesop's product-as-object restraint* recoloured plaster-and-umber. When in doubt ask "does this read like a gallery placard, or like a product ad?" Keep the former.
 
-**Patron-saint reference (internal):** *Aesop's product-as-object restraint* + *a couture magazine masthead*, recoloured plaster-and-umber. When in doubt ask "does this read like a gallery placard, or like a product ad?" Keep the former.
+## Palette
 
-## Required dependencies
+Canonical values live in [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="atelier"]`.
 
-1. **Fonts** - **Playfair Display** (display, 900, optical axis), **Hanken Grotesk** (body, 400/500/600), **IBM Plex Mono** (labels/meta, UPPERCASE). Google Fonts:
-   ```html
-   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:opsz,wght@5..1200,400..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-   ```
-2. **A small reveal script** - one `IntersectionObserver` adding `.is-in` (fade + ~10px rise, ease-out ~600ms). Optionally a one-shot masked curtain-wipe (clip-path) on the masthead, then static.
+- `--color-paper: oklch(94% 0.005 60)` - plaster, never white; surfaces step to `91%` / `87%`
+- `--color-ink: oklch(12% 0.024 40)` - warm near-black umber
+- `--color-neutral: oklch(28% 0.014 45)` - body text
+- `--color-accent: oklch(22% 0.060 40)` - near-ink umber, a fill block or a heavy rule, never a bright pop
+- `--color-accent-ink` / `--color-focus: oklch(45% 0.13 60)` - the amber ember: a link underline, a focus ring, a drop cap, one `<mark>`
+- `--color-rule: oklch(78% 0.006 55)` - hairline
+- `--color-rule-2: oklch(56% 0.008 50)` - divider or double rule
 
-## Signature moves
+The whole page reads unbleached-linen warm. Keep the amber under 4% of any viewport: this is warm-monochrome with one ember.
 
-1. **Plaster paper, warm near-neutral, never white.** `--color-paper: oklch(94% 0.005 60)`, surfaces to `91%` / `87%`. Ink is warm near-black umber `--color-ink: oklch(12% 0.024 40)`; body sits at `--color-neutral: oklch(28% 0.014 45)`. The whole page reads unbleached-linen warm - not grey, not cream, never `#fff`.
+## Typography
 
-2. **The Didone masthead is the hero.** Playfair Display at weight `var(--display-weight)` = 900, `font-variation-settings: "opsz" 144`, tracking `-0.018em`, clamped to `6.25rem` via `--text-display`. One large fatface line, set LEFT or broadsheet-centred, carries the page's entire gravity. Nothing competes with it.
+The triad - fat Didone display, neutral grotesk body, wide mono labels - **is** Atelier.
 
-3. **Monochrome-umber, amber only as a whisper.** `--color-accent: oklch(22% 0.060 40)` is nearly ink-dark - use it as a fill/ink block or a heavy rule, **not** a bright pop. The single warm signal is amber `oklch(45% 0.13 60)` (`--color-accent-ink` / `--color-focus`): a link underline, a focus ring, a drop-cap, one `<mark>`. Keep it under 4% of any viewport - the page is warm-monochrome with one ember.
+- **Display** - Playfair Display at `var(--display-weight)` = 900, `font-variation-settings: "opsz" 144`, tracking `-0.018em`, clamped to `6.25rem` via `--text-display`. One large fatface line carries the page's entire gravity; nothing competes with it.
+- **Body** - Hanken Grotesk 400/500 at `--lh-normal: 1.55` / `--lh-relaxed: 1.7`, `--measure: 56ch`. **Never set running body in the serif** (that move belongs to Newsprint).
+- **Label** - IBM Plex Mono (`--font-label`), UPPERCASE, tracking `0.24em` (`--tracking-label`). The gallery-placard voice, carrying real values: material, dimensions, year, edition, captions, spec meta, folios. It labels an object; it never announces a heading.
 
-4. **Wide-tracked mono placards.** Eyebrows, section numbers, captions, spec meta in IBM Plex Mono (`--font-label`), UPPERCASE, tracking `0.24em` (`--tracking-label`). The machine-precise gallery-placard voice under the couture Didone - material, dimensions, year, edition.
+**The drop cap.** The amber drop cap is Atelier's one piece of editorial ornament, and it is how a passage of prose opens: scale and colour do the work, no words are spent on it. One per page, first paragraph only. Working CSS is in the Build hint below.
 
-5. **Grotesk body under the serif crown.** Hanken Grotesk 400/500 body at `--lh-normal: 1.55` / `--lh-relaxed: 1.7`, `--measure: 56ch`. The triad - fat Didone display + neutral grotesk body + wide mono labels - **is** Atelier. Never set running body in the serif (that move belongs to Newsprint).
+## Material
 
-6. **Hairlines, generous air, asymmetric columns.** 1px `--color-rule: oklch(78% 0.006 55)` for fine rules, `--color-rule-2: oklch(56% 0.008 50)` for a section divider or double-rule. No boxed cards, no drop-shadows, no glass. `--section-gap: 6.5rem`, `--page-max: 64rem`. Depth comes from rules + whitespace only.
-
-7. **The object presented, not sold.** Compose like a lookbook or exhibition index: a named object, a drop-cap opening, a numbered index, imagery treated as a gallery print (generous margin, hairline frame). CTAs are text-underline or a hairline-outline at a small (2-4px) radius - never a filled amber blob.
+- **Hairlines and generous air.** `--section-gap: 6.5rem`, `--page-max: 64rem`. Depth comes from rules and whitespace only: no boxed cards, no drop-shadows, no glass. Radius is 2-4px at most, and only on an outlined control.
+- **No texture, no background pattern.** The plaster is the surface.
+- **Imagery is a gallery print** - generous margin, hairline frame, never bled to the edge of a card. Controls are a text underline or a hairline outline, never a filled amber blob.
 
 ## Motion
 
-Quiet and orchestrated. One entrance: the masthead's masked curtain-wipe (or a plain fade), section reveals fade + rise, an amber underline-grow on link hover. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static + fully visible.
+Quiet and orchestrated. One entrance: a masked curtain-wipe (`clip-path`) or a plain fade on the display line, then static. Section reveals fade and rise ~10px, ease-out ~600ms, via a single `IntersectionObserver`. An amber underline grows on link hover. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
-## Anti-patterns
+## Voice range
 
-- **No bright saturated pop.** The umber accent is near-ink; amber is a whisper. No orange (Specimen), no oxblood red (Newsprint), no green (Garden / Studio).
-- **No serif running body.** Body is Hanken Grotesk. Playfair in paragraphs reads broadsheet - that is Newsprint, wrong theme.
-- **No warm-tan or cream newspaper stock.** Atelier's paper is near-neutral plaster (chroma 0.005), not oat (0.022) or tan (0.045).
-- **No thin / hairline Didone masthead.** Atelier's Playfair is FAT (900). A light cut collides with Specimen's Fraunces 340 and reads generic-luxury.
-- **No boxed cards, drop-shadows, or glassmorphism.** Hairlines + air carry every surface.
-- **No filled-pill or gradient CTA.** Underline or hairline-outline at small radius. Name the object / the collection.
-- **No pure `#fff` / `#000`, no centred three-icon-tile feature grid, no background texture or pattern.**
+Hand-set, literary, object-precise, couture-calm. Verbs over adjectives; name the object, the material, the number made. Never *seamless, elevate, curated, bespoke, luxury, effortless, game-changing, must-have*. Never "shop now."
 
-## Macrostructure affinity / rejection
+## Do-nots (this theme's own failure modes)
 
-**Loves:** **Specimen** (the Didone as its own subject) · **Photographic** (lookbook / gallery imagery, object-led) · **Catalogue** (a numbered index of objects or works) · **Letter** (intimate, hand-set; Ft6 letter close) · **Long Document** (a considered magazine feature or essay).
+- **No bright saturated pop.** The umber accent is near-ink; amber is a whisper. No orange (Specimen), no oxblood (Newsprint), no green (Garden / Studio).
+- **No serif running body.** Playfair in paragraphs reads broadsheet, which is a different theme.
+- **No thin or hairline Didone.** Atelier's Playfair is FAT (900). A light cut collides with Specimen's Fraunces 340 and reads generic-luxury.
+- **No warm-tan or cream newspaper stock.** Plaster is chroma 0.005, not oat (0.022) or tan (0.045).
+- **No boxed cards, drop-shadows, or glassmorphism.** Hairlines and air carry every surface.
+- **No filled-pill or gradient CTA, no pure `#fff` / `#000`.**
 
-**Refuses:** **Bento Grid** (modular tiles fight the broadsheet restraint) · **Stat-Led** (big-number KPI dashboards are enterprise, not gallery) · **Workbench / component-playground** (instrument-panel dev-tool shape is Cobalt's) · **Marquee Hero** (kinetic scroll is too loud for one quiet curtain).
-
-## Voice fixtures
-
-Hand-set, literary, object-precise, couture-calm. Verbs over adjectives; name the object.
-
-- *"Made in small numbers, by hand, in Lisbon."*
-- *"One coat. Twelve hours. A finish that keeps."*
-- *"The 04 chair, in oiled ash."*
-- *"We compose a scent the way a printer composes a page."*
-- *"Nothing added that the object did not ask for."*
-
-Never: *seamless, elevate, curated, bespoke, luxury, effortless, game-changing, must-have.* Never "shop now" / "buy now" - say "See the collection" or name the piece.
-
-## How Atelier differs from neighbouring themes
+## How Atelier differs from its neighbours
 
 | vs | what settles it instantly |
 |---|---|
-| **Newsprint** (shares Playfair Display) | Newsprint is Playfair **700** + Crimson Pro **serif body** + warm-tan stock (`oklch(92% 0.045 50)`) + oxblood accent - a broadsheet. Atelier is Playfair **900** fatface + **grotesk body** (Hanken) + near-neutral plaster + amber whisper. Body face + paper warmth settle it. |
-| **Specimen** (serif-display sibling) | Specimen is **light** Fraunces (340) + bright **orange** (`#FC4C02`) on warm paper - a type showcase. Atelier is **fat** Playfair (900) + warm-monochrome umber. Display weight + accent hue settle it. |
+| **Newsprint** (shares Playfair Display) | Newsprint is Playfair **700** + Crimson Pro **serif body** + warm-tan stock (`oklch(92% 0.045 50)`) + oxblood. Atelier is Playfair **900** fatface + **grotesk body** + near-neutral plaster + amber whisper. Body face and paper warmth settle it. |
+| **Specimen** (serif-display sibling) | Specimen is **light** Fraunces (340) + bright **orange** (`#FC4C02`) on warm paper. Atelier is **fat** Playfair (900) + warm-monochrome umber. Display weight and accent hue settle it. |
 | **Garden** (same 94% paper band) | Garden is Young Serif + oat cream + living **leaf-green**, botanical and organic. Atelier is a high-contrast Didone on near-neutral plaster with **no green** - gallery, not garden. |
 
-## Test brief expectations
+## When the brief routes here
 
-Atelier is a candidate when the brief mentions:
+*fashion · atelier · couture · fragrance · gallery · exhibition · museum · ceramics · furniture · homeware · architecture studio · design studio · lookbook · collection · made by hand · craft · small-batch · brand story*. Categories: fashion and apparel brands, fragrance houses, galleries and museums, furniture and homeware, architecture and interior studios, considered B2C brand stories. Tone: refined, hand-set, warm-monochrome, gallery-quiet, unhurried.
 
-- *fashion · atelier · couture · fragrance / perfume · gallery · exhibition · museum · ceramics · furniture · homeware · architecture studio · design studio · lookbook · collection · made by hand · craft · small-batch · editorial feature · brand story*
-- Product categories: *fashion / apparel brand · fragrance house · gallery or museum · furniture / homeware · architecture or interior studio · design-studio portfolio · considered B2C brand story*
-- Emotional tone: *refined · hand-set · warm-monochrome · gallery-quiet · considered · understated · unhurried*
-
-Briefs that are developer / enterprise / dashboard route elsewhere (Cobalt, Almanac); loud-maximalist editorial routes to Carnival; broadsheet news routes to Newsprint.
+Developer, enterprise, and dashboard briefs route elsewhere; loud-maximalist editorial routes to Carnival; broadsheet news routes to Newsprint.
 
 ## Build hint
 
-The first lines of CSS establish Atelier's anchor moves:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:opsz,wght@5..1200,400..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+```
 
 ```css
 html, body { overflow-x: clip; }
 body { background: var(--color-paper); color: var(--color-neutral);
        font-family: var(--font-body); font-weight: 400; line-height: var(--lh-normal); }
 
-/* The fatface Didone masthead - the page's whole gravity */
-.masthead { font-family: var(--font-display); font-weight: var(--display-weight);
-            font-variation-settings: "opsz" var(--display-optical);
-            font-size: var(--text-display); letter-spacing: var(--tracking-display);
-            line-height: var(--lh-tight); color: var(--color-ink); }
+/* The fatface Didone - the page's whole gravity */
+h1, .display { font-family: var(--font-display); font-weight: var(--display-weight);
+               font-variation-settings: "opsz" var(--display-optical);
+               font-size: var(--text-display); letter-spacing: var(--tracking-display);
+               line-height: var(--lh-tight); color: var(--color-ink); }
 
-/* Wide-tracked mono placard */
+/* Wide-tracked mono placard - real values only, never a heading's announcement */
 .placard { font: 500 0.75rem/1 var(--font-label); text-transform: uppercase;
            letter-spacing: var(--tracking-label); color: var(--color-muted); }
+
+/* The amber drop cap - one per page, first paragraph only.
+   Playfair at ~3 lines of body leading, optically nudged so its cap-height
+   sits on the first baseline and its left edge aligns with the measure. */
+.lede::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-variation-settings: "opsz" 144;
+  font-size: 3.9em;          /* ~3 lines at --lh-normal 1.55 */
+  line-height: 0.82;
+  padding: 0.06em 0.08em 0 0;
+  margin-inline-start: -0.04em;   /* optical hang, left edge flush to the measure */
+  color: var(--color-accent-ink); /* the amber ember */
+}
+@supports (initial-letter: 3) {
+  .lede::first-letter { initial-letter: 3; float: none; font-size: inherit; line-height: inherit; }
+}
 
 /* Hairlines + the one amber ember */
 .rule { border: 0; border-top: 1px solid var(--color-rule); }
@@ -127,4 +132,4 @@ a { color: inherit; text-decoration-color: var(--color-accent-ink); }
 }
 ```
 
-Plus the Playfair Display + Hanken Grotesk + IBM Plex Mono link and the small reveal script.
+The rest of the page is yours. Atelier supplies the plaster, the crown, and the ember; what gets presented on that paper is the brief's business, not the theme's.

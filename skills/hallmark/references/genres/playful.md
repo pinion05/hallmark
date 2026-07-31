@@ -53,18 +53,14 @@ Brief mentions any of: *fun, consumer, casual, family, kids, friendly, approacha
 
 ## Nav and footer voice
 
-- **Default nav:** N7 Brutal slab — heavy uppercase wordmark + tracked uppercase links + 2 px border-bottom. The voice is loud but composed. (Authoritative table: component-cookbook.md § Routing.)
-- **Acceptable also:** N1 Wordmark + 2 links (when destinations are minimal); N3 Side-rail (when the page is long-scroll and section-numbered, e.g. Studio).
-- **Default footer:** Ft8 Marquee scroll — horizontal repeating tagline + dot separator. Honours `prefers-reduced-motion: reduce`.
-- **Acceptable also:** Ft5 Statement; Ft3 Index columns (only when the page is a hub).
-- **Banned for playful:** N5 Floating pill (modern-minimal vocabulary, fights the loud register); N6 Newspaper masthead (editorial); Ft6 Letter close (warm-quiet voice; wrong genre).
+Loud but composed chrome fits here: a heavy slab bar, a dense product bar with rounded knobs, a banner, a marquee footer. What fights the genre is editorial furniture (a masthead) and the modern-minimal blur pill.
 
-See [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Footers for the full archetypes + code.
+These are affinities, not assignments. Nothing here mandates an archetype code: the nav and footer are yours to design, and gates 42-43 only ask that if you land on the industry default you name it in the stamp rather than arriving there by reflex. [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Footers is a place to look when you want a starting point.
 
 ## Stamp signature
 
 ```css
-/* Hallmark · genre: playful · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
+/* Hallmark · genre: playful · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <shape or N#> · footer: <shape or Ft#> */
 ```
 
 ## Reference register

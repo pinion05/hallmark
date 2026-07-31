@@ -7,7 +7,7 @@ Type carries the design. If the type is wrong, nothing else matters.
 - A page is a pairing, not a single font. Display face + body face, minimum. *Single-font pages are allowed only when the single font IS the design choice* — a true terminal aesthetic is monospace-everywhere on purpose; a Manifesto poster might be one display face on purpose. The default is a pairing.
 - Commit to extremes. Weight 200 next to weight 800 reads as intentional. Weight 400 next to weight 600 reads as a default setting.
 - Size steps should be ratios, not increments. Major third (1.25), perfect fourth (1.333), perfect fifth (1.5), or golden (1.618). Pick one and use it.
-- Line-height changes with size. Tight for display (1.05–1.2), comfortable for body (1.5–1.65).
+- Line-height changes with size. Tight for display, comfortable for body (1.5–1.65). This file owns the display range; see § Display line-height below, and never restate the numbers elsewhere.
 - Measure — line length — lives between 45 and 75 characters. Use `max-width: 65ch` as the default.
 
 ## The 2+1 rule — three faces is the ceiling
@@ -26,8 +26,7 @@ The pattern:
 
 The outlier is a *register*, not a third surface. Rules:
 
-- **Outlier appears in ≤ 2 places** on the whole page. Wordmark + hero stat. Or pull quote + masthead. Two slots, not five. If you find yourself reaching for it a third time, you don't have an outlier — you have a third body font, which is slop.
-- **The outlier carries one role.** It tags a specific kind of content (the brand, the headline figure, the manifesto line). Once you know what it tags, every instance of that role uses it. Don't apply it to one button label and not another.
+- **The outlier carries ONE role, not a slot count.** It tags a specific kind of content: the brand, the headline figure, the manifesto line, the label voice. Reaching for it on a second *kind* is how it becomes a third body font, which is slop. How many times that one role appears is the content's business, not a budget: a label voice with six instances is one role, while a wordmark plus a pull quote plus a stat figure is three roles and already too many. Once you know what it tags, every instance of that role uses it; don't apply it to one button label and not another.
 - **Mono counts as a face.** A page with Fraunces display, Geist body, and Geist Mono in code blocks is using three families. That's fine — code is the outlier role. Don't sneak in a fourth.
 - **Same family at different weights is one family**, not two. Geist 400 + Geist 700 is one font; pairing it with Fraunces is two. Adding Geist Mono on top is three.
 
@@ -198,7 +197,7 @@ Count characters in the rendered hero `h1`. Pick the cap by bucket — the rule 
 | --- | --- | --- |
 | **≤ 20 chars** (e.g. *"Limitless"*, *"Made not generated"*) | full `--text-display`; single-word can grow to 7rem | Display-heavy themes only |
 | **21–50 chars** (the default sweet spot) | `--text-display` | If it wraps past 2 lines at 414 px, step down to `--text-display-s` |
-| **51–90 chars** | cap at `--text-display-s` | Strongly consider splitting into eyebrow + headline |
+| **51–90 chars** | cap at `--text-display-s` | Cut it, or split it across two lines with `<br>` at the sense break. Never split it into a label plus a headline (gate 54) |
 | **> 90 chars** | rewrite shorter, or cap at `--text-4xl` with tighter leading | A 100-char headline at display size is the single most reliable AI tell |
 
 **Aggressive-display themes step down one rung when headline > 50 chars.** Brutal, Riso, and Manifesto clamp `--text-display` at 6.5–9rem — that ceiling is for ≤ 50-char statements only. Past 50 chars, route them to `--text-display-s` automatically. **When you write the headline yourself (no user-supplied copy), aim for ≤ 7 words and ≤ 50 chars from the start** — imperative or nominal phrase, never a gerund opener.
@@ -221,7 +220,7 @@ Max-width rides ON the heading element (never the wrapper), in `ch`; body keeps 
 ## Weights
 
 - Body: one weight (typically 400 or 350). Bold for emphasis only.
-- Headings: a weight that contrasts the body by at least 300 units. If body is 400, headings are 700 or 200 — not 500 or 600.
+- Headings: a weight that reads as a different voice from the body, not a nudge. With a 400 body, 700 and 200 are the safe poles. 500 and 600 work when the display FACE differs from the body face (which is the normal case on a two-family page, and is why several themes ship a 600 display); they read as un-set only when display and body share a family.
 - Never synthesise. Load the weight you need; don't rely on `font-weight: bold` against a single-weight file.
 
 ## Required features
@@ -235,7 +234,13 @@ Max-width rides ON the heading element (never the wrapper), in `ch`; body keeps 
 ## Body text rules
 
 - Minimum 16px. Below 14px is accessibility-hostile.
-- Line-height 1.5–1.65 on body copy, tighter (1.1–1.3) on display. **Floor for all-caps display heads (`text-transform: uppercase` on `.hero__display` / `.section__title` / `h1` / `h2`) is `1.0` — recommended `1.02–1.08`.** Below 1.0 the cap-tops of line N+1 collide with the baseline of line N (no descenders to cushion the gap); the comma + cap-D on a wrapped "PROMPT, / DIFFERENT" fuse into a single glyph blob. Condensed display faces (Anton, Inter Tight 900, Bebas Neue) make this worse. Gate 55 auto-fails the pattern.
+- Line-height 1.5–1.65 on body copy.
+
+### Display line-height
+
+**One range, owned here: `1.0`–`1.15`.** Every other file cites it rather than restating it (gate 44b's fold-fit path and gate 55 both defer to this line). Sit at the tight end as the type grows; 1.2 on a display head reads as un-set type that inherited the body value.
+
+**Floor for all-caps display heads** (`text-transform: uppercase` on `.hero__display` / `.section__title` / `h1` / `h2`) **is `1.0`, recommended `1.02–1.08`.** Below 1.0 the cap-tops of line N+1 collide with the baseline of line N, since caps have no descenders to cushion the gap; the comma and cap-D on a wrapped "PROMPT, / DIFFERENT" fuse into one glyph blob. Condensed faces (Anton, Inter Tight 900, Bebas Neue) make it worse. Gate 55a auto-fails it on a head that can wrap; a nowrap lockup is 55b and waivable.
 - Measure 45–75 characters (`max-width: 65ch`).
 - Never all-caps body copy. Never justified text without hyphenation. Never letter-spacing above 0.05em on body.
 

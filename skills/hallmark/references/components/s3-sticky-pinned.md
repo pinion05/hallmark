@@ -1,11 +1,10 @@
 ### S3 · Sticky pinned
 Heading remains in viewport while content scrolls beneath. Orientation aid.
-*Use when:* the section is dense and the user benefits from always seeing where they are.
-*Don't confuse with:* S1 Left-margin (which doesn't move).
+*Use when:* the section is dense and the user benefits from always seeing where they are. The persistence is itself an opening move: nothing needs to introduce a heading that never leaves ([`../section-entry.md`](../section-entry.md) § 12).
+*Don't confuse with:* S1 Ordinal by structure (which doesn't move).
 
 ```html
 <header class="head-sticky">
-  <p class="num-label">02</p>
   <h2>…</h2>
 </header>
 ```
@@ -24,7 +23,7 @@ Vary at least one knob vs the last logged use of this archetype (gate 32):
 
 - Offset: `--banner-height` dock · 0 (no sticky nav)
 - Border-bottom: hairline · ink 1px
-- Label: with number · heading only
+- Dock behaviour: pinned throughout · released at the section's end
 
 ## Mobile collapse
 

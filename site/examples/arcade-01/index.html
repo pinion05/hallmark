@@ -124,10 +124,6 @@ body::after {
   min-height: 82svh;
   padding-top: var(--space-10); padding-bottom: var(--space-20);
 }
-.hero__kicker {
-  font-family: var(--font-display); font-size: 0.78rem; line-height: 1.2;
-  color: var(--cyan); letter-spacing: 0.04em; margin-bottom: var(--space-5);
-}
 .hero__display {
   font-family: var(--font-display); font-weight: 700;
   font-size: clamp(2.25rem, 8.5vw, 5.25rem); line-height: 1.05;
@@ -177,25 +173,24 @@ body::after {
 
 /* ---------- generic section head ---------- */
 .section { position: relative; z-index: 1; padding-top: clamp(var(--space-16), 9vw, var(--space-20)); padding-bottom: clamp(var(--space-16), 9vw, var(--space-20)); border-top: 2px solid var(--line); }
-.sec__kicker { font-family: var(--font-display); font-size: 0.74rem; line-height: 1.2; color: var(--cyan); letter-spacing: 0.03em; margin-bottom: var(--space-3); }
-.sec__kicker--mag { color: var(--magenta); }
 .sec__title { font-family: var(--font-body); font-weight: 800; font-size: clamp(1.6rem, 3.4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); max-width: 20ch; overflow-wrap: anywhere; min-width: 0; }
 .sec__lede { margin-top: var(--space-4); font-size: 1.05rem; color: var(--ink-dim); max-width: 58ch; }
 .sec__gap { margin-top: clamp(var(--space-12), 6vw, var(--space-16)); }
 
 /* ---------- how it works (three beats) ---------- */
-.beats { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-10); }
-.beat { padding-top: var(--space-5); border-top: 2px solid var(--line-lit); }
-.beat__num { font-family: var(--font-display); font-size: 1.6rem; line-height: 1; color: var(--magenta); }
-.beat:nth-child(2) .beat__num { color: var(--cyan); }
-.beat:nth-child(3) .beat__num { color: var(--magenta); }
+/* The three beats are a real sequence, so the list element says so and counter()
+   draws the figures in the display face. Nothing is typed above a beat name. */
+.beats { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-10); counter-reset: beat; }
+.beat { counter-increment: beat; padding-top: var(--space-5); border-top: 2px solid var(--line-lit); }
+.beat__name::before { content: counter(beat, decimal-leading-zero); display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line-height: 1; color: var(--magenta); margin-bottom: var(--space-3); }
+.beat:nth-child(2) .beat__name::before { color: var(--cyan); }
 .beat__name { font-family: var(--font-body); font-weight: 700; font-size: 1.15rem; line-height: 1.2; color: var(--ink); margin-top: var(--space-3); }
 .beat__body { margin-top: var(--space-3); color: var(--ink-dim); font-size: 0.98rem; }
 
 /* ---------- schedule ---------- */
 .table-wrap { margin-top: var(--space-10); overflow-x: auto; border: 2px solid var(--line); }
 .timetable { width: 100%; border-collapse: collapse; min-width: 34rem; }
-.timetable caption { text-align: left; }
+.timetable__caption { font-family: var(--font-display); font-size: 0.74rem; line-height: 1.5; color: var(--cyan); letter-spacing: 0.03em; text-align: left; padding: var(--space-4); border-bottom: 2px solid var(--line-lit); }
 .timetable th {
   font-family: var(--font-display); font-size: 0.7rem; line-height: 1.3; font-weight: 700;
   color: var(--cyan); text-align: left; letter-spacing: 0.03em;
@@ -210,16 +205,16 @@ body::after {
 /* ---------- tracks + prizes ---------- */
 .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-10); }
 .track { padding: var(--space-6); background: var(--paper-2); color: var(--ink); border: 2px solid var(--line); }
-.track__tag { display: inline-block; font-family: var(--font-display); font-size: 0.72rem; line-height: 1.2; padding: var(--space-2) var(--space-3); color: var(--paper); background: var(--cyan); }
+.track__tag { display: inline-block; font-family: var(--font-display); font-weight: 400; font-size: 0.72rem; line-height: 1.2; padding: var(--space-2) var(--space-3); color: var(--paper); background: var(--cyan); }
 .track:nth-child(even) .track__tag { background: var(--magenta); }
 .track__body { margin-top: var(--space-4); color: var(--ink-dim); font-size: 0.98rem; }
 
 .prize-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-8); }
 .prize { padding: var(--space-6); border: 2px solid var(--line-lit); border-top-width: 6px; }
-.prize__rank { font-family: var(--font-display); font-size: 1.1rem; line-height: 1; color: var(--cyan); }
+.prize__rank { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.1rem; line-height: 1; color: var(--cyan); margin-bottom: var(--space-3); }
 .prize:nth-child(2) { border-top-color: var(--magenta); }
 .prize:nth-child(2) .prize__rank { color: var(--magenta); }
-.prize__name { font-family: var(--font-body); font-weight: 800; font-size: 1.1rem; line-height: 1.15; color: var(--ink); margin-top: var(--space-3); }
+.prize__name { font-family: var(--font-body); font-weight: 800; font-size: 1.1rem; line-height: 1.15; color: var(--ink); }
 .prize__body { margin-top: var(--space-2); color: var(--ink-dim); font-size: 0.94rem; }
 
 /* ---------- register call-out ---------- */
@@ -244,6 +239,7 @@ body::after {
 /* ---------- footer high-score board ---------- */
 .foot { position: relative; z-index: 1; padding-top: clamp(var(--space-16), 9vw, var(--space-20)); padding-bottom: var(--space-16); background: var(--paper-2); color: var(--ink); border-top: 2px solid var(--line-lit); }
 .scores { width: 100%; border-collapse: collapse; margin-top: var(--space-6); max-width: 40rem; }
+.scores__caption { font-family: var(--font-display); font-size: 0.74rem; line-height: 1.5; color: var(--cyan); letter-spacing: 0.03em; text-align: left; padding-bottom: var(--space-3); }
 .scores td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--line); font-size: 0.98rem; color: var(--ink-dim); }
 .scores tr:last-child td { border-bottom: 0; }
 .rank { font-family: var(--font-display); font-size: 0.72rem; line-height: 1.4; color: var(--cyan); white-space: nowrap; width: 1%; }
@@ -288,7 +284,6 @@ body::after {
 
   <section class="hero">
     <div class="wrap hero__inner">
-      <p class="hero__kicker">NOW ACCEPTING PLAYERS</p>
       <h1 class="hero__display">
         <span class="hero__line">SUMMER</span>
         <span class="hero__line">JAM 26<span class="cursor" aria-hidden="true"></span></span>
@@ -298,7 +293,7 @@ body::after {
         <a class="score__slot score__slot--p1" href="#register">
           <span class="score__player">P1</span>
           <span class="score__action">REGISTER</span>
-          <span class="score__meta">Free entry, grab a slot</span>
+          <span class="score__meta">Free entry, slots open now</span>
         </a>
         <a class="score__slot score__slot--p2" href="#sponsor">
           <span class="score__player">P2</span>
@@ -311,22 +306,18 @@ body::after {
 
   <section class="section" aria-labelledby="how-title">
     <div class="wrap">
-      <p class="sec__kicker">HOW THE WEEKEND RUNS</p>
-      <h2 class="sec__title" id="how-title">Three moves, one weekend</h2>
+      <h2 class="sec__title" id="how-title">How the weekend runs, in three moves</h2>
       <p class="sec__lede">No pre-built engines, no head start. Everybody opens the same blank screen at the same minute and figures it out from there.</p>
       <ol class="beats">
         <li class="beat">
-          <span class="beat__num">01</span>
           <h3 class="beat__name">Theme drops</h3>
           <p class="beat__body">Friday at 6pm the theme goes live. You find out what you are making at the exact moment everyone else does.</p>
         </li>
         <li class="beat">
-          <span class="beat__num">02</span>
           <h3 class="beat__name">Build all weekend</h3>
           <p class="beat__body">48 hours to make something playable. Sleep is optional, snacks are not, and the help pit stays open the whole time.</p>
         </li>
         <li class="beat">
-          <span class="beat__num">03</span>
           <h3 class="beat__name">Ship and play</h3>
           <p class="beat__body">Sunday at 6pm hands come off the keyboard. Every team demos, everyone plays everyone, and the room picks its favorites.</p>
         </li>
@@ -336,11 +327,10 @@ body::after {
 
   <section class="section" aria-labelledby="sked-title">
     <div class="wrap">
-      <p class="sec__kicker sec__kicker--mag">RUN OF SHOW</p>
       <h2 class="sec__title" id="sked-title">The 48-hour clock</h2>
       <div class="table-wrap">
         <table class="timetable">
-          <caption class="sr-only">Summer Jam 26 weekend schedule</caption>
+          <caption class="timetable__caption">Run of show, Friday 18:00 to Sunday 18:00</caption>
           <thead>
             <tr><th scope="col">When</th><th scope="col">Slot</th><th scope="col">What happens</th></tr>
           </thead>
@@ -358,44 +348,39 @@ body::after {
 
   <section class="section" aria-labelledby="tracks-title">
     <div class="wrap">
-      <p class="sec__kicker">PICK YOUR TRACK</p>
-      <h2 class="sec__title" id="tracks-title">Four ways to enter</h2>
+      <h2 class="sec__title" id="tracks-title">Pick one of four ways in</h2>
       <div class="track-grid">
         <article class="track">
-          <span class="track__tag">SOLO RUN</span>
+          <h3 class="track__tag">SOLO RUN</h3>
           <p class="track__body">One person, one build, start to finish. Prove you do not need a team to make something worth playing.</p>
         </article>
         <article class="track">
-          <span class="track__tag">COUCH CO-OP</span>
+          <h3 class="track__tag">COUCH CO-OP</h3>
           <p class="track__body">Two to five people sharing a table, a whiteboard, and a deadline. The classic weekend crew.</p>
         </article>
         <article class="track">
-          <span class="track__tag">THEME TAKEOVER</span>
+          <h3 class="track__tag">THEME TAKEOVER</h3>
           <p class="track__body">Lean the hardest into the theme. Judged purely on how far you push the prompt. Weird is rewarded.</p>
         </article>
         <article class="track">
-          <span class="track__tag">ROOKIE CABINET</span>
+          <h3 class="track__tag">ROOKIE CABINET</h3>
           <p class="track__body">First jam ever? This track is scored on its own curve so a debut never competes against a veteran.</p>
         </article>
       </div>
 
       <div class="sec__gap">
-        <p class="sec__kicker sec__kicker--mag">ON THE MARQUEE</p>
-        <h2 class="sec__title">What you are playing for</h2>
+        <h2 class="sec__title">What goes up on the marquee</h2>
         <div class="prize-grid">
           <article class="prize">
-            <span class="prize__rank">1UP</span>
-            <h3 class="prize__name">Best in show</h3>
+            <h3 class="prize__name"><span class="prize__rank">1UP</span> Best in show</h3>
             <p class="prize__body">The build the whole room crowds around. Overall pick of the weekend.</p>
           </article>
           <article class="prize">
-            <span class="prize__rank">2UP</span>
-            <h3 class="prize__name">Crowd favorite</h3>
+            <h3 class="prize__name"><span class="prize__rank">2UP</span> Crowd favorite</h3>
             <p class="prize__body">Chosen by every player in the arcade, not by a panel behind a curtain.</p>
           </article>
           <article class="prize">
-            <span class="prize__rank">3UP</span>
-            <h3 class="prize__name">Tech flex</h3>
+            <h3 class="prize__name"><span class="prize__rank">3UP</span> Tech flex</h3>
             <p class="prize__body">For the clever hack under the hood that nobody in the room saw coming.</p>
           </article>
         </div>
@@ -405,8 +390,7 @@ body::after {
 
   <section class="section" id="register" aria-labelledby="cta-title">
     <div class="wrap coin__inner">
-      <p class="sec__kicker">INSERT COIN</p>
-      <h2 class="coin__title" id="cta-title">Ready<br>player 1?</h2>
+      <h2 class="coin__title" id="cta-title">Insert coin.<br>Ready player 1?</h2>
       <p class="coin__sub">Slots are free and the theme stays secret until the buzzer. Grab yours, wrangle a team or do not, and clear one weekend on the calendar.</p>
       <a class="btn" href="#register">Register your team</a>
       <p class="coin__fine">48 HOURS · ANY TEAM SIZE · ONE THEME · FREE TO ENTER</p>
@@ -417,9 +401,8 @@ body::after {
 
 <footer class="foot">
   <div class="wrap">
-    <p class="sec__kicker">HIGH SCORES</p>
     <table class="scores">
-      <caption class="sr-only">What Summer Jam 26 stands for</caption>
+      <caption class="scores__caption">High scores: what Summer Jam 26 stands for</caption>
       <tbody>
         <tr><td class="rank">1ST</td><td class="init">JAM</td><td>Free play. No entry fee, no catch, ever.</td></tr>
         <tr><td class="rank">2ND</td><td class="init">DEV</td><td>48 hours on the clock, one shared theme.</td></tr>

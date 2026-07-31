@@ -166,22 +166,13 @@ button { font: inherit; color: inherit; }
   padding: var(--space-2xl) var(--space-lg) var(--space-4xl);
 }
 
-.eyebrow {
-  font-family: var(--font-data);
-  font-size: var(--text-xs);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: var(--space-md);
-}
-
 .intro__title {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--text-3xl);
   line-height: var(--lh-tight);
   letter-spacing: -0.018em;
-  max-width: 20ch;
+  max-width: 26ch;
   overflow-wrap: anywhere;
   min-width: 0;
   text-wrap: balance;
@@ -378,7 +369,30 @@ button { font: inherit; color: inherit; }
   box-shadow: var(--shadow-panel);
 }
 
-.assay__eyebrow {
+/* the specimen plate: the symbol tile, then its catalogue line UNDER it.
+   Index and family identify the sample that is already on screen, so they
+   read as a caption rather than an announcement of the name below. */
+.assay__plate {
+  margin: 0 0 var(--space-sm);
+  width: max-content;
+  min-width: 5.5rem;
+}
+.assay__sym {
+  display: grid;
+  place-items: center;
+  width: 5.5rem; height: 5.5rem;
+  border: 1px solid var(--color-line-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-paper-3);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+.assay__ident {
+  margin-top: var(--space-2xs);
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -389,24 +403,6 @@ button { font: inherit; color: inherit; }
 }
 .assay__index { color: var(--color-accent); font-weight: 700; }
 .assay__fam { color: var(--color-muted); }
-
-.assay__plate {
-  margin: var(--space-md) 0 var(--space-sm);
-  width: 5.5rem; height: 5.5rem;
-  border: 1px solid var(--color-line-2);
-  border-radius: var(--radius-sm);
-  background: var(--color-paper-3);
-  display: grid;
-  place-items: center;
-}
-.assay__sym {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 2.6rem;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-}
 
 .assay__name {
   font-family: var(--font-display);
@@ -470,7 +466,7 @@ button { font: inherit; color: inherit; }
 /* the ONE orchestrated motion: when a blend is selected, the panel's
    inner content steps forward (lift + settle). JS toggles .is-swapping. */
 .assay__plate, .assay__name, .assay__origin,
-.assay__stats, .assay__notes, .assay__eyebrow {
+.assay__stats, .assay__notes {
   transition: opacity var(--dur) var(--ease-out),
               transform var(--dur) var(--ease-out);
 }
@@ -478,8 +474,7 @@ button { font: inherit; color: inherit; }
 .assay.is-swapping .assay__name,
 .assay.is-swapping .assay__origin,
 .assay.is-swapping .assay__stats,
-.assay.is-swapping .assay__notes,
-.assay.is-swapping .assay__eyebrow {
+.assay.is-swapping .assay__notes {
   opacity: 0;
   transform: translateY(6px);
 }
@@ -553,7 +548,6 @@ button { font: inherit; color: inherit; }
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-areas:
-      "plate eyebrow"
       "plate name"
       "stats stats"
       "notes notes"
@@ -561,9 +555,8 @@ button { font: inherit; color: inherit; }
     column-gap: var(--space-md);
     align-items: center;
   }
-  .assay__eyebrow { grid-area: eyebrow; }
-  .assay__plate { grid-area: plate; margin: 0; width: 4.25rem; height: 4.25rem; align-self: start; }
-  .assay__sym { font-size: 1.9rem; }
+  .assay__plate { grid-area: plate; margin: 0; min-width: 4.25rem; align-self: start; }
+  .assay__sym { width: 4.25rem; height: 4.25rem; font-size: 1.9rem; }
   .assay__name { grid-area: name; }
   .assay__origin { display: none; }
   .assay__stats { grid-area: stats; grid-template-columns: repeat(4, 1fr); }
@@ -591,7 +584,7 @@ button { font: inherit; color: inherit; }
   .ptable::after { display: none; }
   .assay {
     grid-template-columns: 1fr;
-    grid-template-areas: "eyebrow" "plate" "name" "stats" "notes" "hint";
+    grid-template-areas: "plate" "name" "stats" "notes" "hint";
     text-align: left;
   }
   .assay__plate { margin-bottom: var(--space-2xs); }
@@ -625,8 +618,7 @@ button { font: inherit; color: inherit; }
   .assay.is-swapping .assay__name,
   .assay.is-swapping .assay__origin,
   .assay.is-swapping .assay__stats,
-  .assay.is-swapping .assay__notes,
-  .assay.is-swapping .assay__eyebrow {
+  .assay.is-swapping .assay__notes {
     opacity: 1;
     transform: none;
   }

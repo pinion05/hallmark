@@ -144,10 +144,10 @@ const HERO_TITLE = "A design skill that refuses to look AI-generated.";
 /* — Per-theme copy fixtures —————————————————————————————
    Distinct voice per theme so the page doesn't read like the same
    page in different fonts. The `title` is locked across themes;
-   eyebrow, lede, quote, stat, salutation, etc. still vary. */
+   colophon, lede, quote, stat, salutation, etc. still vary. */
 const COPY = {
   specimen: {
-    eyebrow: "A design skill",
+    colophon: "A design skill",
     title: HERO_TITLE,
     lede: "Hallmark is a skill for Claude Code, Cursor, and Codex. It encodes the anti-slop consensus — typography, colour, layout, motion, interaction — into one holistic ruleset your AI assistant will actually follow.",
     ctaLabel: "01 ⁄ Install",
@@ -167,7 +167,7 @@ const COPY = {
     captionB: "From the working archive",
   },
   newsprint: {
-    eyebrow: "Volume I · Issue 02 · 28 April 2026",
+    colophon: "Volume I · Issue 02 · 28 April 2026",
     title: HERO_TITLE,
     lede: "Twenty-four themes. Twenty-one named page shapes. Fifty component archetypes — fourteen navs, eight footers, four hero polish patterns. A 58-gate slop test that gates every output before it ships. Hallmark is the rulebook the LLM never read.",
     ctaLabel: "Distribution",
@@ -187,7 +187,7 @@ const COPY = {
     captionB: "Press run",
   },
   atelier: {
-    eyebrow: "An atelier note",
+    colophon: "An atelier note",
     title: HERO_TITLE,
     lede: "A small, opinionated craftsmanship engine that argues with your AI assistant on your behalf — and wins.",
     ctaLabel: "By appointment",
@@ -207,7 +207,7 @@ const COPY = {
     captionB: "12 April",
   },
   garden: {
-    eyebrow: "A small dispatch",
+    colophon: "A small dispatch",
     title: HERO_TITLE,
     lede: "Twenty-four themes that disagree with each other on purpose. Pick one and the whole page changes — not the colours, the bones.",
     ctaLabel: "Plant it",
@@ -227,7 +227,7 @@ const COPY = {
     captionB: "Late spring",
   },
   almanac: {
-    eyebrow: "Almanac · 2026 edition",
+    colophon: "Almanac · 2026 edition",
     title: HERO_TITLE,
     lede: "A reference book of structural choices, indexed and cross-referenced. Hallmark looks up the right page-shape for the brief and refuses to use the same one twice.",
     ctaLabel: "Open the index",
@@ -247,7 +247,7 @@ const COPY = {
     captionB: "Plate 12",
   },
   midnight: {
-    eyebrow: "Built for the dark",
+    colophon: "Built for the dark",
     title: HERO_TITLE,
     lede: "A dark theme that uses lightness for elevation, not shadow. Numbered display labels. Typewriter reveals. Indigo accent at low chroma.",
     ctaLabel: "Run it",
@@ -267,7 +267,7 @@ const COPY = {
     captionB: "0240h",
   },
   terminal: {
-    eyebrow: "$ hallmark",
+    colophon: "$ hallmark",
     title: HERO_TITLE,
     lede: "Honest about its medium. Monospace top to bottom. No animations. The page is what it is.",
     ctaLabel: "Run",
@@ -287,7 +287,7 @@ const COPY = {
     captionB: "0241",
   },
   brutal: {
-    eyebrow: "Brutal — uncompromised",
+    colophon: "Brutal — uncompromised",
     title: HERO_TITLE,
     lede: "Heavy display. Hard edges. One accent that means it. The grid does not flex; the grid is the point.",
     ctaLabel: "Take it",
@@ -307,7 +307,7 @@ const COPY = {
     captionB: "PRINT 01",
   },
   manifesto: {
-    eyebrow: "Manifesto",
+    colophon: "Manifesto",
     title: "The Design Skill.",
     lede: "The page is a statement. We don't soften it. The accent is a colour with a position. The headline is a belief.",
     ctaLabel: "Sign it",
@@ -327,7 +327,7 @@ const COPY = {
     captionB: "POSTER",
   },
   sport: {
-    eyebrow: "Sport · 2026",
+    colophon: "Sport · 2026",
     title: HERO_TITLE,
     lede: "Italic display. Tabular nums. Numbered display headers. The page moves like a scoreboard — fast, decisive, in motion.",
     ctaLabel: "Kick off",
@@ -347,7 +347,7 @@ const COPY = {
     captionB: "LAP 12",
   },
   studio: {
-    eyebrow: "Studio · 2026",
+    colophon: "Studio · 2026",
     title: HERO_TITLE,
     lede: "We design and build distinctive products for ambitious teams. Hallmark is our typography opinion, codified — twenty-four themes, twenty-one shapes, no defaults.",
     ctaLabel: "Engage",
@@ -367,7 +367,7 @@ const COPY = {
     captionB: "Selected work",
   },
   riso: {
-    eyebrow: "ed. 12 · printed today",
+    colophon: "ed. 12 · printed today",
     title: HERO_TITLE,
     lede: "warm paper, off-register accents, one bold lowercase headline. a page that feels printed, not generated.",
     ctaLabel: "press →",
@@ -387,7 +387,7 @@ const COPY = {
     captionB: "press · 04",
   },
   bloom: {
-    eyebrow: "Warm minimal · 2026",
+    colophon: "Warm minimal · 2026",
     title: HERO_TITLE,
     lede: "For the calm, considered product page. A warm-light canvas, one soft bloom, and a single restrained accent — clean type with room to breathe.",
     ctaLabel: "Try it now",
@@ -408,7 +408,7 @@ const COPY = {
     captionB: "Warm light",
   },
   coral: {
-    eyebrow: "Modern minimal · warm-grey",
+    colophon: "Modern minimal · warm-grey",
     title: HERO_TITLE,
     lede: "For the polished SaaS that wants warmth without losing discipline. Warm-grey paper, General Sans throughout, a single coral accent kept under five percent of the view.",
     ctaLabel: "Get started",
@@ -429,7 +429,7 @@ const COPY = {
     captionB: "v1.2",
   },
   aurora: {
-    eyebrow: "Atmospheric · cool",
+    colophon: "Atmospheric · cool",
     title: HERO_TITLE,
     lede: "For the after-dark dev tool. Cool blue-green canvas, two atmospheric blooms behind the content, single teal-green accent. Sentient body for warmth on the cool ground.",
     ctaLabel: "Open it",
@@ -450,7 +450,7 @@ const COPY = {
     captionB: "Late-shift",
   },
   editorial: {
-    eyebrow: "No XXIII · Editorial",
+    colophon: "No XXIII · Editorial",
     title: HERO_TITLE,
     lede: "An editorial-premium voice — warm cream paper, coral accent, mixed sans + serif italic. Magazine-shaped, hairline rules, asymmetric grids.",
     ctaLabel: "I · Install",
@@ -471,7 +471,7 @@ const COPY = {
     captionB: "Spring 2026",
   },
   carnival: {
-    eyebrow: "NO TEMPLATES · NO DEFAULTS",
+    colophon: "NO TEMPLATES · NO DEFAULTS",
     title: HERO_TITLE,
     lede: "24 themes that refuse to blend in. Pick one and the whole page changes — the bones, not the paint.",
     ctaLabel: "Install",
@@ -491,7 +491,7 @@ const COPY = {
     captionB: "OUT NOW",
   },
   lumen: {
-    eyebrow: "00 · DESIGN SKILL",
+    colophon: "00 · DESIGN SKILL",
     title: HERO_TITLE,
     lede: "a design skill that refuses the defaults every model was trained on. twenty-four themes, twenty-one page-shapes, and one slop test that gates every build before it ships.",
     ctaLabel: "install",
@@ -511,7 +511,7 @@ const COPY = {
     captionB: "night foundry",
   },
   hum: {
-    eyebrow: "A design skill",
+    colophon: "A design skill",
     title: "Make your AI agent a designer.",
     lede: "The anti-slop design skill for Claude Code, Cursor, and Codex. Twenty-four themes with real structural variety, and a 58-gate check before anything ships.",
     ctaLabel: "Install",
@@ -531,7 +531,7 @@ const COPY = {
     captionB: "Kept warm",
   },
   cobalt: {
-    eyebrow: "Modern minimal · dev-tool",
+    colophon: "Modern minimal · dev-tool",
     title: HERO_TITLE,
     lede: "For the API, the docs, the dev tool. A cool engineered canvas, ruler-drawn hairlines, and one electric cobalt signal — the page reads like good infrastructure, not a template.",
     ctaLabel: "Start building",
@@ -552,7 +552,7 @@ const COPY = {
     captionB: "v1.2",
   },
   grid: {
-    eyebrow: "Swiss international",
+    colophon: "Swiss international",
     title: HERO_TITLE,
     lede: "The grid, made visible. A near-white sheet, exposed twelve-column hairlines, one signal red, and a heavy neo-grotesque set flush-left. Rational, exact, built for institutions that plan in decades.",
     ctaLabel: "Method",
@@ -573,7 +573,7 @@ const COPY = {
     captionB: "v1.2",
   },
   field: {
-    eyebrow: "Warm productivity",
+    colophon: "Warm productivity",
     title: HERO_TITLE,
     lede: "The serious tool that feels hand-made. Cream paper, a Source Serif headline over humanist Public Sans, one marigold highlighter behind the phrase that matters, and hand-drawn ink where a diagram helps.",
     ctaLabel: "Start free",
@@ -594,7 +594,7 @@ const COPY = {
     captionB: "v1.2",
   },
   ledger: {
-    eyebrow: "Fintech terminal-lux",
+    colophon: "Fintech terminal-lux",
     title: HERO_TITLE,
     lede: "The data is the marketing. A navy ground, a giant reconciled balance in tabular mono, a live transaction ledger, and one teal signal on the figures that moved. Dense, cool, precise, trustworthy.",
     ctaLabel: "Open account",
@@ -615,7 +615,7 @@ const COPY = {
     captionB: "v1.2",
   },
   arcade: {
-    eyebrow: "Free play · event 07",
+    colophon: "Free play · event 07",
     title: HERO_TITLE,
     lede: "Retro-system nostalgia, kept tasteful. A violet-black ground, a pixel display over a readable humanist body, a magenta and cyan duo, scanlines and a starfield. The retro comes from type and light, never from fake window chrome.",
     ctaLabel: "Register",

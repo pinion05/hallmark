@@ -46,13 +46,12 @@
 
       <div class="hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow"><span class="ord">00</span><span class="dot-mid">·</span>Inference</p>
           <h1 class="hero__title" id="hero-title">
             Built to&nbsp;<em>think</em>&nbsp;in real time.
           </h1>
           <p class="hero__lede">
-            Cinder is a serverless runtime for any model that fits on a GPU.
-            Deploy with a single primitive. Scale down to zero between requests.
+            <b class="lede-in">Serverless GPU inference.</b> Cinder runs any model that fits
+            on a GPU behind a single primitive. Scale down to zero between requests.
             Pay only when the model thinks.
           </p>
           <div class="hero__cta">
@@ -157,7 +156,7 @@
     <!-- ─── Runtime cards — hairline + inner emission ─── -->
     <section class="section" id="runtime" aria-labelledby="runtime-title">
       <header class="section__head">
-        <p class="eyebrow"><span class="ord">01</span><span class="dot-mid">·</span>Runtime</p>
+        <hr class="section__rule" />
         <h2 class="section__title" id="runtime-title">
           One primitive that scales&nbsp;<em>down</em>&nbsp;to zero.
         </h2>
@@ -167,38 +166,34 @@
         </p>
       </header>
 
-      <div class="cards">
-        <article class="card">
-          <p class="card__eyebrow">a · snapshot</p>
+      <ol class="cards">
+        <li class="card">
           <h3 class="card__title">Snapshot cold starts</h3>
           <p class="card__body">
             Model weights and Python state restored from a CUDA memory snapshot.
             Cold start at four-tenths of a second, regardless of model size up to 70 B.
           </p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">b · batching</p>
+        </li>
+        <li class="card">
           <h3 class="card__title">Continuous batching</h3>
           <p class="card__body">
             Requests join an in-flight batch on arrival. P50 latency stays flat under load,
             then degrades gracefully past the GPU saturation point.
           </p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">c · billing</p>
+        </li>
+        <li class="card">
           <h3 class="card__title">Bin-packed billing</h3>
           <p class="card__body">
             You pay for the milliseconds a GPU is reserved for your function.
             Idle replicas are reclaimed inside three seconds. No minimum spend.
           </p>
-        </article>
-      </div>
+        </li>
+      </ol>
     </section>
 
     <!-- ─── Code — Workbench-style block ─── -->
     <section class="section section--code" id="code" aria-labelledby="code-title">
       <header class="section__head">
-        <p class="eyebrow"><span class="ord">02</span><span class="dot-mid">·</span>Code</p>
         <h2 class="section__title" id="code-title">
           Three files. <em>One</em> deploy.
         </h2>
@@ -242,7 +237,7 @@
     <!-- ─── Pricing — three serif-numeral tiers ─── -->
     <section class="section" id="pricing" aria-labelledby="pricing-title">
       <header class="section__head">
-        <p class="eyebrow"><span class="ord">03</span><span class="dot-mid">·</span>Pricing</p>
+        <hr class="section__rule" />
         <h2 class="section__title" id="pricing-title">
           Per-second, per-GPU. <em>Stop</em> at any time.
         </h2>
@@ -254,7 +249,7 @@
 
       <div class="tiers">
         <article class="tier">
-          <p class="tier__eyebrow">Free</p>
+          <h3 class="tier__name">Free</h3>
           <p class="tier__price"><span class="tier__num">$0</span><span class="tier__unit">/mo</span></p>
           <p class="tier__note">$0.00012 / sec on shared A10G after 30 GPU-hours.</p>
           <ul class="tier__list">
@@ -265,7 +260,7 @@
           <a class="btn btn--ghost btn--block" href="#">Start free</a>
         </article>
         <article class="tier tier--feature">
-          <p class="tier__eyebrow">Reactor</p>
+          <h3 class="tier__name">Reactor</h3>
           <p class="tier__price"><span class="tier__num">$0.0004</span><span class="tier__unit">/sec</span></p>
           <p class="tier__note">Dedicated H100. Bin-packed across your fleet.</p>
           <ul class="tier__list">
@@ -277,7 +272,7 @@
           <a class="btn btn--accent btn--block" href="#">Start a project</a>
         </article>
         <article class="tier">
-          <p class="tier__eyebrow">Enterprise</p>
+          <h3 class="tier__name">Enterprise</h3>
           <p class="tier__price"><span class="tier__num">Talk</span><span class="tier__unit"> · custom</span></p>
           <p class="tier__note">Reserved capacity, BYO VPC, SLA on P99 latency.</p>
           <ul class="tier__list">
@@ -294,7 +289,7 @@
     <!-- ─── Changelog ─── -->
     <section class="section section--changelog" id="changelog" aria-labelledby="changelog-title">
       <header class="section__head">
-        <p class="eyebrow"><span class="ord">04</span><span class="dot-mid">·</span>Changelog</p>
+        <hr class="section__rule" />
         <h2 class="section__title" id="changelog-title">
           Shipped this <em>quarter</em>.
         </h2>

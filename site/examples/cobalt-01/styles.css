@@ -77,21 +77,8 @@ code, kbd, pre { font-family: var(--font-mono); }
 }
 
 /* ─── Shared atoms ─────────────────────────────────────────── */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55em;
-  font-family: var(--font-mono);
-  font-size: var(--step-small);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-.eyebrow__dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-}
+/* Sections open on the heading and the space above it. The quickstart band opens
+   on its change of paper. Nothing is labelled before it happens. */
 
 .btn {
   display: inline-flex;
@@ -495,14 +482,6 @@ code:not(.code code):not(.strip__cmd):not(.foot__ver) {
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: center;
 }
-.feature__kicker {
-  font-family: var(--font-mono);
-  font-size: var(--step-small);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 0.8rem;
-}
 .feature__num {
   display: block;
   font-family: var(--font-mono);
@@ -572,7 +551,6 @@ code:not(.code code):not(.strip__cmd):not(.foot__ver) {
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
 }
-.eyebrow--dark { color: var(--color-quick-muted); }
 .quickstart__title {
   font-family: var(--font-display);
   font-weight: var(--weight-semi);

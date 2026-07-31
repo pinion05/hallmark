@@ -2,9 +2,21 @@
 
 What's next. (v1.2 shipped: four new themes with the image hook, spec files for all 24 themes, the edit-time lint hook, the Tier A conformance harness, variants v2 with progressive reveal + grafts + thumbnails + scoped injection and the corner dock, and the harness pivot - one core with per-harness adapters for Claude Code / Codex / OpenCode plus the multi-harness installer.)
 
+**Since v1.2: the floor / library split.** The eyebrow is banned outright, in every geometry, with a DOM-shape detector behind it and twelve replacement openings in `section-entry.md`. The 58 gates gained tiers: 34 carry a Floor clause that nothing ships through, 18 are Reflex gates a build can waive on the record (three per artifact, guard re-derived mechanically), 6 never block. Themes were cut to a written contract and are material rather than page plans, which took them from 4,070 lines to 2,861. The catalogs stopped being a mandatory pick and became a place to look.
+
 ---
 
 ## Now
+
+**Regenerate the marketing screenshots.** The 18 hero captures in `docs/screenshots/` and the gallery thumbnails under `site/_tests/_thumbs/` still show the eyebrows that were removed from the example pages. They are stale evidence on the README and the homepage until they are recaptured.
+
+**Give the Finish tier a stamp form.** A Reflex gate can be waived on the record and the linter reads it. A Finish finding is supposed to be "read and answered", but there is no syntax for an answered-and-dismissed one, so a build that reasons its way past gate 38 writes freeform prose the linter cannot see and the next run cannot parse. Either an `answered` stamp line with the same three-field shape, or an explicit statement that Finish findings need no record.
+
+**Decide how many times a build restates its own decisions.** The Picks block, the Step 5 preview, the CSS stamp and the log entry carry substantially the same content. None of it is design work, and it is the largest remaining ceremony cost. The preview block is the likeliest cut: the Picks block already carries everything except the enrichment answer.
+
+**`copy.md` still mandates em and en dashes** (§ Punctuation) while the repo's own house rule bans them, so a build that follows the skill faithfully reintroduces them into page copy. Worth resolving in one direction or the other rather than leaving the skill arguing with its owner.
+
+**Two more index-then-pick candidates.** `copy.md` is ~184 lines of which most are voice samples for tones a given build is not using, and `typography.md`'s font catalog is dead weight whenever a catalog theme has already named its three faces. Both are on the every-build list; scoping them would save roughly 200 lines per run.
 
 **Conformance on all three harnesses.** Tier A (`gen-cli.mjs`) drives Claude Code today; run it in a logged-in terminal. Next: the same conformance pass through `codex exec` and OpenCode's non-interactive run, asserting each harness loads its adapter (`harnesses/codex.md` / `harnesses/opencode.md`), holds the load-order discipline, and lands 0-FAIL sloplint. (The old Tier B bare-API open-model matrix is retired from the roadmap; the tooling stays in `eval/` as an archive.)
 

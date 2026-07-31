@@ -8,9 +8,9 @@ The illustration itself is *built*, not picked from Storyset / Humaaans / unDraw
 ```html
 <section class="hero-art">
   <div>
-    <p class="eyebrow">Maple Street Bread · est. 2026</p>
     <h1>Sourdough, every morning.</h1>
     <p>Slow-fermented overnight, baked on stone, before you wake.</p>
+    <p class="hero__mark">Maple Street Bread, est. 2026</p>
   </div>
   <svg viewBox="0 0 200 100" class="loaf" aria-label="A loaf of bread">
     <path class="loaf__body" d="M 20 70 Q 100 10 180 70 L 180 90 L 20 90 Z" />

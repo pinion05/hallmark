@@ -79,7 +79,7 @@
 
     .hero__copy { max-width: 32rem; }
 
-    .hero__eyebrow {
+    .hero__meta {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       letter-spacing: 0.12em;
@@ -214,14 +214,6 @@
       padding: var(--space-lg);
     }
 
-    .pinned__label {
-      font-family: var(--font-mono);
-      font-size: 0.6875rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-ink-soft);
-      margin-block-end: var(--space-sm);
-    }
 
     .pinned__head {
       font-family: var(--font-display);
@@ -306,7 +298,7 @@
     <!-- Hero — same words as input, different shape -->
     <section class="hero">
       <div class="hero__copy">
-        <p class="hero__eyebrow">v0.4 · for product teams</p>
+        <p class="hero__meta">v0.4 · for product teams</p>
         <h1 class="hero__head">The AI-powered platform <em>for modern teams.</em></h1>
         <p class="hero__sub">
           Nexus helps you ship faster, collaborate smarter, and scale seamlessly with AI-native
@@ -346,8 +338,7 @@
       </div>
 
       <aside class="pinned" aria-label="Pinned demo">
-        <p class="pinned__label">Try it in your terminal</p>
-        <h3 class="pinned__head">A 4-line getting-started.</h3>
+        <h3 class="pinned__head">Four lines, in your terminal.</h3>
         <pre class="pinned__body"><span class="c"># install</span>
 <span class="k">$</span> npx nexus init my-team
 

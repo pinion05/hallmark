@@ -11,7 +11,7 @@ One brief, several distinct directions, side by side, in the user's own browser.
 5. Build the directions at sketch depth: parallel subagents by default, sequential fallback. Flip each row to `status:"ready"` the instant its files land; run `thumbs.mjs`; say "Direction 1 ready" in chat per landing.
 6. Relay the picker URL in one line.
 7. Await the verdict via the poll ladder; a chat reply always works. Dispatch pick / riff / graft.
-8. Promote the winner: complete the sketch to full depth, full 58-gate sweep, apply any graft, archive all directions, append the decisions log, ack, stop, log.
+8. Promote the winner: complete the sketch to full depth, full 58-gate sweep at every tier, apply any graft, archive all directions, append the decisions log, ack, stop, log.
 
 ## The machinery
 
@@ -142,7 +142,7 @@ Include this chip tag verbatim: <the § 4 snippet with data-direction="<n>">.
 Load ONLY references/macrostructures/<picked file>, the picked component archetype
 files, and the universal set (typography · color · layout-and-space · motion ·
 copy · anti-patterns). Do not read log.json. Do not append memory. Do not run
-the full gate sweep: the Core-15 sweep only (contrast gates 40-41 are in it). Styles fully
+the full gate sweep: the Floor tier only (contrast gates 40-41 are in it). Styles fully
 self-contained. Stamp the CSS with `direction: <n> of 3 · run: <run-id>`.
 ```
 
@@ -150,7 +150,7 @@ self-contained. Stamp the CSS with `direction: <n> of 3 · run: <run-id>`.
 
 **Progressive reveal wiring.** Whichever path: the manifest row starts at `status:"generating"` with no `url`. When a direction's files exist and are servable, write its `url` and set `status:"ready"` in one atomic manifest write, then say "Direction <n> ready" in chat. Do not wait for all three before the first flip.
 
-**Draft quality bar.** Drafts are sketch depth and get an abbreviated pass: run `sloplint.mjs` on each draft and fix FAILs (it is cheap and mechanical), then sweep only the **Core-15** ([`slop-test.md`](../slop-test.md) § Core-15, which includes contrast gates 40-41) by judgment. ONLY THE WINNER runs the full 58-gate sweep, later, at § 7. Do not spend three full sweeps on sketches that will be archived.
+**Draft quality bar.** Drafts are sketch depth and get an abbreviated pass: run `sloplint.mjs` on each draft and fix FAILs (it is cheap and mechanical), then sweep the **Floor tier** ([`slop-test.md`](../slop-test.md) § Tiers, which includes contrast gates 40-41) by judgment. ONLY THE WINNER runs the full 58-gate sweep, later, at § 7. Do not spend three full sweeps on sketches that will be archived.
 
 **Self-containment.** Each direction is fully self-contained: its own inline styles or a sibling css file in its folder. No shared `tokens.css` across directions; shared theme tokens would quietly homogenize the three systems you are trying to keep apart. The shared base of § Speed is head/reset/font-load only, copied in, not a live shared theme file. In routes mode, hang each direction's token block on the route's own root element (a wrapper class), not `:root`, so three simultaneous routes cannot fight each other or leak into the app shell; every colour still references a `var(--*)` per the critical floor. The winner gets properly tokenized at promotion.
 
@@ -345,7 +345,7 @@ On `{"action": "pick", "choice": n}` or the chat equivalent (and after any graft
 
 1. Copy the winner into place as the normal build output (wherever a default Hallmark build would land for this project).
 2. Complete the sketch to full depth first (unless `--full` already built full pages): remaining sections, all states, responsive pass.
-3. Run the FULL 58-gate sweep + sloplint, fix every FAIL, stamp, emit `tokens.css`, exactly as SKILL.md Steps 6-7 demand. The draft's abbreviated pass counts for nothing here; the winner earns the whole bar.
+3. Run the FULL 58-gate sweep + sloplint, fix every FAIL or waive it on the record, stamp, emit `tokens.css`, exactly as SKILL.md Steps 6-7 demand. The draft's abbreviated pass counts for nothing here; the winner earns the whole bar.
 
 **Routes mode:** state the file plan first: the standard safety rail, promoting into real targets needs the user's ok. For example:
 

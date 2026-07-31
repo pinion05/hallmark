@@ -12,7 +12,7 @@ Layout is where "AI-generated" gets caught. Equal columns, everything centred, e
 
 ## The spacing scale
 
-4pt base. Nine steps. Named by role, not size.
+4pt base. Ten steps. Named by role, not size. `--space-3xs` is the one deliberate 2px step: optical nudges live there rather than as raw values. This file owns the scale; gate 24 cites it and never restates it.
 
 ```css
 :root {
@@ -41,8 +41,8 @@ Layout is where "AI-generated" gets caught. Equal columns, everything centred, e
 
 ## Asymmetry techniques
 
-- **Wide left margin.** Treat the left as a permanent negative space — narrow column of labels, wide column of content. **Labels must NOT be section eyebrows / numbers paired with the heading** — that's gate-54-banned. Reserve this technique for body-level micro-labels (caption, footnote, date) alongside body copy.
-- **Hanging headers.** ⚠️ **Opt-in only.** Section labels sit in the left margin; content flows to the right. Permitted only when the user explicitly asks for an editorial / hanging-header layout AND no eyebrow / number / chapter tag sits in the left margin. The eyebrow-left / heading-right pattern is banned by slop-test gate 54 — it's the most reliable templated-editorial AI tell. Default to a stacked single-column section head.
+- **Wide left margin.** Treat the left as a permanent negative space — narrow column of marginalia, wide column of content. The margin carries body-level material (caption, footnote, date, sidenote) alongside body copy. A label paired with a *heading* is an eyebrow in any column and gate 54 bans it.
+- **Hanging headers.** The heading itself hangs into the left margin while body copy flows to the right — the heading, not a label announcing it. This is a legitimate editorial move and needs no permission; what it must not become is a small tag in the margin with the real heading beside it.
 - **Offset grids.** Odd columns wider than even. Or the other way.
 - **Grid-breaks.** One element that deliberately extends past a column boundary: a pull-quote, a photograph, a rule, a number.
 - **Generous top, tight bottom** (or vice-versa). Sections don't need to be evenly padded.
@@ -66,7 +66,7 @@ Never jump straight to rung 4; never default white-cards-on-tinted-page (the tin
   - **Whisper** — `0 1px 2px oklch(20% 0.01 <hue> / 0.05)` for hovering cards.
   - **Hairline** — `0 0 0 1px oklch(30% 0.01 <hue> / 0.06)` as an alternative to a 1px border.
 - Never stack multiple shadows. Never use a coloured glow on a light background.
-- Z-index has **six levels, named.** Don't freestyle numbers.
+- Z-index has **seven named levels**, plus `--z-sticky-nav` above `--z-sticky` when a sticky nav and an in-page sticky coexist (gate 56). Don't freestyle numbers.
 
 ```css
 :root {

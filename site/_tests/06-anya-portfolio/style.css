@@ -123,20 +123,19 @@ body {
 /* Main content column */
 .main { min-width: 0; max-width: 56rem; }
 
+/* The sticky index on the left is this page's running folio: it holds 00 to 04
+   and stays in view the whole way down. So a section needs no line introducing
+   itself, only a break. One hairline, repeated, is the break. */
 .section {
-  margin-block-end: var(--space-3xl);
+  margin-block-end: var(--space-2xl);
   scroll-margin-top: var(--space-2xl);
 }
 
 .section:first-of-type { margin-block-start: 0; }
 
-.section__num {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin: 0 0 var(--space-md);
+.section + .section {
+  border-block-start: 1px solid var(--color-rule);
+  padding-block-start: var(--space-2xl);
 }
 
 .section__head {

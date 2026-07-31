@@ -141,7 +141,8 @@ Pick the role each face is playing:
 
 - **Display role.** What is carrying the headline? Pick from: *italic editorial serif · roman editorial serif · heavy condensed sans · soft geometric sans · expressive variable sans · monospace · pixel · ornamental script*.
 - **Body role.** What is carrying the prose? *roman serif · italic serif · neutral grotesque · soft geometric sans · monospace*.
-- **Label role.** What is carrying eyebrows, captions, micro-labels? *small-caps serif · monospace · uppercase grotesque · italic body · none (no labels visible)*.
+- **Label role.** What is carrying captions, meta rows, folios, micro-labels? *small-caps serif · monospace · uppercase grotesque · italic body · none (no labels visible)*. Diagnose section eyebrows if the source has them, but never rebuild with one: gate 54 binds on the output, not the source.
+- **Section entry.** How does the source open a section — a rule, a change of paper, a numeral, a drop cap, nothing? Record the move; it is a reusable part of the DNA. See [`section-entry.md`](section-entry.md).
 - **Pairing logic.** Same family with weight/italic split, or two different families? If two, what's the contrast — *editorial serif + grotesque body, mono labels* (the modern editorial agency look), or *condensed display + body sans + mono labels* (technical), etc.?
 - **Display weight.** Light (≤ 300), regular (400–500), heavy (700+), extra-bold (800+).
 

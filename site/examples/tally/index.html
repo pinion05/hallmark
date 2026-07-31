@@ -125,7 +125,7 @@
   <div class="container">
     <div class="section-head">
       <div>
-        <span class="eyebrow">◇ workbench</span>
+        <hr class="section-mark" />
         <h2 class="section-head__title">A pricing console that <em>knows</em> your model.</h2>
       </div>
       <p class="section-head__desc">
@@ -217,7 +217,7 @@
   <div class="container">
     <div class="section-head">
       <div>
-        <span class="eyebrow">◇ proof</span>
+        <hr class="section-mark" />
         <h2 class="section-head__title">Numbers that <em>don't</em> need a footnote.</h2>
       </div>
       <p class="section-head__desc">
@@ -251,7 +251,6 @@
   <div class="container">
     <div class="section-head">
       <div>
-        <span class="eyebrow">◇ how it works</span>
         <h2 class="section-head__title">Meter, price, invoice — <em>then</em> sleep.</h2>
       </div>
       <p class="section-head__desc">
@@ -260,8 +259,8 @@
       </p>
     </div>
 
-    <div class="features__grid">
-      <article class="feature" data-tilt>
+    <ol class="features__grid">
+      <li class="feature" data-tilt>
         <div class="feature__art art-meter" aria-hidden="true"></div>
         <h3 class="feature__title">Meter anything in one line</h3>
         <p class="feature__desc">
@@ -269,9 +268,9 @@
           dedup, ordering, and replay so your meters never lie.
         </p>
         <a class="feature__link" href="#">Read the SDK docs</a>
-      </article>
+      </li>
 
-      <article class="feature" data-tilt>
+      <li class="feature" data-tilt>
         <div class="feature__art art-tiers" aria-hidden="true">
           <i></i><i></i><i></i><i></i><i></i>
         </div>
@@ -281,9 +280,9 @@
           and Tally retro-prices the meter. No deploy required.
         </p>
         <a class="feature__link" href="#">See price models</a>
-      </article>
+      </li>
 
-      <article class="feature" data-tilt>
+      <li class="feature" data-tilt>
         <div class="feature__art art-invoice" aria-hidden="true">
           <div class="sheet"><b>INV-04210</b>Bramble · Apr<br/><em>$3,118.40</em></div>
           <div class="sheet"><b>INV-04211</b>Forge · Apr<br/><em>$8,940.20</em></div>
@@ -295,8 +294,8 @@
           "what's this?", you point at a clickable trail.
         </p>
         <a class="feature__link" href="#">Browse invoice templates</a>
-      </article>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -304,8 +303,7 @@
 <section class="pricing" id="pricing">
   <div class="container">
     <div class="pricing__head">
-      <span class="eyebrow">◇ pricing</span>
-      <h2 class="section-head__title" style="text-align:center; margin-inline:auto;">Plans that scale with you, <em>not</em> against you.</h2>
+      <h2 class="section-head__title" style="text-align:center; margin-inline:auto;">Pricing that scales with you, <em>not</em> against you.</h2>
       <div class="pricing__toggle" role="group" aria-label="Billing period">
         <button type="button" data-period="monthly" aria-pressed="true">Monthly</button>
         <button type="button" data-period="annual"  aria-pressed="false">Annual <span class="save">save 20%</span></button>

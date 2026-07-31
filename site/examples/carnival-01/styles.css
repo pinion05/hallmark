@@ -142,7 +142,8 @@ img { max-width: 100%; display: block; }
   position: relative;
   overflow: hidden;
 }
-.hero__eyebrow {
+/* Catalogue stamp: label, number and release date, the way it is printed on the sleeve. */
+.hero__stamp {
   font-family: var(--font-label);
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
@@ -153,7 +154,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: var(--space-sm);
 }
-.hero__eyebrow::after {
+.hero__stamp::after {
   content: "";
   flex: 1;
   height: 2px;
@@ -249,11 +250,21 @@ img { max-width: 100%; display: block; }
 
 .artists {
   padding-block: var(--space-3xl);
+}
+
+/* The running order is real, so the list element says so and counter() sets the
+   figures. Nothing is typed above a name. */
+.artists__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
   gap: var(--space-2xl);
+  counter-reset: artist;
 }
 
 .artist {
+  counter-increment: artist;
   position: relative;
   padding: var(--space-2xl);
   border: 2px solid var(--color-ink);
@@ -269,7 +280,7 @@ img { max-width: 100%; display: block; }
 
 .artist--mustard { background: var(--color-accent);    color: var(--color-accent-ink); }
 .artist--oxblood { background: var(--color-accent-2);  color: var(--color-paper); }
-.artist--oxblood .artist__num { color: var(--color-accent); }
+.artist--oxblood .artist__name::before { color: var(--color-accent); }
 .artist--oxblood .artist__name { color: var(--color-paper); }
 .artist--oxblood .artist__sub  { color: oklch(86% 0.045 50); }
 .artist--oxblood .halftone     { background-image: radial-gradient(var(--color-paper) 1.5px, transparent 1.5px); }
@@ -289,15 +300,16 @@ img { max-width: 100%; display: block; }
 }
 .halftone--dense { background-size: 7px 7px; }
 
-.artist__num {
-  font-family: var(--font-display);
-  font-weight: 800;
+.artist__name::before {
+  content: counter(artist, decimal-leading-zero) ".";
+  display: block;
   font-variation-settings: "wdth" 130;
   font-size: var(--text-2xl);
   line-height: 1;
   color: var(--color-accent-2);
-  margin: 0 0 var(--space-xs);
+  margin-bottom: var(--space-xs);
   letter-spacing: 0.02em;
+  text-transform: none;
 }
 .artist__name {
   font-family: var(--font-display);

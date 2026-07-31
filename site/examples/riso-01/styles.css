@@ -76,8 +76,8 @@ a { color: inherit; }
 .skip-link:focus { transform: translateY(0); }
 
 /* ── Shared shells ──────────────────────────────────────────── */
-.kicker,
-.card__tag,
+.hero__meta,
+.card__cap,
 .band__count,
 .slot__where,
 .work__when,
@@ -175,7 +175,7 @@ a { color: inherit; }
   min-height: clamp(58vh, 74dvh, 86dvh);
 }
 .hero__copy { max-width: 40rem; }
-.kicker { margin-bottom: var(--space-md); }
+.hero__meta { margin-bottom: var(--space-md); }
 .hero__title {
   font-family: var(--font-display);
   font-weight: var(--display-weight);
@@ -315,7 +315,7 @@ a { color: inherit; }
 .riso-plate__cap { align-self: end; }
 
 /* ════════════════════════════════════════════════════════════
-   BANDS (section heads — stacked single column, no eyebrow tags)
+   BANDS (section heads: stacked single column, heading only)
    ════════════════════════════════════════════════════════════ */
 .band {
   max-width: var(--page-max);
@@ -436,6 +436,13 @@ a { color: inherit; }
   line-height: var(--lh-normal);
   color: var(--color-ink-2);
   margin: 0;
+}
+/* Medium and stand number read as a plate caption under the entry, the way a
+   catalogue sets them. Above the name they were only announcing it. */
+.card__cap {
+  margin-top: var(--space-2xs);
+  padding-top: var(--space-2xs);
+  border-top: var(--rule-hair) solid var(--color-rule-2);
 }
 
 /* ── Per-card CSS "prints" — every card is a different riso composition.

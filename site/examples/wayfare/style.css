@@ -608,6 +608,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ───────── Pitch ───────── */
 
+/* The three prose parts are counted in document order, so the § figures
+   stay right if a part is added, moved, or dropped. */
+main { counter-reset: part; }
+.pitch, .process, .note { counter-increment: part; }
+
 .pitch {
   padding-block: var(--space-3xl);
   border-top: var(--rule-hair);
@@ -620,17 +625,31 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: start;
 }
 
-.pitch-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--color-ink-mute);
+/* Part heading. Each of the three prose sections gets a real <h2>, hung in
+   the outer column, with its part number drawn by a counter rather than
+   typed above it. The section mark keeps the house voice; the label is gone. */
+.part-head {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  max-width: 18ch;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  min-width: 0;
 }
 
-.pitch-label::before {
-  content: "§ ";
+.part-head::before {
+  content: "\A7\00A0" counter(part, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.18em;
   color: var(--color-accent);
+  margin-bottom: var(--space-sm);
 }
 
 .pitch-body {
@@ -826,17 +845,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .process-head {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-ink-mute);
   margin-bottom: var(--space-2xl);
-}
-
-.process-head::before {
-  content: "§ ";
-  color: var(--color-accent);
+  max-width: 22ch;
 }
 
 .process-grid {
@@ -903,19 +913,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   gap: var(--space-2xl);
-}
-
-.note-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-ink-mute);
-}
-
-.note-label::before {
-  content: "§ ";
-  color: var(--color-accent);
 }
 
 .note-body {

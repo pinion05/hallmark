@@ -81,11 +81,6 @@ mark { background-color: transparent; color: inherit; }
 
 .wrap { max-width: 1200px; margin-inline: auto; padding-inline: var(--gutter); }
 
-.eyebrow {
-  font-family: var(--font-body); font-weight: 600; font-size: 0.8125rem;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
-}
-
 /* ---- the highlighter mark: a marigold band behind the x-height ---- */
 .mark {
   padding-inline: 0.06em;
@@ -201,18 +196,20 @@ mark { background-color: transparent; color: inherit; }
 .note__label { font-weight: 600; color: var(--ink); font-size: 0.9375rem; }
 .note__value { color: var(--ink-3); font-size: 0.9375rem; text-align: right; }
 
-/* ---- section head (eyebrow stacked ABOVE heading) ---- */
+/* ---- section head: the heading opens the section, nothing above it ---- */
 .section { padding-block: var(--section-y); }
 .head { display: flex; flex-direction: column; gap: var(--space-3); max-width: 60ch; margin-bottom: var(--space-12); }
 .head__title { font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.5rem); }
 .head__sub { color: var(--ink-2); font-size: 1.0625rem; }
 
 /* ---- how it works: three connected beats (flex, staggered) ---- */
-.beats { position: relative; display: flex; gap: clamp(24px, 4vw, 56px); }
-.beat { flex: 1 1 0; min-width: 0; position: relative; z-index: 1; }
+/* a real ordered list: counter() sets the 01 / 02 / 03, nothing is typed */
+.beats { position: relative; }
+.beats__list { list-style: none; margin: 0; padding: 0; counter-reset: beat; display: flex; gap: clamp(24px, 4vw, 56px); }
+.beat { counter-increment: beat; flex: 1 1 0; min-width: 0; position: relative; z-index: 1; }
 .beat:nth-of-type(2) { margin-top: var(--space-8); }
 .beat:nth-of-type(3) { margin-top: var(--space-16); }
-.beat__num { font-family: var(--font-display); font-weight: 600; font-size: 1rem; color: var(--accent-deep); letter-spacing: 0.04em; }
+.beat::before { content: counter(beat, decimal-leading-zero); display: block; font-family: var(--font-display); font-weight: 600; font-size: 1rem; color: var(--accent-deep); letter-spacing: 0.04em; }
 .beat__spot { display: block; width: clamp(56px, 7vw, 72px); height: auto; margin: var(--space-4) 0 var(--space-5); }
 .beat__title { font-size: 1.375rem; margin-bottom: var(--space-3); }
 .beat__text { color: var(--ink-2); font-size: 1rem; }
@@ -223,7 +220,6 @@ mark { background-color: transparent; color: inherit; }
 .feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
 .feature__title { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 1.875rem); margin-bottom: var(--space-4); }
 .feature__text p { color: var(--ink-2); max-width: 54ch; }
-.feature__tag { display: inline-block; margin-bottom: var(--space-4); }
 .feature__art { display: flex; justify-content: center; }
 .feature__art svg { width: min(100%, 300px); height: auto; }
 .card {
@@ -256,7 +252,7 @@ mark { background-color: transparent; color: inherit; }
   .hero__inner { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: var(--space-12); }
   .hero__aside { justify-content: flex-start; }
   .doodle { display: none; }
-  .beats { flex-direction: column; gap: var(--space-10); }
+  .beats__list { flex-direction: column; gap: var(--space-10); }
   .beat:nth-of-type(2), .beat:nth-of-type(3) { margin-top: 0; }
   .beats__thread { display: none; }
   .feature, .feature--flip { grid-template-columns: minmax(0, 1fr); }
@@ -341,7 +337,6 @@ mark { background-color: transparent; color: inherit; }
   <section class="section" id="how">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">How it works</p>
         <h2 class="head__title">From talk to plan, in three moves.</h2>
         <p class="head__sub">No bot in the meeting asking people to repeat themselves. Fieldnote stays quiet and does the writing.</p>
       </div>
@@ -351,18 +346,17 @@ mark { background-color: transparent; color: inherit; }
           <path class="ink-2" style="stroke-dasharray: 3 9" d="M8 14 C 170 42, 300 24, 460 58 C 620 90, 754 74, 892 106" />
         </svg>
 
-        <div class="beat">
-          <span class="beat__num">01</span>
+        <ol class="beats__list">
+        <li class="beat">
           <svg class="beat__spot" viewBox="0 0 72 72" aria-hidden="true" fill="none">
             <path class="ink" d="M10 16 h38 a6 6 0 0 1 6 6 v18 a6 6 0 0 1 -6 6 h-22 l-12 10 v-10 h-4 a6 6 0 0 1 -6 -6 v-18 a6 6 0 0 1 6 -6 z" />
             <path class="acc" d="M18 26 h24 M18 34 h16" />
           </svg>
           <h3 class="beat__title">It listens</h3>
           <p class="beat__text">Add Fieldnote to the call. It follows the conversation and keeps its head down while people talk.</p>
-        </div>
+        </li>
 
-        <div class="beat">
-          <span class="beat__num">02</span>
+        <li class="beat">
           <svg class="beat__spot" viewBox="0 0 72 72" aria-hidden="true" fill="none">
             <path class="ink" d="M14 12 h26 l18 18 v30 a4 4 0 0 1 -4 4 h-40 a4 4 0 0 1 -4 -4 v-44 a4 4 0 0 1 4 -4 z" />
             <path class="ink-2" d="M40 12 v18 h18" />
@@ -370,10 +364,9 @@ mark { background-color: transparent; color: inherit; }
           </svg>
           <h3 class="beat__title">It sorts</h3>
           <p class="beat__text">Every commitment becomes an owner, a date, and a decision, written the moment it is said out loud.</p>
-        </div>
+        </li>
 
-        <div class="beat">
-          <span class="beat__num">03</span>
+        <li class="beat">
           <svg class="beat__spot" viewBox="0 0 72 72" aria-hidden="true" fill="none">
             <path class="ink" d="M10 20 h52 a4 4 0 0 1 4 4 v28 a4 4 0 0 1 -4 4 h-52 a4 4 0 0 1 -4 -4 v-28 a4 4 0 0 1 4 -4 z" />
             <path class="ink-2" d="M8 23 l28 20 l28 -20" />
@@ -381,7 +374,8 @@ mark { background-color: transparent; color: inherit; }
           </svg>
           <h3 class="beat__title">It hands off</h3>
           <p class="beat__text">The plan lands in your inbox and your task tools before the room clears. Nobody re-types the notes.</p>
-        </div>
+        </li>
+        </ol>
       </div>
     </div>
   </section>
@@ -390,7 +384,6 @@ mark { background-color: transparent; color: inherit; }
   <section class="section" id="features">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">What you get</p>
         <h2 class="head__title">A record the room can trust.</h2>
       </div>
 
@@ -398,8 +391,7 @@ mark { background-color: transparent; color: inherit; }
 
         <article class="feature">
           <div class="feature__text">
-            <span class="eyebrow feature__tag">Owners, not action items</span>
-            <h3 class="feature__title">Every next step has a name on it.</h3>
+            <h3 class="feature__title">Every next step leaves with an owner's name on it.</h3>
             <p>A task with no owner is a task nobody does. Fieldnote assigns each next step to the person who spoke up for it, and asks in the room if it is not obvious. You leave with a list of people, not a pile of verbs.</p>
           </div>
           <div class="feature__art">
@@ -417,7 +409,6 @@ mark { background-color: transparent; color: inherit; }
 
         <article class="feature feature--flip">
           <div class="feature__text">
-            <span class="eyebrow feature__tag">Dates it can defend</span>
             <h3 class="feature__title">Due dates tied to what was actually said.</h3>
             <p>When someone says "by end of week," Fieldnote writes the date, not the phrase, and links it back to the sentence it came from. If a date was never agreed, it says so plainly instead of inventing one.</p>
           </div>
@@ -437,8 +428,7 @@ mark { background-color: transparent; color: inherit; }
 
         <article class="feature">
           <div class="feature__text">
-            <span class="eyebrow feature__tag">Decisions, kept</span>
-            <h3 class="feature__title">The moment a call was made, saved for later.</h3>
+            <h3 class="feature__title">The moment a call was made, kept for later.</h3>
             <p>Two weeks on, when someone asks why you went with the smaller launch, the answer is one search away. Fieldnote keeps the decision and the reasoning next to it, so the plan holds up when memory does not.</p>
           </div>
           <div class="feature__art">
@@ -460,8 +450,7 @@ mark { background-color: transparent; color: inherit; }
   <!-- WARM CTA -->
   <section class="section band" id="pricing">
     <div class="wrap invite__inner">
-      <p class="eyebrow">Try it on one meeting</p>
-      <h2 class="invite__title">Bring your next standup. We will write the plan.</h2>
+      <h2 class="invite__title">Try it on your next standup. We will write the plan.</h2>
       <p class="invite__lede">Fieldnote is new, and still small. Start free, point it at one real meeting, and tell us where it gets things wrong. We are a few people who read every note that comes back.</p>
       <div class="invite__row">
         <button class="btn btn--primary" type="button">Start free</button>

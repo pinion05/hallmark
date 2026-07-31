@@ -1,6 +1,6 @@
 # Hallmark on Codex CLI
 
-Execution tuning for OpenAI Codex (the CLI and its IDE extension). This file tunes *execution*, never standards: the Critical floor in SKILL.md binds unchanged, all 58 gates fire, the stamp and `tokens.css` and the log append are identical, and on any conflict SKILL.md wins.
+Execution tuning for OpenAI Codex (the CLI and its IDE extension). This file tunes *execution*, never standards: the Floor in SKILL.md binds unchanged, all 58 gates fire at their usual tiers, the stamp and `tokens.css` and the log append are identical, and on any conflict SKILL.md wins.
 
 ## How you got here
 
@@ -49,7 +49,7 @@ Codex-family models carry their own visual reflexes. These are refuse-by-default
 
 1. If you notice you have restated the plan twice, stop narrating and build.
 2. Never write a gate count you did not verify. Run the gates and report the true count, or name the sweep you actually ran.
-3. If a referenced file fails to load, proceed on the Critical floor and tell the user which file was unavailable.
+3. If a referenced file fails to load, proceed on the Floor and tell the user which file was unavailable.
 4. No parallel tool calls unless the harness reliably supports them. Unsure means sequential.
 5. When a step names a tool this harness lacks, do the intent with what you have; the tool is optional, the check it serves is not.
 6. Ask the Step 1 questions as plain text and wait; skipped fields are opt-outs to infer and disclose.

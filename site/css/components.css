@@ -639,50 +639,8 @@
 }
 
 /* — Section label (01 / FOUNDATIONS) —————————————————— */
-.section-label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-weight: 400;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
-}
-
-.section-label .num { color: var(--color-ink); font-weight: 500; }
-.section-label .divider { color: var(--color-rule-2); font-weight: 300; }
-
 /* Terminal — vary the prompt prefix per section so the "//" gag doesn't get old.
    Cycles through > , //, # , -- across the run of sections. */
-[data-theme="terminal"] .section-label::before {
-  content: "> ";
-  color: var(--color-accent);
-}
-[data-theme="terminal"] .section:nth-of-type(4n+2) .section-label::before { content: "// "; }
-[data-theme="terminal"] .section:nth-of-type(4n+3) .section-label::before { content: "# "; }
-[data-theme="terminal"] .section:nth-of-type(4n+4) .section-label::before { content: "-- "; }
-
-[data-theme="manifesto"] .section-label .num {
-  color: var(--color-accent);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--text-md);
-}
-
-[data-theme="sport"] .section-label .num {
-  color: var(--color-accent);
-  font-weight: 700;
-  font-family: var(--font-display);
-  font-size: var(--text-md);
-  font-style: italic;
-}
-
-[data-theme="almanac"] .section-label {
-  font-family: var(--font-mono);
-}
-
 /* — Button (outlined default) ————————————————————————— */
 .btn {
   display: inline-flex;
@@ -1172,7 +1130,7 @@
 }
 
 /* — Without / With panels (parity demo) —————————————————
-   Both panels render the same eyebrow + H1 + sub + CTA structure.
+   Both panels render the same mark + H1 + sub + CTA structure.
    The `data-variant` attribute drives every visual difference. */
 .vs__panel {
   display: grid;
@@ -1184,7 +1142,7 @@
   align-content: start;
 }
 
-.vs__panel-eyebrow {
+.vs__panel-mark {
   font-size: 0.75rem;
   margin: 0;
 }
@@ -1223,7 +1181,7 @@
   font-family: "Inter", system-ui, sans-serif;
 }
 
-.vs__panel[data-variant="slop"] .vs__panel-eyebrow {
+.vs__panel[data-variant="slop"] .vs__panel-mark {
   color: var(--color-muted);
   font-family: inherit;
   font-weight: 500;
@@ -1267,7 +1225,7 @@
   padding-left: calc(var(--space-xl) - 2px);
 }
 
-.vs__panel[data-variant="hallmark"] .vs__panel-eyebrow {
+.vs__panel[data-variant="hallmark"] .vs__panel-mark {
   display: inline-flex;
   align-items: center;
   gap: 0.55em;
@@ -1477,7 +1435,7 @@
   white-space: nowrap;
 }
 
-.vs__panel--pricing[data-variant="slop"] .vs__panel-eyebrow {
+.vs__panel--pricing[data-variant="slop"] .vs__panel-mark {
   font-family: inherit;
   font-weight: 600;
   font-size: 0.75rem;
@@ -2253,12 +2211,8 @@ body:not(.easter-open) > footer {
   font-style: normal;
 }
 
-[data-theme="studio"] .hero__eyebrow,
+[data-theme="studio"] .hero__colophon,
 [data-theme="studio"] .label,
-[data-theme="studio"] .section-label {
-  font-feature-settings: "ss01";
-}
-
 /* Portfolio / gallery rhythm — Studio's editorial-magazine register. */
 
 [data-theme="studio"] .ex-card {
@@ -2280,24 +2234,6 @@ body:not(.easter-open) > footer {
    body text, an italic display optical-size axis for hand-set feel.
    Earns the workshop name without slipping into a formal-salon
    register. */
-
-[data-theme="atelier"] .section-label .num {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: var(--text-md);
-  font-variation-settings: "opsz" 96;
-  color: var(--color-ink);
-}
-
-[data-theme="atelier"] .section-label::after {
-  content: " · plate";
-  color: var(--color-muted);
-  font-style: italic;
-  text-transform: lowercase;
-  letter-spacing: 0;
-  margin-inline-start: 0.4em;
-}
 
 [data-theme="atelier"] .section__title {
   font-variation-settings: "opsz" 144, "SOFT" 60;
@@ -2382,12 +2318,6 @@ body:not(.easter-open) > footer {
 
 [data-theme="riso"] .hero__attrib,
 [data-theme="riso"] .label,
-[data-theme="riso"] .section-label,
-[data-theme="riso"] .banner__center {
-  text-transform: lowercase;
-  letter-spacing: 0.02em;
-}
-
 [data-theme="riso"] .banner__center {
   font-family: var(--font-display);
   font-weight: 700;
@@ -2651,7 +2581,7 @@ body:not(.easter-open) > footer {
   [data-theme="lumen"] .hero__moment::after { animation: none; }
 }
 
-.hero__eyebrow {
+.hero__colophon {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -2663,7 +2593,7 @@ body:not(.easter-open) > footer {
   margin-bottom: var(--space-lg);
 }
 
-.hero__eyebrow .mark {
+.hero__colophon .mark {
   width: 6px; height: 6px;
   background: var(--color-accent);
   display: inline-block;
@@ -3529,7 +3459,7 @@ html[data-theme="bloom"] body {
   max-width: 52ch;
 }
 
-[data-theme="bloom"] .hero__eyebrow {
+[data-theme="bloom"] .hero__colophon {
   margin-inline: auto;
   justify-content: center;
 }
@@ -3548,9 +3478,6 @@ html[data-theme="bloom"] body {
   text-align: left;
   border-bottom: 0;
   padding-bottom: var(--space-md);
-}
-[data-theme="bloom"] .section-label {
-  justify-content: flex-start;
 }
 [data-theme="bloom"] .section__title {
   margin-inline: 0;
@@ -4492,15 +4419,6 @@ html[data-theme="aurora"] body {
 }
 
 /* Section numeral as a leaderboard-style cell with a thin top rule */
-[data-theme="sport"] .section-label .num {
-  display: inline-block;
-  padding: 0.15em 0.45em 0.05em;
-  border-block-start: 2px solid var(--color-accent);
-  background: color-mix(in oklch, var(--color-accent) 6%, transparent);
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
-}
-
 /* Sharper sweep easing on Sport reveals — sportier */
 [data-theme="sport"] .reveal.is-in {
   animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
@@ -4557,16 +4475,6 @@ html[data-theme="aurora"] body {
 }
 
 /* Roman-numeral section heads — replaces the leading number */
-[data-theme="editorial"] .section-label .num {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0;
-}
-[data-theme="editorial"] .section-label .divider {
-  opacity: 0.55;
-}
-
 /* Quieter rules and accents */
 [data-theme="editorial"] .section__head {
   border-bottom-color: var(--color-rule);
@@ -4644,8 +4552,6 @@ html[data-theme="aurora"] body {
   padding-block: var(--space-2xl);
 }
 .section--invert .section__title,
-.section--invert .section-label,
-.section--invert .section__head { color: var(--color-paper); }
 .section--invert .section__head { border-bottom-color: oklch(50% 0.02 60 / 0.4); }
 
 /* — Asymmetric hero ratio knob ——————————————————————————————
@@ -4653,15 +4559,6 @@ html[data-theme="aurora"] body {
    for the asymmetric editorial move. Apply to `.hero--split[data-ratio="asym"]`. */
 .hero--split[data-ratio="asym"] {
   grid-template-columns: 0.78fr 1.22fr;
-}
-
-/* — Roman-numeral section-label variant —————————————————————
-   `<span class="num num--roman">XII</span>` rendered in italic serif. */
-.section-label .num--roman {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0;
 }
 
 /* — Smart sticky nav (reveal on scroll-up) ———————————————————

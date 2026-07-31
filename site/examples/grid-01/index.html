@@ -92,11 +92,11 @@ a:active { opacity: 0.7; }
   gap: 0;
 }
 
-.label {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.09em;
-  text-transform: uppercase; line-height: 1.2; color: var(--muted);
-}
+/* Section mark - a short red bar on the section's own hairline. It is the only
+   thing that opens a section here, all the way down the page. No words. */
 .sec-head { padding-block: var(--space-6) var(--space-6); }
+.sec-head__rule { height: 3px; width: var(--space-9); background: var(--red); border: 0; margin: 0; }
+.sec-head__rule + .sec-head__title { margin-top: var(--space-4); }
 .sec-head__title {
   font-family: var(--font-display); font-weight: 800;
   font-size: clamp(28px, 3.6vw, 46px); letter-spacing: -0.025em;
@@ -166,8 +166,10 @@ a:active { opacity: 0.7; }
 
 /* ---- method band: practice / method / standort ---- */
 .band { padding-block: clamp(48px, 8vw, 112px); border-top: 1px solid var(--ink); }
-.band__cols { margin-top: var(--space-4); }
+/* a real ordered list: counter() draws A / B / C, nothing is typed */
+.band__cols { margin-top: var(--space-4); list-style: none; margin-inline: 0; padding: 0; counter-reset: band; }
 .band__col {
+  counter-increment: band;
   grid-column: span 4;
   padding-inline-end: var(--space-6);
   padding-top: var(--space-4);
@@ -175,7 +177,9 @@ a:active { opacity: 0.7; }
   min-width: 0;
 }
 .band__col:first-child { border-top-color: var(--ink); }
-.band__num {
+.band__col::before {
+  content: counter(band, upper-alpha);
+  display: block;
   font-family: var(--font-display); font-weight: 800; font-size: 14px;
   color: var(--muted); letter-spacing: 0;
 }
@@ -240,8 +244,6 @@ a:active { opacity: 0.7; }
 
 /* ---- contact ---- */
 .contact { padding-block: clamp(48px, 8vw, 112px); border-top: 1px solid var(--ink); }
-.contact__rule { height: 3px; width: var(--space-9); background: var(--red); }
-.contact .sec-head .label { margin-top: var(--space-4); }
 .contact__body { margin-top: var(--space-6); }
 .contact__main { grid-column: 1 / span 7; min-width: 0; }
 .contact__mail {
@@ -330,7 +332,6 @@ a:active { opacity: 0.7; }
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <p class="label">Identity &amp; signage systems</p>
         <h1 class="hero__title" id="hero-title">schedule,<br />then ship<span class="hero__period" aria-hidden="true"></span></h1>
         <div class="hero__foot">
           <p class="hero__lead">Büro Grid builds identity, wayfinding, and editorial systems for institutions that plan in decades. We draw the grid first, so every decision after it has somewhere to stand.</p>
@@ -340,32 +341,29 @@ a:active { opacity: 0.7; }
 
       <section class="band" id="method" aria-labelledby="method-title">
         <div class="sec-head">
-          <p class="label">01 · Practice</p>
+          <hr class="sec-head__rule" />
           <h2 class="sec-head__title" id="method-title">Structure before surface</h2>
         </div>
-        <div class="band__cols grid">
-          <div class="band__col">
-            <p class="band__num">A</p>
+        <ol class="band__cols grid">
+          <li class="band__col">
             <h3>Practice</h3>
             <p>Identity systems, signage programmes, and editorial grids. Each project begins as a set of rules, never as a single picture.</p>
-          </div>
-          <div class="band__col">
-            <p class="band__num">B</p>
+          </li>
+          <li class="band__col">
             <h3>Method</h3>
             <p>Fixed modules, one measure, a single accent. The system has to survive twenty years of new hands, new content, and new signage.</p>
-          </div>
-          <div class="band__col">
-            <p class="band__num">C</p>
+          </li>
+          <li class="band__col">
             <h3>Standort</h3>
             <p>Based in Basel, working across the institutional landscape in German and English. On site whenever the building itself needs us.</p>
-          </div>
-        </div>
+          </li>
+        </ol>
       </section>
 
       <section class="work" id="work" aria-labelledby="work-title">
         <div class="sec-head">
-          <p class="label">02 · Selected work</p>
-          <h2 class="sec-head__title" id="work-title">Index</h2>
+          <hr class="sec-head__rule" />
+          <h2 class="sec-head__title" id="work-title">Index of selected work</h2>
         </div>
         <ol class="work__list">
           <li>
@@ -421,7 +419,8 @@ a:active { opacity: 0.7; }
 
       <section class="manifesto" aria-labelledby="pos-title">
         <div class="sec-head">
-          <p class="label" id="pos-title">Position</p>
+          <hr class="sec-head__rule" />
+          <h2 class="sec-head__title" id="pos-title">Position</h2>
         </div>
         <div class="manifesto__body grid">
           <p class="manifesto__line">A grid is not decoration. It is a decision made once, in public, so that every decision after it can be smaller, calmer, and easier to defend<span class="manifesto__dot">.</span></p>
@@ -430,8 +429,7 @@ a:active { opacity: 0.7; }
 
       <section class="contact" id="contact" aria-labelledby="contact-title">
         <div class="sec-head">
-          <div class="contact__rule" aria-hidden="true"></div>
-          <p class="label">Contact</p>
+          <hr class="sec-head__rule" />
           <h2 class="sec-head__title" id="contact-title">Start something that outlasts its brief</h2>
         </div>
         <div class="contact__body grid">

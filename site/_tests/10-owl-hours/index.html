@@ -150,15 +150,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   gap: var(--space-md);
 }
 
-.title-block__eyebrow {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-block-end: var(--space-md);
-}
-
 .title-block__display {
   font-family: var(--font-display);
   font-weight: 600;
@@ -234,13 +225,18 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   }
 }
 
-.declarations__label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
+/* The left column was holding a label while the real heading hid off-screen at
+   -9999px. Now it holds the heading itself, hung beside the list it governs. */
+.declarations__head {
   align-self: start;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.125rem);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-ink);
+  text-wrap: balance;
 }
 
 .declarations__list {
@@ -318,18 +314,14 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   padding-block: var(--space-3xl) var(--space-2xl);
 }
 
+/* The section opens on the same hairline every other section opens on. That
+   rule is the break; nothing needs to say so in words. */
 .practice__head {
   display: grid;
   gap: var(--space-2xs);
   margin-block-end: var(--space-2xl);
-}
-
-.practice__label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+  padding-block-start: var(--space-lg);
 }
 
 .practice__title {
@@ -434,8 +426,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   </header>
 
   <section class="title-block" aria-labelledby="t-title">
-    <p class="title-block__eyebrow">A drafting space, after dark</p>
-    <h1 class="title-block__display" id="t-title">A page that <em>holds</em> the chapter — and nothing else.</h1>
+    <h1 class="title-block__display" id="t-title">A page that <em>holds</em> the chapter after dark, and nothing else.</h1>
     <p class="title-block__lede">
       Owl Hours is a single-screen drafting space for fiction writers who work between 10pm and 2am. No tabs. No streak counters. No "you're on a roll" toasts at midnight. Just the chapter, the cursor, and the kind of dark that doesn't fight your eyes.
     </p>
@@ -446,8 +437,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   </section>
 
   <section class="declarations" id="declarations" aria-labelledby="d-title">
-    <p class="declarations__label">02 / What it refuses</p>
-    <h2 class="declarations__label" id="d-title" style="position: absolute; left: -9999px;">Five things Owl Hours refuses to do</h2>
+    <h2 class="declarations__head" id="d-title">Five things Owl Hours refuses to do</h2>
     <ol class="declarations__list">
       <li class="declaration">
         <span class="declaration__num">01.</span>
@@ -478,7 +468,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
 
   <section class="practice" id="practice" aria-labelledby="p-title">
     <header class="practice__head">
-      <p class="practice__label">04 / Practice</p>
       <h2 class="practice__title" id="p-title">Three working rules — <em>nothing else fits on the screen.</em></h2>
     </header>
 

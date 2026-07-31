@@ -4,10 +4,10 @@ Read the file(s) the user pointed at. For each finding, return:
 
 - **Tell** — the named anti-pattern from [`anti-patterns.md`](../anti-patterns.md).
 - **Where** — file path and line range.
-- **Severity** — `critical` (ships as slop), `major` (looks AI-generated), `minor` (small taste issue).
+- **Severity** — derived from the tell's tier, never assigned by feel: Floor → `critical`, Reflex → `major`, Finish → `minor`. Plus one more, `noted`, for a Reflex gate the audited output has already **waived** in its stamp: the page declared it, so it is not a finding. Report it once, in its own short group, so the reader can disagree with the waiver if they want to.
 - **Fix** — one-line concrete correction.
 
-Group by severity. Do not edit. Do not redesign. End with a count: `N critical · M major · K minor`.
+Group by severity. Do not edit. Do not redesign. End with a count: `N critical · M major · K minor · J noted`.
 
 Audit *also* checks structural fingerprint: if the page uses the AI template (centered hero, 3 equal feature cards, CTA, footer, with no asymmetry or surprise), flag it as a critical structural finding even if the visual treatment is fine.
 
@@ -26,7 +26,7 @@ Inversely, on a project *without* `design.md`, the standard diversification rule
 
 ## Reporting by tell name
 
-Findings cite tell names exactly as the slim list in [`anti-patterns.md`](../anti-patterns.md) spells them; its Critical / Major / Micro groups map to the severities critical / major / minor. When the tell carries a "(gate N)" marker, cite the gate: the enforcement detail and the full fix live in [`slop-test.md`](../slop-test.md).
+Findings cite tell names exactly as the slim list in [`anti-patterns.md`](../anti-patterns.md) spells them; its Floor / Reflex / Finish groups map to critical / major / minor by construction, so the severity is never a judgement call. When the tell carries a "(gate N)" marker, cite the gate: the enforcement detail and the full fix live in [`slop-test.md`](../slop-test.md).
 
 For each finding:
 

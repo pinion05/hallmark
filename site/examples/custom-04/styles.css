@@ -284,18 +284,11 @@ body::after { /* directional grain — fine diagonal hatch */
   padding-top: clamp(var(--space-xl), 5vw, var(--space-3xl));
 }
 .spine__head {
-  display: block; /* gate 54 — eyebrow + heading single column */
+  display: block;
   margin-bottom: clamp(var(--space-xl), 6vw, var(--space-3xl));
 }
-.spine__eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-accent-deep);
-}
 .spine__title {
-  margin-top: var(--space-sm);
+  margin-top: 0;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-3xl);

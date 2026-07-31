@@ -24,7 +24,7 @@
     48  inline hex colour outside the token block
     50  bare 1fr grid track holding an img
     51  display header with a long unbroken word, no overflow-wrap
-    54  eyebrow + h2 sharing a two-column grid row
+    54  an eyebrow before an h2 (the two-column head is incidental now)
     55  uppercase h2 at line-height 0.94
     56  two position:sticky top:0 elements
 -->
@@ -85,7 +85,7 @@ h2 {
 }
 .features__head {
   display: grid;
-  grid-template-columns: 1fr 2fr;    /* gate 54: eyebrow beside heading */
+  grid-template-columns: 1fr 2fr;    /* the eyebrow itself is gate 54; see the markup */
 }
 .gallery {
   display: grid;

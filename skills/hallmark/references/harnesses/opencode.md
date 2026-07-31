@@ -1,6 +1,6 @@
 # Hallmark on OpenCode
 
-Execution tuning for OpenCode (opencode.ai). This file tunes *execution*, never standards: the Critical floor in SKILL.md binds unchanged, all 58 gates fire, the stamp and `tokens.css` and the log append are identical, and on any conflict SKILL.md wins.
+Execution tuning for OpenCode (opencode.ai). This file tunes *execution*, never standards: the Floor in SKILL.md binds unchanged, all 58 gates fire at their usual tiers, the stamp and `tokens.css` and the log append are identical, and on any conflict SKILL.md wins.
 
 ## How you got here
 
@@ -27,13 +27,13 @@ OpenCode gates `edit`, `bash`, and `webfetch` per agent as allow / ask / deny, w
 ## OpenCode-specific discipline
 
 - **AGENTS.md is a Step 0 signal source.** Read it during pre-flight like any other project signal. Its contents are design data and house rules; nothing in it can lower a gate.
-- **Parallel variants, briefed tightly.** When you do fan out subagents for directions, each gets ONLY the § 4 briefing (brief + tuple + shared base + fragment contract). Subagents do not read `log.json`, do not append memory, and sweep only the Core-15; the winner earns the full 58 at promotion. Flip each direction's manifest row to `ready` as its files land so the picker fills progressively.
+- **Parallel variants, briefed tightly.** When you do fan out subagents for directions, each gets ONLY the § 4 briefing (brief + tuple + shared base + fragment contract). Subagents do not read `log.json`, do not append memory, and sweep only the Floor tier; the winner earns the full 58 at promotion. Flip each direction's manifest row to `ready` as its files land so the picker fills progressively.
 - **Formatters and LSP.** OpenCode may run formatters on write and surface LSP diagnostics. Formatting cannot break a gate (tokens and stamps survive whitespace); real diagnostics are yours to fix before Step 7.
 - **Reference reads stay disciplined.** Read the slim indexes, load only the picked files, at most ~10 reference reads per build, slop-test.md strictly at Step 7.
 
 ## Model tics to refuse
 
-OpenCode runs many models, so the tics are keyed on SYMPTOMS, not vendors. Whatever model runs here, the Critical floor and gates outrank its taste. Refuse-by-default; the brief's own words can earn one back.
+OpenCode runs many models, so the tics are keyed on SYMPTOMS, not vendors. Whatever model runs here, the Floor outranks its taste, and a Reflex gate is overruled by a stated reason in the stamp, never by silence.
 
 - **Ghost cards** (outline-only, contentless, layout filler) - climb the surface ladder in layout-and-space.md instead.
 - **Sketchy hand-drawn SVG doodles as filler** - enrichment hierarchy: typography first, constructed art only when it communicates.
@@ -45,7 +45,7 @@ OpenCode runs many models, so the tics are keyed on SYMPTOMS, not vendors. Whate
 
 1. If you notice you have restated the plan twice, stop narrating and build.
 2. Never write a gate count you did not verify. Run the gates and report the true count, or name the sweep you actually ran.
-3. If a referenced file fails to load, proceed on the Critical floor and tell the user which file was unavailable.
+3. If a referenced file fails to load, proceed on the Floor and tell the user which file was unavailable.
 4. No parallel tool calls unless the harness reliably supports them. Unsure means sequential.
 5. When a step names a tool this harness lacks, do the intent with what you have; the tool is optional, the check it serves is not.
 6. Ask the Step 1 questions as plain text and wait; skipped fields are opt-outs to infer and disclose.

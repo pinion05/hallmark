@@ -162,18 +162,6 @@ h1, h2, h3, p { margin: 0; }
   }
 }
 
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-block-end: var(--space-md);
-}
-
 .hero__display {
   font-family: var(--font-display);
   font-style: italic;
@@ -240,12 +228,17 @@ h1, h2, h3, p { margin: 0; }
   min-height: 24rem;
 }
 
-.hero__plate-label {
+/* The plate is named by its name. What the bag actually is gets set underneath,
+   as a catalogue caption on the same hairline the meta rows use. */
+.hero__plate-cap {
   font-family: var(--font-label);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-muted);
+  border-block-start: 1px solid var(--color-rule);
+  padding-block-start: var(--space-2xs);
+  margin-block-start: var(--space-2xs);
 }
 
 .hero__plate-name {
@@ -299,14 +292,6 @@ h1, h2, h3, p { margin: 0; }
   display: grid;
   gap: var(--space-2xs);
   margin-block-end: var(--space-2xl);
-}
-
-.notes__label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
 }
 
 .notes__title {
@@ -386,12 +371,16 @@ h1, h2, h3, p { margin: 0; }
   }
 }
 
-.letter__label {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
+/* No title over the letter: it opens on its drop cap, the way a letter does.
+   The margin column carries the dateline instead, beside the prose. */
+.letter__dateline {
+  align-self: start;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--lh-relaxed);
+  font-style: italic;
   color: var(--color-muted);
+  max-width: 24ch;
 }
 
 .letter__body {
@@ -527,8 +516,7 @@ h1, h2, h3, p { margin: 0; }
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__copy">
-      <p class="hero__eyebrow">A small-batch dispatch</p>
-      <h2 class="hero__display" id="hero-title">One bag, every other Tuesday.</h2>
+      <h2 class="hero__display" id="hero-title">One small-batch bag, every other Tuesday.</h2>
       <p class="hero__lede">
         We roast on Sunday, ship Monday, and arrange for the bag to be on your kitchen counter by Tuesday morning. One curated bag, every two weeks. No flights of cup-tasting flutes. No subscription tier with adjectives.
       </p>
@@ -539,7 +527,6 @@ h1, h2, h3, p { margin: 0; }
     </div>
 
     <aside class="hero__plate" aria-label="This week's bag">
-      <p class="hero__plate-label">No. 03 · This week's bag</p>
       <p class="hero__plate-name">Estancia el&nbsp;Pino, Tolima</p>
 
       <svg class="bean" viewBox="0 0 220 220" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
@@ -568,13 +555,13 @@ h1, h2, h3, p { margin: 0; }
           <dd>Sunday, 17 May</dd>
         </div>
       </dl>
+      <p class="hero__plate-cap">Bag No. 03 of the rotation, 250 g</p>
     </aside>
   </section>
 
   <section class="notes" aria-labelledby="notes-title">
     <header class="notes__head">
-      <p class="notes__label">03 / The week, ordered</p>
-      <h2 class="notes__title" id="notes-title">Three days. One bag. Done by Wednesday.</h2>
+      <h2 class="notes__title" id="notes-title">Three days, in order. One bag. Done by Wednesday.</h2>
     </header>
 
     <ol class="notes__list">
@@ -596,10 +583,9 @@ h1, h2, h3, p { margin: 0; }
     </ol>
   </section>
 
-  <section class="letter" id="letter" aria-labelledby="letter-title">
-    <p class="letter__label">A letter from the roaster</p>
+  <section class="letter" id="letter" aria-label="A letter from the roaster">
+    <p class="letter__dateline">Written at the roastery on <time datetime="2026-05-17">Sunday, 17 May</time>, over the cooling tray, while No. 03 came off the drum.</p>
     <div class="letter__body">
-      <h2 class="visually-hidden" id="letter-title" style="position: absolute; left: -9999px;">A letter from the roaster</h2>
       <p>We are not the cheapest subscription, and we are not interested in being one. The bag we send is the bag we drank that morning — the same roast, the same date, the same notes on the page. Two weeks is not arbitrary; it's how long a 250 g bag holds at its best, and how long we want you to live with one coffee before the next arrives.</p>
       <p>If a week is wrong for you, you can pause. If two weeks is too often, you can stretch to four. If you change your mind on the bean, the next dispatch is yours to redirect. The point is not the volume; the point is that the coffee that arrives is the coffee we'd brew for ourselves.</p>
       <p class="letter__sign">— J. &amp; M., the roastery</p>

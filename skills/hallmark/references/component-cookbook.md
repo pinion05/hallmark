@@ -26,7 +26,9 @@ The same macrostructure (e.g., Bento Grid) can be built from many different comb
 
 ### Section heads
 
-- **S1 · Stacked numbered** — The section number stacks directly above the heading, same column (the old side-column form is gate 54's auto-fail). [`components/s1-left-margin-numbered.md`](components/s1-left-margin-numbered.md)
+**Read [`section-entry.md`](section-entry.md) before picking one.** Eyebrows are banned (gate 54), so how a section opens is a design decision now, not a default. These five are the structural shells; that file is the twelve ways in.
+
+- **S1 · Ordinal by structure** — A genuinely ordered run numbered by `<ol>` + `counter()`, never by a label typed above the heading. [`components/s1-left-margin-numbered.md`](components/s1-left-margin-numbered.md)
 - **S2 · Hanging** — Heading floats above the section in negative space; no border, no rule. [`components/s2-hanging.md`](components/s2-hanging.md)
 - **S3 · Sticky pinned** — Heading remains in viewport while content scrolls beneath. Orientation aid. [`components/s3-sticky-pinned.md`](components/s3-sticky-pinned.md)
 - **S4 · Inline no break** — The heading is a small caps phrase that emerges *inside* the body flow; no spatial break. [`components/s4-inline-no-break.md`](components/s4-inline-no-break.md)

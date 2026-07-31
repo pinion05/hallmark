@@ -45,7 +45,7 @@
   --step-lede:    clamp(1.0625rem, 0.8vw + 0.7rem, 1.3125rem);
   --step-body:    1.0625rem;
   --step-code:    0.875rem;
-  --step-small:   0.75rem;                 /* mono labels / eyebrows */
+  --step-small:   0.75rem;                 /* mono labels / meta rows */
 
   --tracking-display: -0.03em;
   --tracking-snug:    -0.015em;

@@ -49,14 +49,6 @@ input, select { font: inherit; color: inherit; }
   padding-inline: var(--gutter);
 }
 
-.eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: var(--track-wide);
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-}
 
 /* ── Announcement bar ─────────────────────────────── */
 .announce {
@@ -670,7 +662,7 @@ input, select { font: inherit; color: inherit; }
   background-size: 64px 64px;
   opacity: 0.06;
 }
-.editorial__eyebrow {
+.editorial__plate {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.18em;

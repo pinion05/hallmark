@@ -114,18 +114,20 @@ A painterly field as a full-bleed section accent. One section per page, never gl
 
 ### Decoration
 
-Inline ornament beside a quote or in the section-label gutter. Small. No border, no shadow, no animation.
+Inline ornament beside a quote, or standing alone as a section divider. Small. No border, no shadow, no animation. Never inside a label above a heading — that is an eyebrow with a picture in it (gate 54); an ornament that opens a section stands on its own, as a rule does.
 
 ```html
-<p class="section-label">
-  <span class="num">02</span>
-  <img class="section-label__ornament" src="…/imagery/ornament/ornament-stamp-01.svg" alt="" aria-hidden="true" />
-  <span>Examples</span>
-</p>
+<hr class="divider-mark" />
+<h2>What the press said</h2>
 ```
 
 ```css
-.section-label__ornament { width: 1.5em; height: auto; vertical-align: middle; }
+.divider-mark { border: 0; height: auto; margin-block: var(--space-2xl); text-align: center; }
+.divider-mark::before {
+  content: ""; display: inline-block; width: 1.5rem; height: 1.5rem;
+  background: var(--color-muted);
+  mask: url("…/imagery/ornament/ornament-stamp-01.svg") center / contain no-repeat;
+}
 ```
 
 ### Texture overlay

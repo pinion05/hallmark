@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Waiver fixture. Five waivers are claimed; three are honoured and two are refused,
+  and one of the refusals leaves its gate failing. That last part is the mechanism:
+  an over-cap waiver does not fall back to silence, it falls back to the gate.
+
+  Assertion (run from this directory):
+
+    node ../../sloplint.mjs . --json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const j=JSON.parse(s);console.log(JSON.stringify(j.summary))})"
+    # expected: fails 2, waived 3, rejected 2
+    # (counts are findings, not gates: gate 1 fires on both the token and the h1
+    #  rule, and gate 7 on both the token and the body background)
+
+  Case by case:
+    waive 40  → refused, Floor is never waivable
+    waive 7   → honoured; the guard (surface: absolute in the stamp) holds
+    waive 22  → honoured
+    waive 25  → honoured (no finding to downgrade here); fills the three-gate cap
+    waive 1   → refused on the cap, and gate 1 then fails on its own merits
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waiver fixture</title>
+<style>
+/* Hallmark · macrostructure: Manifesto · tone: austere · anchor hue: 250 · surface: absolute · nav: N9 · footer: Ft2 · hero: Poster/H1 */
+/* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V4 · weakest: E - fixture, not a real build */
+/* Hallmark · waive 40 · contrast measured on the stage · the manifesto is printed white on black */
+/* Hallmark · waive 7 · surface: absolute declared, 40-41 pass · the manifesto stage is printed on black paper */
+/* Hallmark · waive 22 · neutrals achromatic throughout · the manifesto rules are pure grey by intent */
+/* Hallmark · waive 25 · measure runs to 96ch · the manifesto sets long declarative lines */
+/* Hallmark · waive 1 · two families declared · the manifesto pairs a display serif with a grotesque */
+:root {
+  --color-paper: #000;
+  --color-ink: oklch(96% 0 250);
+  --font-display: Inter, sans-serif;
+  --font-body: "Public Sans", sans-serif;
+}
+html, body { overflow-x: clip; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
+h1 { font-family: var(--font-display); }
+</style>
+</head>
+<body>
+  <h1>A manifesto printed on a black stage</h1>
+  <p>The manifesto sets long declarative lines and lets the paper do the shouting.</p>
+</body>
+</html>

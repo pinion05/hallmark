@@ -343,7 +343,7 @@ section[tabindex]:focus { outline: none; }
 .track--b .track__copy  { grid-column: 1; grid-row: 1 / 3; align-self: center; }
 .track--b .minwave      { grid-column: 1 / -1; }
 
-.track__head { grid-column: 1; }   /* eyebrow + heading stacked (gate 54) */
+.track__head { grid-column: 1; }   /* heading alone, single column (gate 54) */
 .track__title {
   font-family: var(--font-display);
   font-weight: 460;

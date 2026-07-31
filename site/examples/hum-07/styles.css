@@ -20,13 +20,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-focus); o
 button { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; color: inherit; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-.eyebrow { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--color-ink-2); opacity: 0.78; margin: 0 0 1rem; display: inline-flex; align-items: center; gap: 0.55em; }
-.eyebrow__dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
-.eyebrow__dot--pear { background: var(--color-accent); }
-.eyebrow__dot--cyan { background: var(--color-accent-2); }
-.eyebrow__dot--coral { background: var(--color-accent-3); }
-.eyebrow__dot--mint { background: var(--color-mint); }
-.eyebrow__dot--lavender { background: var(--color-lavender); }
+/* Section mark - a lit dot on a hairline, opening a section without labelling it.
+   The dot colour rotates down the page; that rhythm is the orientation aid. */
+.section__mark { border: 0; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.55em; }
+.section__mark::before { content: ""; flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 12px oklch(86% 0.18 95 / 0.45); }
+.section__mark::after { content: ""; flex: 1; height: 1px; background: var(--color-rule); }
+.section__mark--cyan::before { background: var(--color-accent-2); box-shadow: 0 0 12px oklch(66% 0.18 235 / 0.4); }
+.section__mark--coral::before { background: var(--color-accent-3); box-shadow: 0 0 12px oklch(68% 0.24 18 / 0.4); }
+.section__mark--mint::before { background: var(--color-mint); box-shadow: 0 0 12px oklch(80% 0.16 150 / 0.4); }
+.section__mark--lavender::before { background: var(--color-lavender); box-shadow: 0 0 12px oklch(74% 0.16 305 / 0.4); }
 
 /* Emphasis highlight — clipped background gradient on the text itself (tracks wraps). Mint default. */
 em, .hl {
@@ -177,24 +179,25 @@ em, .hl {
 .section--mint { background: var(--tint-mint); }
 .section__head { margin-bottom: 3rem; max-width: 54rem; }
 .section__head--center { text-align: center; margin-inline: auto; }
-.section__head--center .eyebrow { justify-content: center; }
+.section__head--center .section__mark { max-width: 8rem; margin-inline: auto; }
 .section__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 3.5vw + 0.5rem, 3.25rem); line-height: 1.08; letter-spacing: -0.025em; color: var(--color-ink); margin: 0; max-width: 22ch; text-wrap: balance; }
 .section__head--center .section__title { margin-inline: auto; }
 .section__lede { font-size: 1.0625rem; line-height: 1.6; color: var(--color-ink-2); max-width: 52ch; margin: 1rem 0 0; }
 .section__head--center .section__lede { margin-inline: auto; }
 
 /* ═══ THE TIMELINE SPINE · numbered stages ═══ */
-.stages { display: flex; flex-direction: column; }
-.stage { display: grid; grid-template-columns: clamp(3.25rem, 4vw + 2rem, 4.75rem) 1fr; gap: clamp(1.1rem, 3vw, 2.5rem); }
+/* A real ordered list: the rail numeral is drawn by counter(), never typed. */
+.stages { list-style: none; margin: 0; padding: 0; counter-reset: stage; display: flex; flex-direction: column; }
+.stage { counter-increment: stage; display: grid; grid-template-columns: clamp(3.25rem, 4vw + 2rem, 4.75rem) 1fr; gap: clamp(1.1rem, 3vw, 2.5rem); }
 .stage--mint  { --st: var(--color-mint);      --st-deep: var(--color-mint-deep);      --st-ink: var(--color-ink);   --st-tint: var(--tint-mint); }
 .stage--cyan  { --st: var(--color-accent-2);  --st-deep: var(--color-accent-2-deep);  --st-ink: var(--color-paper); --st-tint: var(--tint-cyan); }
 .stage--pear  { --st: var(--color-accent);    --st-deep: var(--color-accent-deep);    --st-ink: var(--color-ink);   --st-tint: var(--tint-pear); }
 .stage--coral { --st: var(--color-accent-3);  --st-deep: var(--color-accent-3-deep);  --st-ink: var(--color-paper); --st-tint: var(--tint-coral); }
 
 .stage__rail { position: relative; display: flex; flex-direction: column; align-items: center; }
-.stage__node { width: clamp(3.25rem, 4vw + 2rem, 4.75rem); aspect-ratio: 1; border-radius: 22px; display: grid; place-items: center; background: var(--st); color: var(--st-ink); box-shadow: 0 5px 0 -1px var(--st-deep), var(--shadow-card); font-family: var(--font-display); font-weight: 700; line-height: 1; transform: scale(0.55); opacity: 0; transition: transform 520ms var(--ease-spring), opacity 300ms ease; }
-.stage__node b { font-size: clamp(1.4rem, 1.6vw + 0.7rem, 2rem); letter-spacing: -0.03em; }
-.stage__node small { font-size: 0.5em; opacity: 0.72; }
+.stage__node { width: clamp(3.25rem, 4vw + 2rem, 4.75rem); aspect-ratio: 1; border-radius: 22px; display: flex; align-items: baseline; justify-content: center; background: var(--st); color: var(--st-ink); box-shadow: 0 5px 0 -1px var(--st-deep), var(--shadow-card); font-family: var(--font-display); font-weight: 700; line-height: 1; transform: scale(0.55); opacity: 0; transition: transform 520ms var(--ease-spring), opacity 300ms ease; }
+.stage__node::before { content: counter(stage); font-size: clamp(1.4rem, 1.6vw + 0.7rem, 2rem); letter-spacing: -0.03em; }
+.stage__node::after { content: ".0"; font-size: clamp(0.7rem, 0.8vw + 0.35rem, 1rem); opacity: 0.72; }
 .stage__line { flex: 1 1 auto; width: 3px; min-height: clamp(1.5rem, 4vh, 2.75rem); background: var(--st); border-radius: 3px; margin-block: 0.6rem; transform: scaleY(0); transform-origin: top; transition: transform 600ms var(--ease-out) 130ms; }
 .stage:last-child .stage__line { display: none; }
 
@@ -204,7 +207,6 @@ em, .hl {
 .stage.is-in .stage__line { transform: scaleY(1); }
 .stage.is-in .stage__panel { opacity: 1; transform: none; }
 
-.stage__label { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--st-deep); margin: 0 0 0.6rem; font-weight: 500; }
 .stage__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 2vw + 0.6rem, 2.1rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-ink); margin: 0 0 0.7rem; }
 .stage__text { font-size: 0.9875rem; line-height: 1.6; color: var(--color-ink-2); margin: 0 0 1.15rem; max-width: 48ch; }
 .stage__text b { font-weight: 600; color: var(--color-ink); }

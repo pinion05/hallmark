@@ -112,6 +112,8 @@ Three voice patterns: *poetic restraint*, *passion via enumeration*, *vulnerabil
 
 Three voice patterns: *spec-embedded prose*, *measured language*, *data-first opening*.
 
+**The numbers in these samples belong to the sites they were taken from.** Copy the shape, never the figure: an unsourced number on your page is gate 46a, whatever it was modelled on.
+
 - *"The 14-inch MacBook Pro with M5 brings serious speed and advanced on-device AI to the personal, professional, and creative work you do every day."* — apple.com — spec embedded in prose; "serious speed" is measured language
 - *"434 total posts. New CSS you feel like you could use today."* — nerdy.dev (Adam Argyle) — data-first; "feel like" suggests genuine utility
 - *"$ streampipe parse access.log --filter status=5xx | jq"* — Streampipe (test 02) — open on a real command, not a marketing claim

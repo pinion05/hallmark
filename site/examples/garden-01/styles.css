@@ -223,13 +223,6 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__copy { max-width: 36rem; }
 
-.hero__eyebrow {
-  font: 500 var(--text-sm)/1.3 var(--font-label);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: var(--space-md);
-}
 .hero__title {
   font-family: var(--font-display);
   font-weight: var(--display-weight);
@@ -588,7 +581,7 @@ a { color: inherit; text-decoration: none; }
 .card__stock[data-stock="out"]::before { background: var(--color-muted); }
 
 /* ════════════════════════════════════════════════════════════════
-   HOW A JAR IS FILLED — short process, stacked (no eyebrows)
+   HOW A JAR IS FILLED: short process, stacked, heading only
    ════════════════════════════════════════════════════════════════ */
 .poured__head,
 .poured__steps {

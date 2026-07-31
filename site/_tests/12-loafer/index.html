@@ -185,12 +185,18 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   min-width: 0;
 }
 
-.tile__label {
+/* No tile opens with a line naming itself. Where a tile has something to say
+   that its heading cannot, it says it underneath, as a plate caption on a
+   hairline: the card is the thing, the caption identifies it. */
+.tile__cap {
   font-family: var(--font-label);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-muted);
+  margin: 0;
+  padding-block-start: var(--space-sm);
+  border-block-start: 1px solid var(--color-rule-2);
 }
 
 /* HERO TILE — spans 4 columns × 2 rows */
@@ -225,7 +231,14 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   font-size: var(--text-md);
   line-height: var(--lh-relaxed);
   color: var(--color-ink-2);
-  max-width: 36ch;
+  max-width: 52ch;
+}
+
+/* The orienting words open the sentence and stay in it. Pulled onto their own
+   line they would just be the label again. */
+.tile__lede-in {
+  font-weight: 600;
+  color: var(--color-ink);
 }
 
 .tile__cta-row {
@@ -441,8 +454,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   align-content: space-between;
 }
 
-.tile--cta .tile__label { color: color-mix(in oklch, var(--color-paper) 70%, transparent); }
-
 .tile--cta .tile__cta-pill {
   padding: 0.6rem 1.1rem;
   font-family: var(--font-label);
@@ -508,10 +519,9 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   <section class="bento" aria-label="Loafer overview">
 
     <article class="tile tile--hero" id="hero">
-      <p class="tile__label">A plant app for low-key plant people</p>
       <h1 class="tile__display">Reminders for the plants you <em>actually</em> own.</h1>
       <p class="tile__lede">
-        Add a plant with a photo. Loafer figures out roughly how often it likes water and nudges you on the right day. There are no streaks, no badges, and no leaderboards. We don't grade your gardening.
+        <b class="tile__lede-in">For low-key plant people.</b> Add a plant with a photo. Loafer figures out roughly how often it likes water and nudges you on the right day. There are no streaks, no badges, and no leaderboards. We don't grade your gardening.
       </p>
       <div class="tile__cta-row">
         <a class="tile__cta" href="#install">Get Loafer for iOS &rarr;</a>
@@ -520,7 +530,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
     </article>
 
     <article class="tile tile--plant" aria-labelledby="p-name">
-      <p class="tile__label">Today on your shelf</p>
       <svg class="plant-leaf" viewBox="0 0 100 130" fill="currentColor" aria-hidden="true">
         <path d="M 50 8 C 22 22 14 60 22 96 C 28 116 50 124 50 124 C 50 124 72 116 78 96 C 86 60 78 22 50 8 Z" opacity="0.85"/>
         <path d="M 50 16 L 50 122" stroke="oklch(40% 0.12 145)" stroke-width="1.4" fill="none"/>
@@ -546,11 +555,11 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
           <dd>5 days ago</dd>
         </div>
       </dl>
+      <p class="tile__cap">Today's card, drawn from Mira's shelf of four</p>
     </article>
 
     <article class="tile tile--schedule" id="how" aria-labelledby="s-title">
-      <p class="tile__label">This week, on your shelf</p>
-      <h3 class="tile__plant-name" id="s-title" style="font-size: var(--text-lg);">Two days that matter, five that don't.</h3>
+      <h3 class="tile__plant-name" id="s-title" style="font-size: var(--text-lg);">Two days this week that matter, five that don't.</h3>
       <div class="schedule" aria-hidden="true">
         <div class="day"><span class="day__name">Mon</span><span class="day__num">12</span><span class="day__dot"></span></div>
         <div class="day"><span class="day__name">Tue</span><span class="day__num">13</span><span class="day__dot"></span></div>
@@ -564,8 +573,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
     </article>
 
     <article class="tile tile--refusal" aria-labelledby="r-title">
-      <p class="tile__label">Things Loafer refuses to do</p>
-      <h3 class="tile__plant-name" id="r-title" style="font-size: var(--text-lg);">No streaks. No grading. No fertiliser ads.</h3>
+      <h3 class="tile__plant-name" id="r-title" style="font-size: var(--text-lg);">Three things Loafer refuses to do: streaks, grading, fertiliser ads.</h3>
       <ul class="refusal__list">
         <li class="refusal__item"><span class="refusal__item-mark">·</span><span><strong>No streaks.</strong> If you forget for a week the plants forgive you. The app does too.</span></li>
         <li class="refusal__item"><span class="refusal__item-mark">·</span><span><strong>No notifications</strong> on the days nothing needs doing. Most days, that's most plants.</span></li>
@@ -574,7 +582,6 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
     </article>
 
     <article class="tile tile--pricing" id="pricing" aria-labelledby="pr-title">
-      <p class="tile__label">Pricing</p>
       <h3 class="tile__plant-name" id="pr-title" style="font-size: var(--text-lg);">One plant, free. More than one, $14 a year.</h3>
       <div class="pricing__row">
         <span class="pricing__amount">$14</span>
@@ -584,8 +591,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
     </article>
 
     <article class="tile tile--cta" id="install">
-      <p class="tile__label">Get it</p>
-      <p class="cta-tile-display">Loafer is on iOS today. Android in autumn.</p>
+      <h2 class="cta-tile-display">Loafer is on iOS today. Android in autumn.</h2>
       <a class="tile__cta-pill" href="#">Open in App Store &rarr;</a>
     </article>
 

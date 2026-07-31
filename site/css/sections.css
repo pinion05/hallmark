@@ -47,11 +47,6 @@
    Hard rule: never wrap. White-space: nowrap forces single-line at
    every viewport. The label is short ("05 / Foundations") so this
    is safe. */
-.section-label,
-.section__head .section-label {
-  white-space: nowrap;
-}
-
 .section__title {
   font-family: var(--font-display);
   font-weight: var(--display-weight, 400);
@@ -102,7 +97,7 @@
   .opening { grid-template-columns: 1fr; gap: var(--space-xl); align-items: start; }
 }
 
-.opening__eyebrow {
+.opening__colophon {
   font-family: var(--font-label);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
@@ -1516,11 +1511,6 @@ html[data-theme="almanac"] body {
 }
 [data-theme="almanac"] .section__title { font-size: var(--text-xl); }
 /* Almanac calls itself indexed — push the §-number into every section label. */
-[data-theme="almanac"] .section-label::before {
-  content: "§ ";
-  color: var(--color-accent);
-  font-feature-settings: "tnum";
-}
 [data-theme="almanac"] .foundations {
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
@@ -1692,9 +1682,6 @@ html[data-theme="almanac"] body {
 }
 
 /* ── MIDNIGHT existing — numbered display style ─────────────── */
-[data-theme="midnight"] .section-label .num {
-  color: var(--color-accent);
-}
 [data-theme="midnight"] .opening__title em {
   font-family: var(--font-serif);
   font-style: italic;
@@ -1742,6 +1729,7 @@ html[data-theme="almanac"] body {
   padding: 0;
   display: grid;
   gap: 0;
+  counter-reset: anti;
 }
 
 .anti-row {
@@ -1751,6 +1739,18 @@ html[data-theme="almanac"] body {
   padding-block: var(--space-xl);
   border-block-start: var(--rule-hair) solid var(--color-rule);
   align-items: start;
+  counter-increment: anti;
+}
+
+/* The ordinal comes from the list, not from a number typed above each row. */
+.anti-row::before {
+  content: counter(anti, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-muted);
+  padding-block-start: 0.45em;
+  font-feature-settings: "tnum" 1;
 }
 
 .anti-row:first-child {
@@ -1763,17 +1763,6 @@ html[data-theme="almanac"] body {
     grid-template-columns: 1fr;
     gap: var(--space-md);
   }
-}
-
-.anti-row__num {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-muted);
-  padding-block-start: 0.45em;
-  font-feature-settings: "tnum" 1;
 }
 
 .anti-row__name {

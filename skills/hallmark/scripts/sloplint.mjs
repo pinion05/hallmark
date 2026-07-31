@@ -37,7 +37,7 @@
  *   48  colour or font literal outside the token block: #hex/rgb()/hsl() = FAIL,
  *       oklch() = WARN (calibrated: shipped pages extend tokens with oklch alpha
  *       variants in place; hex/rgb/hsl remain unambiguous improvisation)
- *   51  display header w/ long unbroken word and no overflow-wrap: anywhere
+ *   51  display header w/ long unbroken word and no overflow-wrap: break-word
  *   53  CSS-only radio tabs at position:absolute top:0 with no JS guard
  *   55  all-caps display head with line-height < 1.0
  *   56  static half: two position:sticky top:0 elements
@@ -73,7 +73,7 @@
  *   49  static half: long clickable label without white-space: nowrap
  *   50  image-bearing grid track using bare 1fr
  *   52  per-theme section-head override without mobile collapse
- *   54  eyebrow + heading in a multi-column wrapper
+ *   54  eyebrow / kicker / overline before a heading, in any geometry
  *
  * [M/R] gates 34, 40, 41, 49, 56 gain full verification in the optional render
  * tier (sloplint-render.mjs, --render). Gate 44 is render-verifiable only.
@@ -279,34 +279,59 @@ function hasAttr(attrStr, name) {
   return new RegExp(`(?:^|\\s)${name}(?=[\\s=/]|$)`, 'i').test(attrStr);
 }
 
-/** Direct element children of tags[idx]: [{name, open, html}]. */
+/** Direct element children of tags[idx]: [{name, open, html, idx}].
+ *  `idx` indexes back into doc.tags, so a caller can report at the child's own line. */
 function directChildren(doc, idx) {
   const open = doc.tags[idx];
   if (open.close || open.selfClosing) return [];
   const children = [];
   let depth = 1;
-  let childStart = -1, childOpen = null;
+  let childStart = -1, childOpen = null, childIdx = -1;
   for (let i = idx + 1; i < doc.tags.length; i++) {
     const t = doc.tags[i];
     if (t.close) {
       depth--;
       if (depth === 0) break;
       if (depth === 1 && childOpen) {
-        children.push({ name: childOpen.name, open: doc.src.slice(childOpen.pos, childOpen.end), html: doc.src.slice(childStart, t.end) });
+        children.push({ name: childOpen.name, open: doc.src.slice(childOpen.pos, childOpen.end), html: doc.src.slice(childStart, t.end), idx: childIdx });
         childOpen = null;
       }
       continue;
     }
     if (depth === 1) {
       if (t.selfClosing) {
-        children.push({ name: t.name, open: doc.src.slice(t.pos, t.end), html: doc.src.slice(t.pos, t.end) });
+        children.push({ name: t.name, open: doc.src.slice(t.pos, t.end), html: doc.src.slice(t.pos, t.end), idx: i });
       } else {
-        childStart = t.pos; childOpen = t;
+        childStart = t.pos; childOpen = t; childIdx = i;
       }
     }
     if (!t.selfClosing) depth++;
   }
   return children;
+}
+
+/** Ancestor tag names (outermost first) for every open tag, keyed by tags index. */
+function ancestorMap(doc) {
+  if (doc._anc) return doc._anc;
+  const map = new Map();
+  const stack = [];
+  for (let i = 0; i < doc.tags.length; i++) {
+    const t = doc.tags[i];
+    if (t.close) { stack.pop(); continue; }
+    map.set(i, stack.slice());
+    if (!t.selfClosing) stack.push(t.name);
+  }
+  doc._anc = map;
+  return map;
+}
+
+/** Rendered text of an HTML chunk, entities decoded, whitespace collapsed. */
+function plainText(html) {
+  return html.replace(/<[^>]*>/g, ' ')
+    .replace(/&middot;|&#0?183;/g, '·').replace(/&mdash;|&#8212;/g, '—').replace(/&ndash;|&#8211;/g, '–')
+    .replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&#\d+;|&[a-z]+;/gi, ' ')
+    .replace(/\s+/g, ' ').trim();
 }
 
 /** innerHTML of tags[idx] via depth counting; returns {inner, endPos} or null. */
@@ -485,15 +510,157 @@ const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
 /* ----------------------------------------------------------- gate engine --- */
 
-const COMPONENT_GATES = new Set(['1', '2', '7', '10', '14', '15', '22', '24', '26', '27', '30', '37', '38a', '39', '40', '41', '48', 'F4', 'F5', 'F6', 'F9']);
-const PAGE_ONLY = new Set(['3', '4', '5', '17', '18', '19', '20', '25', '28', '33', '34', '42', '43', '46', '47', '49', '50', '51', '52', '53', '54', '55', '56', 'copy-tell']);
+/* Gates that need a whole page to mean anything. Component scope is a SCOPE
+   filter, not a tier filter: a single button is still held to every gate that
+   can see it. Derived, so it cannot drift from a hand-kept Core-15 list. */
+const PAGE_ONLY = new Set(['3', '4', '5', '17', '18', '19', '20', '25', '28', '33', '34', '42', '43', '46', '47', '49', '50', '51', '52', '53', '54', '55', '56', 'F7', 'F8', 'copy-tell']);
+
+/* ------------------------------------------------------------ tiers --- */
+/* slop-test.md owns the tiers; this is its mechanical shadow. A split gate is
+   listed at the tier of the clause THIS SCRIPT can actually detect. Gate 7 is
+   the clearest case: its Floor clause (an absolute outside the token block) is
+   already caught by gate 48, so what check7 sees is the waivable half. */
+const TIERS = new Map(Object.entries({
+  '2': 'floor', '4': 'floor', '10': 'floor', '14': 'floor', '15': 'floor', '17': 'floor',
+  '18': 'floor', '19': 'floor', '20': 'floor', '26': 'floor', '27': 'floor', '28': 'floor',
+  '30': 'floor', '33': 'floor', '34': 'floor', '39': 'floor', '40': 'floor', '41': 'floor',
+  '46': 'floor', '48': 'floor', '49': 'floor', '50': 'floor', '51': 'floor', '52': 'floor',
+  '53': 'floor', '54': 'floor', '56': 'floor',
+
+  '1': 'reflex', '3': 'reflex', '5': 'reflex', '6': 'reflex', '7': 'reflex', '8': 'reflex',
+  '9': 'reflex', '11': 'reflex', '12': 'reflex', '13': 'reflex', '16': 'reflex', '21': 'reflex',
+  '22': 'reflex', '23': 'reflex', '24': 'reflex', '25': 'reflex', '29': 'reflex', '37': 'reflex',
+  '38a': 'reflex', '42': 'reflex', '43': 'reflex', '44': 'reflex', '45': 'reflex', '47': 'reflex',
+  '55': 'reflex',
+
+  '31': 'finish', '35': 'finish', '36': 'finish', '38': 'finish',
+  '32': 'ledger', '57': 'ledger',
+}));
+
+/** '7b' -> '7', '38a-ii' -> '38a', 'F3' -> 'F3' */
+function baseGate(id) {
+  const s = String(id).trim();
+  if (/^F\d+$/i.test(s)) return s.toUpperCase();
+  const m = /^(\d{1,2}a?)/.exec(s);
+  return m ? m[1] : s;
+}
+function tierOf(gate) {
+  const b = baseGate(gate);
+  if (/^F\d+$/.test(b)) return 'finish';
+  return TIERS.get(b) || 'floor';
+}
+
+/* Guards: the mechanical precondition a waiver has to have satisfied. Returning
+   a string rejects the waiver with that reason. Gates without an entry default
+   to satisfied — the reason checks and the caps still apply. */
+function fontFamilyCount(ctx) {
+  const fams = new Set();
+  for (const [prop, val] of Object.entries(ctx.tokens || {})) {
+    if (/^--font-/.test(prop)) fams.add(firstFamily(resolveVars(val, ctx.tokens)));
+  }
+  return fams.size;
+}
+const GUARDS = {
+  '1': (ctx) => fontFamilyCount(ctx) >= 2 || 'fewer than two font families are declared',
+  '7': (ctx) => /surface:\s*absolute/i.test(ctx.stampText) || 'the stamp does not declare surface: absolute',
+  '23': (ctx) => /posture:\s*(restrained|committed|full-palette|drenched)/i.test(ctx.stampText)
+    || 'the stamp declares no colour posture',
+  '37': (ctx) => fontFamilyCount(ctx) <= 4 || 'five or more families is past the backstop',
+  '38a': (ctx) => /font-synthesis\s*:\s*none/i.test(ctx.allCss) || 'font-synthesis: none is not declared',
+  '42': (ctx) => /·\s*nav:\s*\S/i.test(ctx.stampText) || 'the stamp has no nav: field naming the pattern',
+  '43': (ctx) => /·\s*footer:\s*\S/i.test(ctx.stampText) || 'the stamp has no footer: field naming the pattern',
+  '44': (ctx) => /·\s*hero:\s*\S/i.test(ctx.stampText) || 'the stamp names no hero: posture',
+};
+
+const WAIVER_MAX = 3;
+/* Boilerplate is stripped phrase by phrase, not matched whole: "intentional
+   design choice" is three boilerplate phrases in a trench coat and used to slip
+   through a full-string test. Whatever survives the strip has to be substantial. */
+const WAIVER_FILLER = /\b(a|an|the|is|it|this|that|was|are|and|but|so|very|just|really|here|quite|more|most)\b/gi;
+const WAIVER_BOILERPLATE_PHRASES = [
+  'design choice', 'design decision', 'intentionally', 'intentional', 'by design',
+  'looks better', 'for the aesthetic', 'aesthetic', 'necessary here', 'necessary',
+  'the brief requires it', 'brief requires', 'on purpose', 'deliberate', 'deliberately',
+  'it works', 'works better', 'needed', 'required', 'fine', 'ok', 'okay',
+];
+function reasonIsBoilerplate(reason) {
+  let r = reason.toLowerCase();
+  for (const p of WAIVER_BOILERPLATE_PHRASES) r = r.split(p).join(' ');
+  r = r.replace(WAIVER_FILLER, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+  return r.length < 12;
+}
+
+/* Honoured waivers for the group currently being checked. */
+let WAIVED = new Set();
 
 const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
   const g = String(gate);
-  if (opts.scope === 'component' && !COMPONENT_GATES.has(g)) return;
-  findings.push({ gate: g, grade, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
+  if (opts.scope === 'component' && PAGE_ONLY.has(g)) return;
+  const tier = tierOf(g);
+  if (tier === 'ledger' && grade === 'FAIL') grade = 'NOTE';
+  if (grade === 'FAIL' && tier === 'reflex' && WAIVED.has(baseGate(g))) grade = 'WAIVED';
+  findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
 }
+
+/** Parse, judge, and apply the `waive` lines in a group's stamp. */
+function applyWaivers(ctx, dir) {
+  WAIVED = new Set();
+  const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]?(?:-[a-z]+)?|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
+  const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
+    id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
+  }));
+  /* Anything that says "waive" but does not parse must say so. Silently ignoring
+     a malformed waiver leaves the author staring at a gate they thought they had
+     answered, with nothing to tell them the syntax was wrong. */
+  const wellFormed = new Set(claims.map((c) => c.raw));
+  const malformed = [...ctx.stampText.matchAll(/\/\*[^*]*Hallmark[^*]*·\s*waive\b[^*]*\*\//gi)]
+    .map((m) => m[0]).filter((raw) => !wellFormed.has(raw));
+  if (!claims.length && !malformed.length) return;
+  const reasons = new Map();
+  for (const c of claims) {
+    const key = c.reason.toLowerCase();
+    reasons.set(key, (reasons.get(key) || 0) + 1);
+  }
+  /* words the page itself uses — a reason has to be about THIS page */
+  const pageWords = new Set(
+    (ctx.stampText + ' ' + ctx.docs.map((d) => d.text).join(' '))
+      .toLowerCase().match(/[a-z]{4,}/g) || []
+  );
+  const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file || dir;
+  const rejectAt = (c, why) =>
+    findings.push({
+      gate: baseGate(c.id), grade: 'WAIVER', tier: tierOf(c.id), file: rel(file), line: 1,
+      evidence: trunc(`waiver on ${c.id} REJECTED (${why})`),
+      fix: 'Fix the gate, or satisfy the guard and say why in the page\'s own words',
+    });
+
+  for (const raw of malformed) {
+    findings.push({
+      gate: 'waive', grade: 'WAIVER', tier: 'reflex', file: rel(file), line: 1,
+      evidence: trunc(`malformed waiver, ignored: ${raw.replace(/\s+/g, ' ')}`),
+      fix: 'Three · -separated fields: /* Hallmark · waive <gate> · <guard evidence> · <reason> */',
+    });
+  }
+  for (const c of claims) {
+    const b = baseGate(c.id);
+    const tier = tierOf(c.id);
+    if (tier !== 'reflex') { rejectAt(c, tier === 'ledger' ? 'bookkeeping gate' : 'Floor is never waivable'); continue; }
+    if (WAIVED.has(b)) { rejectAt(c, 'one waiver per gate'); continue; }
+    if (WAIVED.size >= WAIVER_MAX) { rejectAt(c, `cap: ${WAIVER_MAX} per artifact`); continue; }
+    if (c.reason.length < 24) { rejectAt(c, 'reason under 24 characters'); continue; }
+    if (reasonIsBoilerplate(c.reason)) { rejectAt(c, 'boilerplate reason'); continue; }
+    if (reasons.get(c.reason.toLowerCase()) > 1) { rejectAt(c, 'reason reused on another waiver'); continue; }
+    const words = c.reason.toLowerCase().match(/[a-z]{4,}/g) || [];
+    if (!words.some((w) => pageWords.has(w))) { rejectAt(c, 'reason shares no word with the page'); continue; }
+    const guard = GUARDS[b];
+    const verdict = guard ? guard(ctx) : true;
+    if (verdict !== true) { rejectAt(c, `guard: ${verdict}`); continue; }
+    WAIVED.add(b);
+  }
+}
+
+const GRADE_RANK = { FAIL: 0, WAIVER: 1, WARN: 2, WAIVED: 3, NOTE: 4 };
 
 function gateSortKey(g) {
   if (g === '38a') return 38.5;
@@ -519,6 +686,67 @@ function mergedDeclsBySelector(rules) {
     map.get(key).decls.push(...r.decls);
   }
   return [...map.values()];
+}
+
+/* Class-to-declarations lookup. Approximates the DESKTOP computed style of an
+   element: rules are matched on their rightmost compound only (so `.a .b` is
+   treated as `.b`), and max-width blocks are skipped. Good enough to ask "is
+   this styled like a label?", never precise enough for layout maths. */
+function styleIndex(ctx) {
+  if (ctx._styleIdx) return ctx._styleIdx;
+  const entries = [];
+  for (const r of ctx.rules) {
+    if (r.keyframes || r.selector === '@font-face') continue;
+    if (r.media && /max-width/i.test(r.media)) continue;
+    for (const part of r.selector.split(',')) {
+      const compound = part.trim().split(/[\s>+~]+/).filter(Boolean).pop();
+      if (!compound) continue;
+      const cleaned = compound.replace(/::?[a-z-]+(\([^)]*\))?/gi, '').replace(/\[[^\]]*\]/g, '');
+      const classes = (cleaned.match(/\.[a-zA-Z_][\w-]*/g) || []).map((c) => c.slice(1));
+      const tagM = /^([a-zA-Z][\w-]*)/.exec(cleaned);
+      const tag = tagM ? tagM[1].toLowerCase() : null;
+      if (!classes.length && !tag) continue;
+      entries.push({ classes, tag, decls: r.decls });
+    }
+  }
+  ctx._styleIdx = entries;
+  return entries;
+}
+
+function styleFor(ctx, classAttr, tagName) {
+  const have = new Set(String(classAttr || '').split(/\s+/).filter(Boolean));
+  const decls = [];
+  for (const e of styleIndex(ctx)) {
+    if (e.tag && e.tag !== tagName) continue;
+    if (!e.classes.every((c) => have.has(c))) continue;
+    decls.push(...e.decls);
+  }
+  return decls;
+}
+
+/** Last-wins value of `prop` in a decl list, with var() resolved. */
+function declValue(ctx, decls, prop) {
+  let v = null;
+  for (const d of decls) if (d.prop === prop) v = d.value;
+  return v == null ? null : resolveVars(v, ctx.tokens);
+}
+
+function fontPxOf(ctx, decls) {
+  const v = declValue(ctx, decls, 'font-size');
+  if (!v) return null;
+  const clamped = /clamp\(\s*([^,]+),/.exec(v);          /* clamp() → its floor */
+  return pxOf(clamped ? clamped[1].trim() : v);
+}
+
+/** letter-spacing in em. Never route an em value through pxOf — 0.16em is not 2.56px. */
+function trackingEmOf(ctx, decls, fontPx) {
+  const v = declValue(ctx, decls, 'letter-spacing');
+  if (!v) return null;
+  const m = /^(-?\d*\.?\d+)em$/.exec(v.trim());
+  if (m) return parseFloat(m[1]);
+  const px = pxOf(v);
+  if (px == null || !fontPx) return null;
+  return px / fontPx;
 }
 
 /* gate 1: banned display font */
@@ -1495,7 +1723,7 @@ function check51(ctx) {
         if (risky) break;
       }
       if (risky && !wrapCovered(cls, t.name)) {
-        report(51, 'FAIL', doc.file, t.line, `display header word "${trunc(risky, 30)}" with no overflow-wrap: anywhere`, 'Add overflow-wrap: anywhere and min-width: 0');
+        report(51, 'FAIL', doc.file, t.line, `display header word "${trunc(risky, 30)}" with no overflow-wrap`, 'Add overflow-wrap: break-word and min-width: 0');
       }
     }
   }
@@ -1533,43 +1761,151 @@ function check53(ctx) {
   }
 }
 
-/* gate 54: eyebrow beside heading (multi-column head wrapper) */
+/* gate 54: eyebrow / kicker / overline announcing a heading. Banned outright,
+   in every geometry — stacked, side-by-side, badge pill, ordinal, card-scoped.
+   DOM-first: walk containers looking for "short inert label immediately before a
+   heading", then consult resolved CSS for corroboration. The old CSS-first check
+   only saw multi-column grids, so it missed flex stacks, block stacks, heads
+   declared inside a media query, class-less headings, and the word "overline". */
+
+const EYEBROW_CONTAINER = /^(div|header|section|article|aside|hgroup|li|main|figure|a|body|blockquote)$/;
+/* A is never an eyebrow when it is one of these: each is a label for a thing
+   that is present (identifier), not an announcement of what comes next. */
+const EYEBROW_SKIP_TAGS = /^(figcaption|label|legend|caption|th|dt|summary|option|code|kbd|button|select|nav|time)$/;
+const EYEBROW_ANCESTOR_SKIP = /^(form|fieldset|table|thead|tbody|nav|menu|dl|select|figcaption|label|button)$/;
+/* leaf-ish test: a wrapper holding real content is a band, not a label */
+const EYEBROW_BLOCKY = /<(p|ul|ol|hr|h[1-6]|img|table|figure|section|article|blockquote|form|dl)\b/i;
+const EYEBROW_CLASS = /\b(eyebrow|kicker|overline|superhead|suphead|rubric|strap(line)?|pre-?(title|head(ing)?)|section-?label|num-?label|chapter|ordinal|topic|category|dept)\b|__(num|label|tag|kicker|chip|badge|meta|index|caps|micro)\b|\b(tag|chip|badge|meta|caps|micro|label|index)\b/i;
+const EYEBROW_ANNOUNCE = /^(features?|benefits?|introducing|new|how it works?|the (process|tour)|our (process|story|work|team|approach|values?)|why (us|choose|we)|pricing|plans?|faq|questions?|testimonials?|reviews?|trusted by|as seen in|what we do|about( us)?|services?|solutions?|use cases?|get started|contact|team|work|projects?|gallery|blog|news|resources?|examples?|overview)$/i;
+
+function capsRatio(s) {
+  const letters = s.replace(/[^A-Za-z]/g, '');
+  if (!letters) return 0;
+  return (letters.match(/[A-Z]/g) || []).length / letters.length;
+}
+
+/** Does B read as the heading this label would be announcing? */
+function eyebrowHeadingBearing(ctx, B, aPx) {
+  if (/^h[1-6]$/.test(B.name)) return true;
+  if (/<h[1-6][\s>]/i.test(B.html)) return true;
+  /* a class-less or non-semantic head still counts when it is visually a head:
+     display-ish class AND at least 1.5x the label's size */
+  const cls = getAttr(B.open, 'class') || '';
+  if (!/__(title|display|head(line)?|h\d)\b|hero__|masthead|wordmark/i.test(cls)) return false;
+  const bPx = fontPxOf(ctx, styleFor(ctx, cls, B.name));
+  return bPx != null && aPx != null && bPx >= 1.5 * aPx;
+}
+
+function eyebrowHit(ctx, A, B, inOrderedList) {
+  if (EYEBROW_SKIP_TAGS.test(A.name)) return null;
+  if (/(^|\s)for\s*=/i.test(A.open)) return null;
+  if (/role\s*=\s*["']status|aria-live|aria-current|aria-hidden\s*=\s*["']true/i.test(A.open)) return null;
+  const inner = A.html.slice(A.open.length);
+  if (EYEBROW_BLOCKY.test(inner) || /<br\b/i.test(inner)) return null;
+  if (/<time\b[^>]*\sdatetime\s*=/i.test(A.html)) return null;          /* dateline */
+  if (/<img\b[^>]*\salt\s*=\s*["'][^"']+/i.test(A.html)) return null;
+  /* destination: a linked chip, category link, or nav label is not an eyebrow */
+  const ownHref = A.name === 'a' ? getAttr(A.open, 'href') : null;
+  if (ownHref && !/^#?$/.test(ownHref.trim())) return null;
+  const innerHref = /<a\b[^>]*\shref\s*=\s*["']([^"']*)["']/i.exec(inner);
+  if (innerHref && !/^#?$/.test(innerHref[1].trim())) return null;
+
+  const text = plainText(A.html);
+  if (!text) return null;
+  const words = text.split(/[\s·/|—–]+/).filter(Boolean);
+  if (words.length > 7 || text.length > 56) return null;
+  if (/[\w/-]+\.[a-z]{1,4}$/i.test(text)) return null;                  /* code filename tab */
+
+  /* the digit rule: one leading ordinal is an eyebrow's costume, but any further
+     figure is a fact the reader would otherwise lack — a price, a version, a
+     date, a live count. Strip the ordinal; if two or more digits survive, pass.
+     A quantity carrying a unit (24h, 100%, 4.7/5) is a figure, never an ordinal;
+     bare digits (01, 02) are the costume, so those still fire. */
+  if (/^[\d.,]+\s*(?:[%°+]|[a-z]{1,3})$/i.test(text)) return null;
+  const stripped = text.replace(/^\s*(?:no\.?\s*)?\d{1,3}(?:\s*[·./—–-]\s*|\s+|$)/i, '').trim();
+  if ((stripped.match(/\d/g) || []).length >= 2) return null;
+  /* Known limitation: two digits is enough to buy a pass, so a season or volume
+     wearing a label's costume ("The W'25 Collection") slips through. Raising the
+     threshold to three catches those but starts failing legitimate version and
+     status lines ("Open beta · v1.0"), and a false positive on an auto-fail gate
+     costs more than a miss. The judged sweep at Step 7 is the backstop. */
+  /* real <ol> semantics is the prescribed fix, so structure earns the pass */
+  if (inOrderedList && stripped && !EYEBROW_ANNOUNCE.test(stripped)) return null;
+
+  const cls = getAttr(A.open, 'class') || '';
+  const aDecls = styleFor(ctx, cls, A.name);
+  /* Out of flow is not "before the heading": a ribbon pinned to a card's edge
+     reads as a ribbon, whatever its DOM position. */
+  const pos = declValue(ctx, aDecls, 'position');
+  if (pos && /absolute|fixed/.test(pos)) return null;
+  const aPx = fontPxOf(ctx, aDecls);
+  if (!eyebrowHeadingBearing(ctx, B, aPx)) return null;
+
+  if (EYEBROW_CLASS.test(cls)) return { text };
+  let signals = 0;
+  const tt = declValue(ctx, aDecls, 'text-transform');
+  if ((tt && /uppercase/.test(tt)) || (capsRatio(text) >= 0.6 && /[A-Z]/.test(text))) signals++;
+  const tr = trackingEmOf(ctx, aDecls, aPx || 16);
+  if (tr != null && tr >= 0.04) signals++;
+  if (aPx != null && aPx <= 15) signals++;
+  const ff = declValue(ctx, aDecls, 'font-family');
+  if (ff && /mono|--font-label/i.test(ff)) signals++;
+  const fv = declValue(ctx, aDecls, 'font-variant-caps');
+  if (fv && /small-caps/.test(fv)) signals++;
+  if (signals >= 2) return { text };
+  if (EYEBROW_ANNOUNCE.test(stripped)) return { text };
+  return null;
+}
+
 function check54(ctx) {
-  const multiCol = (v) => {
-    const flat = v.replace(/minmax\([^)]*\)|repeat\([^)]*\)|calc\([^)]*\)/g, 'T');
-    const tracks = flat.trim().split(/\s+/).filter((x) => x && x !== '/');
-    if (/repeat\(/.test(v)) return true;
-    return tracks.length >= 2 && !/^(none|subgrid)$/.test(v.trim());
-  };
-  for (const r of ctx.rules) {
-    if (r.media && /max-width/.test(r.media)) continue;
-    const d = r.decls.find((x) => x.prop === 'grid-template-columns' && multiCol(resolveVars(x.value, ctx.tokens)));
-    if (!d) continue;
-    const classes = (r.selector.match(/\.[a-zA-Z][\w-]*/g) || []).map((c) => c.slice(1));
-    if (!classes.length) continue;
-    for (const doc of ctx.docs) {
-      for (let i = 0; i < doc.tags.length; i++) {
-        const t = doc.tags[i];
-        if (t.close || t.selfClosing) continue;
-        const cls = getAttr(t.attrs, 'class') || '';
-        if (!classes.some((c) => cls.split(/\s+/).includes(c))) continue;
-        /* the eyebrow and the heading must live in DIFFERENT grid children
-           (side by side); label + heading stacked inside one column passes */
-        const children = directChildren(doc, i);
-        const eyebrowRe = /class\s*=\s*["'][^"']*(eyebrow|kicker|label|tag\b|__num|index|chapter)/i;
-        const CONTENT_TAGS = /^(ol|ul|table|section|article|main|nav|figure)$/;
-        let eyebrowChild = -1, headingChild = -1;
-        children.forEach((chunk, ci) => {
-          /* only the child's own open tag counts as an eyebrow; a label-classed
-             element buried inside a content column (a track-number span in an
-             <ol>) is not a section eyebrow */
-          if (eyebrowChild === -1 && eyebrowRe.test(chunk.open) && !CONTENT_TAGS.test(chunk.name)) eyebrowChild = ci;
-          if (headingChild === -1 && (/^h[1-6]$/.test(chunk.name) || /<h[1-6]\b/i.test(chunk.html))) headingChild = ci;
-        });
-        if (eyebrowChild !== -1 && headingChild !== -1 && eyebrowChild !== headingChild) {
-          report(54, 'FAIL', r.file, d.line, `eyebrow + heading share a ${trunc(d.value, 20)} row (${r.selector})`, 'Stack the eyebrow above the heading');
+  for (const doc of ctx.docs) {
+    const anc = ancestorMap(doc);
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || !EYEBROW_CONTAINER.test(t.name)) continue;
+      const ancestors = anc.get(i) || [];
+      if (ancestors.some((n) => EYEBROW_ANCESTOR_SKIP.test(n))) continue;
+      const inOl = ancestors.includes('ol') || t.name === 'li';
+      const kids = directChildren(doc, i);
+      for (let k = 0; k < kids.length - 1; k++) {
+        const A = kids[k];
+        let B = null;
+        for (let j = k + 1; j < Math.min(kids.length, k + 3); j++) {
+          const c = kids[j];
+          if (c.name === 'hr' || /aria-hidden\s*=\s*["']true/i.test(c.open)) continue;
+          B = c; break;
+        }
+        if (!B) continue;
+        const hit = eyebrowHit(ctx, A, B, inOl);
+        if (hit) {
+          report(54, 'FAIL', doc.file, doc.tags[A.idx]?.line || t.line,
+            `eyebrow "${trunc(hit.text, 32)}" before <${B.name}>`,
+            'Cut it; the heading already says this (references/section-entry.md has twelve other openings)');
+          break;                                    /* one finding per container */
         }
       }
+    }
+  }
+  check54Unheaded(ctx);
+}
+
+/* The honest edge case: a section whose only label IS its heading, marked up as
+   a label. Deleting it loses the section's name — the fix is <h2>, not a cut. */
+function check54Unheaded(ctx) {
+  for (const doc of ctx.docs) {
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || !/^(section|article)$/.test(t.name)) continue;
+      const labelledBy = getAttr(t.attrs, 'aria-labelledby');
+      if (!labelledBy) continue;
+      const body = innerOf(doc, i);
+      if (!body || /<h[1-6][\s>]/i.test(body.inner)) continue;
+      const idRe = new RegExp(`<([a-z][\\w-]*)\\b[^>]*\\sid\\s*=\\s*["']${labelledBy.split(/\s+/)[0]}["'][^>]*>`, 'i');
+      const m = idRe.exec(body.inner);
+      if (!m || /^h[1-6]$/i.test(m[1])) continue;
+      report(54, 'WARN', doc.file, doc.lineOf(body.endPos - body.inner.length + m.index),
+        `section labelled by <${m[1].toLowerCase()}> with no heading element`,
+        'Promote it to <h2>; a label doing heading duty should be a heading');
     }
   }
 }
@@ -1881,7 +2217,16 @@ for (const [dir, g] of groups) {
       // inline styles participate in token discipline via check48 (scanned there)
     }
   }
-  const ctx = { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre };
+  /* The stamp: the first 40 lines of every stylesheet plus the first 60 of every
+     document, which is where gate 20 requires it and where waivers must live. */
+  const stampText = [
+    ...cssFiles.map((c) => c.raw.split('\n').slice(0, 40).join('\n')),
+    ...docs.map((d) => d.src.split('\n').slice(0, 60).join('\n')),
+  ].join('\n');
+  const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
+    + docs.map((d) => d.styles.map((s) => s.css).join('\n')).join('\n');
+  const ctx = { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss };
+  applyWaivers(ctx, dir);
   for (const check of CHECKS) {
     try { check(ctx); } catch (e) {
       console.error(`sloplint: internal error in ${check.name} for ${dir}: ${e.message}`);
@@ -1919,30 +2264,46 @@ const unique = findings.filter((f) => {
 });
 
 unique.sort((a, b) => {
-  if (a.grade !== b.grade) return a.grade === 'FAIL' ? -1 : 1;
+  const ra = GRADE_RANK[a.grade] ?? 9, rb = GRADE_RANK[b.grade] ?? 9;
+  if (ra !== rb) return ra - rb;
   const ga = gateSortKey(a.gate), gb = gateSortKey(b.gate);
   if (ga !== gb) return ga - gb;
   if (a.file !== b.file) return a.file < b.file ? -1 : 1;
   return a.line - b.line;
 });
 
-const fails = unique.filter((f) => f.grade === 'FAIL').length;
-const warns = unique.filter((f) => f.grade === 'WARN').length;
+const count = (g) => unique.filter((f) => f.grade === g).length;
+const fails = count('FAIL');
+const warns = count('WARN');
+const waived = count('WAIVED');
+const rejected = count('WAIVER');
+const notes = count('NOTE');
+
+const tally = [`${fails} FAIL`, `${warns} WARN`];
+if (waived) tally.push(`${waived} WAIVED`);
+if (rejected) tally.push(`${rejected} REJECTED`);
+if (notes) tally.push(`${notes} NOTE`);
 
 if (opts.json) {
-  console.log(JSON.stringify({ summary: { fails, warns, files: files.length }, findings: unique }, null, 2));
+  console.log(JSON.stringify({
+    summary: { fails, warns, waived, rejected, notes, files: files.length },
+    findings: unique,
+  }, null, 2));
 } else {
   if (!unique.length) {
     console.log(`sloplint: clean. 0 FAIL, 0 WARN across ${files.length} file(s).`);
   } else {
     const wGate = Math.max(4, ...unique.map((f) => String(f.gate).length));
+    const wGrade = Math.max(5, ...unique.map((f) => f.grade.length));
     const wWhere = Math.max(9, ...unique.map((f) => `${f.file}:${f.line}`.length));
-    console.log(`${'GATE'.padEnd(wGate)}  GRADE  ${'WHERE'.padEnd(wWhere)}  EVIDENCE`);
+    console.log(`${'GATE'.padEnd(wGate)}  ${'GRADE'.padEnd(wGrade)}  ${'WHERE'.padEnd(wWhere)}  EVIDENCE`);
     for (const f of unique) {
-      console.log(`${String(f.gate).padEnd(wGate)}  ${f.grade.padEnd(5)}  ${`${f.file}:${f.line}`.padEnd(wWhere)}  ${f.evidence}`);
-      console.log(`${''.padEnd(wGate)}         ${''.padEnd(wWhere)}  fix: ${f.fix}`);
+      console.log(`${String(f.gate).padEnd(wGate)}  ${f.grade.padEnd(wGrade)}  ${`${f.file}:${f.line}`.padEnd(wWhere)}  ${f.evidence}`);
+      if (f.grade !== 'WAIVED') {
+        console.log(`${''.padEnd(wGate)}  ${''.padEnd(wGrade)}  ${''.padEnd(wWhere)}  fix: ${f.fix}`);
+      }
     }
-    console.log(`\n${fails} FAIL, ${warns} WARN across ${files.length} file(s).`);
+    console.log(`\n${tally.join(', ')} across ${files.length} file(s).`);
   }
 }
 process.exit(fails > 0 ? 1 : 0);

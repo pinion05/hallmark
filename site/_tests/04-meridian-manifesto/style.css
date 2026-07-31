@@ -128,14 +128,21 @@ body {
   border-block-end: 1px solid var(--color-rule);
 }
 
-.principles__head {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
+/* Section heads are headings, not labels: display scale, above the h3s they
+   govern, so the hierarchy runs the right way down the page. */
+.principles__head,
+.rules__head {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.005em;
   text-transform: uppercase;
-  color: var(--color-ink-soft);
-  margin: 0 0 var(--space-2xl);
+  color: var(--color-ink);
+  max-width: 22ch;
 }
+
+.principles__head { margin: 0 0 var(--space-2xl); }
 
 .principles__list {
   display: grid;
@@ -144,14 +151,19 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
+  counter-reset: principle;
 }
 
+/* The sequence is real, so the list element says so and counter() draws every
+   figure. No hand-typed 01 left in the markup. */
 .principle {
+  counter-increment: principle;
   border-block-start: 1px solid var(--color-rule);
   padding-block-start: var(--space-md);
 }
 
-.principle__num {
+.principle::before {
+  content: counter(principle, decimal-leading-zero) ".";
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.16em;
@@ -189,14 +201,7 @@ body {
   border-block-end: 1px solid var(--color-rule);
 }
 
-.rules__head {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-  margin: 0 0 var(--space-lg);
-}
+.rules__head { margin: 0 0 var(--space-lg); }
 
 .rules__list {
   display: grid;
@@ -204,9 +209,11 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
+  counter-reset: rule;
 }
 
 .rules__item {
+  counter-increment: rule;
   display: grid;
   grid-template-columns: 4ch 1fr;
   gap: var(--space-md);
@@ -218,14 +225,15 @@ body {
   color: var(--color-ink);
 }
 
-.rules__item:last-child { border-block-end: none; }
-
-.rules__num {
+.rules__item::before {
+  content: counter(rule, lower-roman) ".";
   font-family: var(--font-mono);
   font-size: 0.875rem;
   letter-spacing: 0.06em;
   color: var(--color-accent);
 }
+
+.rules__item:last-child { border-block-end: none; }
 
 /* Colophon */
 .colophon {

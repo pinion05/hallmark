@@ -3,18 +3,29 @@ Numbered stages (`1.0 → 2.0 → 3.0`) flow vertically. Each stage has a headin
 *Use when:* the product is a workflow, not a single moment.
 *Don't confuse with:* F2 Sticky-scroll (which doesn't number stages).
 
+The stage numbers come from `counter()`, never from a typed `<span>` beside the heading: a hand-typed `1.0` above an `<h3>` is an eyebrow at card scale (gate 54), and it makes screen readers announce the number twice.
+
 ```html
 <ol class="steps">
-  <li><span class="stage">1.0</span><h3>Intake.</h3><p>…</p></li>
-  <li><span class="stage">2.0</span><h3>Plan.</h3><p>…</p></li>
+  <li><h3>Intake.</h3><p>…</p></li>
+  <li><h3>Plan.</h3><p>…</p></li>
 </ol>
+```
+```css
+.steps { list-style: none; counter-reset: stage; padding: 0; }
+.steps > li { counter-increment: stage; }
+.steps > li > h3::before {
+  content: counter(stage) ".0";
+  font-family: var(--font-mono); color: var(--color-muted);
+  margin-inline-end: var(--space-2xs);
+}
 ```
 
 ## Knobs
 
 Vary at least one knob vs the last logged use of this archetype (gate 32):
 
-- Numbering: I/II/III · 01/02/03 · 1.0/2.0/3.0
+- Numbering: `upper-roman` · `decimal-leading-zero` · `counter(stage) ".0"`
 - Layout: vertical stack · horizontal flow · diagonal
 - Connector: line · arrow · none
 

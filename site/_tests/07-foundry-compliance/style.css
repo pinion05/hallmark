@@ -99,7 +99,9 @@ body {
 
 .hero__copy { max-width: 36rem; }
 
-.hero__eyebrow {
+/* Not an opening line: the two standards Foundry automates, which is a fact the
+   heading below does not carry. */
+.hero__standards {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
@@ -211,14 +213,9 @@ body {
   clip-path: polygon(100% 0, 0 0, 100% 100%);
 }
 
-.tile__label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-}
-
+/* Every tile used to open with a mono caps line naming itself. Each of those is
+   now the tile's heading, and the stat tile's label sits after its figure,
+   where a unit belongs. */
 .tile__head {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -254,6 +251,17 @@ body {
 }
 
 .tile__stat-dot { color: var(--color-accent); }
+
+.tile__stat-unit {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-top: var(--space-sm);
+}
 
 .tile__stat-cap {
   font-family: var(--font-display);

@@ -1,8 +1,8 @@
 # Theme - Studio
 
-Editorial, design-studio register. The page for a **creative studio, a branding practice, an art-direction shop, a design portfolio, a selected-work index** - the considered-agency school, executed in **high-contrast Fraunces on a cool studio-white, with one deep botanical green**. A faintly cool near-white ground (`oklch(96.5% 0.005 200)`), ruler-drawn hairlines, huge thick/thin display serif, and a numbered work-index doing the structural work. It reads like a studio that sets its own type: crafted, confident, curatorial.
+Editorial, design-studio register: the considered-agency school, executed in **high-contrast Fraunces on a cool studio-white, with one deep botanical green**. A faintly cool near-white ground, ruler-drawn hairlines, a huge thick/thin display serif, and whitespace doing the structural work. It reads like a studio that sets its own type: crafted, confident, curatorial.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `studio`. Tokens: `site/css/tokens.css` under `[data-theme="studio"]`.
+The material, in one line: **cool studio-white, Fraunces at optical 144, hairlines and air, one botanical green.**
 
 ## Axes (diversification)
 
@@ -12,101 +12,74 @@ Loaded eagerly by SKILL.md Step 3 when the catalog pick is `studio`. Tokens: `si
 
 ## Reference register
 
-Aesop · Stripe Press · Readymag · Instrument · Locomotive · Area 17 · Cosmos · Semplice · a type foundry's Fraunces specimen.
+Aesop · Stripe Press · Readymag · Instrument · Locomotive · Area 17 · Cosmos · Semplice · a type foundry's Fraunces specimen. **Never name any of these in the output.**
 
-The aesthetic: the design-studio case-study index - a cool crafted canvas, one green signal, big high-contrast serif, a hairline project ledger, mono meta-lines. **Never name any of these in the output.**
+The material to match: a cool crafted canvas, one green signal, big high-contrast serif, hairline structure, mono meta-lines. Internally: the specimen discipline of a type foundry with the warmth of a working studio. When in doubt ask "does this read like a studio that hand-sets its own page, or a template?" Keep the former.
 
-**Patron-saint reference (internal):** a branding studio's selected-work index, set in high-contrast Fraunces and recoloured deep green - the specimen discipline of a type foundry with the warmth of a working studio. When in doubt ask "does this read like a studio that hand-sets its own page, or a template?" Keep the former.
+## Palette
 
-## Required dependencies
+Canonical values live in `site/css/tokens.css` under `[data-theme="studio"]`.
 
-1. **Fonts** - **Fraunces** (display, variable opsz/wght/SOFT, roman + italic for body emphasis), **Geist** (body 400/500/600), **Geist Mono** (labels + meta). Google Fonts:
-   ```html
-   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-   ```
-2. **A small reveal script** - one `IntersectionObserver` adding `.is-in` (fade + ~10px rise, ease-out ~600ms). One orchestrated entrance, then static. Reduced-motion safe.
+- `--color-paper: oklch(96.5% 0.005 200)` - cool studio-white, never `#fff`
+- second surface `oklch(93.5% 0.007 200)`
+- `--color-ink: oklch(13% 0.024 205)` - cool near-black
+- `--color-neutral: oklch(34% 0.016 205)` - body
+- `--color-accent` / `--color-accent-ink: oklch(46% 0.140 145)` - the one green
+- `--color-rule: oklch(82% 0.008 200)` - the 1px hairline
 
-## Signature moves
+Everything tints faintly toward hue 200-205. The green stays under 5% of any viewport: an emphasised word, a link underline, a small tick, an active state. The **one** filled control uses green as background with a `--color-paper` label, never green on green.
 
-1. **Cool studio-white, never `#fff`** - paper `oklch(96.5% 0.005 200)`, second surface `oklch(93.5% 0.007 200)`. Ink is cool near-black `oklch(13% 0.024 205)`; body sits at `--color-neutral` `oklch(34% 0.016 205)`. Everything tints faintly toward hue 200-205.
+## Typography
 
-2. **Fraunces set big and high-contrast** - the display face at optical size 144 (`--display-optical`), weight 400, `SOFT` 30, letter-spacing `-0.022em`. `font-variation-settings: "opsz" 144, "SOFT" 30`. Headlines run 2-3 lines, **edge-aligned left**, up to `6.25rem` (`--text-display`). The dramatic thick/thin stroke is the signature - do not flatten it with a low optical size.
+- **Display** - Fraunces at optical size 144 (`--display-optical`), weight 400, `SOFT` 30, letter-spacing `-0.022em`, `font-variation-settings: "opsz" 144, "SOFT" 30`, up to `6.25rem` (`--text-display`). Edge-aligned left, 2-3 lines. The dramatic thick/thin stroke is the signature: do not flatten it with a low optical size.
+- **Body** - Geist 400 at a 45-75ch measure. The tension of a clean neutral sans under a high-contrast display serif is the pairing. **Never set running body in the serif**; Fraunces is display and pull-quotes only.
+- **Label** - Geist Mono UPPERCASE, tracking `0.08em` (`--tracking-label`). A studio's colophon voice: captions, dates, roles, disciplines, table headers, meta rows, folios, units, and entry numbers inside a real `<ol>`. It records a fact; it never sits above a heading to announce it.
+- **Emphasis is green, never italic.** A single emphasised word takes `--color-accent-ink` or a green underline; the display face stays roman. Fraunces italic is body emphasis and pull-quotes only.
 
-3. **One botanical green signal** (< 5% of any viewport) - `--color-accent-ink` `oklch(46% 0.140 145)` for a green word in a headline, a link underline, a small index tick, the active nav item. The **one filled button** uses `--color-accent` as background with a `--color-paper` label (never green-on-green). Everything else is ink-on-white.
+## Material
 
-4. **Geist body against a Fraunces display** - the tension of a clean neutral sans body under a high-contrast display serif. Body Geist 400 at a 45-75ch measure. **Never set running body in the serif**; Fraunces is display and pull-quotes only.
-
-5. **Geist Mono spec-sheet labels** - eyebrows, section numbers, project indices, dates, roles, captions in Geist Mono UPPERCASE, tracking `0.08em` (`--tracking-label`). The machine-readout counterpoint to the lush serif - a studio's colophon voice.
-
-6. **A hairline work-index, not cards** - 1px `--color-rule` `oklch(82% 0.008 200)` rules define sections and a numbered project ledger (index no. / title in Fraunces / discipline / year across hairline-separated rows). **No boxed cards, no drop-shadows.** Depth is rules and whitespace.
-
-7. **Whitespace as material** - `--section-gap` 6.5rem between beats, `--section-head-gap` 1.5rem under heads. Asymmetric columns: title left, mono meta/index right. Generous, unhurried, never centre-stacked.
-
-8. **Green emphasis, never italic headers** - a single emphasized headline word takes the green (`--color-accent-ink`) or a green underline; the display face stays roman. Fraunces **italic is body-emphasis and pull-quotes only** (genre rule).
+- **Hairlines, not cards.** 1px `--color-rule` defines structure. **No boxed cards, no drop-shadows, no glass.** Depth is rules and whitespace.
+- **Whitespace as material.** `--section-gap` 6.5rem between beats, `--section-head-gap` 1.5rem under heads. Generous and unhurried; the air is part of the palette.
+- **Radius** ~4px on the one filled control. No pills.
+- **No texture.** The cool paper is the whole surface.
+- **Imagery** sits clean on the cool ground, framed by whitespace rather than by a border or a shadow.
 
 ## Motion
 
-Quiet and editorial. One orchestrated entrance per section (fade + ~10px rise, ease-out ~600ms) via a single `IntersectionObserver`. Hover: green underline-grow on links, a 1px rule shift toward green on index rows. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships fully visible and static.
+Quiet and editorial. One orchestrated entrance per section (fade plus ~10px rise, ease-out ~600ms) via a single `IntersectionObserver`, then static. Hover: a green underline grows on links, a 1px rule shifts toward green on focusable rows. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships fully visible and static.
 
-## Anti-patterns
+## Voice range
 
-- **No warm paper** - Studio is cool (hue ~200-205); warm cream is Atelier/Garden vocabulary.
-- **No pure `#fff` / `#000`** - cool studio-white and cool near-black only.
-- **Never flatten Fraunces** - a low optical size kills the thick/thin contrast that defines the theme. Keep opsz high on the display.
-- **No italic display headers** - roman only; italic is body emphasis (genre rule).
-- **No green flood / neon green** - one deep botanical signal, < 5%. Green backgrounds or bright green break it.
-- **No boxed cards, shadows, or glassmorphism** - hairlines and whitespace carry the page.
-- **No centred-everything hero** - left-biased, title-left / meta-right.
-- **No pill / gradient CTA** - one filled green button + typographic links.
+Confident, spare, a little literary. Verbs over adjectives; name the work, the discipline, the year. Never *seamless, cutting-edge, disrupt, synergy, elevate, next-level, world-class, digital solutions*. Never "click here."
 
-## Macrostructure affinity / rejection
+## Do-nots (this theme's own failure modes)
 
-**Studio loves.**
+- **Never flatten Fraunces.** A low optical size kills the thick/thin contrast that defines the theme. Keep opsz high on the display.
+- **No italic display.** Roman only; italic is body emphasis.
+- **No green flood, no neon green.** One deep botanical signal, under 5%. Green backgrounds or a bright green break it.
+- **No warm paper, no pure `#fff` / `#000`.** Studio is cool (hue ~200-205); warm cream is Atelier and Garden vocabulary.
+- **No boxed cards, shadows, or glassmorphism.** Hairlines and whitespace carry the page.
+- **No pill or gradient CTA.** One filled green control plus typographic links.
 
-- **Portfolio-grid / split-studio** - the selected-work case-study index (its native shape)
-- **Index-first** - a numbered hairline project ledger
-- **Type-specimen / Specimen** - Fraunces set big; the theme is specimen-capable
-- **Photographic** - a studio shows its work; cool paper frames imagery cleanly
-- **Manifesto** - a studio statement of approach in big composed serif (quiet register)
-
-**Studio refuses.**
-
-- **Workbench** - instrument-panel / dev-tool shape belongs to the cool-modern lane, not a studio
-- **Bento Grid** - tiled product boxes fight the hairline editorial structure
-- **Stat-Led** - a studio does not open with a dashboard of numbers
-- **Conversational FAQ** - too chatty/support; Studio is curatorial
-
-## Voice fixtures
-
-Confident, spare, a little literary. Verbs over adjectives. Name the work.
-
-- *"We design the things a brand is remembered by."*
-- *"A small studio. Considered work."*
-- *"Identity, editorial, and the space between."*
-- *"Selected work - 2016 to present."*
-- *"Set with care. Shipped with nerve."*
-
-Never any of: *seamless, cutting-edge, disrupt, synergy, elevate, next-level, world-class, digital solutions*. Never "click here." Name the project, the discipline, the year.
-
-## How Studio differs from neighbouring themes
+## How Studio differs from its neighbours
 
 | vs | what settles it instantly |
 |---|---|
-| **Garden** (green sibling) | Garden is a warm, botanical, organic nature register where green floods a soft world. Studio is a cool engineered studio-white where the same green is one restrained signal - agency, not garden. Temperature + role of the green settle it. |
-| **Atelier** (quiet-serif sibling) | Atelier is the hushed, letter-shaped, small-serif personal practice. Studio is bigger and more confident - Fraunces at opsz 144, a work-index ledger, a green signal. Scale and structure settle it. |
-| **Specimen** (Fraunces/high-contrast sibling) | Specimen exists to display a typeface (type is the subject). Studio uses Fraunces as its voice to present a studio's work (the studio is the subject). Same face possible, different subject. |
+| **Garden** (green sibling) | Garden is a warm, botanical, organic register where green floods a soft world. Studio is a cool engineered studio-white where the same green is one restrained signal. Temperature and the role of the green settle it. |
+| **Atelier** (quiet-serif sibling) | Atelier is the hushed, small-serif, plaster-and-umber practice. Studio is bigger and cooler - Fraunces at opsz 144 on cool white with a green signal. Palette temperature and display scale settle it. |
+| **Specimen** (Fraunces / high-contrast sibling) | Specimen exists to display a typeface: type is the subject. Studio uses Fraunces as its voice to present a studio's work. Same face possible, different subject. |
 
-## Test brief expectations
+## When the brief routes here
 
-Studio should be a candidate when the brief mentions:
+*design studio · creative studio · branding · brand identity · art direction · agency · portfolio · case study · selected work · editorial design · typography · creative direction · graphic design · design practice*. Categories: design and creative studios, branding agencies, art-direction shops, portfolio sites, editorial and publishing practices. Tone: considered, crafted, confident, curatorial, high-contrast, editorial, tasteful.
 
-- *design studio · creative studio · branding · brand identity · art direction · agency · portfolio · case study · selected work · editorial design · typography · creative direction · graphic design · design practice*
-- Product categories: *design studio · creative/branding agency · art-direction shop · portfolio site · editorial/publishing practice*
-- Emotional tone: *considered · crafted · confident · curatorial · high-contrast · editorial · tasteful · warm-precise*
-
-Briefs that are dev-tool / enterprise / warm-consumer / loud-maximalist route elsewhere (the cool-modern lane for developer products, Carnival for loud editorial, Garden for organic/nature).
+Dev-tool, enterprise, warm-consumer, and loud-maximalist briefs route elsewhere (the cool-modern lane for developer products, Carnival for loud editorial, Garden for organic and nature).
 
 ## Build hint
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+```
 
 ```css
 html, body { overflow-x: clip; }
@@ -120,14 +93,14 @@ body { background: var(--color-paper); color: var(--color-neutral);
            letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .display .mark { color: var(--color-accent-ink); }        /* the one green signal */
 
-/* Mono spec-sheet label */
+/* Mono colophon label */
 .label { font: 500 0.75rem/1 var(--font-mono); text-transform: uppercase;
          letter-spacing: var(--tracking-label); color: var(--color-muted); }
 
-/* Hairline index row - no cards, no shadow */
-.row { border-top: 1px solid var(--color-rule); padding: 1.25rem 0; }
+/* Hairline structure - no cards, no shadow */
+.rule { border-top: 1px solid var(--color-rule); padding-top: 1.25rem; }
 
-/* The one filled button - paper label, never green-on-green */
+/* The one filled control - paper label, never green-on-green */
 .btn--primary { background: var(--color-accent); color: var(--color-paper);
                 border-radius: 4px; }
 
@@ -142,4 +115,4 @@ body { background: var(--color-paper); color: var(--color-neutral);
 }
 ```
 
-Plus the Fraunces + Geist + Geist Mono link and the small reveal script.
+The rest of the page is yours. Studio supplies the cool paper, the serif, the hairline, and the one green; what gets set on that page is the brief's business, not the theme's.

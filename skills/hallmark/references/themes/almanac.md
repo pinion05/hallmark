@@ -1,8 +1,8 @@
 # Theme - Almanac
 
-Editorial-reference register. The page for a **data yearbook, a field guide, a reference manual, a technical handbook, an index or catalogue of entries** - the almanac / whole-catalog school, executed in **cool slate-grey stock, not white**, with **tables and figures as the hero**. A cool mid-band paper ground (`oklch(84% 0.012 245)`), ruler-drawn hairlines, tabular figures that line up to the decimal, and one **deep bookish ink-blue** that never gets loud. It reads like a trusted reference: dense, indexed, exact.
+The editorial-reference register, executed in **cool slate stock, not white**, with **tables and figures as the material**. A cool mid-band paper ground, ruler-drawn hairlines, tabular figures that line up to the decimal, and one deep bookish ink-blue that never gets loud. It reads like a trusted reference: dense, indexed, exact.
 
-Loaded eagerly by SKILL.md Step 3 when the catalog pick is `almanac`. Tokens: [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="almanac"]`.
+The material, in one line: **slate stock, two rule weights, tabular figures, one library-stamp blue.**
 
 ## Axes (diversification)
 
@@ -12,100 +12,78 @@ Loaded eagerly by SKILL.md Step 3 when the catalog pick is `almanac`. Tokens: [`
 
 ## Reference register
 
-Works in Progress · Our World in Data · Stripe Press · Low-Tech Magazine · Whole Earth Catalog · The Pudding · Baymard · Poor Richard's Almanack. The aesthetic: the reference yearbook and the data almanac - a cool indexed canvas, hairline tables, tabular figures, a sticky side-rail of contents, mono entry-numbers. **Never name any of these in the output.**
+Works in Progress · Our World in Data · Stripe Press · Low-Tech Magazine · Whole Earth Catalog · The Pudding · Baymard · Poor Richard's Almanack. **Never name any of these in the output.**
 
-**Patron-saint reference (internal):** *an old farmer's almanac reset in a Swiss grid* - its tables kept honest by hairlines and tabular figures, its entries numbered in mono. When in doubt ask "does this read like a trusted reference, or like a brochure?" Keep the former.
+The material to match: a cool indexed canvas, hairline tables, tabular figures, mono entry-numbers. Internally: *an old farmer's almanac reset in a Swiss grid*, its tables kept honest by hairlines and tabular figures. When in doubt ask "does this read like a trusted reference, or like a brochure?" Keep the former.
 
-## Required dependencies
+## Palette
 
-1. **Fonts** - **Hanken Grotesk** (display + body, 400/500/600), **Newsreader** (serif, running entries + body emphasis, optical-sizing), **IBM Plex Mono** (entry numbers, units, table headers, UPPERCASE labels). Google Fonts:
-   ```html
-   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-   ```
-2. **A reveal + number-tick script** - one `IntersectionObserver` adding `.is-in` (fade + ~8px rise, ease-out, `0.85×` speed - functional, not showy). Plus **number-tick counters** that count `0 → final` for stats, dates, prices on first reveal, then hold.
-3. **A sticky side-rail with scroll-spy** - the left index (N3) stays pinned; the active section highlights as you scroll. `role="navigation"`, keyboard-reachable, reduced-motion safe.
+Canonical values live in [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="almanac"]`.
 
-## Signature moves
+- `--color-paper: oklch(84% 0.012 245)` - cool slate stock, never `#fff`
+- `--color-paper-2` (`81%`) - alternating table rows
+- `--color-paper-3` (`77%`) - wells and callout blocks
+- `--color-ink: oklch(16% 0.020 245)` - cool near-black, 11.9:1 on the stock
+- `--color-muted: oklch(42% 0.016 245)` - meta, labels
+- `--color-accent: oklch(38% 0.135 250)` - deep ink-blue, under 5% of any viewport
+- `--color-rule: oklch(74% 0.012 240)` - the hairline that draws the grid
+- `--color-rule-2: oklch(38% 0.018 240)` - the one emphatic line under a head or `thead`
 
-1. **Cool slate stock, never `#fff`** - `oklch(84% 0.012 245)`, with `paper-2` (`81%`) for alternating table rows and `paper-3` (`77%`) for the side-rail well and callout blocks. Ink is cool near-black `oklch(16% 0.020 245)`, never `#000` (11.9:1 on the stock); muted meta sits at `oklch(42% 0.016 245)`.
+The accent is a stamp, not a flood: links, one figure, a single primary control. Everything else is ink on bond-grey.
 
-2. **Tables and figures are the hero** - the almanac *is* its data. Hairline-ruled tables with `font-variant-numeric: tabular-nums`, right-aligned numerics, decimals that line up, units in mono (charts, when a table earns one: [`data-viz.md`](../data-viz.md)). Lead with a data block, an index, or a spec table - never a photograph.
+## Typography
 
-3. **Two rule weights, used deliberately** - light hairline `--color-rule` (`oklch(74% 0.012 240)`) draws the grid and row separators; the dark `--color-rule-2` (`oklch(38% 0.018 240)`) draws the one emphatic line under a section head or table `thead`. **No boxed cards, no shadows.** Depth is rules, not blur.
+Three families.
 
-4. **Three-column encyclopedia density** - reference chunks in a three-column-equal grid, scannable, each entry numbered. Dense by design, not airy. This is the almanac's body posture; a single luxe hero column is wrong here.
+- **Display** - Hanken Grotesk 600, tracking `-0.014em`. Grotesk sets structure.
+- **Body / running entry** - Newsreader, optical-sizing, at the `64ch` measure. Serif sets reading. Italic is in-paragraph emphasis only, never a heading.
+- **Label** - IBM Plex Mono, UPPERCASE, `0.06em` (`--tracking-label`): captions, table headers, units, dates, folios, entry numbers inside a real `<ol>`. It is a machine-readout voice carrying real values; it never sits above a heading to announce it.
 
-5. **Sticky side-rail index (N3)** - a pinned left rail listing sections/entries with mono numbers, active item in the ink-blue accent. The page is navigated like a book's contents, not scrolled like a brochure. **Not a floating pill, not a masthead.**
+**Tabular figures are load-bearing.** `font-variant-numeric: tabular-nums` wherever a figure appears, numerics right-aligned, decimals lined up, units in mono. Charts, when a table earns one: [`data-viz.md`](../data-viz.md).
 
-6. **Mono entry-numbers and labels** - IBM Plex Mono, UPPERCASE, `0.06em` tracking (`--tracking-label`) for eyebrows, entry numbers (`§ 01`, `No. 214`), units, dates, table headers. The machine-readout voice against the Hanken Grotesk display.
+## Material
 
-7. **Newsreader for the running entry** - the one serif carries long-form entry prose and pull-ledes at the `64ch` measure, italic reserved for in-paragraph emphasis only (never a heading). Grotesk sets structure; serif sets reading.
-
-8. **One deep ink-blue, sparingly** (< 5% of any viewport) - `oklch(38% 0.135 250)` on links, the active rail item, one figure or the single primary control. Dark and quiet; everything else is ink-on-bond-grey. The accent is a stamp, not a flood.
+- **Two rule weights, used deliberately.** The light hairline draws the grid and row separators; the dark rule draws one emphatic line under a head or a `thead`. **No boxed cards, no shadows.** Depth is rules, not blur.
+- **No radius to speak of.** Square or near-square; this is ruled paper, not a card surface.
+- **No texture.** The stock carries the warmth; grain, overprint, and scanline all belong to other themes.
+- **Images** are small, outlined, inline to the measure. They never outgrow the type.
 
 ## Motion
 
-Functional and sparse, like turning a reference page. Section reveals fade + rise at `0.85×` ease-out; number-tick counters run once to their final value on reveal, then hold; the side-rail active item shifts as sections cross. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static, counters at final value, fully visible.
+Functional and sparse, like turning a reference page. Section reveals fade and rise ~8px at `0.85×` ease-out, functional rather than showy. Number-tick counters run `0 → final` once on reveal for stats, dates, and prices, then hold. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static, counters at final value, fully visible.
 
-## Anti-patterns
+## Voice range
+
+Declarative, dated, exact: cite the figure, the edition, the source, the unit. Never *seamless, revolutionary, magical, effortless, game-changing, cutting-edge, supercharge, unlock*. Never "click here."
+
+## Do-nots (this theme's own failure modes)
 
 - **No electric blue.** Almanac's accent is dark bookish `L38`; the live `L58` cobalt is a sibling's lane.
-- **No pure `#fff` / `#000`.** Cool bond-grey paper, cool near-black ink.
-- **No warm paper.** Warm grey is Newsprint's; Almanac is cool (hue 240-250).
+- **No pure `#fff` / `#000`.** Cool slate paper, cool near-black ink, always tinted hue 240-250.
+- **No warm paper.** Warm grey is Newsprint's; Almanac is cool.
 - **No boxed cards, no drop-shadows, no glassmorphism.** Hairline tables and two rule weights carry every surface.
-- **No photographic or image-led hero** - data, tables, or an index lead; images are small, outlined, inline to the measure.
-- **No single luxe centered hero column** (that is Atelier/Garden) - Almanac is dense, three-column, left-biased.
-- **No justified newspaper columns** - that is Newsprint's broadsheet; Almanac is an encyclopedia grid, ragged-right.
+- **No justified newspaper columns.** That is Newsprint's broadsheet; Almanac is ragged-right.
 - **No pill / gradient CTA.** One quiet ink-blue control or a typographic link; name the destination.
 
-## Macrostructure affinity / rejection
-
-**Almanac loves.**
-
-- **Long Document** - a reference manual or guide: prose, tables, a running index.
-- **Catalogue** - the almanac as an indexed run of numbered entries.
-- **Stat-Led** - a data yearbook: tabular figures, number-tick, sourced tables.
-- **index-first** - a contents-led page navigated by the side-rail.
-- **Specimen** - a dense data/spec specimen with hairline spec tables.
-
-**Almanac refuses.**
-
-- **Marquee Hero** - too kinetic; Almanac opens on an index or a table, not a sweep.
-- **Photographic** - image-led; Almanac leads with data and type.
-- **Manifesto** - too loud; Almanac is neutral, trusted reference.
-- **Letter** - too intimate; Almanac is a reference, not a note.
-
-## Voice fixtures
-
-Declarative, dated, exact. Cite the figure, the edition, the source.
-
-- *"Everything worth knowing about the harvest, indexed."*
-- *"Edition 2026. 214 entries, cross-referenced."*
-- *"Sunrise 6:12. Sunset 20:41. First frost by the 14th."*
-- *"Figures updated quarterly. Sources at the foot of each table."*
-- *"Look it up once. Trust it after."*
-
-Never any of: *seamless, revolutionary, magical, effortless, game-changing, cutting-edge, supercharge, unlock*. Never "click here." Cite the entry, the unit, the number.
-
-## How Almanac differs from neighbouring themes
+## How Almanac differs from its neighbours
 
 | vs | difference |
 |---|---|
-| **Newsprint** (editorial, light, dense) | Newsprint is warm `92%` paper + roman-serif display (Playfair) + brick accent + justified broadsheet columns + a masthead. Almanac is cool `84%` slate stock + grotesk display (Hanken) + ink-blue + a ragged three-column encyclopedia grid + a side-rail. Broadsheet vs reference book settles it. |
-| **Cobalt** (modern-minimal, cool, blue) | Same cool + blue + mono labels, but Cobalt is `98.5%` engineered near-white + **electric** `L58` cobalt + Space Grotesk + code-as-hero + a dark graphite band + ⌘K. Almanac is greyer bond + **deep** `L38` bookish blue + a Newsreader serif + tables-as-hero + a side-rail. Reference book vs dev-tool. |
-| **Garden** (editorial, light) | Garden is warm `95.5%` + roman-serif (Young Serif) + leaf-green + marginalia + generous negative space + calm springs. Almanac is cool + grotesk + ink-blue + dense three-column + functional `0.85×` motion. Botanical calm vs data density. |
+| **Newsprint** | Warm `92%` paper, roman-serif display (Playfair), brick accent, justified broadsheet columns. Almanac is cool `84%` slate stock, grotesk display, ink-blue, ragged-right. Broadsheet vs reference book settles it. |
+| **Cobalt** | Same cool + blue + mono labels, but Cobalt is `98.5%` engineered near-white with **electric** `L58` cobalt and Space Grotesk. Almanac is greyer bond, **deep** `L38` bookish blue, a Newsreader serif. Dev-tool vs reference book. |
+| **Garden** | Warm `95.5%`, roman serif (Young Serif), leaf-green, generous negative space, calm springs. Almanac is cool, grotesk, ink-blue, dense, functional `0.85×` motion. Botanical calm vs data density. |
 
-## Test brief expectations
+## When the brief routes here
 
-Almanac should be a candidate when the brief mentions:
+*almanac · yearbook · field guide · reference · handbook · manual · index · catalogue · encyclopedia · data · figures · tables · statistics · research · dataset · records · directory · glossary · compendium · specifications*. Categories: data and research sites, reference manuals, field guides, knowledge bases, directories, public datasets, technical handbooks, editorial data journalism. Tone: exact, indexed, trusted, dense, scholarly, matter-of-fact, cool.
 
-- *almanac · yearbook · field guide · reference · handbook · manual · index · catalogue · encyclopedia · data · figures · tables · statistics · research · dataset · records · directory · glossary · compendium · specifications*
-- Product categories: *data / research site · reference manual · field guide · knowledge base · directory · public dataset · technical handbook · editorial data journalism*
-- Emotional tone: *exact · indexed · trusted · dense · scholarly · matter-of-fact · reference-grade · cool*
-
-Briefs that are warm / broadsheet / image-led / atmospheric route elsewhere (Newsprint for the newspaper, Garden for the warm serif, the atmospheric themes for mood). When the brief is a **reference full of data** and wants to *show the tables*, it is Almanac.
+Warm, broadsheet, image-led, or atmospheric briefs route elsewhere. When the brief is a reference full of data and wants to *show the tables*, it is Almanac.
 
 ## Build hint
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+```
 
 ```css
 html, body { overflow-x: clip; }
@@ -113,10 +91,10 @@ body { background: var(--color-paper); color: var(--color-ink);
        font-family: var(--font-body); font-weight: 400; }
 
 /* Two rule weights: hairline grid + one emphatic head rule */
-.rule    { border-top: 1px solid var(--color-rule); }
-.head-rule { border-bottom: 2px solid var(--color-rule-2); }
+.rule       { border-top: 1px solid var(--color-rule); }
+.rule--firm { border-bottom: 2px solid var(--color-rule-2); }
 
-/* Tables are the hero - tabular, right-aligned, hairline-ruled */
+/* Tabular, right-aligned, hairline-ruled */
 table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
 thead th { border-bottom: 2px solid var(--color-rule-2);
            font: 500 var(--text-sm)/1 var(--font-mono);
@@ -124,14 +102,14 @@ thead th { border-bottom: 2px solid var(--color-rule-2);
 td.num { text-align: right; font-variant-numeric: tabular-nums; }
 tbody tr:nth-child(even) { background: var(--color-paper-2); }
 
-/* Mono labels + entry numbers */
+/* Mono label voice: captions, headers, units, entry numbers */
 .label { font: 500 var(--text-xs)/1 var(--font-mono);
          text-transform: uppercase; letter-spacing: var(--tracking-label);
          color: var(--color-muted); }
 
-/* Newsreader for the running entry; deep ink-blue as the one signal */
-.entry { font-family: var(--font-serif); max-width: var(--measure); }
-a, .rail__item[aria-current] { color: var(--color-accent); }
+/* Newsreader carries running prose; ink-blue is the one signal */
+.prose { font-family: var(--font-serif); max-width: var(--measure); }
+a { color: var(--color-accent); }
 
 /* Functional reveal - 0.85x, no showmanship */
 .reveal { opacity: 0; transform: translateY(8px);
@@ -142,4 +120,4 @@ a, .rail__item[aria-current] { color: var(--color-accent); }
 }
 ```
 
-Plus the Hanken Grotesk + Newsreader + IBM Plex Mono link and the reveal / number-tick / scroll-spy script.
+The rest of the page is yours. Almanac supplies the stock, the rules, and the figures; what gets indexed on that paper is the brief's business, not the theme's.

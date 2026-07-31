@@ -1,18 +1,34 @@
-### S1 · Stacked numbered
-The section number sits directly ABOVE the heading, same column, vertical stack; the ordinal energy comes from type contrast (mono number vs display heading), not from a side column. Gate 54 bans the old tag-left / heading-right two-column head outright; this is the compliant form of the numbered editorial section.
-*Use when:* the page is editorial / specimen AND the content is genuinely ordinal (chapters, steps, issues). Numbering is default-OFF elsewhere; cap 1-2 per page.
-*Don't confuse with:* S5 Bottom-anchored (which puts the label *under* the section).
+### S1 · Ordinal by structure
+When a run of sections is genuinely ordered, the order comes from the markup or from a numeral built at graphic scale, never from a small label typed above the heading. The old form of this archetype (`01 — Foundations` stacked over an `<h2>`) is an eyebrow and gate 54 bans it outright.
+*Use when:* the content is truly sequential (chapters, steps, issues, a run of numbered work). Not for "the third section on the page", which is not an ordinal, just a position.
+*Don't confuse with:* S5 Bottom-anchored (label *under* the section); [`../enrichment/hp4-decorative-numeral.md`](../enrichment/hp4-decorative-numeral.md) (one numeral, hero scale, not a run).
+
+Sequence carried by the list element, so the numbers are real and screen readers do not hear them twice:
 
 ```html
-<header class="head-numbered">
-  <p class="num-label">01 — Foundations</p>
-  <h2>…</h2>
-</header>
+<ol class="chapters">
+  <li>
+    <h2>Foundations</h2>
+    <p>…</p>
+  </li>
+  <li>
+    <h2>The crossing</h2>
+    <p>…</p>
+  </li>
+</ol>
 ```
 ```css
-.head-numbered { display: flex; flex-direction: column; gap: var(--space-2xs); }
-.head-numbered .num-label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); letter-spacing: 0.06em; }
+.chapters { list-style: none; counter-reset: chapter; padding: 0; }
+.chapters > li { counter-increment: chapter; }
+.chapters > li > h2::before {
+  content: counter(chapter, decimal-leading-zero);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--color-muted); letter-spacing: 0.06em;
+  display: block; margin-block-end: var(--space-2xs);
+}
 ```
+
+The `::before` is a generated ordinal on the heading itself, not a sibling element: nothing to mistake for a kicker, nothing to delete later.
 
 *Mobile:* already single-column; nothing collapses.
 
@@ -20,11 +36,11 @@ The section number sits directly ABOVE the heading, same column, vertical stack;
 
 Vary at least one knob vs the last logged use of this archetype (gate 32):
 
-- Number style: `01 —` label · bare `01` · `No. 4`
-- Density: cap 1-2 per page
-- Label ink: muted · accent-tick
+- Ordinal form: `decimal-leading-zero` · `upper-roman` · `lower-alpha` · none (a rule instead)
+- Ordinal position: above the heading · hung in the margin (`position: absolute` off the list) · inline before the first word
+- Ordinal weight: muted mono · accent-tick · display-scale numeral (then read hp4's discipline first)
 
 ## Mobile collapse
 
-- **Below 60rem:** unchanged (already a single-column stack)
+- **Below 60rem:** unchanged (already a single-column stack). A margin-hung ordinal returns to flow above the heading.
 - **Below 40rem:** unchanged

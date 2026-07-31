@@ -55,18 +55,14 @@ Each macrostructure under editorial picks from these opening-line patterns. Imit
 
 ## Nav and footer voice
 
-- **Default nav:** N6 Newspaper masthead — full-width, large centred wordmark, thin issue/date row in serif small caps, double-rule below. Reads as broadsheet. (Authoritative table: component-cookbook.md § Routing.)
-- **Acceptable also:** N1a Wordmark + 2 links (when destinations are minimal); N9 Edge-aligned minimal (when the page is letter-shaped or atelier-quiet).
-- **Default footer:** Ft1 Mast-headed (wordmark anchors a single horizontal band, tagline + small links beside).
-- **Acceptable also:** Ft2 Inline single line; Ft4 Dense colophon (newsprint / almanac voices); Ft6 Letter close (atelier / garden / personal); Ft7 Newsletter-first (when the brand legitimately publishes).
-- **Banned for editorial:** N5 Floating pill (modern-minimal vocabulary), N7 Brutal slab (fights the restraint), Ft8 Marquee scroll (kinetic; wrong genre).
+Broadsheet and specimen chrome fits here: a masthead, a quiet edge-aligned bar, a colophon, a letter close. What fights the genre is kinetic chrome (a marquee footer) and modern-minimal vocabulary (a floating blur pill).
 
-See [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Footers for the full archetypes + code.
+These are affinities, not assignments. Nothing here mandates an archetype code: the nav and footer are yours to design, and gates 42-43 only ask that if you land on the industry default you name it in the stamp rather than arriving there by reflex. [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Footers is a place to look when you want a starting point.
 
 ## Stamp signature
 
 Output's CSS comment header reads:
 
 ```css
-/* Hallmark · genre: editorial · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
+/* Hallmark · genre: editorial · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <shape or N#> · footer: <shape or Ft#> */
 ```

@@ -40,20 +40,39 @@ button:focus-visible { outline: 1.5px solid var(--color-focus); outline-offset: 
    Shared atoms
    ────────────────────────────────────────────────────────────── */
 
-.eyebrow {
+/* Section entry: an electrode tick on a hairline, the same 32px accent stub the
+   cards carry. Divider language does the announcing, so no words are spent. */
+.section__rule {
+  border: 0;
+  margin: 0 0 var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section__rule::before {
+  content: "";
+  width: 32px;
+  height: 2px;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-glow);
+}
+.section__rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-rule-2), transparent);
+}
+
+/* Lead-in: the orienting fact opens the prose and never leaves it. */
+.lede-in {
   font-family: var(--font-label);
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 0.82em;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--color-ink);
-  opacity: 0.55;
-  margin: 0 0 var(--space-md);
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4em;
+  color: var(--color-accent);
+  margin-inline-end: 0.35em;
 }
-.eyebrow .ord { color: var(--color-accent); opacity: 1; }
-.eyebrow .dot-mid { color: var(--color-rule-2); opacity: 1; }
 
 /* Verb landmark: permanent accent-2 colour + underline draws in once. No italics. */
 em {
@@ -627,7 +646,7 @@ em::after {
    Cards — hairline + inner emission
    ────────────────────────────────────────────────────────────── */
 
-.cards { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.cards { display: grid; grid-template-columns: 1fr; gap: 1rem; list-style: none; counter-reset: card; padding: 0; margin: 0; }
 @media (min-width: 720px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .card {
   position: relative;
@@ -657,7 +676,18 @@ em::after {
     radial-gradient(120% 80% at 0% 0%, oklch(76% 0.17 50 / 0.10) 0%, transparent 55%),
     var(--color-paper-2);
 }
-.card__eyebrow { font-family: var(--font-label); font-size: 11px; letter-spacing: var(--tracking-label); text-transform: lowercase; color: var(--color-accent); margin: 0; }
+/* The sequence is real, so the list element says so and counter() draws the
+   figure. Nothing is typed above the heading. */
+.card { counter-increment: card; }
+.card__title::before {
+  content: counter(card, lower-alpha);
+  display: block;
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-accent);
+  margin-block-end: var(--space-2xs);
+}
 .card__title { font-family: var(--font-body); font-weight: 500; font-size: 1.125rem; line-height: 1.3; color: var(--color-ink); margin: 0; }
 .card__body { font-size: 0.9375rem; line-height: 1.6; color: var(--color-ink-2); margin: 0; }
 
@@ -665,13 +695,30 @@ em::after {
    Code block — no fake browser chrome
    ────────────────────────────────────────────────────────────── */
 
+/* Section entry, second move: a change of paper. The quickstart sits on its own
+   sheet, ruled top and bottom, and that edge is the break. The code block's own
+   head already carries the real filename, so nothing announces the section. */
+.section--code {
+  max-width: none;
+  padding-block: var(--space-3xl);
+  margin-block-end: var(--section-gap);
+  border-block: 1px solid var(--color-rule);
+  background:
+    linear-gradient(var(--rule-blueprint) 1px, transparent 1px) 0 0 / 48px 48px,
+    var(--color-paper-2);
+}
+.section--code > * {
+  max-width: calc(var(--page-max) - 2 * var(--page-gutter));
+  margin-inline: auto;
+}
+
 .section--code .code {
   border: 1px solid var(--color-rule);
   border-radius: var(--radius-card);
   overflow: hidden;
   background:
     radial-gradient(80% 80% at 100% 0%, oklch(76% 0.17 50 / 0.04) 0%, transparent 60%),
-    var(--color-paper-2);
+    var(--color-paper);
 }
 .code__head {
   display: flex; justify-content: space-between; align-items: center;
@@ -772,15 +819,17 @@ em::after {
   color: var(--color-accent-ink);
   border-radius: 2px;
 }
-.tier__eyebrow {
+/* The plan name is the heading of its card, not a label sitting above one. */
+.tier__name {
   font-family: var(--font-label);
+  font-weight: 400;
   font-size: 11px;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-muted);
   margin: 0;
 }
-.tier--feature .tier__eyebrow { color: var(--color-accent); }
+.tier--feature .tier__name { color: var(--color-accent); }
 
 .tier__price {
   font-family: var(--font-display);

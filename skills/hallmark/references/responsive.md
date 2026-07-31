@@ -10,7 +10,7 @@ Every Hallmark output must render flawlessly at **320 px, 375 px, 414 px, and 76
 - No clickable text wrapping to two lines (gate 49)
 - No image-bearing grid pushing the layout past viewport — use `minmax(0, 1fr)`, never bare `1fr`, on tracks containing images (gate 50)
 - Root carries `overflow-x: clip` on both `html` and `body` — never `hidden` (gate 34)
-- Display headers wrap inside long words via `overflow-wrap: anywhere; min-width: 0` (gate 51)
+- Display headers wrap inside long words via `overflow-wrap: break-word; min-width: 0` (gate 51). `break-word`, not `anywhere`: `anywhere` collapses min-content width and makes `text-wrap: balance` break mid-word.
 - Section heads collapse to one column on mobile across every theme variant — per-theme overrides need a matching mobile rule (gate 52)
 - No scroll-jump on radio-tab clicks — radios in normal flow OR JS guard with `focus({ preventScroll: true })` (gate 53)
 

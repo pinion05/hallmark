@@ -10,7 +10,11 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark picks a macrostructure for the brief, dresses it in one of twenty-four themes, runs fifty-eight slop-test gates plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into. Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template.
+Hallmark holds a hard floor and then gets out of the way. It dresses the brief in one of twenty-four themes, runs a fifty-eight-gate slop test plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into.
+
+Thirty-four of those gates are a **floor**: contrast, focus order, reduced motion, invented metrics, layout that breaks on a phone, and the eyebrow above the heading. Nothing ships through them. Eighteen are **reflex** gates, the defaults a language model falls into rather than laws, and a build with an argument can waive one on the record: three at most, reason named in the CSS stamp, guard checked mechanically. The last six are polish and bookkeeping and never block a ship.
+
+Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template. The skill is built to stop a model looking generic, not to stop it being good.
 
 ---
 
@@ -75,7 +79,7 @@ Each page is self-contained HTML + CSS, stamped with its macrostructure in the C
 
 ## Custom
 
-When a brief carries creative intent that no catalog theme fits, Hallmark switches to **Custom** and designs the page from scratch: a made-to-measure palette, type, and layout. Same 58 slop-test gates, no template underneath.
+When a brief carries creative intent that no catalog theme fits, Hallmark switches to **Custom** and designs the page from scratch: a made-to-measure palette, type, and layout. Same fifty-eight gates at the same tiers, no template underneath.
 
 In v1.2 the custom route runs a full art-direction ritual: it names and rejects the category's reflex aesthetics, writes a slate of seven grounded directions, and a deterministic **draw** (`scripts/seed.mjs`) picks which one gets built, sometimes dealing wildcards from a design-history atlas. A scene sentence sets the light, a colour posture (Restrained · Committed · Full palette · Drenched) sets how far the palette commits, and a five-block direction contract written into the artifact gets audited promise by promise before shipping.
 

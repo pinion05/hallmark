@@ -162,7 +162,7 @@ The first recipe is the **canonical try-it prompt** — paste it into a fresh pr
 
 **Excerpt:**
 
-> Centred eyebrow: *"Built for educators · not LMS sales teams."* Hero stat at 22 rem: **"30 — 500"** (with the dash in warm-amber). Headline: *"Live courses, the size your roster actually is."* Sub: *"Cohort runs courses with thirty to five hundred students at once — the size of a real classroom, the size of a real lecture, and a few sizes between. With a date, a roster, and a room."* Below: three supporting stats (186 cohorts run · 93 % finish-rate · 4.7/5 operator NPS). Two operator testimonials side-by-side. Two-tier pricing (First cohort free · Operator $199/mo). Single CTA strip and colophon. No marquee, no card-stack — the brief carried by the typography.
+> Opens on a rule, no label. Hero stat at 22 rem: **"30 — 500"** (with the dash in warm-amber). Headline: *"Live courses, the size your roster actually is."* Sub: *"Cohort runs courses with thirty to five hundred students at once — the size of a real classroom, the size of a real lecture, and a few sizes between. With a date, a roster, and a room."* Below: three supporting stats (186 cohorts run · 93 % finish-rate · 4.7/5 operator NPS). Two operator testimonials side-by-side. Two-tier pricing (First cohort free · Operator $199/mo). Single CTA strip and colophon. No marquee, no card-stack — the brief carried by the typography.
 
 **Live:** [`_tests/08-cohort-courses/`](../../site/_tests/08-cohort-courses/index.html)
 

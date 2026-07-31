@@ -52,18 +52,14 @@ The two differ on every axis a glance registers: Coral is warm-grey + coral + Ge
 
 ## Nav and footer voice
 
-- **Default nav:** N1b SaaS three-section — the dense, balanced product bar (authoritative table: component-cookbook.md § Routing). N5 Floating pill is the close second when the page wants detachment: content-sized, blur backdrop, soft shadow.
-- **Acceptable also:** N5 Floating pill; N1 Wordmark + 2 links (when destinations are genuinely minimal); N9 Edge-aligned minimal (when the brand earns the silence).
-- **Default footer:** Ft2 Inline single line — wordmark + tagline + tiny credit, hairline rule above. Restrained.
-- **Acceptable also:** Ft1 Mast-headed; Ft5 Statement (when the page wants a closing line).
-- **Banned for modern-minimal:** N6 Newspaper masthead (editorial vocabulary); N7 Brutal slab (fights the restraint); Ft8 Marquee scroll (kinetic, wrong voice); Ft3 Index columns at full saturation (the AI-footer fingerprint — gate 43).
+Product chrome fits here: a dense balanced bar, a floating pill, a mega-menu, a visible search pill, or vast space between a wordmark and one CTA. What fights the genre is broadsheet furniture (a masthead, a double rule) and a marquee footer.
 
-See [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Footers for the full archetypes + code.
+These are affinities, not assignments. Nothing here mandates an archetype code: the nav and footer are yours to design, and gates 42-43 only ask that if you land on the industry default you name it in the stamp rather than arriving there by reflex. [`component-cookbook.md`](../component-cookbook.md) § Navigation and § Footers is a place to look when you want a starting point.
 
 ## Stamp signature
 
 ```css
-/* Hallmark · genre: modern-minimal · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <N#> · footer: <Ft#> */
+/* Hallmark · genre: modern-minimal · macrostructure: <name> · theme: <name> · enrichment: <tier> · nav: <shape or N#> · footer: <shape or Ft#> */
 ```
 
 ## Reference register (for the LLM, not credited to anyone)
