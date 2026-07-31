@@ -13,7 +13,7 @@ Most AI-generated UI fails on colour. It picks blue. It uses pure black. It draw
 
 A complete Hallmark palette has four layers.
 
-1. **Paper** — the base surface. `oklch(96–98% 0.005–0.015 <anchor hue>)` for light mode, `oklch(12–16% 0.008–0.015 <anchor hue>)` for dark.
+1. **Paper** — the base surface. `oklch(96–98% 0.005–0.015 <anchor hue>)` for light mode, `oklch(12–18% 0.008–0.015 <anchor hue>)` for dark.
 2. **Ink** — the primary text. `oklch(16–22% 0.005–0.015 <anchor hue>)` for light mode, `oklch(92–96% 0.005–0.01 <anchor hue>)` for dark.
 3. **Neutrals** — 5 to 9 steps between Paper and Ink, each with the anchor's chroma tint at low values (0.005–0.015).
 4. **Accent** — one saturated colour with meaningful chroma (0.12–0.22). Used for links, active states, highlights, focus rings. Never as a background fill that covers more than a few percent of the surface.
@@ -63,12 +63,7 @@ Verify with the browser devtools vision-deficiency emulator before shipping. Whe
 
 ## Dark mode recipe
 
-- Paper: lightness 12–18% (not `#000`).
-- Ink: lightness 92–96% (not `#fff`).
-- Body font-weight: reduce by 50 units (400 → 350) to compensate for the optical weight of light text on dark.
-- Accent: reduce chroma by 0.02–0.04; increase lightness by 5–10%.
-- Elevation: higher surfaces are *lighter*, not darker. Add ~3% lightness per level.
-- Never switch the hue between modes. Keep the anchor. Only lightness and chroma move.
+Paper 12-18% (never `#000`) · ink 92-96% (never `#fff`) · elevation is LIGHTER (+~3% L per level) · accent chroma down 0.02-0.04 with L up 5-10% · hue never moves. The full per-token derivation table, dual-mode emission blocks, and dark discipline (shadows, cards, images, charts) live in [`dark-mode.md`](dark-mode.md); load it whenever the user asks for both modes.
 
 ## Bans
 
