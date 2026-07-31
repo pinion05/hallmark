@@ -29,7 +29,7 @@ Works in Progress · Our World in Data · Stripe Press · Low-Tech Magazine · W
 
 1. **Cool slate stock, never `#fff`** - `oklch(84% 0.012 245)`, with `paper-2` (`81%`) for alternating table rows and `paper-3` (`77%`) for the side-rail well and callout blocks. Ink is cool near-black `oklch(16% 0.020 245)`, never `#000` (11.9:1 on the stock); muted meta sits at `oklch(42% 0.016 245)`.
 
-2. **Tables and figures are the hero** - the almanac *is* its data. Hairline-ruled tables with `font-variant-numeric: tabular-nums`, right-aligned numerics, decimals that line up, units in mono. Lead with a data block, an index, or a spec table - never a photograph.
+2. **Tables and figures are the hero** - the almanac *is* its data. Hairline-ruled tables with `font-variant-numeric: tabular-nums`, right-aligned numerics, decimals that line up, units in mono (charts, when a table earns one: [`data-viz.md`](../data-viz.md)). Lead with a data block, an index, or a spec table - never a photograph.
 
 3. **Two rule weights, used deliberately** - light hairline `--color-rule` (`oklch(74% 0.012 240)`) draws the grid and row separators; the dark `--color-rule-2` (`oklch(38% 0.018 240)`) draws the one emphatic line under a section head or table `thead`. **No boxed cards, no shadows.** Depth is rules, not blur.
 

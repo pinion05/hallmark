@@ -33,7 +33,7 @@ The aesthetic: the clinical performance grid, the race-bib crop, the standings t
 
 3. **One blaze-orange signal, < 5% of any viewport.** `oklch(58% 0.190 35)` marks the race-bib number, the one primary CTA, the active fixture, a link underline, the focus ring, the single lane stripe. Everything else is cool grey + ink. Orange-as-text uses `--color-accent-ink`.
 
-4. **The scoreboard: mono tabular numerals, set large.** JetBrains Mono with `font-variant-numeric: tabular-nums` for times, splits, scores, distances, dates. The number is the content and outsizes its label. The stopwatch / standings voice.
+4. **The scoreboard: mono tabular numerals, set large** (chart construction, when a figure grows one: [`data-viz.md`](../data-viz.md))**.** JetBrains Mono with `font-variant-numeric: tabular-nums` for times, splits, scores, distances, dates. The number is the content and outsizes its label. The stopwatch / standings voice.
 
 5. **Two-weight rule system, never boxed cards.** Hairline `--color-rule oklch(78% 0.008 250)` at `--rule-hair 1px` rules table rows and fine grids; heavy `--color-rule-2 oklch(36% 0.060 255)` at `--rule-fine 2px` frames the scoreboard and breaks sections. Depth from rules, never soft shadows or card-in-card.
 

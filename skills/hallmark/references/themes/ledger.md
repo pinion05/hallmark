@@ -62,7 +62,7 @@ Composed and near-still. The `LIVE` dot pulses (opacity 1 → 0.4, `2.4s`). Ledg
 - **No proportional numerals on figures.** Every balance, amount, and spec value is `tabular-nums` mono; columns align or the theme breaks.
 - **No pill / gradient CTAs.** One solid teal button at `--radius-input` (8px) + ghost buttons and `.tlink` typographic links. Name the destination (`Open an account`).
 - **No centred-everything hero, no 3-equal-icon feature grid.** Title-left / panel-right; features are a dense datasheet, how-it-works a numbered 01/02/03 trio.
-- **No fake dashboard clutter** - one sparkline, one ledger, real-looking sample numbers. No donut walls, no gauge rows, no confetti of KPIs.
+- **No fake dashboard clutter** - one sparkline, one ledger, real-looking sample numbers. No donut walls, no gauge rows, no confetti of KPIs. (Chart construction beyond the sparkline: [`data-viz.md`](../data-viz.md).)
 
 ## Macrostructure affinity
 
