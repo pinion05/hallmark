@@ -36,7 +36,7 @@ Use these three. Name them as tokens.
 }
 ```
 
-Exits use roughly 75% of the enter:
+Exits use 60-75% of the enter:
 
 ```css
 .menu.is-open  { transition: transform var(--dur-short) var(--ease-out); }

@@ -205,6 +205,19 @@ Count characters in the rendered hero `h1`. Pick the cap by bucket — the rule 
 
 Use no more than five sizes on a single page. If you need more hierarchy, use weight and colour, not another size.
 
+### Heading measure by size
+
+Max-width rides ON the heading element (never the wrapper), in `ch`; body keeps the 45-75ch envelope above:
+
+| Size | max-width |
+| --- | --- |
+| `--text-display` | ~20ch |
+| `--text-display-s` | ~24ch |
+| `--text-4xl` | ~30ch |
+| `--text-3xl` | ~35ch |
+| `--text-2xl` | ~40ch |
+| `--text-xl` | ~45ch |
+
 ## Weights
 
 - Body: one weight (typically 400 or 350). Bold for emphasis only.

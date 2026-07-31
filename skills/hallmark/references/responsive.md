@@ -54,7 +54,7 @@ h1 { font-size: clamp(2.5rem, 4vw + 1rem, 6rem); }
 }
 ```
 
-Never build a mouse-hover interaction that has no touch equivalent.
+Never build a mouse-hover interaction that has no touch equivalent. And the sizing direction models never guess: body-adjacent UI runs LARGER on mobile and tightens at 60rem (finish.md § Responsive finish).
 
 ## Clickable text — never wraps
 
