@@ -4,7 +4,14 @@
 // (load-order discipline, stamp, files written) - not just bare-API
 // instruction-following like Tier B (gen-direct.py).
 //
-//   node gen-cli.mjs --brief b1|all --arm claude|glm|kimi|all [--force] [--dry-run]
+//   node gen-cli.mjs --brief b1|all --arm claude|bare|glm|kimi|all [--force] [--dry-run]
+//                     [--model sonnet|opus|...] [--effort low|medium|high|max]
+//
+// A/B: the "bare" arm is the no-skill control - same binary, same auth, plain
+// brief prompt, NO skill copied, and --setting-sources project on the call so
+// the user-scope ~/.claude/skills install cannot leak in (applied to BOTH arms
+// so the skill arm always runs the project-scope copy). stampPresent on a bare
+// cell doubles as the leak detector (must be false).
 //
 // IMPORTANT (measured): skills do NOT auto-trigger in `claude -p` headless mode,
 // so we invoke the skill BY NAME ("/hallmark <brief>"). This is a CONFORMANCE
@@ -33,7 +40,8 @@ const SCRATCH = join(ROOT, "_cli-scratch");
 
 // --- arms (Tier A only; Anthropic-shaped endpoints) ------------------------
 const ARMS = {
-  "claude": { model: null, enabled: true, note: "Claude subscription; set NO key, must be logged in." },
+  "claude": { model: null, enabled: true, skill: true, note: "Hallmark arm; Claude subscription; set NO key, must be logged in." },
+  "bare":   { model: null, enabled: true, skill: false, note: "No-skill control; same binary and auth." },
   "glm":   { model: "glm-5.2[1m]", base: "https://api.z.ai/api/anthropic", tokenEnv: "ZAI_AUTH_TOKEN", enabled: false },
   "kimi":  { model: "kimi-k3", base: "https://api.moonshot.ai/anthropic", tokenEnv: "MOONSHOT_AUTH_TOKEN", enabled: false },
 };
@@ -56,11 +64,23 @@ const armIds = args.arm === "all" ? Object.keys(ARMS).filter((k) => ARMS[k].enab
 // --- stream-json parsing: pull the signals we care about -------------------
 function analyzeTranscript(lines, runDir) {
   let cost = null, model = null, sessionInit = false, resultText = "", isError = false, earlyStop = false;
+  let usage = null, numTurns = null, stop = null;
   const refReads = [], filesWritten = [];
   for (const line of lines) {
     let ev; try { ev = JSON.parse(line); } catch { continue; }
     if (ev.type === "system" && ev.subtype === "init") { sessionInit = true; model = ev.model ?? model; }
-    if (ev.type === "result") { cost = ev.total_cost_usd ?? cost; resultText = ev.result ?? resultText; isError = !!ev.is_error; }
+    if (ev.type === "result") {
+      cost = ev.total_cost_usd ?? cost; resultText = ev.result ?? resultText; isError = !!ev.is_error;
+      numTurns = ev.num_turns ?? numTurns; stop = ev.subtype ?? stop;
+      if (ev.usage && typeof ev.usage === "object" && "input_tokens" in ev.usage) usage = ev.usage;
+      else if (ev.modelUsage) {
+        usage = { input_tokens: 0, output_tokens: 0, cache_read_input_tokens: 0 };
+        for (const m of Object.values(ev.modelUsage)) {
+          usage.input_tokens += m.inputTokens ?? 0; usage.output_tokens += m.outputTokens ?? 0;
+          usage.cache_read_input_tokens += m.cacheReadInputTokens ?? 0;
+        }
+      }
+    }
     const record = (name, inp) => {
       const fp = (inp && (inp.file_path || inp.path)) || "";
       if (!fp) return;
@@ -77,7 +97,7 @@ function analyzeTranscript(lines, runDir) {
       record(cb.name, cb.input);
     }
   }
-  return { cost, model, sessionInit, resultText, isError, refReads, filesWritten, earlyStop };
+  return { cost, model, sessionInit, resultText, isError, refReads, filesWritten, earlyStop, usage, numTurns, stop };
 }
 
 function loadOrderCheck(refReads) {
@@ -98,16 +118,22 @@ function stampPresent(runDir) {
 
 async function runCell(brief, armId) {
   const arm = ARMS[armId];
-  const runDir = join(RUNS, brief.id, `${armId}-cli`);
+  const effortTag = args.effort ? `-${args.effort}` : "";
+  const cell = `${armId}${effortTag}-cli`;
+  const runDir = join(RUNS, brief.id, cell);
   const runJson = join(runDir, "run.json");
-  if (existsSync(runJson) && !args.force) { console.log(`skip  ${brief.id}/${armId}-cli (run.json exists)`); return; }
+  if (existsSync(runJson) && !args.force) { console.log(`skip  ${brief.id}/${cell} (run.json exists)`); return; }
 
-  const work = join(SCRATCH, `${brief.id}-${armId}`);
-  if (args["dry-run"]) { console.log(`would run ${brief.id}/${armId}-cli in ${work}`); return; }
+  const work = join(SCRATCH, `${brief.id}-${armId}${effortTag}`);
+  if (args["dry-run"]) { console.log(`would run ${brief.id}/${cell} in ${work}`); return; }
 
   rmSync(work, { recursive: true, force: true });
-  mkdirSync(join(work, ".claude", "skills"), { recursive: true });
-  cpSync(SKILL_SRC, join(work, ".claude", "skills", "hallmark"), { recursive: true });
+  if (arm.skill === false) {
+    mkdirSync(work, { recursive: true });
+  } else {
+    mkdirSync(join(work, ".claude", "skills"), { recursive: true });
+    cpSync(SKILL_SRC, join(work, ".claude", "skills", "hallmark"), { recursive: true });
+  }
   mkdirSync(runDir, { recursive: true });
 
   const env = { ...process.env };
@@ -120,13 +146,17 @@ async function runCell(brief, armId) {
     env.ANTHROPIC_AUTH_TOKEN = tok;
   }
 
-  const prompt = `/hallmark ${brief.brief}\nGo ahead and infer audience, use, and tone from the brief; do not ask me questions.`;
+  const prompt = arm.skill === false
+    ? `${brief.brief}\nWrite the result as index.html (plus css files if you like) in the current directory. Infer what you need; do not ask questions.`
+    : `/hallmark ${brief.brief}\nGo ahead and infer audience, use, and tone from the brief; do not ask me questions.`;
   const cliArgs = ["-p", prompt, "--output-format", "stream-json", "--verbose",
     "--permission-mode", "acceptEdits", "--allowedTools", "Read,Write,Edit,Bash",
-    "--max-turns", "60"];
+    "--max-turns", "60", "--max-budget-usd", "3", "--setting-sources", "project"];
+  if (args.model) cliArgs.push("--model", args.model);
+  if (args.effort) cliArgs.push("--effort", args.effort);
 
   const started = Date.now();
-  console.log(`run   ${brief.id}/${armId}-cli ...`);
+  console.log(`run   ${brief.id}/${cell} ...`);
   const lines = await new Promise((resolve) => {
     const p = spawn("claude", cliArgs, { cwd: work, env, stdio: ["ignore", "pipe", "pipe"] });
     const out = [];
@@ -149,17 +179,22 @@ async function runCell(brief, armId) {
   const a = analyzeTranscript(lines, work);
   const lo = loadOrderCheck(a.refReads);
   const run = {
-    brief: brief.id, arm: `${armId}-cli`, tier: "A", model: a.model ?? arm.model ?? "claude-subscription",
+    brief: brief.id, arm: cell, skill: arm.skill !== false, effort: args.effort ?? null,
+    tier: "A", model: a.model ?? arm.model ?? "claude-subscription",
     ok: a.sessionInit && !a.isError, durationSec: +((Date.now() - started) / 1000).toFixed(1),
-    costUSD: a.cost, skillLoaded: stampPresent(runDir),
+    costUSD: a.cost, turns: a.numTurns, stopSubtype: a.stop,
+    tokens: a.usage ? { in: a.usage.input_tokens ?? null, out: a.usage.output_tokens ?? null,
+      cacheRead: a.usage.cache_read_input_tokens ?? null } : null,
+    skillLoaded: stampPresent(runDir),
     filesWritten: [...new Set(a.filesWritten)].slice(0, 20),
-    refReadCount: lo.refCount, loadOrderOk: lo.refsUnder10 && lo.slopTestLast,
+    refReadCount: lo.refCount,
+    loadOrderOk: arm.skill === false ? null : (lo.refsUnder10 && lo.slopTestLast),
     refReads: lo.refs.slice(0, 20),
     resultPreview: (a.resultText || "").slice(0, 200), isError: a.isError,
     generatedAt: new Date().toISOString(),
   };
   writeFileSync(runJson, JSON.stringify(run, null, 2) + "\n");
-  console.log(`done  ${brief.id}/${armId}-cli | ok=${run.ok} skillLoaded=${run.skillLoaded} refs=${run.refReadCount} loadOrderOk=${run.loadOrderOk} ${run.durationSec}s`);
+  console.log(`done  ${brief.id}/${cell} | ok=${run.ok} skillLoaded=${run.skillLoaded} turns=${run.turns} cost=${run.costUSD} ${run.durationSec}s`);
 }
 
 // --- main ------------------------------------------------------------------
