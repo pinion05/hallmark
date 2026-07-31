@@ -79,7 +79,7 @@ The browser handles the cross-fade. No animation libraries needed for state chan
 ```
 Single element, simple motion           → CSS keyframes / @property
 Multiple elements, orchestrated entrance → Motion (React) or GSAP (vanilla / complex)
-Scroll-progress-linked                   → animation-timeline (CSS) — or GSAP ScrollTrigger if complex
+Scroll-progress-linked                   → ONE pattern from scroll-choreography.md (animation-timeline CSS); GSAP ScrollTrigger only when that pattern genuinely needs JS
 State change between two layouts         → View Transitions API
 A list reflows in React                  → AutoAnimate
 A complex hero narrative with scrubbing   → GSAP timeline + ScrollTrigger

@@ -1,7 +1,7 @@
 ### F2 · Sticky-scroll stack
 Sticky left pane, scrolling right pane that cycles through related screenshots.
 *Use when:* feature has multiple sub-states worth showing in sequence.
-*Don't confuse with:* F4 Step sequence (which is linearly numbered, not synced).
+*Don't confuse with:* F4 Step sequence (which is linearly numbered, not synced). Scroll-scrub choreography on top of the pin lives in [`scroll-choreography.md`](../scroll-choreography.md) § Sticky diptych.
 
 ```html
 <section class="sticky-stack">
