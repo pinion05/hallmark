@@ -12,10 +12,10 @@ When imagery is needed *and* the user hasn't supplied real assets, pick from thi
 
 | # | Source | When |
 | --- | --- | --- |
-| 1 | **Hallmark imagery kit** ([`imagery-kit.md`](imagery-kit.md)) | Brief allows non-photographic imagery: SaaS landings, manifestos, agency / studio splash, type-led portfolio, editorial-led marketing. **Always preferred** when the kit's register fits. |
+| 1 | **Hallmark imagery kit** ([`imagery-kit.md`](imagery-kit.md)) - REAL, manifest-listed assets: 16 photoreal avatars (with paired unisex names), washes, brush gestures, marks, textures, app-screen frames | Brief allows non-photographic imagery, OR needs placeholder portraits / logo marks / app screenshots. **Always preferred** when a listed asset fits; never emit a kit URL that is not in the manifest. |
 | 2 | **Hand-built SVG composition** (Tier B from custom-craft.md) | Editorial-typographic brief where "imagery" can be a stamp / wordmark / colour-blocked composition. Use when the kit doesn't carry the register. |
 | 3 | **Picsum** — `https://picsum.photos/seed/<seed>/<w>/<h>` | Generic photo slot, keyword anchoring not critical. Use a deterministic seed (brand-name + slot-name) so the same render produces the same image. |
-| 4 | **Unsplash Source** — `https://source.unsplash.com/<w>x<h>/?<keywords>` | Keyword-anchored photo slot — food, travel, portrait, real product. Pass 1–2 specific keywords, never zero. |
+| 4 | **Unsplash Source** — `https://source.unsplash.com/<w>x<h>/?<keywords>` | Keyword-anchored photo slot — food, travel, scenery, real product. Pass 1–2 specific keywords, never zero. **Never person/face/portrait keywords** (F9): placeholder humans come from the kit avatars, tier 1. |
 | 5 | **Local `public/placeholder-<type>.{jpg,svg}`** | Self-contained projects with no third-party deps. Single neutral grey-block SVG checked into the repo. |
 
 **Swappability — non-negotiable:**

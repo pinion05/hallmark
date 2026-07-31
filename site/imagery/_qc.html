@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>kit QC</title><style>
+body{background:#141416;color:#e8e6e1;font:12px system-ui;margin:0;padding:20px}
+h2{font-size:13px;margin:18px 0 8px}
+.g{display:flex;flex-wrap:wrap;gap:8px}
+.g img{border-radius:6px}
+.av img{width:96px;height:96px;object-fit:cover}
+.wa img{width:300px}
+.br img{width:150px;background:#fff}
+.mk{color:#e8e6e1}.mk img{width:48px;height:48px;padding:8px;background:#1d1d21}
+.tx img{width:96px;height:96px;background:#f4efe4}
+</style></head><body>
+<h2>avatars</h2><div class="g av"></div>
+<h2>washes</h2><div class="g wa"></div>
+<h2>brushes (white ground, multiply)</h2><div class="g br"></div>
+<h2>marks (currentColor)</h2><div class="g mk"></div>
+<h2>textures</h2><div class="g tx"></div>
+<script>
+const add=(sel,src)=>{const i=document.createElement('img');i.src=src;document.querySelector(sel).appendChild(i)};
+for(let i=1;i<=16;i++)add('.av','avatar/avatar-'+String(i).padStart(2,'0')+'.jpg');
+['warm-01','warm-02','cool-01','cool-02'].forEach(n=>add('.wa','watercolor/watercolor-'+n+'.jpg'));
+['warm-01','warm-02','cool-01','cool-02'].forEach(n=>add('.br','transparent/transparent-brush-'+n+'.jpg'));
+['orbit-01','orbit-02','orbit-03','stack-01','stack-02','stack-03','field-01','field-02','field-03','stroke-01','stroke-02','stroke-03'].forEach(n=>add('.mk','mark/mark-'+n+'.svg'));
+['grain-paper-01','riso-dot-01','crosshatch-01','weave-01'].forEach(n=>add('.tx','texture/texture-'+n+'.svg'));
+</script></body></html>

@@ -17,7 +17,7 @@ Before picking an enrichment tier, decide whether the brief actually wants image
 | e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos required — placeholder until user provides |
 | photography, portfolio, gallery, artist | Imagery *is* the page — placeholder until user provides |
 | food, restaurant, menu, dish, coffee, wine, recipe | Hero photo + product crops — placeholder until user provides |
-| team, staff, "about us", portraits, hiring, careers | Portrait crops — placeholder until user provides |
+| team, staff, "about us", portraits, hiring, careers | Kit avatars ([`imagery-kit.md`](imagery-kit.md) § avatar, with their paired names) until the user provides real people; never pravatar/dicebear/unsplash faces (F9) |
 | travel, hotel, destination, real estate, listing, property | Cover photo + tile photos — placeholder until user provides |
 | news, blog, magazine, journal, publication | Feature image per post — placeholder until user provides |
 | SaaS landing, manifesto, agency, studio, atmospheric, slow-and-editorial | **Composed-abstract (kit grammar, built in-page).** Compose washes, transparent abstracts, and ornaments with the kit's patterns, constructed via craft tier-a CSS / tier-b SVG - see [`imagery-kit.md`](imagery-kit.md) (its hard rule: no URL outside the manifest) and [`assets.md` § Placeholder strategy](assets.md). |
