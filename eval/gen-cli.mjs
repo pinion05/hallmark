@@ -138,6 +138,8 @@ async function runCell(brief, armId) {
 
   const env = { ...process.env };
   delete env.ANTHROPIC_API_KEY; // never spend the API key; use the subscription
+  delete env.ANTHROPIC_BASE_URL; // a host session (e.g. running inside Claude Code) exports this and breaks child auth
+  for (const k of Object.keys(env)) if (/^CLAUDE(CODE$|_CODE_|_)/.test(k)) delete env[k]; // shed host-session vars
   if (arm.base) {
     env.ANTHROPIC_BASE_URL = arm.base;
     env.ANTHROPIC_MODEL = arm.model;
