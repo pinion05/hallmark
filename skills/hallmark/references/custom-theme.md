@@ -154,7 +154,7 @@ Before any values: the scene sentence (R.5) fixes the paper's lightness band and
 
 ### B.1 · Anchor accent first
 
-- Convert the named or hex anchor to OKLCH; clamp chroma to **0.12-0.20** (inside the cap in [`color.md`](color.md) § Palette construction).
+- Convert the named or hex anchor to OKLCH; clamp chroma to **0.12-0.20** (inside the cap in [`color.md`](color.md) § Palette construction). When the brief names a REAL brand, the anchor comes from `.hallmark/brand-spec.md` ([`brand-truth.md`](brand-truth.md)), never from memory.
 - No anchor given: derive hue from the vibe: warmth 30-60° · technical 220-250° · botanical 130-160° · late-night neon 280-320° · sun-drenched 60-80°. Chroma 0.12-0.16.
 
 ### B.2 · Paper
