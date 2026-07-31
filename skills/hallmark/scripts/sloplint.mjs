@@ -49,6 +49,13 @@
  *   11  uniform hover-scale across multiple selectors
  *   17  tooltip focus delay equals hover delay
  *   18  infinite auto-rotating animation without pause-on-hover
+ *   F1-F9 finish tier (never counted in the 58 gates; see slop-test.md § The
+ *       finish tier): F1 straight quotes in prose · F2 three-period ellipsis ·
+ *       F3 no text-wrap balance on display heads · F4 >1 filled primary button ·
+ *       F5 icon-in-coloured-circle coin · F6 display-size numerics without
+ *       tabular figures · F7 one container recipe on >= 6 selectors · F8 >1
+ *       scroll-choreography pattern · F9 fake-human avatar hotlinks (FAIL) and
+ *       person-keyword unsplash (WARN)
  *   23  accent token on viewport-scale backgrounds / display-size accent text
  *       (WARN; posture-aware via the stamp; --render measures painted area
  *       against the 5% budget and can FAIL)
@@ -255,6 +262,8 @@ function parseHtml(file, src) {
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ');
   const text = noScript.replace(/<[^>]*>/g, ' ')
+    .replace(/&quot;|&#0?34;/g, '"').replace(/&#0?39;|&apos;/g, "'")
+    .replace(/&hellip;|&#8230;/g, '\u2026').replace(/&mdash;|&#8212;/g, '\u2014')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ').replace(/[ \t]+/g, ' ');
   return { file, src, styles, scripts, tags, text, lineOf };
@@ -476,7 +485,7 @@ const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
 /* ----------------------------------------------------------- gate engine --- */
 
-const COMPONENT_GATES = new Set(['1', '2', '7', '10', '14', '15', '22', '24', '26', '27', '30', '37', '38a', '39', '40', '41', '48']);
+const COMPONENT_GATES = new Set(['1', '2', '7', '10', '14', '15', '22', '24', '26', '27', '30', '37', '38a', '39', '40', '41', '48', 'F4', 'F5', 'F6', 'F9']);
 const PAGE_ONLY = new Set(['3', '4', '5', '17', '18', '19', '20', '25', '28', '33', '34', '42', '43', '46', '47', '49', '50', '51', '52', '53', '54', '55', '56', 'copy-tell']);
 
 const findings = [];
@@ -488,6 +497,8 @@ function report(gate, grade, file, line, evidence, fix) {
 
 function gateSortKey(g) {
   if (g === '38a') return 38.5;
+  const f = /^F(\d+)$/.exec(g);
+  if (f) return 900 + Number(f[1]); // finish tier groups after the numbered gates; copy-tell stays last
   const n = parseFloat(g);
   return Number.isNaN(n) ? 999 : n;
 }
@@ -1607,13 +1618,236 @@ function checkCopyTell(ctx) {
   }
 }
 
+/* ------------------------------------------------- finish tier (F1-F9) --- */
+/* Polish checks, never counted in the 58 gates. WARN unless noted; F9's
+   fake-avatar half is FAIL. See slop-test.md § The finish tier. */
+
+/* Position-preserving prose view: code-ish blocks, comments, and tags are
+   space-padded (never collapsed) so match indices map straight to doc.lineOf.
+   Entities stay ENCODED here; patterns match both forms. */
+function maskedProse(doc) {
+  if (doc._prose == null) {
+    const pad = (m) => m.replace(/[^\n]/g, ' ');
+    doc._prose = doc.src
+      .replace(/<(script|style|pre|code|kbd|samp|textarea)\b[^>]*>[\s\S]*?<\/\1>/gi, pad)
+      .replace(/<!--[\s\S]*?-->/g, pad)
+      .replace(/<[^>]*>/g, pad);
+  }
+  return doc._prose;
+}
+
+function maxPxIn(value) { // largest px-equivalent in a value (handles clamp())
+  let best = null;
+  for (const m of String(value).matchAll(/(-?\d+(?:\.\d+)?)(px|rem|em)/g)) {
+    const px = m[2] === 'px' ? parseFloat(m[1]) : parseFloat(m[1]) * 16;
+    if (best == null || px > best) best = px;
+  }
+  return best;
+}
+
+function baseSelector(sel) { // strip pseudo-classes/elements
+  return sel.replace(/::?[a-z-]+(\([^)]*\))?/gi, '').replace(/\s+/g, ' ').trim();
+}
+
+/* gate F1: straight quotes in prose (curly quotes never flagged) */
+function checkF1(ctx) {
+  const dq = /(?:"|&quot;|&#0?34;)(?=[A-Za-z])|[A-Za-z](?:"|&quot;|&#0?34;)/g;
+  const ap = /[A-Za-z](?:'|&#0?39;|&apos;)(?=[A-Za-z])/g; // contractions/possessives only
+  for (const doc of ctx.docs) {
+    const prose = maskedProse(doc);
+    const hits = [...prose.matchAll(dq), ...prose.matchAll(ap)].sort((a, b) => a.index - b.index);
+    if (!hits.length) continue;
+    const around = prose.slice(Math.max(0, hits[0].index - 16), hits[0].index + 16).replace(/\s+/g, ' ').trim();
+    report('F1', 'WARN', doc.file, doc.lineOf(hits[0].index),
+      `straight quote in prose x${hits.length} (first: ${trunc(around, 40)})`, 'Use typographic quotes: \u201C \u201D \u2019');
+  }
+}
+
+/* gate F2: three-period ellipsis in prose */
+function checkF2(ctx) {
+  for (const doc of ctx.docs) {
+    const prose = maskedProse(doc);
+    const hits = [...prose.matchAll(/\.{3,}/g)];
+    if (!hits.length) continue;
+    report('F2', 'WARN', doc.file, doc.lineOf(hits[0].index),
+      `three-period ellipsis in prose x${hits.length}`, 'Use a true ellipsis character (\u2026)');
+  }
+}
+
+/* gate F3: display heads without text-wrap balance (single WARN per file set) */
+function checkF3(ctx) {
+  const H12 = /(^|[\s,>+~(])h[12]\b/i;
+  const targets = [];
+  let satisfied = false;
+  for (const r of mergedDeclsBySelector(ctx.rules)) {
+    const isH12 = H12.test(r.selector);
+    const isDisplayClass = HEADING_SEL.test(r.selector)
+      && r.decls.some((d) => d.prop === 'font-size' && (maxPxIn(resolveVars(d.value, ctx.tokens)) ?? 0) >= 40);
+    if (!isH12 && !isDisplayClass) continue;
+    targets.push(r);
+    if (r.decls.some((d) => /^text-wrap(-style)?$/.test(d.prop) && /balance|pretty/.test(d.value))) satisfied = true;
+  }
+  if (targets.length && !satisfied) {
+    report('F3', 'WARN', targets[0].file, targets[0].line,
+      `no text-wrap: balance on any display head (${targets.length} head rule(s), e.g. ${trunc(targets[0].selector, 32)})`,
+      'Add text-wrap: balance to h1/h2-level heads');
+  }
+}
+
+/* gate F4: more than one filled-primary button recipe */
+function checkF4(ctx) {
+  const BTN = /\b(btn|button|cta)\b|__(btn|button|cta)\b/i;
+  const filled = new Map(); // base selector -> {r, d}
+  for (const r of mergedDeclsBySelector(ctx.rules)) {
+    if (isTokenRule(r) || /:hover|:active|:focus|:disabled|\.is-|\[disabled/i.test(r.selector)) continue;
+    const first = baseSelector(r.selector.split(',')[0]);
+    if (!BTN.test(first)) continue;
+    for (const d of r.decls) {
+      if (!/^background(-color)?$/.test(d.prop)) continue;
+      const rv = resolveVars(d.value, ctx.tokens);
+      if (/transparent|none/i.test(rv)) continue;
+      if (/var\(\s*--color-(accent|ink)\b/.test(d.value) && !filled.has(first)) filled.set(first, { r, d });
+    }
+  }
+  if (filled.size >= 2) {
+    const sels = [...filled.keys()];
+    const second = filled.get(sels[1]);
+    report('F4', 'WARN', second.r.file, second.d.line,
+      `${filled.size} filled primary-button recipes: ${trunc(sels.join(' + '), 52)}`,
+      'One filled primary per page; demote the rest to outline/quiet variants');
+  }
+}
+
+/* gate F5: icon in a coloured circle coin */
+function checkF5(ctx) {
+  for (const r of mergedDeclsBySelector(ctx.rules)) {
+    if (isTokenRule(r) || !/icon|\bico\b/i.test(r.selector)) continue;
+    const radius = r.decls.find((d) => d.prop === 'border-radius');
+    if (!radius) continue;
+    const rv = resolveVars(radius.value, ctx.tokens);
+    const pct = /(\d+(?:\.\d+)?)%/.exec(rv);
+    const round = (pct && parseFloat(pct[1]) >= 50) || ((maxPxIn(rv) ?? 0) >= 999);
+    if (!round) continue;
+    const bg = r.decls.find((d) => /^background(-color)?$/.test(d.prop)
+      && !/^(none|transparent)$/i.test(resolveVars(d.value, ctx.tokens).trim()));
+    if (!bg) continue;
+    const small = r.decls.some((d) => (d.prop === 'width' || d.prop === 'height')
+      && (pxOf(resolveVars(d.value, ctx.tokens)) ?? 999) <= 64);
+    if (small) {
+      report('F5', 'WARN', r.file, bg.line, `icon-in-coloured-circle coin: ${trunc(r.selector, 40)}`,
+        'Drop the tinted coin; set the icon at text size in currentColor');
+    }
+  }
+}
+
+/* gate F6: display-size numeric surfaces without tabular figures (selector heuristic) */
+function checkF6(ctx) {
+  const NUM_SEL = /\b(stat|price|table|figure|count|num)[\w-]*/i;
+  const hasTnum = (r) => r.decls.some((d) => d.prop === 'font-variant-numeric'
+    || (d.prop === 'font-feature-settings' && /tnum/.test(d.value)));
+  if (ctx.rules.some((r) => /^(html|body|:root)\b/i.test(r.selector.trim()) && hasTnum(r))) return;
+  const bySel = mergedDeclsBySelector(ctx.rules);
+  const covered = new Set(bySel.filter(hasTnum).map((r) => baseSelector(r.selector)));
+  const warned = new Set();
+  for (const r of bySel) {
+    if (isTokenRule(r) || !NUM_SEL.test(r.selector)) continue;
+    const base = baseSelector(r.selector);
+    if (warned.has(base) || covered.has(base)) continue;
+    const fs2 = r.decls.find((d) => d.prop === 'font-size');
+    if (!fs2 || (maxPxIn(resolveVars(fs2.value, ctx.tokens)) ?? 0) < 24) continue;
+    warned.add(base);
+    report('F6', 'WARN', r.file, fs2.line,
+      `numeric selector ${trunc(base, 36)} at display size without tabular figures`,
+      'Add font-variant-numeric: tabular-nums');
+  }
+}
+
+/* gate F7: container monotony - identical surface recipe across >= 6 selectors */
+function checkF7(ctx) {
+  const byKey = new Map();
+  for (const r of mergedDeclsBySelector(ctx.rules)) {
+    if (isTokenRule(r) || /::(before|after)/.test(r.selector)) continue;
+    const get = (re) => {
+      const d = r.decls.filter((x) => re.test(x.prop)).pop();
+      return d ? resolveVars(d.value, ctx.tokens).replace(/\s+/g, ' ').trim() : '';
+    };
+    const border = get(/^border$/)
+      || [get(/^border-width$/), get(/^border-style$/), get(/^border-color$/)].filter(Boolean).join(' ');
+    const radius = get(/^border-radius$/);
+    const surface = get(/^background(-color)?$/) || '';
+    const shadow = get(/^box-shadow$/);
+    if (!radius || (!border && !surface && !shadow)) continue;
+    const key = [border, radius, surface, shadow].join(' | ');
+    if (!byKey.has(key)) byKey.set(key, { sels: new Set(), r });
+    for (const part of r.selector.split(',')) byKey.get(key).sels.add(baseSelector(part));
+  }
+  for (const v of byKey.values()) {
+    if (v.sels.size >= 6) {
+      report('F7', 'WARN', v.r.file, v.r.line,
+        `same container recipe on ${v.sels.size} selectors (${trunc([...v.sels].slice(0, 4).join(', '), 48)}...)`,
+        'Vary weight, radius, or fill by role; not every box is the same box');
+    }
+  }
+}
+
+/* gate F8: more than one scroll-choreography pattern family */
+function checkF8(ctx) {
+  const famOf = (sel) => {
+    const m = /\.([a-z][\w-]*)/i.exec(sel) || /(^|[\s>+~])([a-z][\w-]*)/i.exec(sel);
+    const name = m ? (m[1] || m[2]) : sel;
+    return name.split('__')[0].split('--')[0].toLowerCase();
+  };
+  const NAVISH = /^(nav|header|topbar|masthead|banner)$/; // scroll-reactive navs are n10/n12 territory
+  const timeline = new Map(), sticky = new Map(), animated = new Set();
+  for (const r of ctx.rules) {
+    if (r.keyframes || isTokenRule(r)) continue;
+    for (const d of r.decls) {
+      if (d.prop === 'animation-timeline' && !/^(none|auto)$/i.test(d.value.trim())
+        && !timeline.has(famOf(r.selector))) timeline.set(famOf(r.selector), { r, d });
+      if (d.prop === 'animation' || d.prop === 'animation-name') animated.add(famOf(r.selector));
+      if (d.prop === 'position' && /sticky/i.test(d.value)) sticky.set(famOf(r.selector), { r, d });
+    }
+  }
+  const families = new Map(timeline);
+  for (const [fam, v] of sticky) {
+    if (!families.has(fam) && animated.has(fam) && !NAVISH.test(fam)) families.set(fam, v);
+  }
+  if (families.size > 1) {
+    const names = [...families.keys()];
+    const second = families.get(names[1]);
+    report('F8', 'WARN', second.r.file, second.d.line,
+      `${families.size} scroll-choreography patterns on one page (${trunc(names.join(', '), 44)})`,
+      'Budget is one scroll pattern per page (scroll-choreography.md); cut the rest');
+  }
+}
+
+/* gate F9: fake-human avatar hotlinks (FAIL) / person-keyword unsplash (WARN) */
+function checkF9(ctx) {
+  const FAKE = /(i\.pravatar\.cc|pravatar\.cc|api\.dicebear\.com|dicebear\.com|randomuser\.me|thispersondoesnotexist\.com|ui-avatars\.com)/i;
+  const UNSPLASH = /https?:\/\/[^"'()\s]*unsplash\.com[^"'()\s]*/gi;
+  const PERSONY = /person|face|portrait|people|headshot/i;
+  const scan = (text, file, lineAt) => {
+    const f = FAKE.exec(text);
+    if (f) report('F9', 'FAIL', file, lineAt(f.index), `fake-human avatar service ${f[1]}`,
+      'Use the Hallmark avatar kit or drop the face; a generated stranger is fabricated social proof');
+    for (const m of text.matchAll(UNSPLASH)) {
+      if (PERSONY.test(m[0])) report('F9', 'WARN', file, lineAt(m.index),
+        `unsplash person-keyword URL ${trunc(m[0], 44)}`,
+        'Faces as social proof need real people; keep unsplash for scenery and objects');
+    }
+  };
+  for (const doc of ctx.docs) scan(doc.src, doc.file, (i) => doc.lineOf(i));
+  for (const c of ctx.cssFiles) scan(c.raw, c.file, (i) => c.raw.slice(0, i).split('\n').length);
+}
+
 /* -------------------------------------------------------------- runner --- */
 
 const CHECKS = [check1, check2, check3, check4, check5, check7, check10, check11,
   check12, check14, check15, check17, check18, check19, check20, check22, check23, check24,
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
   check39, check40_41, check42, check43, check46, check47, check48, check49,
-  check50, check51, check52, check53, check54, check55, check56, checkCopyTell];
+  check50, check51, check52, check53, check54, check55, check56, checkCopyTell,
+  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF8, checkF9];
 
 const files = collectFiles(opts.paths);
 if (!files.length) { console.error('sloplint: no .html or .css files found'); process.exit(2); }

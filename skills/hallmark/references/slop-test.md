@@ -214,4 +214,12 @@ The CSS stamp at Step 6 records mobile pass alongside contrast: `· mobile: pass
 
 ---
 
+## The finish tier (F-checks)
+
+sloplint also runs nine FINISH checks, ids F1-F9. They are polish, not gates: confirm or fix each at Step 7 with the same seriousness as a WARN, but never count them in the 58, and never let one block a ship the gates approved. The rules live in [`finish.md`](finish.md) (F1-F6), [`layout-and-space.md`](layout-and-space.md) § Surfaces (F7), [`scroll-choreography.md`](scroll-choreography.md) (F8), and the imagery kit's avatar discipline (F9, whose fake-avatar half is the tier's one FAIL).
+
+- **F1** straight quotes in prose · **F2** `...` instead of `…` · **F3** no `text-wrap: balance` on display heads · **F4** more than one filled-primary button recipe · **F5** icon in a coloured circle coin · **F6** display-size numerics without tabular figures · **F7** one container recipe stamped on six or more selectors · **F8** more than one scroll-choreography pattern · **F9** fake-human avatar hotlinks (FAIL) / person-keyword stock URLs (WARN).
+
+---
+
 If any answer is **yes**, fix it. Do not ship slop.
