@@ -31,6 +31,16 @@ OpenCode gates `edit`, `bash`, and `webfetch` per agent as allow / ask / deny, w
 - **Formatters and LSP.** OpenCode may run formatters on write and surface LSP diagnostics. Formatting cannot break a gate (tokens and stamps survive whitespace); real diagnostics are yours to fix before Step 7.
 - **Reference reads stay disciplined.** Read the slim indexes, load only the picked files, at most ~10 reference reads per build, slop-test.md strictly at Step 7.
 
+## Model tics to refuse
+
+OpenCode runs many models, so the tics are keyed on SYMPTOMS, not vendors. Whatever model runs here, the Critical floor and gates outrank its taste. Refuse-by-default; the brief's own words can earn one back.
+
+- **Ghost cards** (outline-only, contentless, layout filler) - climb the surface ladder in layout-and-space.md instead.
+- **Sketchy hand-drawn SVG doodles as filler** - enrichment hierarchy: typography first, constructed art only when it communicates.
+- **Grain/noise washes as filler** - texture is a budgeted [`texture.md`](../texture.md) recipe on themes that earn it, never ambience by default.
+- **Repeated diagonal-stripe or zebra backgrounds** - rhythm comes from structure, not wallpaper.
+- **Emoji as bullets or icons** - gate 30 territory, every model's favourite shortcut.
+
 ## Rules that survive every harness
 
 1. If you notice you have restated the plan twice, stop narrating and build.

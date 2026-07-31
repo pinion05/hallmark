@@ -35,6 +35,16 @@ Codex defaults to a `workspace-write` sandbox with **network access off** and ap
 - **Reference reads stay disciplined.** Progressive disclosure is the same idea on both harnesses: read the slim indexes, load only the picked files, at most ~10 reference reads per build, slop-test.md strictly at Step 7.
 - **Long runs**: Codex sessions can compact; the stamp, `.hallmark/log.json`, and `decisions.md` are your durable memory. Re-read them instead of re-deriving.
 
+## Model tics to refuse
+
+Codex-family models carry their own visual reflexes. These are refuse-by-default, not bans: the brief's OWN words can earn one back, your taste cannot.
+
+- **Ghost cards**: outline-only cards with no fill and no content weight, used as layout filler. Fix: the surface ladder in layout-and-space.md (whitespace, hairline, well) before any card.
+- **Sketchy hand-drawn SVG illustration** dropped in as filler art. Fix: the enrichment hierarchy (typography first; constructed tier-a/b art only when it communicates).
+- **feTurbulence grain washes as filler**: grain smeared over sections to fake texture. Grain is legal only as a BUDGETED recipe from [`texture.md`](../texture.md) on themes that earn it; as filler it is the tic.
+- **Repeated diagonal-stripe backgrounds** on alternating sections. Fix: the section deck's rhythm comes from structure, not wallpaper.
+- **Emoji bullets in feature lists**. Gate 30 already fails emoji icons; the list-bullet variant is the same tell.
+
 ## Rules that survive every harness
 
 1. If you notice you have restated the plan twice, stop narrating and build.
