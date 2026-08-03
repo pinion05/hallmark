@@ -31,19 +31,19 @@ These bind on every output, in every verb, on every model, and **none of them is
 9. Never ship an eyebrow, kicker, or overline: short inert type before a heading that announces what the heading is about. Not stacked, not beside, not as a badge pill, not with an ordinal. Open the section another way ([`references/section-entry.md`](references/section-entry.md)). (gate 54)
 10. The hero's headline, lede, and primary CTA are all visible at 1280x800 without scrolling. (gate 44b)
 11. The first non-empty line of emitted CSS is the `/* Hallmark · macrostructure: ... */` stamp; the pre-emit critique comment sits directly under it, then any waiver lines, then a custom build's direction contract. (gate 20)
-12. If Node is available, run `node <skill-dir>/scripts/sloplint.mjs <output>` before handing back and fix every FAIL.
+12. If Node is available, run `node <skill-dir>/scripts/sloplint.mjs <output>` before handing back. Fix every `FAIL`; fix or waive every `REFLEX`.
 
-**Above the Floor, the skill is advice.** A banned display font, an accent that fills the page, a pure-black stage, an italic display *system*, four type families: these are **Reflex** gates. They are the defaults a language model falls into, not laws, and a build with a real reason may waive one on the record. The tiers, the waiver syntax, and the caps live in [`references/slop-test.md`](references/slop-test.md) § Tiers.
+**Above the Floor, the skill is advice.** A banned display font, an accent that fills the page, a pure-black stage, an italic display *system*, four type families: these are **Reflex** gates. They are the defaults a language model falls into, not laws, and a build with a real reason may waive one on the record. There is no cap on how many a build may waive; the guard, the reason, and the log are what keep it honest. The tiers, the two doors into the Floor, the grades and the waiver syntax live in [`references/slop-test.md`](references/slop-test.md) § Tiers.
 
 ## Flow at a glance
 
 0. Pre-flight scan of the existing project.
 1. Ask Audience / Use case / Tone once; detect genre; note custom signals.
-2. Design the page's shape, nav, footer, hero, and section entry; run the Rotation rules; say the Picks block. (Catalogs available, never required.)
+2. Design the page's shape, nav, footer, hero, and section entry; run the Rotation rules. (Catalogs available, never required.)
 2.6. Theme route: studied-DNA, catalog, or custom (custom runs the ritual in [`references/custom-theme.md`](references/custom-theme.md)).
 3. Load ONLY the listed reference files.
 4. Enrichment decision (scene sentence first; most pages are typography-only).
-5. Preview block, then pause a beat before code.
+5. The Picks block (the run's only prose recital), then pause a beat before code.
 6. Build: tokens, stamp, `tokens.css`, log append.
 7. Slop test: sloplint script first, then the judged gates.
 
@@ -177,7 +177,7 @@ Two non-default signals firing (rare): ask one short either/or. State the genre 
 
 ### 2. Structure and rotation
 
-**Do:** design the shape this brief wants, check it against what you built last time, and say the Picks block before writing any code.
+**Do:** design the shape this brief wants, and check it against what you built last time. Hold the decisions; they are said once at Step 5.
 
 **Design the page, then name what you designed.** Decide the page's shape, how it opens, how sections separate, what the nav and footer are doing, how tall the hero stands and what carries it. State those decisions in your own words. You are a capable designer; this step is not a form to fill in.
 
@@ -207,18 +207,9 @@ Two things the catalogs are not: a checklist you owe, and a rotation you must wa
 
 The `axes` and `fingerprint` fields are how Rotation and gate 32 become checkable instead of remembered; older entries without them are treated as unconstrained. `waived` records any Reflex gate this build waived: the same gate waived three runs running is not an exception any more, it is an unstated house style, and it belongs in a `design.md`. First run for a project: no constraint, note it in one line. User explicitly re-orders the same shape: same shape, different values, and say the deltas.
 
-**The mirror test, before the block.** Would this exact combination have come out for a NEIGHBOURING brief (same category, different product)? If yes, at least one decision must change, and the Picks block names which one in its parenthetical. A choice that survives the mirror is a decision; one that doesn't was a default.
+**The mirror test.** Would this exact combination have come out for a NEIGHBOURING brief (same category, different product)? If yes, at least one decision must change, and the Picks block names which one in its parenthetical. A choice that survives the mirror is a decision; one that doesn't was a default.
 
-**The Picks block.** One compact fenced block, said once, replacing all narration. Name a catalog code where you used one, plain words where you did not:
-
-```
-Picks · genre: modern-minimal · structure: Workbench (last 3: Bento, Long Document, Manifesto)
-· theme: Cobalt (differs on paper band + display style) · hero: Stage/H2 (prev Settled)
-· nav: N13 (prev N5) · footer: a single justified colophon line · section entry: rule + change of paper
-· deck: -logos +worked-example (SaaS decks only) · enrichment: tbd (Step 4) · custom: no
-```
-
-The enrichment cell may read `tbd (Step 4)`; the decision lands there and the Step 5 preview carries the final value. On a custom run the Picks block emits after the 2.6 ritual instead, so it can carry the draw line.
+**Do not narrate any of this yet.** Decide, hold the decisions, and say them once at Step 5. Every build used to state the same set four times over (a Picks block here, a preview block at Step 5, the CSS stamp, the log entry); the stamp and the log are machine-readable records with different readers, but two prose recitals of the same list is ceremony, not design. One block, at the point where every cell has a real value.
 
 ### 2.6. Theme route
 
@@ -245,6 +236,8 @@ A custom system is complete (palette + pairing + axes), never a colour swap; its
 
 **Every build:** [`references/typography.md`](references/typography.md) · [`references/color.md`](references/color.md) · [`references/layout-and-space.md`](references/layout-and-space.md) · [`references/motion.md`](references/motion.md) · [`references/copy.md`](references/copy.md) · [`references/anti-patterns.md`](references/anti-patterns.md) · [`references/section-entry.md`](references/section-entry.md) · [`references/finish.md`](references/finish.md).
 
+Two of those carry sections you should skip rather than read whole: `typography.md` § The font catalog is dead weight when a catalog theme has already named the faces, and `copy.md` § Voice samples per tone is seven blocks of which six are not your tone. Skipping both saves roughly 200 lines a build.
+
 **Conditionally (be honest, no defensive pre-loads):** [`references/microinteractions.md`](references/microinteractions.md) when anything is interactive (most pages); [`references/interaction-and-states.md`](references/interaction-and-states.md) for stateful UI; [`references/responsive.md`](references/responsive.md) when mobile is in scope; [`references/structure.md`](references/structure.md) only when deviating from a named macrostructure; [`references/assets.md`](references/assets.md) only when an enrichment needs an external asset; [`references/texture.md`](references/texture.md) only when the picked theme earns texture (Riso, Carnival, Arcade, faint Newsprint) or a custom draw has print lineage; [`references/scroll-choreography.md`](references/scroll-choreography.md) only when the brief asks for scroll story / cinematic pacing or the macro is Feature-stack / Narrative Workflow; [`references/dark-mode.md`](references/dark-mode.md) only when the user asks for both modes; [`references/data-viz.md`](references/data-viz.md) when the brief involves charts / data / dashboards or the macro is Stat-Led / Workbench; [`references/brand-truth.md`](references/brand-truth.md) when the brief names a real brand or company to build for; [`references/custom-theme.md`](references/custom-theme.md) only on the custom route; [`references/design-md.md`](references/design-md.md) only when the user asks to lock the system; [`references/preview-examples.md`](references/preview-examples.md) only if the Step 5 spec is not scaffolding enough.
 
 **At the end only:** [`references/slop-test.md`](references/slop-test.md) strictly at Step 7 (pre-loading it costs thousands of tokens for nothing; `anti-patterns.md` is the pre-emit list); [`references/contract.md`](references/contract.md) at handoff; [`references/export-formats.md`](references/export-formats.md) only on `design.md` projects.
@@ -263,21 +256,23 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 
 ### 5. Preview
 
-**Do:** emit the preview block, then stop for a beat before writing code. This is the user's five-second redirect window.
+**Do:** emit the Picks block, once, then stop for a beat before writing code. This is the only prose recital of the build's decisions and it is the user's five-second redirect window. Everything decided at Steps 2, 2.6 and 4 lands here together, which is why nothing was narrated earlier.
 
 ```markdown
 **Hallmark · v1.2.0**
 
-- **Macrostructure** · Stat-Led
-- **Theme** · Coral (near-white paper · quiet neutrals · coral accent)
+- **Structure** · Stat-Led (last 3: Bento, Long Document, Manifesto) — genre modern-minimal
+- **Theme** · Coral (near-white paper · quiet neutrals · coral accent; differs from Newsprint on paper band + display style)
+- **Chrome** · nav N13 (prev N5) · footer: a single justified colophon line
+- **Hero** · Stage/H2 (prev Settled)
+- **Section entry** · a hairline rule, repeated, plus one change of paper
 - **Enrichment** · none (typography only)
 - **Sections** · Hero · Logos · Stats · Features · Pricing · FAQ · CTA · Footer
 - **Motion** · counter · pricing-lift · pulse-once
 - **Slop test** · Floor 34/34 ✓ · Reflex 18 · Finish clean (run after Build)
-- **Diversification** · differs from Newsprint on paper band + display style
 ```
 
-Custom builds add two bullets: `**Direction** · <name> (draw n/7, wildcard yes/no)` and `**Posture** · <Restrained | Committed | Full palette | Drenched>`. Any page may add `**Signature** · <the one move>`.
+Name a catalog code where you took one, plain words where you designed it. SaaS deck runs add `**Deck** · -logos +worked-example`. Custom builds add `**Direction** · <name> (draw n/7, wildcard yes/no)` and `**Posture** · <Restrained | Committed | Full palette | Drenched>`. Any page may add `**Signature** · <the one move>`.
 
 The Slop test row must reflect the real Step 7 outcome; a fabricated `Floor 34/34` is itself slop. Any waived Reflex gate is named in the row (`Reflex 18 (1 waived: 23)`). If gates fail at Step 7, fix and emit a **one-line delta** (`Slop test · Floor 34/34 after 2 fixes: gates 41, 44`), not the whole block again.
 
@@ -322,9 +317,9 @@ Component scope runs the component sweep named in `slop-test.md`. Update the pre
 
 Triggers: the user passes `--fast` / says "fast", or the brief itself says quick / rough / demo / prototype / throwaway. A short brief alone is NOT a trigger; a 10-word real-product brief still gets the Step 1 ask.
 
-Behaviour: `--fast` counts as "go ahead" at the Step 1 gate (infer + one-line disclosure); total narration caps at three lines (inference line · Picks block · done line); the preview emits once with no CTA line and no re-emit; the pre-flight cache is reused silently.
+Behaviour: `--fast` counts as "go ahead" at the Step 1 gate (infer + one-line disclosure); total narration caps at three lines (inference line · Picks block · done line); the block emits once with no CTA line and no re-emit; the pre-flight cache is reused silently.
 
-Not relaxed: **the Floor**, the stamp, `tokens.css`, the log append, contrast checks. Fast mode may waive Reflex gates without the three-per-artifact cap, and skips the Finish tier. It cuts ceremony and argument, never the Floor.
+Not relaxed: **the Floor**, the stamp, `tokens.css`, the log append, contrast checks. Fast mode may waive Reflex gates with a one-line reason and skips the Finish tier. It cuts ceremony and argument, never the Floor.
 
 ---
 

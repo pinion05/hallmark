@@ -590,22 +590,30 @@ function reasonIsBoilerplate(reason) {
   return r.length < 12;
 }
 
-/* Honoured waivers for the group currently being checked. */
+/* Honoured waivers and answered Finish checks for the group being checked. */
 let WAIVED = new Set();
+let ANSWERED = new Set();
 
 const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
   const g = String(gate);
   if (opts.scope === 'component' && PAGE_ONLY.has(g)) return;
   const tier = tierOf(g);
-  if (tier === 'ledger' && grade === 'FAIL') grade = 'NOTE';
-  if (grade === 'FAIL' && tier === 'reflex' && WAIVED.has(baseGate(g))) grade = 'WAIVED';
+  const b = baseGate(g);
+  if (grade === 'FAIL') {
+    /* Bookkeeping never blocks a ship, and a Reflex finding is not a Floor
+       finding: it gets its own blocking grade so "Floor clean" stays a true
+       statement even while the build still owes an answer somewhere. */
+    if (tier === 'ledger') grade = 'NOTE';
+    else if (tier === 'reflex') grade = WAIVED.has(b) ? 'WAIVED' : 'REFLEX';
+  }
+  if (tier === 'finish' && ANSWERED.has(b)) grade = 'ANSWERED';
   findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
 }
 
 /** Parse, judge, and apply the `waive` lines in a group's stamp. */
 function applyWaivers(ctx, dir) {
-  WAIVED = new Set();
+  WAIVED = new Set(); ANSWERED = new Set();
   const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]?(?:-[a-z]+)?|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
   const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
     id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
@@ -647,7 +655,6 @@ function applyWaivers(ctx, dir) {
     const tier = tierOf(c.id);
     if (tier !== 'reflex') { rejectAt(c, tier === 'ledger' ? 'bookkeeping gate' : 'Floor is never waivable'); continue; }
     if (WAIVED.has(b)) { rejectAt(c, 'one waiver per gate'); continue; }
-    if (WAIVED.size >= WAIVER_MAX) { rejectAt(c, `cap: ${WAIVER_MAX} per artifact`); continue; }
     if (c.reason.length < 24) { rejectAt(c, 'reason under 24 characters'); continue; }
     if (reasonIsBoilerplate(c.reason)) { rejectAt(c, 'boilerplate reason'); continue; }
     if (reasons.get(c.reason.toLowerCase()) > 1) { rejectAt(c, 'reason reused on another waiver'); continue; }
@@ -658,9 +665,40 @@ function applyWaivers(ctx, dir) {
     if (verdict !== true) { rejectAt(c, `guard: ${verdict}`); continue; }
     WAIVED.add(b);
   }
+  /* Past the soft cap the waivers still stand: a genuinely expressive page can
+     legitimately overrule four or five reflexes, and blocking it there would be
+     the restraint this tier exists to remove. What it earns instead is a name.
+     Guards, reason quality and the log are what keep this honest, not a count. */
+  if (WAIVED.size > WAIVER_MAX) {
+    findings.push({
+      gate: 'waive', grade: 'NOTE', tier: 'ledger', file: rel(file), line: 1,
+      evidence: trunc(`${WAIVED.size} reflex gates waived (${[...WAIVED].join(', ')}): that is a house style, not a set of exceptions`),
+      fix: 'Lock it into a design.md so later pages inherit it instead of re-arguing it',
+    });
+  }
+
+  /* Finish findings are "read and answered". This is the record form, so an
+     answer is parseable by the next run instead of freeform prose in a comment. */
+  const ansRe = /\/\*\s*Hallmark\s*·\s*answered\s+(\d{1,2}[a-z]?(?:-[a-z]+)?|F\d+)\s*·\s*([^*]+?)\s*\*\//gi;
+  for (const m of ctx.stampText.matchAll(ansRe)) {
+    const id = baseGate(m[1]);
+    const reason = m[2].trim();
+    const bad = tierOf(id) !== 'finish' ? 'only Finish findings are answered; Reflex is waived and Floor is fixed'
+      : reason.length < 24 ? 'reason under 24 characters'
+      : reasonIsBoilerplate(reason) ? 'boilerplate reason' : null;
+    if (bad) {
+      findings.push({
+        gate: id, grade: 'WAIVER', tier: tierOf(id), file: rel(file), line: 1,
+        evidence: trunc(`answer on ${m[1]} REJECTED (${bad})`),
+        fix: 'Two · -separated fields: /* Hallmark · answered <check> · <reason> */',
+      });
+      continue;
+    }
+    ANSWERED.add(id);
+  }
 }
 
-const GRADE_RANK = { FAIL: 0, WAIVER: 1, WARN: 2, WAIVED: 3, NOTE: 4 };
+const GRADE_RANK = { FAIL: 0, REFLEX: 1, WAIVER: 2, WARN: 3, WAIVED: 4, ANSWERED: 5, NOTE: 6 };
 
 function gateSortKey(g) {
   if (g === '38a') return 38.5;
@@ -2274,24 +2312,32 @@ unique.sort((a, b) => {
 
 const count = (g) => unique.filter((f) => f.grade === g).length;
 const fails = count('FAIL');
+const reflex = count('REFLEX');
 const warns = count('WARN');
 const waived = count('WAIVED');
 const rejected = count('WAIVER');
+const answered = count('ANSWERED');
 const notes = count('NOTE');
 
-const tally = [`${fails} FAIL`, `${warns} WARN`];
+/* Floor and Reflex both block, and both are reported, but they are not the same
+   claim: "0 FAIL" means nothing got past the floor, which stays true even while
+   the build still owes an argument on a reflex. */
+const tally = [`${fails} FAIL`];
+if (reflex) tally.push(`${reflex} REFLEX`);
+tally.push(`${warns} WARN`);
 if (waived) tally.push(`${waived} WAIVED`);
 if (rejected) tally.push(`${rejected} REJECTED`);
+if (answered) tally.push(`${answered} ANSWERED`);
 if (notes) tally.push(`${notes} NOTE`);
 
 if (opts.json) {
   console.log(JSON.stringify({
-    summary: { fails, warns, waived, rejected, notes, files: files.length },
+    summary: { fails, reflex, warns, waived, rejected, answered, notes, files: files.length },
     findings: unique,
   }, null, 2));
 } else {
   if (!unique.length) {
-    console.log(`sloplint: clean. 0 FAIL, 0 WARN across ${files.length} file(s).`);
+    console.log(`sloplint: clean. 0 FAIL, 0 REFLEX, 0 WARN across ${files.length} file(s).`);
   } else {
     const wGate = Math.max(4, ...unique.map((f) => String(f.gate).length));
     const wGrade = Math.max(5, ...unique.map((f) => f.grade.length));
@@ -2299,11 +2345,11 @@ if (opts.json) {
     console.log(`${'GATE'.padEnd(wGate)}  ${'GRADE'.padEnd(wGrade)}  ${'WHERE'.padEnd(wWhere)}  EVIDENCE`);
     for (const f of unique) {
       console.log(`${String(f.gate).padEnd(wGate)}  ${f.grade.padEnd(wGrade)}  ${`${f.file}:${f.line}`.padEnd(wWhere)}  ${f.evidence}`);
-      if (f.grade !== 'WAIVED') {
+      if (f.grade !== 'WAIVED' && f.grade !== 'ANSWERED') {
         console.log(`${''.padEnd(wGate)}  ${''.padEnd(wGrade)}  ${''.padEnd(wWhere)}  fix: ${f.fix}`);
       }
     }
     console.log(`\n${tally.join(', ')} across ${files.length} file(s).`);
   }
 }
-process.exit(fails > 0 ? 1 : 0);
+process.exit(fails > 0 || reflex > 0 ? 1 : 0);

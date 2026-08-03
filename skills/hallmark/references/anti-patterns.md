@@ -154,7 +154,7 @@ Straight `"` and `'` in rendered text. Fix: curly quotes and apostrophes. (F1)
 ### Three periods instead of ellipsis
 `...` in body copy. Fix: the ellipsis character (U+2026). (F2)
 ### Double-hyphen dashes
-`--` in body copy where a dash belongs. Fix: a true em dash (U+2014).
+`--` in body copy. Fix: recast with a comma, colon, semicolon, or parentheses. Hallmark does not reach for the em dash (copy.md § Proper typography).
 ### Spinners that flash
 A spinner visible 50ms on a fast action. Fix: delay-show 150ms, or minimum 300ms visible.
 ### Collapsing helper-text slot

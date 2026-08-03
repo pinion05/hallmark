@@ -2,7 +2,7 @@
 
 Run this list before handing back any output. Update the Step 5 preview block's `Slop test` row to reflect the actual outcome of this run.
 
-Thirty-four of the fifty-eight gates carry a **Floor** clause and nothing ships through them. Eighteen are **Reflex** only: the defaults a language model falls into, which a build with an argument may waive on the record. The last six never block a ship (four **Finish**, two bookkeeping). The tiers, and the question that sorts them, are below.
+Thirty-four of the fifty-eight gates carry a **Floor** clause and nothing ships through them. Eighteen are **Reflex** only: the defaults a language model falls into, which a build with an argument may waive on the record, with no cap on how many. The last six never block a ship (four **Finish**, two bookkeeping). The tiers, the two doors into the Floor, and the grades are below.
 
 Some gates are **universal** (apply to every genre); some are **genre-scoped** (apply only when the active genre is editorial, atmospheric, modern-minimal, or playful). Genre overrides are noted inline. Where a gate has *no* genre note, treat it as universal.
 
@@ -30,6 +30,36 @@ Every gate carries a **tier**, which says how hard it binds. The question that s
 - **[a11y]** A tag, not a tier, on the nine gates that are also an access requirement. It exists so `audit` can group them and so no later pass quietly re-tiers them.
 - **[Ledger]** A tag on the two gates that are skill bookkeeping rather than design quality (32, 57). They report at grade `NOTE`, never set the exit code, and never count toward the Floor verdict. A page is not slop for repeating last month's archetype; it is just a repeat.
 
+### The second door into the Floor
+
+That question sorts design rules, and Hallmark is not a general design authority: it is an anti-slop skill for language models. So the Floor has a second, narrower admission criterion, and a gate needs only one of the two:
+
+> **1.** No admired page breaks it on purpose. (Correctness, access, honesty, and the bans.)
+> **2. House rule.** Admired pages *do* break it, but it is a reflex so reliably machine-made that Hallmark chooses to be stricter than the field, and says so out loud.
+
+Door 2 is deliberately hard to walk through, because every rule that uses it is the skill overruling good designers. The membership is small, explicit, and listed here in full:
+
+| Gate | House rule | Why it is stricter than the field |
+| --- | --- | --- |
+| **54** | No eyebrow, kicker, or overline, in any geometry | Plenty of admired pages ship one. A language model ships one on *every section*, unprompted, and it is the single most reliable tell in the set. Removing the option outright is worth more than the pattern is. |
+
+Anything added to this table has to name the reflex it is displacing and accept that it is a house preference, not a fact about design. Nothing else gets in through door 2.
+
+### Grades
+
+The tier says whether you are allowed to disagree. The **grade** says what the checker found and what it costs:
+
+| Grade | Meaning |
+| --- | --- |
+| `FAIL` | A Floor finding. Nothing ships. Not waivable. |
+| `REFLEX` | An unanswered Reflex finding. Also blocks, but it is not a Floor failure: fix it or waive it on the record. |
+| `WAIVED` | A Reflex finding the build waived, guard satisfied. Visible, never silent. |
+| `WARN` | The checker suspects but cannot prove; confirm or dismiss by judgment. |
+| `ANSWERED` | A Finish finding the build recorded an answer for. |
+| `NOTE` | Bookkeeping. Never blocks, never counts toward the verdict. |
+
+`FAIL` and `REFLEX` are reported separately on purpose, so **"0 FAIL" stays a true statement about the floor** even while a build still owes an argument somewhere above it.
+
 **Split gates keep their number and gain two clauses** (`7a` Floor, `7b` Reflex). That is how a gate can hold a real floor without also enforcing a taste threshold, and it is why the count is still 58.
 
 The tier table here is the single source of truth. `anti-patterns.md`'s groups and `sloplint.mjs`'s `TIERS` map are derived from it; when they disagree, this file wins.
@@ -43,7 +73,7 @@ Every gate below also carries a class tag, which says **who can check it**:
 - **[R/J]** Render-verifiable: confirm on the rendered page when rendering is available, else judge.
 - **[J]** Judged: the model verifies these at Step 7; no script can.
 
-Tier and class are independent. A Floor gate can emit WARN (the script suspects but cannot prove); a Reflex gate can emit FAIL (the script is certain). The grade says how sure the checker is; the tier says whether you are allowed to disagree.
+Tier and class are independent: a Floor gate can emit `WARN` when the script suspects but cannot prove, and a Reflex gate emits `REFLEX` when it is certain. Class says who can check it, grade says what was found, tier says whether you are allowed to disagree.
 
 When sloplint has run, walk the J and R/J gates, plus the judged halves of M/R gates when --render did not run, and confirm or dismiss every WARN; re-litigating M gates the script already passed is wasted judgment. Verification is budgeted: one batched inspection round, one fix batch, at most one confirm round, then stop.
 
@@ -60,11 +90,21 @@ Three fields, in order: **the gate**, **the guard evidence**, **the reason**. Th
 The rules:
 
 - **Floor is never waivable.** Naming one is rejected and the gate fires normally.
-- **Three per artifact directory, one per gate.** A fourth waiver is rejected, and **its gate then runs as if unwaived** — so waiving twelve gates leaves you strictly worse off than waiving none.
-- **The reason has to be about this page.** Under 24 characters, or boilerplate ("design choice", "intentional", "looks better", "the brief requires it"), or shared word-for-word with another waiver, and it is rejected.
-- **Waivers are logged.** They append to `.hallmark/log.json`. The same gate waived on three consecutive builds is not an exception any more, it is an unstated house style, and it belongs in a `design.md`.
+- **One per gate.** A second waiver on the same gate is rejected.
+- **No hard cap.** A genuinely expressive page can overrule four or five reflexes and still be right: a colour-field poster on a pure-black stage, achromatic by intent, long measure, one display face doing everything. Blocking it at an arbitrary count would be exactly the restraint this tier exists to remove. Past three, the build gets a `NOTE` saying what it now is: **a house style, not a set of exceptions**, which belongs in a `design.md` so later pages inherit it instead of re-arguing it.
+- **The guard is what keeps this honest**, not a count. Guards are mechanical preconditions the linter re-derives; on the gates most tempting to waive (23, 37, 42, 43, 47, 7) the guard is exactly the thing a lazy build will not have done.
+- **The reason has to be about this page.** Under 24 characters, or boilerplate once filler and stock phrases are stripped, or shared word-for-word with another waiver, and it is rejected. A waiver that does not parse is reported as malformed rather than silently ignored.
+- **Waivers are logged.** They append to `.hallmark/log.json`. The same gate waived on three consecutive builds is not an exception any more.
 
 An honoured waiver reports at grade `WAIVED` and is visible in the output. Silent waiving would be free waiving.
+
+**Answering a Finish finding.** Finish findings are read and answered, and the answer has a record form too, so the next run can parse it instead of finding freeform prose in a comment:
+
+```css
+/* Hallmark · answered F3 · the display head is one word and cannot wrap, so balance has nothing to balance */
+```
+
+Two fields: the check, and why it does not apply here. Same reason-quality rules. Only Finish findings are answered; a Reflex finding is waived and a Floor finding is fixed.
 
 ---
 
@@ -264,7 +304,7 @@ Universal. Every emitted page must render flawlessly at 320 px, 375 px, 414 px, 
 
     **The fix is never just deletion.** [`section-entry.md`](section-entry.md) carries twelve other ways to open a section, ten of which are already built elsewhere in the skill. When the sequence is genuine, reach for a real `<ol>` with `counter()` or set the numeral at graphic scale. One honest edge case: when a label is a section's *only* heading (`aria-labelledby` pointing at it, no `<h1>-<h6>` anywhere), the gate WARNs instead, and the fix is promoting it to `<h2>`.
 
-    **This one is a house rule, and it is stricter than the field.** Plenty of admired pages ship eyebrows; Hallmark does not, because it is the tell the skill is named for. It is the one Floor gate that is not defended by "no good designer would do this", and it is never waivable.
+    **This is a house rule** and it enters the Floor through door 2 (§ Tiers, The second door into the Floor), the only gate that does. Plenty of admired pages ship eyebrows; a language model ships one on every section, unprompted, which is what makes removing the option worth more than the pattern. Never waivable.
 
 55. **[Floor]** **[M]** **55a. Cap collision on wrap.** Does a display-size element (`.hero__display`, `.section__title`, `h1`, `h2`, anything `≥ --text-2xl`) declare both `text-transform: uppercase` AND a `line-height` below `1.0` **while being able to wrap** (it renders on more than one line at 375 px and carries no `white-space: nowrap`)? Uppercase glyphs have no descenders and their cap-tops sit at the very top of the line box, so at `0.94` the cap-tops of line N+1 collide with line N's baseline and a trailing comma fuses into the cap beside it. Condensed faces (Anton, Inter Tight 900, Bebas Neue) make it worse. A rendering defect, not a preference. Bump `--lh-tight` to ≥ 1.0, or drop the uppercase.
     **[Reflex]** **[M]** **55b. Tight all-caps lockups.** Does a single-line-guaranteed all-caps element (a one-word wordmark, a masthead, a stat) run below the recommended `1.02-1.08`? *Waivable:* a nowrap wordmark at 0.85 is standard lockup practice and cannot collide with a line that does not exist. *Guard:* the element cannot wrap at 320 px.
@@ -289,4 +329,4 @@ Rules live in [`finish.md`](finish.md) (F1-F6), [`layout-and-space.md`](layout-a
 
 ---
 
-**Nothing ships with an open Floor finding.** Reflex findings are either fixed or waived on the record. Finish findings are read and answered, never ignored.
+**Nothing ships with an open `FAIL` or an open `REFLEX`.** A Floor finding is fixed; a Reflex finding is fixed or waived on the record; a Finish finding is read and answered. The difference between the first two is not whether they block, it is whether you are allowed to disagree.

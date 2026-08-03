@@ -12,7 +12,7 @@ Made by Together AI.
 
 Hallmark holds a hard floor and then gets out of the way. It dresses the brief in one of twenty-four themes, runs a fifty-eight-gate slop test plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into.
 
-Thirty-four of those gates are a **floor**: contrast, focus order, reduced motion, invented metrics, layout that breaks on a phone, and the eyebrow above the heading. Nothing ships through them. Eighteen are **reflex** gates, the defaults a language model falls into rather than laws, and a build with an argument can waive one on the record: three at most, reason named in the CSS stamp, guard checked mechanically. The last six are polish and bookkeeping and never block a ship.
+Thirty-four of those gates are a **floor**: contrast, focus order, reduced motion, invented metrics, layout that breaks on a phone, and the eyebrow above the heading. Nothing ships through them. Eighteen are **reflex** gates, the defaults a language model falls into rather than laws, and a build with an argument can overrule one on the record, with the reason named in the CSS stamp and the guard re-derived by the checker. There is no cap on how many: a colour-field poster that wants a black stage, achromatic neutrals and one face doing everything is allowed to say so and ship. The last six are polish and bookkeeping and never block a ship.
 
 Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template. The skill is built to stop a model looking generic, not to stop it being good.
 

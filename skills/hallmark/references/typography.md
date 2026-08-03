@@ -44,6 +44,8 @@ If the user insists on one, do it. Otherwise pick from the allowlist below.
 
 ## The font catalog
 
+**Skip this section when a catalog theme is in play.** The theme file has already named the display, body and label faces, and picking a different one breaks the theme. Read it when the route is custom or studied-DNA, when the pre-flight found no font stack, or when a face here needs its source and licence checked.
+
 Three sources, in priority order:
 
 - **Google Fonts** — free, served via CDN, works everywhere. The default source.

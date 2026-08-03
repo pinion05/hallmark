@@ -56,7 +56,7 @@ Three beats:
 ## Proper typography
 
 - Curly quotes: `"Hello"`, `'word'`.
-- Em-dash for interruption: `—` (U+2014). En-dash for ranges: `10–20` (U+2013). Never `--`.
+- **Dashes: prefer punctuation that is not a dash.** A comma, a colon, a semicolon, or parentheses will carry an interruption, and `to` will carry a range (`10 to 20`). Where a range must be typographic, a hyphen reads correctly at small sizes. **Never `--`.** *(House rule, and a deliberate departure from standard practice: the em dash has become one of the loudest machine-written tells in prose, and a page that never reaches for one never trips it. If a project's own style guide wants em dashes, that guide wins; this is the default in their absence.)*
 - Ellipsis: `…` (U+2026). Never `...`.
 - Apostrophe: `’`. Never the prime `'`.
 - Non-breaking space before units: `10 kg`, `5 min` (use `&nbsp;` or U+00A0).
@@ -66,6 +66,8 @@ If the text is loaded from a CMS, configure Smart Quotes in the CMS. If it's har
 ---
 
 ## Voice samples per tone
+
+**Read only your tone's block.** These are seven independent sets and six of them are noise on any given build; scrolling all of them is ~100 lines you cannot act on.
 
 The skill bends toward distribution-default copy ("Built for the modern team", "Unleash your X", "Where A meets B") unless given non-default voices to imitate. The samples below are *real opening lines* from sites that defy that distribution. **Imitate the kind of specificity** — named places, named dates, named verticals, refusal of metaphor, refusal of the verb — not the wording. The tone column maps to the seven tones the design-context gate (see [`SKILL.md`](../SKILL.md) Step 1) commits the user to.
 

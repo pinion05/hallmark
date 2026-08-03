@@ -1,22 +1,25 @@
 <!doctype html>
 <!--
-  Waiver fixture. Five waivers are claimed; three are honoured and two are refused,
-  and one of the refusals leaves its gate failing. That last part is the mechanism:
-  an over-cap waiver does not fall back to silence, it falls back to the gate.
+  Waiver fixture. Five waivers are claimed on a deliberately expressive page:
+  four are honoured, one is refused because it names a Floor gate, and the build
+  ships. There is no cap, so the page is not blocked for being expressive; what
+  it gets instead is a NOTE saying four waivers is a house style, not exceptions.
 
   Assertion (run from this directory):
 
     node ../../sloplint.mjs . --json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const j=JSON.parse(s);console.log(JSON.stringify(j.summary))})"
-    # expected: fails 2, waived 3, rejected 2
-    # (counts are findings, not gates: gate 1 fires on both the token and the h1
-    #  rule, and gate 7 on both the token and the body background)
+    # expected: fails 0, reflex 0, waived 5, rejected 2, answered 1, notes 1
+    # (waived counts findings, not gates: gate 1 fires on both the token and the
+    #  h1 rule, and gate 7 on both the token and the body background)
 
   Case by case:
-    waive 40  → refused, Floor is never waivable
-    waive 7   → honoured; the guard (surface: absolute in the stamp) holds
-    waive 22  → honoured
-    waive 25  → honoured (no finding to downgrade here); fills the three-gate cap
-    waive 1   → refused on the cap, and gate 1 then fails on its own merits
+    waive 40  -> refused, Floor is never waivable, and gate 40 still binds
+    waive 7   -> honoured; the guard (surface: absolute in the stamp) holds
+    waive 22  -> honoured
+    waive 25  -> honoured (no finding to downgrade on this page)
+    waive 1   -> honoured, and trips the >3 house-style NOTE
+    answered F3  -> honoured; the Finish finding reports ANSWERED instead of WARN
+    answered 40  -> refused; 40 is Floor, and Floor findings are fixed, not answered
 -->
 <html lang="en">
 <head>
@@ -31,6 +34,8 @@
 /* Hallmark · waive 22 · neutrals achromatic throughout · the manifesto rules are pure grey by intent */
 /* Hallmark · waive 25 · measure runs to 96ch · the manifesto sets long declarative lines */
 /* Hallmark · waive 1 · two families declared · the manifesto pairs a display serif with a grotesque */
+/* Hallmark · answered F3 · the manifesto head is one word and cannot wrap, so balance has nothing to balance */
+/* Hallmark · answered 40 · contrast is fine here honestly */
 :root {
   --color-paper: #000;
   --color-ink: oklch(96% 0 250);
