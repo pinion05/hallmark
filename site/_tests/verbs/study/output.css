@@ -92,7 +92,7 @@ body {
   counter-increment: work;
   display: grid;
   grid-template-columns: 6rem 1fr;
-  gap: var(--space-lg);
+  column-gap: var(--space-lg);   /* row spacing is the name's own margin, not a second system */
   align-items: baseline;
   padding: var(--space-2xl) 0;
   border-block-end: 1px solid var(--color-rule);
@@ -134,6 +134,7 @@ body {
 }
 
 .work__desc {
+  grid-column: 2;            /* under the name, not back in the numeral column */
   font-family: var(--font-body);
   font-size: 0.9375rem;
   line-height: 1.5;
@@ -188,7 +189,7 @@ body {
 
 @media (max-width: 48rem) {
   .page { padding: var(--space-2xl) var(--space-md) var(--space-xl); }
-  .work { grid-template-columns: 4rem 1fr; gap: var(--space-md); padding: var(--space-xl) 0; }
+  .work { grid-template-columns: 4rem 1fr; column-gap: var(--space-md); padding: var(--space-xl) 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
