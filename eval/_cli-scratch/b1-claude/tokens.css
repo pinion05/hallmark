@@ -1,42 +1,46 @@
-/* Formant Studio · Hallmark derived system · direction: the phonetic chart
- * seed ai-voice-cloning-studio·2026-08-06·r0
- * axes: dark / slab-serif / warm ~52 · posture: restrained
+/* Hallmark · tokens · Sibilant Voice Lab
+ * Derived system, written for this page only. Not a catalog theme.
+ * Posture: committed. The slate carries the surface; the accent stays a signal.
  */
 
 :root {
-  /* ---- Colour · dark warm plate, lamp-amber signal ---- */
-  --color-paper:       oklch(15%   0.014 52);   /* the plate */
-  --color-paper-2:     oklch(19%   0.016 52);   /* plate field */
-  --color-paper-3:     oklch(23.5% 0.018 52);   /* raised field, Plate 05 */
-  --color-rule:        oklch(31%   0.014 52);
-  --color-rule-2:      oklch(26%   0.013 52);
-  --color-neutral:     oklch(48%   0.011 55);   /* plotted marks, non-text */
-  --color-muted:       oklch(64%   0.012 55);   /* secondary prose */
-  --color-ink-2:       oklch(80%   0.010 60);
-  --color-ink:         oklch(93%   0.010 62);
-  --color-accent:      oklch(72%   0.155 52);   /* the lamp */
-  --color-accent-dim:  oklch(52%   0.115 52);   /* crosshair, plot trace */
-  --color-accent-ink:  oklch(15%   0.016 52);   /* type on accent fills */
-  --color-focus:       oklch(77%   0.190 52);
+  /* ---- Colour · slate ground, chalk ink, one tally lamp ---- */
+  --color-paper:       oklch(16% 0.018 162);   /* chalkboard slate */
+  --color-paper-2:     oklch(20% 0.020 162);   /* chart plate */
+  --color-paper-3:     oklch(24% 0.022 162);   /* marked / raised cell */
+  --color-field:       oklch(21% 0.021 162);   /* the carried colour (committed posture) */
+  --color-shade:       oklch(13% 0.016 162);   /* impossible-articulation cell */
+
+  --color-ink:         oklch(93% 0.010 92);    /* chalk */
+  --color-ink-2:       oklch(86% 0.010 92);
+  --color-muted:       oklch(74% 0.012 120);
+  --color-neutral:     oklch(66% 0.014 150);   /* >= 4.5:1 on paper at label sizes */
+
+  --color-rule:        oklch(33% 0.014 162);
+  --color-rule-2:      oklch(26% 0.016 162);
+
+  --color-accent:      oklch(64% 0.185 34);    /* the tally lamp */
+  --color-accent-quiet: oklch(46% 0.120 34);
+  --color-accent-ink:  oklch(16% 0.018 162);   /* text on an accent fill: the slate, not the chalk */
+  --color-focus:       oklch(68% 0.200 34);
 
   /* ---- Type ---- */
   --font-display: "Zilla Slab", ui-serif, Georgia, serif;
-  --font-body:    "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+  --font-body:    "IBM Plex Sans", "Charis SIL", ui-sans-serif, sans-serif;
 
-  /* 1.25 major third from a 16px body */
-  --text-xs:        0.8rem;
-  --text-sm:        0.875rem;
-  --text-base:      1rem;
-  --text-md:        1.25rem;
-  --text-lg:        1.5625rem;
-  --text-xl:        1.9531rem;
-  --text-2xl:       2.4414rem;
-  --text-3xl:       3.0518rem;
-  --text-display:   clamp(2.75rem, 4.6vw + 1rem, 4.75rem);
-  --text-display-s: clamp(2.2rem, 3.6vw + 0.75rem, 3.6rem);
+  /* ---- Scale · major third, 1.25 ---- */
+  --text-xs:   0.75rem;
+  --text-sm:   0.8125rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   1.375rem;
+  --text-xl:   1.75rem;
+  --text-2xl:  2.25rem;
+  --text-3xl:  2.875rem;
+  --text-display:   clamp(2.6rem, 4.6vw + 0.9rem, 4.75rem);
+  --text-display-s: clamp(2.1rem, 3.6vw + 0.75rem, 3.75rem);
 
-  /* ---- Space · 4pt, ten steps ---- */
+  /* ---- Space · 4pt ---- */
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;
   --space-xs:  0.5rem;
@@ -48,11 +52,14 @@
   --space-3xl: 6rem;
   --space-4xl: 9rem;
 
-  /* ---- Rules and radii · print-plate register, near-zero ---- */
+  /* ---- Rules · the chart's own grammar ---- */
   --rule-hair:  1px;
-  --rule-thick: 2px;
-  --radius-plate:   2px;
-  --radius-control: 3px;
+  --rule-mid:   2px;
+  --rule-heavy: 3px;
+
+  /* ---- Radius · a chart has square corners ---- */
+  --radius-cell:    0px;
+  --radius-control: 2px;
 
   /* ---- Motion ---- */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,11 +70,7 @@
   --dur-long:  420ms;
 
   /* ---- Depth ---- */
-  --z-base:     1;
-  --z-raised:   10;
-  --z-dropdown: 100;
-  --z-sticky:   200;
-  --z-modal:    400;
-  --z-toast:    500;
-  --z-tooltip:  600;
+  --z-base:    1;
+  --z-raised:  10;
+  --z-sticky:  200;
 }

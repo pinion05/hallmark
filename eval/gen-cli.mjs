@@ -48,6 +48,11 @@ const SCRATCH = join(ROOT, "_cli-scratch");
 const ARMS = {
   "claude": { model: null, enabled: true, skill: true, note: "Hallmark arm; Claude subscription; set NO key, must be logged in." },
   "bare":   { model: null, enabled: true, skill: false, note: "No-skill control; same binary and auth." },
+  // Hallmark with a reference archive attached. Since fa12b99 signal 8 inverts the
+  // flow: the archive owns Steps 1-6 and Hallmark enters at Step 7 as a sweep, so
+  // this arm measures a different code path from "claude", not a better-resourced
+  // version of it. Local stdio server, no credentials in the config.
+  "inspo":  { model: null, enabled: true, skill: true, mcp: true, note: "Hallmark + Inspo MCP; exercises the signal-8 sweep path." },
   "glm":   { model: "glm-5.2[1m]", base: "https://api.z.ai/api/anthropic", tokenEnv: "ZAI_AUTH_TOKEN", enabled: false },
   "kimi":  { model: "kimi-k3", base: "https://api.moonshot.ai/anthropic", tokenEnv: "MOONSHOT_AUTH_TOKEN", enabled: false },
 };
@@ -122,6 +127,25 @@ function loadOrderCheck(refReads) {
   return { refCount: refs.length, refsWithinBudget: refs.length <= REF_BUDGET, slopTestLast: slopIdx === -1 || slopIdx >= refs.length - 3, refs };
 }
 
+// What MCP surface did the child actually have, and did it use any of it? Recorded
+// on every run so a control arm can be proven clean rather than assumed clean.
+function mcpAudit(lines) {
+  let advertised = [], called = [];
+  for (const l of lines) {
+    let d; try { d = JSON.parse(l); } catch { continue; }
+    if (d.type === "system" && Array.isArray(d.tools)) {
+      advertised = d.tools.filter((t) => String(t).startsWith("mcp__"));
+    }
+    const blocks = d?.message?.content;
+    if (Array.isArray(blocks)) {
+      for (const b of blocks) {
+        if (b?.type === "tool_use" && String(b.name).startsWith("mcp__")) called.push(b.name);
+      }
+    }
+  }
+  return { advertised, called: [...new Set(called)] };
+}
+
 function stampPresent(runDir) {
   // Scan every emitted artifact, not a fixed filename list: builds name their
   // stylesheet whatever the page wants (page.css, style.css, main.css), and a
@@ -175,9 +199,33 @@ async function runCell(brief, armId) {
   const prompt = arm.skill === false
     ? `${brief.brief}\nWrite the result as index.html (plus css files if you like) in the current directory. Infer what you need; do not ask questions.`
     : `/hallmark ${brief.brief}\nGo ahead and infer audience, use, and tone from the brief; do not ask me questions.`;
+  const allowed = ["Read", "Write", "Edit", "Bash"];
   const cliArgs = ["-p", prompt, "--output-format", "stream-json", "--verbose",
-    "--permission-mode", "acceptEdits", "--allowedTools", "Read,Write,Edit,Bash",
+    "--permission-mode", "acceptEdits",
     "--max-turns", "60", "--max-budget-usd", String(args["budget-usd"] || 5), "--setting-sources", "project"];
+  if (arm.mcp) {
+    // Pointed at the user's own local Inspo checkout. Read from ~/.claude.json so
+    // the arm follows wherever that server actually lives rather than hardcoding it.
+    const home = JSON.parse(readFileSync(join(process.env.HOME, ".claude.json"), "utf8"));
+    let inspo = null;
+    (function walk(o) {
+      if (!o || typeof o !== "object" || inspo) return;
+      if (o.mcpServers && o.mcpServers.inspo) { inspo = o.mcpServers.inspo; return; }
+      for (const v of Object.values(o)) walk(v);
+    })(home);
+    if (!inspo) { console.log(`skip  ${brief.id}/${cell} (no inspo server in ~/.claude.json)`); return; }
+    const cfg = join(work, ".mcp-inspo.json");
+    writeFileSync(cfg, JSON.stringify({ mcpServers: { inspo } }, null, 2));
+    cliArgs.push("--mcp-config", cfg, "--strict-mcp-config");
+    allowed.push("mcp__inspo");
+  } else {
+    // No archive arm means no MCP at all. Without this the child inherits whatever
+    // servers live in the user's ~/.claude.json: a measured bare run was advertised
+    // eight Google Drive tools it never asked for, which is not a clean control even
+    // though it never called them. --strict-mcp-config with no --mcp-config is zero.
+    cliArgs.push("--strict-mcp-config");
+  }
+  cliArgs.push("--allowedTools", allowed.join(","));
   if (args.model) cliArgs.push("--model", args.model);
   if (args.effort) cliArgs.push("--effort", args.effort);
 
@@ -197,10 +245,12 @@ async function runCell(brief, armId) {
   });
 
   writeFileSync(join(runDir, "transcript.jsonl"), lines.join("\n") + "\n");
-  // copy any produced index.html/tokens.css out of the scratch project
-  for (const f of ["index.html", "tokens.css", "styles.css"]) {
-    const src = join(work, f);
-    if (existsSync(src)) cpSync(src, join(runDir, f));
+  // Archive every top-level artifact, not a fixed filename list. Builds name
+  // their stylesheet whatever the page wants (page.css cost one cell its
+  // skillLoaded score when the stamp lived there and only tokens.css was
+  // copied), and stampPresent scans this archive, so the archive must be whole.
+  for (const f of readdirSync(work)) {
+    if (/\.(html|css)$/i.test(f)) cpSync(join(work, f), join(runDir, f));
   }
   const a = analyzeTranscript(lines, work);
   const lo = loadOrderCheck(a.refReads);
@@ -212,6 +262,8 @@ async function runCell(brief, armId) {
     tokens: a.usage ? { in: a.usage.input_tokens ?? null, out: a.usage.output_tokens ?? null,
       cacheRead: a.usage.cache_read_input_tokens ?? null } : null,
     skillLoaded: stampPresent(runDir),
+    mcpAdvertised: mcpAudit(lines).advertised,
+    mcpCalled: mcpAudit(lines).called,
     filesWritten: [...new Set(a.filesWritten)].slice(0, 20),
     refReadCount: lo.refCount,
     loadOrderOk: arm.skill === false ? null : (lo.refsWithinBudget && lo.slopTestLast),
