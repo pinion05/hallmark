@@ -330,3 +330,27 @@ Rules live in [`finish.md`](finish.md) (F1-F6), [`layout-and-space.md`](layout-a
 ---
 
 **Nothing ships with an open `FAIL` or an open `REFLEX`.** A Floor finding is fixed; a Reflex finding is fixed or waived on the record; a Finish finding is read and answered. The difference between the first two is not whether they block, it is whether you are allowed to disagree.
+
+---
+
+## The finish review, in fresh context
+
+Step 7 grades its own homework. The thread that walks the gates is the thread that formed every opinion being graded, has already argued itself into each decision, and reads the page as the thing it meant rather than the thing it made. That is the weakest reviewer available, and it is the one every build has used.
+
+**Spawn a reviewer with no inherited transcript.** In Claude Code that is a subagent; the brief below is the whole of what it gets. Nothing about the brief, the ritual, the slate, the draw, or why anything was chosen: those are exactly the beliefs that stop a reviewer seeing what is on the page.
+
+> Review a built page against a fixed list. You did not build it and you will not be told why anything is the way it is.
+>
+> You get: the artifact paths, screenshots at 1280x800 and 375, the direction contract from the CSS stamp, and the Floor list. Read the page, not the intent.
+>
+> For each finding: the gate or the plain defect, where it is, and what you would do. Rank by how much it costs the page. Do not propose taste changes to a system that is internally consistent; a direction you would not have chosen is not a finding. **Do not fix anything.**
+>
+> Then answer one question the gates cannot: **does the direction contract describe the page in front of you?** Name the largest gap between the two, or say there is none.
+
+That last question is the reason the reviewer exists. Every gate here is local, and a page can pass all fifty-eight while quietly not being the thing its own stamp claims. Nothing mechanical catches that, and the building thread never will, because to it the contract and the page have been the same object since Step 2.6.
+
+**Then score, do not re-review.** Take the findings, fix what is real, and mark each one `resolved`, `partial`, or `unresolved` with a reason. `unresolved` is a legitimate outcome and is better than a fix that damages the system to close a row. **Two rounds is the ceiling.** A third round is polish, and polish is where builds go to die.
+
+**Degraded path.** No subagents in this harness: step fully out of the build context, re-read the artifact cold as if you had just been handed it, and run the same brief against yourself. Say in one line that the review was in-thread, because an in-thread review is weaker and the user is entitled to know which one they got.
+
+Record it: `finish-review: subagent · 4 findings · 3 resolved 1 unresolved (contract gap: none)` in the stamp, or `finish-review: in-thread (no subagents)`.

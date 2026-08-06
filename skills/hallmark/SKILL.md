@@ -44,6 +44,7 @@ These bind on every output, in every verb, on every model, and **none of them is
 3. Load ONLY the listed reference files.
 4. Enrichment decision (scene sentence first; most pages are typography-only).
 5. The Picks block (the run's only prose recital), then pause a beat before code.
+5.5. Comp before build, on signal 9 only ([`references/comp.md`](references/comp.md)); absent a key the step does not exist.
 6. Build: tokens, stamp, `tokens.css`, log append.
 7. Slop test: sloplint script first, then the judged gates.
 
@@ -123,7 +124,7 @@ If the input does not clearly map to a verb, treat it as default. If the user at
 
 **Do:** read the existing project before asking the user anything.
 
-**Eight signal sources, in order:** (0) `design.md` / `DESIGN.md` at the root: the locked design system; it overrides everything else, and inverts the diversification rule (pages share the system). (0.5) `.hallmark/brand-spec.md`, or a brief naming a REAL brand: run [`references/brand-truth.md`](references/brand-truth.md) - fetch the brand's actual values, never theme from memory. (1) Font stack: `package.json` fonts (`next/font`, `@fontsource/*`, `geist`), Google Fonts links, Tailwind `fontFamily`. (2) Palette: `:root` custom properties, Tailwind colors, `tokens.json` / DTCG files. (3) Motion stance: `framer-motion` / `gsap` / `motion` / `lenis` / `lottie` in deps = motion-on; none = motion-cut. (4) Spacing scale: Tailwind spacing, `--space-*` pattern. (5) Framework: Next / Astro / Vue / Svelte / Remix / vanilla. (6) **Reference archive:** an Inspo MCP server connected to this session (`mcp__inspo__*` tools present). This is **signal 8** for the custom dispatch, and it is a session fact, not a project fact - detect it from the toolset, never from the filesystem.
+**Nine signal sources, in order:** (0) `design.md` / `DESIGN.md` at the root: the locked design system; it overrides everything else, and inverts the diversification rule (pages share the system). (0.5) `.hallmark/brand-spec.md`, or a brief naming a REAL brand: run [`references/brand-truth.md`](references/brand-truth.md) - fetch the brand's actual values, never theme from memory. (1) Font stack: `package.json` fonts (`next/font`, `@fontsource/*`, `geist`), Google Fonts links, Tailwind `fontFamily`. (2) Palette: `:root` custom properties, Tailwind colors, `tokens.json` / DTCG files. (3) Motion stance: `framer-motion` / `gsap` / `motion` / `lenis` / `lottie` in deps = motion-on; none = motion-cut. (4) Spacing scale: Tailwind spacing, `--space-*` pattern. (5) Framework: Next / Astro / Vue / Svelte / Remix / vanilla. (6) **Reference archive:** an Inspo MCP server connected to this session (`mcp__inspo__*` tools present). This is **signal 8** for the custom dispatch, and it is a session fact, not a project fact - detect it from the toolset, never from the filesystem. (7) **Image generation:** `TOGETHER_API_KEY` in the environment. This is **signal 9**, and it unlocks Step 5.5 (comp before build); absent, that step never runs and nothing else changes.
 
 **Output** one block, before Step 1, with file:line citations:
 
@@ -135,6 +136,7 @@ Pre-flight findings:
 · Spacing: Tailwind extend.spacing (4-pt scale, tailwind.config.ts L18)
 · Framework: Next.js 15 (app router)
 · Reference archive: Inspo connected (signal 8 - every build routes custom)
+· Image generation: TOGETHER_API_KEY set (signal 9 - Step 5.5 comp available)
 
 Hallmark will preserve: font stack, palette, spacing scale.
 Hallmark will introduce: macrostructure, microinteraction discipline,
@@ -245,7 +247,7 @@ A derived system is complete (palette + pairing + axes), never a colour swap; it
 
 Two of those carry sections you should skip rather than read whole: `typography.md` § The font catalog is dead weight when a catalog theme has already named the faces, and `copy.md` § Voice samples per tone is seven blocks of which six are not your tone. Skipping both saves roughly 200 lines a build.
 
-**Conditionally (be honest, no defensive pre-loads):** [`references/microinteractions.md`](references/microinteractions.md) when anything is interactive (most pages); [`references/interaction-and-states.md`](references/interaction-and-states.md) for stateful UI; [`references/responsive.md`](references/responsive.md) when mobile is in scope; [`references/structure.md`](references/structure.md) only when deviating from a named macrostructure; [`references/assets.md`](references/assets.md) only when an enrichment needs an external asset; [`references/texture.md`](references/texture.md) only when the picked theme earns texture (Riso, Carnival, Arcade, faint Newsprint) or a custom draw has print lineage; [`references/scroll-choreography.md`](references/scroll-choreography.md) only when the brief asks for scroll story / cinematic pacing or the macro is Feature-stack / Narrative Workflow; [`references/dark-mode.md`](references/dark-mode.md) only when the user asks for both modes; [`references/data-viz.md`](references/data-viz.md) when the brief involves charts / data / dashboards or the macro is Stat-Led / Workbench; [`references/brand-truth.md`](references/brand-truth.md) when the brief names a real brand or company to build for; [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading on every derived run, and in full only when picking from the catalog; [`references/reference-archive.md`](references/reference-archive.md) only when signal 8 fired (it carries the call sites, the may/may-not-feed table, the opposition rule, and the degradation path); [`references/theme-axes.md`](references/theme-axes.md) **also** when signal 8 fired, for its § The rejection reading - route 0.5 has to clear both rejection tables and this is the one that is not in the packet (elsewhere the file stays read-on-demand from the Rotation block's link); [`references/design-md.md`](references/design-md.md) only when the user asks to lock the system; [`references/preview-examples.md`](references/preview-examples.md) only if the Step 5 spec is not scaffolding enough.
+**Conditionally (be honest, no defensive pre-loads):** [`references/microinteractions.md`](references/microinteractions.md) when anything is interactive (most pages); [`references/interaction-and-states.md`](references/interaction-and-states.md) for stateful UI; [`references/responsive.md`](references/responsive.md) when mobile is in scope; [`references/structure.md`](references/structure.md) only when deviating from a named macrostructure; [`references/assets.md`](references/assets.md) only when an enrichment needs an external asset; [`references/texture.md`](references/texture.md) only when the picked theme earns texture (Riso, Carnival, Arcade, faint Newsprint) or a custom draw has print lineage; [`references/scroll-choreography.md`](references/scroll-choreography.md) only when the brief asks for scroll story / cinematic pacing or the macro is Feature-stack / Narrative Workflow; [`references/dark-mode.md`](references/dark-mode.md) only when the user asks for both modes; [`references/data-viz.md`](references/data-viz.md) when the brief involves charts / data / dashboards or the macro is Stat-Led / Workbench; [`references/brand-truth.md`](references/brand-truth.md) when the brief names a real brand or company to build for; [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading on every derived run, and in full only when picking from the catalog; [`references/reference-archive.md`](references/reference-archive.md) only when signal 8 fired (it carries the call sites, the may/may-not-feed table, the opposition rule, and the degradation path); [`references/theme-axes.md`](references/theme-axes.md) **also** when signal 8 fired, for its § The rejection reading - route 0.5 has to clear both rejection tables and this is the one that is not in the packet (elsewhere the file stays read-on-demand from the Rotation block's link); [`references/comp.md`](references/comp.md) only when signal 9 fired, at Step 5.5, never earlier; [`references/design-md.md`](references/design-md.md) only when the user asks to lock the system; [`references/preview-examples.md`](references/preview-examples.md) only if the Step 5 spec is not scaffolding enough.
 
 **At the end only:** [`references/slop-test.md`](references/slop-test.md) strictly at Step 7 (pre-loading it costs thousands of tokens for nothing; `anti-patterns.md` is the pre-emit list); [`references/contract.md`](references/contract.md) at handoff; [`references/export-formats.md`](references/export-formats.md) only on `design.md` projects.
 
@@ -294,6 +296,14 @@ The Slop test row must reflect the real Step 7 outcome; a fabricated `Floor 34/3
 
 > *System portable? Say `lock the system` to extract this build's tokens + voice into a `design.md`.*
 
+### 5.5. Comp before build
+
+**Fires only on signal 9.** No `TOGETHER_API_KEY`, no step: go straight to Step 6 and say nothing about it.
+
+With a key, load [`references/comp.md`](references/comp.md) and follow it: two comps of the first viewport at 1280x800 built from the direction contract rather than the brief, varied on **one** compositional axis, shown side by side for a single approval, then a written **medium inventory** naming how each region gets built before any of it does. Reproduction is checked against the comp at its own dimensions before anything below the fold exists, because a model reliably believes its recreation succeeded when it did not.
+
+Two things this step never does: it never overrides the Floor (an image generator has read none of the gates, so take the comp's composition and not its compliance), and it never blocks. Two comp rounds is the ceiling; past that, build unconstrained and say so in one line.
+
 ### 6. Build
 
 Emit code that satisfies the tone and the structural fingerprint. Match code complexity to tone ambition. Always:
@@ -320,6 +330,8 @@ Emit code that satisfies the tone and the structural fingerprint. Match code com
 3. No Node, or a `.tsx`-only emit the script cannot scan: walk all 58 manually, Floor first (the component sweep for components).
 
 Component scope runs the component sweep named in `slop-test.md`. Update the preview's Slop test row with the real outcome. Fix every open Floor finding; fix or waive every Reflex one. Do not ship slop.
+
+4. **Review it in fresh context.** Spawn a reviewer with no inherited transcript (a subagent in Claude Code), give it only the artifact paths, the screenshots, the direction contract and the Floor list, and let it answer the one question no gate can: does the contract describe the page in front of it? The brief, the scoring pass and the in-thread degraded path are in [`references/slop-test.md`](references/slop-test.md) § The finish review, in fresh context. Two rounds is the ceiling.
 
 **Verification is budgeted.** One batched inspection round (desktop 1280x800 AND mobile 375 together; `--render` on the sloplint call when Chrome is available), one batch of fixes, at most one confirming round, then stop polishing. Endless single-issue re-render loops are their own failure mode.
 

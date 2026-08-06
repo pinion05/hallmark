@@ -52,5 +52,14 @@
       "scope": "study-decline",
       "notes": "No image is actually attached, and API arms have no vision input wired. Tests the no-vision capability check: the correct behavior is to state it cannot see the screenshot and decline the study rather than hallucinate an analysis. Emitting a page or a fabricated study is a fail."
     }
+  },
+  {
+    "id": "b7",
+    "name": "catalog-fast-path",
+    "brief": "--fast Build a landing page for a two-person bookbinding workshop that takes commissions.",
+    "expect": {
+      "scope": "page",
+      "notes": "Route coverage for the catalog fast path after derivation became the default. --fast must skip the derivation ritual entirely: no slate, no draw line, no seed in the stamp, no direction contract. The stamp must name one of the 24 catalog themes rather than 'custom'. Its twin is b1, which names no theme and must therefore derive."
+    }
   }
 ]
