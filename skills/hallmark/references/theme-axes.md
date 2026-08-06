@@ -5,7 +5,7 @@ The three diversification axes for every catalog theme, derived from the canonic
 - **As a lookup (catalog route).** The Rotation block in [`SKILL.md`](../SKILL.md) reads it to pick the next theme; two consecutive themes must differ on at least one axis.
 - **As a rejection table (custom route).** A constructed system declares its own axes per [`direction.md`](direction.md) § D, and this table is the list of triples it must not land on. See § The rejection reading below.
 
-The second reading is what the 24 themes are *for* on an archive-connected session, where every build routes custom and no build picks a catalog theme. They stop being destinations and become the twenty-four most-worn coordinates in Hallmark's own space: precisely what [`direction.md`](direction.md) § R.2 means by house defaults, with values attached.
+The second reading is what the 24 themes are *for* on a derived run, where nothing picks a catalog theme. They stop being destinations and become the twenty-four most-worn coordinates in Hallmark's own space: precisely what [`direction.md`](direction.md) § R.2 means by house defaults, with values attached.
 
 Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **warm** 10-60° · **cool** 200-300° · **neutral** chroma < 0.05 · **chromatic-other** anything else (sub-tag the hue).
 
@@ -59,7 +59,7 @@ Matching two of the three is fine and common: a light paper with a roman serif a
 - **The user asked for it.** "Make it look like Terminal", "we want that Ledger feel" is an instruction, not a reflex. Build it, and record `axes: <triple> (Terminal, by request)` in the stamp so a later audit does not read it as drift.
 - **The draw earned it.** A direction from R.4 that genuinely demands the coordinate - a line-printer draw wanting a dark paper with a mono display - may keep it, but only with the same one-line argument R.2 requires for landing on a spent default. A draw that "happens to" land on a catalog triple twice in a project is not a draw, it is a preference.
 
-**Both rejection tables bind together on an archive-connected build.** [`reference-archive.md`](reference-archive.md)'s opposition rule refuses the *archive's* measured consensus; this table refuses *Hallmark's own* twenty-four. Clearing one does not clear the other, and the intersection is not as tight as it looks: three bands times a display class leaves the constructed system nearly the whole space, minus the two dozen places it has already been.
+**This is not as tight a constraint as it looks.** Three paper bands times a display class times an accent band leaves a derived system nearly the whole space, minus the two dozen places Hallmark has already been.
 
 ---
 

@@ -36,8 +36,6 @@ Third altitude, **the mirror**: if the slate you are about to write would fit th
 
 **Fourth altitude, the avoidance signature.** It is not enough that nobody could guess the aesthetic from the category. Ask the harder version: could they guess it from *the category plus what Hallmark always avoids*? Always dodging the same things is itself a pattern, and this skill's own anti-pattern list is long enough to form one. If the answer to either question is obvious, rework.
 
-**Substitution under signal 8.** With a reference archive connected, the first-order default is not guessed - it is measured, and it arrives as the derivation packet's `consensus` triple with a `spread` behind it. Name the count and the numbers, then reject on the axes that have a real consensus: *"Reflex check: the archive puts 47 rows in this category at dark / grotesk-sans / cool (0.68 / 0.61 / 0.74). Rejecting the cool accent outright; keeping dark paper, which the scene earns."* The second-order altitude is unchanged and still guessed, because no archive measures the tasteful fallback. The opposition rule in [`reference-archive.md`](reference-archive.md) governs what counts as a real consensus and how many axes you must go against.
-
 ### R.2 · Spent defaults
 
 Hallmark's own house defaults count as already spent for this brief family. Declare it before writing the slate. The spent table:
@@ -67,8 +65,6 @@ The spent look can still be *earned* if the draw lands on a direction that genui
 A pinned world pins the world, not its softest rendition: the pinned world's full material range stays in play, and a rendition that matches what any model ships for that world failed at execution, not selection.
 
 Note that the catalog's own twenty-four coordinates are spent too, on every derived run. [`theme-axes.md`](theme-axes.md) § The rejection reading carries that list and the tolerance that defines a collision.
-
-**Substitution under signal 8.** The static table above is Hallmark's guess at what each brief family has worn out. The packet's `spread` is the same claim, measured, for this brief specifically: the bands the category actually ships, with weights. Read the spread as the spent row and the table as the fallback for whatever the spread does not cover. Both are ceilings on drift, not bans - a spent coordinate the draw genuinely demands is still available with a written argument, and that argument is now checkable against a number rather than a hunch. On a thin or unreachable archive the static table is the whole story again.
 
 ### R.3 · The slate
 
@@ -140,8 +136,6 @@ The base stamp and the base log entry are specified in [`SKILL.md`](../SKILL.md)
 
 `contract: kept (5/5)` is written only after the finish review below confirms it. The log entry adds the same values as fields: `"theme": "custom"`, `"direction"`, `"posture"`, `"seed"`, `"wildcard"`, `"vibe"`, and the `"axes"` triple (one key, the same one a catalog entry uses; Rotation reads it either way).
 
-On an archive-connected run both also carry the `inspo` provenance lines and fields. Their exact shape, and why they exist, is in [`reference-archive.md`](reference-archive.md) § Provenance, which loads only when there is an archive to record.
-
 ---
 
 ## § Bespoke depth
@@ -180,7 +174,6 @@ Before any values: the scene sentence (R.5) fixes the paper's lightness band and
 
 - Convert the named or hex anchor to OKLCH; clamp chroma to **0.12-0.20** (inside the cap in [`color.md`](color.md) § Palette construction). When the brief names a REAL brand, the anchor comes from `.hallmark/brand-spec.md` ([`brand-truth.md`](brand-truth.md)), never from memory.
 - No anchor given: derive hue from the vibe: warmth 30-60° · technical 220-250° · botanical 130-160° · late-night neon 280-320° · sun-drenched 60-80°. Chroma 0.12-0.16.
-- **Signal 8:** the packet's `anchors` are real accent values from real production sites, and they are evidence of where the category's hue band actually sits - not a palette to pick from. Read them as the band to place yourself against under the opposition rule, then derive the hue as above. Pasting an anchor verbatim adopts a competitor's accent, which is the failure the whole route exists to avoid.
 
 ### B.2 · Paper
 
@@ -227,8 +220,6 @@ A derived system pulls from the tone pairings in [`typography.md`](typography.md
 
 One display face, one body face, optional mono. The discipline: **free-baseline only** unless the user confirms licences; the banned defaults stay banned (gate 1); variable fonts preferred. Then confirm the pair reads: enough weight contrast in the display, body legible at >= 14px across 45-75ch, mono-on-mono only when the mono IS the design. The drawn direction (R.4) should be audible in the pairing: a ledger direction wants tabular figures; a playbill direction wants wood-type energy in the display slot.
 
-**Signal 8: the packet's `faces` are a candidate pool with a warning attached.** Each entry carries a count and a role, and the count is the warning: a face appearing 19 times across 47 rows is what the category reaches for, which makes it a display-class consensus to weigh under the opposition rule rather than a recommendation. Take the *register* freely - "this category carries display on a tight grotesk at 600" is exactly the measurement worth having. Take the *name* only when that face independently survives this section: free-baseline, unbanned, and audibly right for the drawn direction. Role-matched, never name-matched.
-
 ---
 
 ## § D · Axes and posture
@@ -240,7 +231,7 @@ A derived system declares its diversification values explicitly so the Rotation 
 - **Accent hue band:** warm 10-60° · cool 200-300° · neutral (chroma < 0.05) · chromatic-other (sub-tag the anchor: `chromatic-moss ~140°`).
 - **Posture** (fourth logged value): restrained · committed · full-palette · drenched.
 
-Before the triple is final, check it against **both** rejection tables: [`theme-axes.md`](theme-axes.md) § The rejection reading (the catalog's twenty-four coordinates, live on every derived run) and, when signal 8 fired, the packet's consensus under [`reference-archive.md`](reference-archive.md) § The opposition rule. Clearing one does not clear the other. A triple that survives both is the thing the route was built to produce.
+Before the triple is final, check it against the rejection table in [`theme-axes.md`](theme-axes.md) § The rejection reading: the catalog's twenty-four coordinates, live on every derived run. A triple that survives it is the thing the route was built to produce.
 
 ---
 
