@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formant Studio · voice modelling for dialogue, localisation, and audiobook production</title>
+<meta name="description" content="Formant Studio builds licensed voice models from consented recording sessions, then lets you direct the read by position rather than by preset.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="#top">
+      <span class="wordmark__tick" aria-hidden="true"></span>
+      Formant Studio
+    </a>
+    <nav class="masthead__nav" aria-label="Sections of this page">
+      <ul>
+        <li><a href="#build">How a build runs</a></li>
+        <li><a href="#surface">Control surface</a></li>
+        <li><a href="#consent">Consent</a></li>
+        <li><a href="#delivery">Delivery</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ Hero · Stage ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="shell hero__inner">
+
+      <div class="hero__text">
+        <h1 class="hero__display reveal" id="hero-title" style="--i: 0">A voice you can direct.</h1>
+        <p class="hero__lede reveal" style="--i: 1">
+          Build a licensed model from a consented session, then move the read between
+          warm and bright until the take is the one you asked for.
+        </p>
+        <div class="hero__actions reveal" style="--i: 2">
+          <a class="btn btn--primary" href="#next">Request a studio build</a>
+          <a class="link-underlined" href="#consent">How consent works</a>
+        </div>
+      </div>
+
+      <figure class="hero__plot reveal" style="--i: 3">
+        <svg class="voicespace" viewBox="0 0 400 470" role="img" aria-labelledby="vs-title vs-desc" preserveAspectRatio="xMidYMid meet">
+          <title id="vs-title">The voice space</title>
+          <desc id="vs-desc">A quadrilateral field plotted on two axes, timbre from warm to bright across, and pace from measured to urgent down. Nine open marks sit in the field and one lit marker is held at timbre 0.62, pace 0.34.</desc>
+
+          <!-- axis labels -->
+          <text class="voicespace__axis" x="36" y="22" text-anchor="start">warm</text>
+          <text class="voicespace__axis" x="364" y="22" text-anchor="end">bright</text>
+          <text class="voicespace__axis" x="16" y="120" text-anchor="middle" transform="rotate(-90 16 120)">measured</text>
+          <text class="voicespace__axis" x="16" y="360" text-anchor="middle" transform="rotate(-90 16 360)">urgent</text>
+
+          <!-- interior grid -->
+          <g class="voicespace__grid">
+            <line x1="57" y1="133" x2="348" y2="133"></line>
+            <line x1="78" y1="232" x2="332" y2="232"></line>
+            <line x1="99" y1="331" x2="316" y2="331"></line>
+            <line x1="145.3" y1="34" x2="180" y2="430"></line>
+            <line x1="254.7" y1="34" x2="240" y2="430"></line>
+          </g>
+
+          <!-- the quadrilateral -->
+          <polygon class="voicespace__frame" points="36,34 364,34 300,430 120,430"></polygon>
+
+          <!-- plotted positions from previous takes -->
+          <g class="voicespace__mark">
+            <circle cx="96" cy="105" r="3.5"></circle>
+            <circle cx="188" cy="88" r="3.5"></circle>
+            <circle cx="286" cy="120" r="3.5"></circle>
+            <circle cx="128" cy="205" r="3.5"></circle>
+            <circle cx="232" cy="190" r="3.5"></circle>
+            <circle cx="318" cy="235" r="3.5"></circle>
+            <circle cx="152" cy="315" r="3.5"></circle>
+            <circle cx="262" cy="300" r="3.5"></circle>
+            <circle cx="206" cy="395" r="3.5"></circle>
+          </g>
+
+          <!-- the held position -->
+          <g class="voicespace__cross">
+            <line x1="83.5" y1="258" x2="327.8" y2="258"></line>
+            <line x1="196" y1="34" x2="196" y2="430"></line>
+          </g>
+          <circle class="voicespace__marker" cx="196" cy="258" r="5.5"></circle>
+          <text class="voicespace__readout" x="210" y="245">timbre 0.62 · pace 0.34</text>
+        </svg>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ============ Plate 01 ============ -->
+  <figure class="shell plate plate--01" id="build">
+    <div class="plate__field">
+      <h2 class="plate__title">Three sessions, then the model is yours</h2>
+      <p class="plate__intro">
+        Nothing is generated before a person has read into a microphone and signed for it.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <div class="steps__body">
+            <h3>Consent session</h3>
+            <p>
+              The talent reads a scripted set, in a room we book or in their own.
+              The recording, the release, and the scope of use are captured in the same sitting.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="steps__body">
+            <h3>Alignment</h3>
+            <p>
+              We fit the model to the session and hand back a first read of your own script.
+              If the vowels are wrong, the session was wrong, and we book another one rather
+              than tuning around it.
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="steps__body">
+            <h3>Direction</h3>
+            <p>
+              You place the read in the voice space and re-render. Notes go in as positions,
+              and every take keeps the coordinates it was made at.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+    <figcaption class="plate__cap">Plate 01 · How a build runs</figcaption>
+  </figure>
+
+  <!-- ============ Plate 02 ============ -->
+  <figure class="shell plate plate--02" id="surface">
+    <div class="plate__field">
+      <h2 class="plate__title">Notes go in as positions</h2>
+      <p class="plate__intro">
+        A preset dropdown loses the note. A director says warmer, and warmer is a direction,
+        not an item in a list. The studio gives you four continuous axes, and one of them is
+        the one you meant.
+      </p>
+
+      <dl class="register">
+        <div class="register__row">
+          <dt>Timbre</dt>
+          <dd class="register__poles">warm ↔ bright</dd>
+          <dd>Where the energy sits above the fundamental. The axis that carries most of what a director actually says.</dd>
+        </div>
+        <div class="register__row">
+          <dt>Pace</dt>
+          <dd class="register__poles">measured ↔ urgent</dd>
+          <dd>Rate and the length of the pauses, moved together so the delivery stays coherent rather than clipped.</dd>
+        </div>
+        <div class="register__row">
+          <dt>Effort</dt>
+          <dd class="register__poles">spoken ↔ projected</dd>
+          <dd>Room voice through to stage voice, without the identity moving underneath it.</dd>
+        </div>
+        <div class="register__row">
+          <dt>Register</dt>
+          <dd class="register__poles">low ↔ raised</dd>
+          <dd>Pitch centre, held inside the range the consent session actually covered.</dd>
+        </div>
+      </dl>
+    </div>
+    <figcaption class="plate__cap">Plate 02 · The control surface</figcaption>
+  </figure>
+
+  <!-- ============ Plate 03 ============ -->
+  <figure class="shell plate plate--03" id="consent">
+    <div class="plate__field">
+      <h2 class="plate__title">The release travels with the model</h2>
+      <p class="plate__intro">
+        A cloned voice is somebody’s. Every build carries the paperwork that says whose,
+        and what it may be used for, in a form a rights team can read without calling us.
+      </p>
+
+      <dl class="register register--2col">
+        <div class="register__row">
+          <dt>Consent on file</dt>
+          <dd>The signed release, the session date, and the named scope of use sit against the model itself, not in a separate archive somebody has to be told about.</dd>
+        </div>
+        <div class="register__row">
+          <dt>Watermark</dt>
+          <dd>Every render carries an inaudible marker that resolves back to the build and to the account that requested it.</dd>
+        </div>
+        <div class="register__row">
+          <dt>Revocation</dt>
+          <dd>The talent can withdraw a scope. Renders stop at the API, and the files already delivered under that scope are listed for you to pull.</dd>
+        </div>
+      </dl>
+    </div>
+    <figcaption class="plate__cap">Plate 03 · Consent and provenance</figcaption>
+  </figure>
+
+  <!-- ============ Plate 04 ============ -->
+  <figure class="shell plate plate--04" id="delivery">
+    <div class="plate__field">
+      <h2 class="plate__title">How the audio leaves</h2>
+
+      <dl class="register register--2col">
+        <div class="register__row">
+          <dt>Files</dt>
+          <dd>WAV, FLAC, or MP3. Mono or stereo, at the rate the session was recorded, with no resampling on the way out.</dd>
+        </div>
+        <div class="register__row">
+          <dt>API</dt>
+          <dd>Position, script, and take number in. Audio out. The same voice space, addressed numerically instead of by hand.</dd>
+        </div>
+        <div class="register__row">
+          <dt>Session hand-off</dt>
+          <dd>Stems, the position log for every take, and a build reference your editor can quote back to us six months later.</dd>
+        </div>
+      </dl>
+    </div>
+    <figcaption class="plate__cap">Plate 04 · Delivery</figcaption>
+  </figure>
+
+  <!-- ============ Plate 05 · change of paper ============ -->
+  <figure class="shell plate plate--05" id="next">
+    <div class="plate__field">
+      <div class="ask">
+        <h2 class="ask__title">Bring a session.</h2>
+        <p>
+          Tell us whose voice, what it is for, and when the talent is free. We come back with
+          a session plan and a scope of use to sign, before anything is recorded.
+        </p>
+        <a class="btn btn--primary" href="mailto:studio@formant.audio?subject=Studio%20build%20enquiry">Request a studio build</a>
+      </div>
+    </div>
+    <figcaption class="plate__cap">Plate 05 · Next</figcaption>
+  </figure>
+
+</main>
+
+<footer class="colophon">
+  <div class="shell colophon__block">
+    <p class="colophon__lede">Formant Studio. Voice modelling for dialogue, localisation, and audiobook production.</p>
+    <p><a href="mailto:studio@formant.audio">studio@formant.audio</a></p>
+    <p>Set in Zilla Slab and IBM Plex. The chart is a vowel quadrilateral, borrowed from phonetics and put to work.</p>
+    <p>© 2026 Formant Studio</p>
+  </div>
+</footer>
+
+</body>
+</html>

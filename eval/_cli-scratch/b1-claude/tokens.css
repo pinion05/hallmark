@@ -1,0 +1,73 @@
+/* Formant Studio · Hallmark derived system · direction: the phonetic chart
+ * seed ai-voice-cloning-studio·2026-08-06·r0
+ * axes: dark / slab-serif / warm ~52 · posture: restrained
+ */
+
+:root {
+  /* ---- Colour · dark warm plate, lamp-amber signal ---- */
+  --color-paper:       oklch(15%   0.014 52);   /* the plate */
+  --color-paper-2:     oklch(19%   0.016 52);   /* plate field */
+  --color-paper-3:     oklch(23.5% 0.018 52);   /* raised field, Plate 05 */
+  --color-rule:        oklch(31%   0.014 52);
+  --color-rule-2:      oklch(26%   0.013 52);
+  --color-neutral:     oklch(48%   0.011 55);   /* plotted marks, non-text */
+  --color-muted:       oklch(64%   0.012 55);   /* secondary prose */
+  --color-ink-2:       oklch(80%   0.010 60);
+  --color-ink:         oklch(93%   0.010 62);
+  --color-accent:      oklch(72%   0.155 52);   /* the lamp */
+  --color-accent-dim:  oklch(52%   0.115 52);   /* crosshair, plot trace */
+  --color-accent-ink:  oklch(15%   0.016 52);   /* type on accent fills */
+  --color-focus:       oklch(77%   0.190 52);
+
+  /* ---- Type ---- */
+  --font-display: "Zilla Slab", ui-serif, Georgia, serif;
+  --font-body:    "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  /* 1.25 major third from a 16px body */
+  --text-xs:        0.8rem;
+  --text-sm:        0.875rem;
+  --text-base:      1rem;
+  --text-md:        1.25rem;
+  --text-lg:        1.5625rem;
+  --text-xl:        1.9531rem;
+  --text-2xl:       2.4414rem;
+  --text-3xl:       3.0518rem;
+  --text-display:   clamp(2.75rem, 4.6vw + 1rem, 4.75rem);
+  --text-display-s: clamp(2.2rem, 3.6vw + 0.75rem, 3.6rem);
+
+  /* ---- Space · 4pt, ten steps ---- */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* ---- Rules and radii · print-plate register, near-zero ---- */
+  --rule-hair:  1px;
+  --rule-thick: 2px;
+  --radius-plate:   2px;
+  --radius-control: 3px;
+
+  /* ---- Motion ---- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  /* ---- Depth ---- */
+  --z-base:     1;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+}

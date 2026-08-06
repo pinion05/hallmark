@@ -6,6 +6,12 @@
 //
 //   node gen-cli.mjs --brief b1|all --arm claude|bare|glm|kimi|all [--force] [--dry-run]
 //                     [--model sonnet|opus|...] [--effort low|medium|high|max]
+//                     [--budget-usd 5]
+//
+// --budget-usd caps spend per cell (default 5). A measured derived build on
+// Opus lands near $3 and stops mid Step-7 at the old cap of 3, which scores a
+// complete artifact as an error_max_budget_usd failure and never exercises the
+// gate sweep. Raise it rather than reading a truncated run as a skill result.
 //
 // A/B: the "bare" arm is the no-skill control - same binary, same auth, plain
 // brief prompt, NO skill copied, and --setting-sources project on the call so
@@ -100,18 +106,36 @@ function analyzeTranscript(lines, runDir) {
   return { cost, model, sessionInit, resultText, isError, refReads, filesWritten, earlyStop, usage, numTurns, stop };
 }
 
+// Reference-read budget. Was 10, which predated derivation becoming the default:
+// a derived run reads direction.md AND theme-axes.md where a catalog run read one
+// theme file, so the floor moved up by one, and a measured clean derived build
+// lands at 12 (ritual, genre, hero-discipline, rejection table, then the eight
+// universal files). 14 leaves room for two legitimate conditionals and still
+// catches the failure this check exists for, which is defensive pre-loading of a
+// forty-file reference tree.
+const REF_BUDGET = 14;
+
 function loadOrderCheck(refReads) {
-  // discipline: <=10 reference reads; slop-test.md not read before the build (it is Step 7)
+  // discipline: bounded reference reads; slop-test.md not read before the build (it is Step 7)
   const refs = refReads.filter((r) => r.startsWith("references/") || r.endsWith(".md"));
   const slopIdx = refs.findIndex((r) => r.includes("slop-test.md"));
-  const wroteEarly = false; // best-effort; deep ordering needs interleave with writes
-  return { refCount: refs.length, refsUnder10: refs.length <= 10, slopTestLast: slopIdx === -1 || slopIdx >= refs.length - 3, refs };
+  return { refCount: refs.length, refsWithinBudget: refs.length <= REF_BUDGET, slopTestLast: slopIdx === -1 || slopIdx >= refs.length - 3, refs };
 }
 
 function stampPresent(runDir) {
-  for (const cand of ["index.html", "styles.css", "tokens.css"]) {
-    const p = join(runDir, cand);
-    if (existsSync(p) && /\/\*\s*Hallmark/.test(readFileSync(p, "utf8"))) return true;
+  // Scan every emitted artifact, not a fixed filename list: builds name their
+  // stylesheet whatever the page wants (page.css, style.css, main.css), and a
+  // measured derived run put the stamp in page.css while the old list checked
+  // index.html / styles.css / tokens.css only. The marker is also not always
+  // flush against the comment open, since a derived header reads
+  // "/* <Brand> · Hallmark derived system", so match Hallmark anywhere in a
+  // leading block comment rather than immediately after the slash-star.
+  let names;
+  try { names = readdirSync(runDir); } catch { return false; }
+  for (const name of names) {
+    if (!/\.(css|html)$/i.test(name)) continue;
+    const src = readFileSync(join(runDir, name), "utf8");
+    if (/\/\*[^*]{0,120}Hallmark/.test(src)) return true;
   }
   return false;
 }
@@ -153,7 +177,7 @@ async function runCell(brief, armId) {
     : `/hallmark ${brief.brief}\nGo ahead and infer audience, use, and tone from the brief; do not ask me questions.`;
   const cliArgs = ["-p", prompt, "--output-format", "stream-json", "--verbose",
     "--permission-mode", "acceptEdits", "--allowedTools", "Read,Write,Edit,Bash",
-    "--max-turns", "60", "--max-budget-usd", "3", "--setting-sources", "project"];
+    "--max-turns", "60", "--max-budget-usd", String(args["budget-usd"] || 5), "--setting-sources", "project"];
   if (args.model) cliArgs.push("--model", args.model);
   if (args.effort) cliArgs.push("--effort", args.effort);
 
@@ -190,7 +214,7 @@ async function runCell(brief, armId) {
     skillLoaded: stampPresent(runDir),
     filesWritten: [...new Set(a.filesWritten)].slice(0, 20),
     refReadCount: lo.refCount,
-    loadOrderOk: arm.skill === false ? null : (lo.refsUnder10 && lo.slopTestLast),
+    loadOrderOk: arm.skill === false ? null : (lo.refsWithinBudget && lo.slopTestLast),
     refReads: lo.refs.slice(0, 20),
     resultPreview: (a.resultText || "").slice(0, 200), isError: a.isError,
     generatedAt: new Date().toISOString(),
