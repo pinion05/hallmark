@@ -62,7 +62,7 @@ Hallmark has one default behaviour and four explicit verbs.
 | `hallmark audit <target>` | Read the target, score it against the anti-pattern list, return a ranked punch list. **Do not edit.** |
 | `hallmark redesign <target> [--mood <name>]` | Take the target's content and intent, then redesign the visual structure **inside the existing implementation boundaries unless the user explicitly confirms a full rebuild.** Preserve routes, component ownership, copy intent, brand, and information architecture; replace only the visual/interaction layer in scope. |
 | `hallmark study <screenshot \| URL>` | Extract the **DNA** of a design the user admires (macrostructure, archetypes, type pairing, colour anchor), produce a diagnosis report, then optionally rebuild the user's content with it or emit a portable `design.md`. Never copies pixels; refuses template marketplaces. Load [`references/study.md`](references/study.md) before this verb runs. |
-| `hallmark variants <brief>` | Generate three structurally distinct full directions for one brief, serve a local picker over the user's own preview, continue with the chosen one. Load [`references/verbs/variants.md`](references/verbs/variants.md). |
+| `hallmark variants <brief>` | Generate three structurally distinct directions for one brief at sketch depth (`--full` for finished pages), serve a local picker over the user's own preview, continue with the chosen one. Load [`references/verbs/variants.md`](references/verbs/variants.md). |
 
 If the input does not clearly map to a verb, treat it as default. If the user attaches an image or pastes a URL without a verb, ask: *"Should I `study` this (extract the DNA), or treat it as a reference for a fresh build?"*
 
@@ -359,7 +359,7 @@ Load [`references/verbs/redesign.md`](references/verbs/redesign.md) and follow i
 
 ## `hallmark variants`
 
-Load [`references/verbs/variants.md`](references/verbs/variants.md) and follow it. Three full directions, one shared ceremony, a local picker, and only the chosen direction ships (and runs the full gate sweep).
+Load [`references/verbs/variants.md`](references/verbs/variants.md) and follow it. Three directions at sketch depth by default (hero, one signature section, footer; `--full` builds finished pages), one shared ceremony, a local picker, and only the chosen direction ships, completed to full depth and run through the full gate sweep.
 
 ## `hallmark study`
 
