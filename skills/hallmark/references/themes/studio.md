@@ -1,20 +1,20 @@
 # Theme - Studio
 
-Editorial, design-studio register: the considered-agency school, executed in **high-contrast Fraunces on a cool studio-white, with one deep botanical green**. A faintly cool near-white ground, ruler-drawn hairlines, a huge thick/thin display serif, and whitespace doing the structural work. It reads like a studio that sets its own type: crafted, confident, curatorial.
+Editorial, design-studio register: the considered-agency school, executed in **a distressed hand-set Erode on a cool studio-white, with one deep botanical green**. A faintly cool near-white ground, ruler-drawn hairlines, a huge roman serif whose edges have not been sanded smooth, and whitespace doing the structural work. It reads like a studio that sets its own type: crafted, confident, curatorial.
 
-The material, in one line: **cool studio-white, Fraunces at optical 144, hairlines and air, one botanical green.**
+The material, in one line: **cool studio-white, a roughened roman serif at scale, hairlines and air, one botanical green.**
 
 ## Axes (diversification)
 
 - **Paper band** - light, cool: `oklch(96.5% 0.005 200)`. An engineered studio-white, hue ~200, almost no chroma. Distinct from warm editorial grounds and from any dark canvas.
-- **Display style** - **high-contrast serif** (Fraunces at optical 144, `SOFT` 30, weight 400, tracking `-0.022em`). The thick/thin contrast is the theme. Not a grotesk, not a slab, not a condensed.
+- **Display style** - **roman serif** (Erode 500, tracking `-0.022em`). Moderate contrast with a deliberately eroded, hand-set edge: the letterforms look printed rather than rendered, and that roughness is the theme. Not a grotesk, not a slab, not a condensed, and not the Didone hairlines of Specimen.
 - **Accent hue** - **chromatic green** `oklch(46% 0.140 145)`. A deep botanical emerald, mid-dark and saturated but never neon. One signal only, ink-on-white everywhere else.
 
 ## Reference register
 
-Aesop · Stripe Press · Readymag · Instrument · Locomotive · Area 17 · Cosmos · Semplice · a type foundry's Fraunces specimen. **Never name any of these in the output.**
+Aesop · Stripe Press · Readymag · Instrument · Locomotive · Area 17 · Cosmos · Semplice · a type foundry's own printed specimen. **Never name any of these in the output.**
 
-The material to match: a cool crafted canvas, one green signal, big high-contrast serif, hairline structure, mono meta-lines. Internally: the specimen discipline of a type foundry with the warmth of a working studio. When in doubt ask "does this read like a studio that hand-sets its own page, or a template?" Keep the former.
+The material to match: a cool crafted canvas, one green signal, a big roughened roman serif, hairline structure, mono meta-lines. Internally: the specimen discipline of a type foundry with the warmth of a working studio. When in doubt ask "does this read like a studio that hand-sets its own page, or a template?" Keep the former.
 
 ## Palette
 
@@ -31,10 +31,10 @@ Everything tints faintly toward hue 200-205. The green stays under 5% of any vie
 
 ## Typography
 
-- **Display** - Fraunces at optical size 144 (`--display-optical`), weight 400, `SOFT` 30, letter-spacing `-0.022em`, `font-variation-settings: "opsz" 144, "SOFT" 30`, up to `6.25rem` (`--text-display`). Edge-aligned left, 2-3 lines. The dramatic thick/thin stroke is the signature: do not flatten it with a low optical size.
-- **Body** - Geist 400 at a 45-75ch measure. The tension of a clean neutral sans under a high-contrast display serif is the pairing. **Never set running body in the serif**; Fraunces is display and pull-quotes only.
+- **Display** - Erode 500, letter-spacing `-0.022em`, up to `6.25rem` (`--text-display`). Edge-aligned left, 2-3 lines. Moderate stroke contrast with a roughened, chipped edge on every terminal: at display size the letterforms read as impressed into the page rather than drawn on it, and that texture is the signature. No optical-size axis, so scale is the only lever; set it big enough that the erosion is legible as intent.
+- **Body** - Geist 400 at a 45-75ch measure. The tension of a clean neutral sans under a textured display serif is the pairing. **Never set running body in the serif**; Erode is display and pull-quotes only, and its edge treatment turns to mud at reading size.
 - **Label** - Geist Mono UPPERCASE, tracking `0.08em` (`--tracking-label`). A studio's colophon voice: captions, dates, roles, disciplines, table headers, meta rows, folios, units, and entry numbers inside a real `<ol>`. It records a fact; it never sits above a heading to announce it.
-- **Emphasis is green, never italic.** A single emphasised word takes `--color-accent-ink` or a green underline; the display face stays roman. Fraunces italic is body emphasis and pull-quotes only.
+- **Emphasis is green, never italic.** A single emphasised word takes `--color-accent-ink` or a green underline; the display face stays roman. Erode italic is body emphasis and pull-quotes only.
 
 ## Material
 
@@ -54,7 +54,7 @@ Confident, spare, a little literary. Verbs over adjectives; name the work, the d
 
 ## Do-nots (this theme's own failure modes)
 
-- **Never flatten Fraunces.** A low optical size kills the thick/thin contrast that defines the theme. Keep opsz high on the display.
+- **Never smooth Erode out.** Do not substitute a clean roman serif "for legibility" at display size, and do not soften the edge with a text-shadow or a blur. The roughness is the theme; without it this is a generic serif-on-white studio page.
 - **No italic display.** Roman only; italic is body emphasis.
 - **No green flood, no neon green.** One deep botanical signal, under 5%. Green backgrounds or a bright green break it.
 - **No warm paper, no pure `#fff` / `#000`.** Studio is cool (hue ~200-205); warm cream is Atelier and Garden vocabulary.
@@ -66,8 +66,8 @@ Confident, spare, a little literary. Verbs over adjectives; name the work, the d
 | vs | what settles it instantly |
 |---|---|
 | **Garden** (green sibling) | Garden is a warm, botanical, organic register where green floods a soft world. Studio is a cool engineered studio-white where the same green is one restrained signal. Temperature and the role of the green settle it. |
-| **Atelier** (quiet-serif sibling) | Atelier is the hushed, small-serif, plaster-and-umber practice. Studio is bigger and cooler - Fraunces at opsz 144 on cool white with a green signal. Palette temperature and display scale settle it. |
-| **Specimen** (Fraunces / high-contrast sibling) | Specimen exists to display a typeface: type is the subject. Studio uses Fraunces as its voice to present a studio's work. Same face possible, different subject. |
+| **Atelier** (quiet-serif sibling) | Atelier is the hushed, plaster-and-umber practice set in a smooth Sentient. Studio is bigger, cooler, and roughened - Erode on cool white with a green signal. Palette temperature and the edge treatment settle it. |
+| **Specimen** (serif-display sibling) | Specimen exists to display a typeface: type is the subject, set in a razor-clean Bodoni Moda. Studio uses a deliberately eroded serif as its own voice to present a studio's work. Didone-hairlines vs chipped-edge, and the subject differs. |
 
 ## When the brief routes here
 
@@ -78,7 +78,8 @@ Dev-tool, enterprise, warm-consumer, and loud-maximalist briefs route elsewhere 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=erode@300,400,500,600,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 ```
 
 ```css
@@ -86,9 +87,8 @@ html, body { overflow-x: clip; }
 body { background: var(--color-paper); color: var(--color-neutral);
        font-family: var(--font-body); font-weight: 400; }
 
-/* Fraunces display - big, high-contrast, roman, tight */
+/* Erode display - big, roman, tight; the eroded edge does the work */
 .display { font-family: var(--font-display); font-weight: var(--display-weight);
-           font-variation-settings: "opsz" 144, "SOFT" 30;
            font-size: var(--text-display); line-height: 0.98;
            letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .display .mark { color: var(--color-accent-ink); }        /* the one green signal */

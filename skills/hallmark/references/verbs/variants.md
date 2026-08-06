@@ -107,7 +107,7 @@ Then state **the direction plan**: a markdown table, said before any code. It re
 
 **Titles** are short evocative names ("The broadsheet", "The control room"), never theme names or "Option A". The title is what the user will say back to you in chat, so make each one unmistakable.
 
-**Direction roles:** direction 1 is genre-faithful (what the brief most expects, done properly); direction 2 pulls from an adjacent genre; direction 3 is the wildcard. When Step 1's custom signals fired, the custom route ([`custom-theme.md`](../custom-theme.md)) is allowed for direction 3, run at draft depth: slate, draw, and direction contract, no finish review until it wins.
+**Direction roles:** direction 1 is genre-faithful (what the brief most expects, done properly); direction 2 pulls from an adjacent genre; direction 3 is the wildcard. When Step 1's custom signals fired, the custom route ([`direction.md`](../direction.md)) is allowed for direction 3, run at draft depth: slate, draw, and direction contract, no finish review until it wins.
 
 End the plan with the accountability beat, verbatim: *"Redirect now or I build all three."* A beat, not a blocking question; silence means build.
 

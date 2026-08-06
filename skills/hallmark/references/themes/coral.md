@@ -7,7 +7,7 @@ The material, in one line: **warm grey, one coral signal, one sans family, and s
 ## Axes (diversification)
 
 - **Paper band** - warm light (`oklch(96.5% 0.005 50)`, hue 50, very low chroma). A warm near-white grey, not Cobalt's cool white and not Garden's oat cream.
-- **Display style** - grotesk-sans (General Sans 600, `-0.025em` tracking). Single-family, distinct from Cobalt's Space Grotesk and from every serif.
+- **Display style** - grotesk-sans (General Sans 600, `-0.025em` tracking). Single-family, distinct from Cobalt's Familjen Grotesk and from every serif.
 - **Accent hue** - warm coral (`oklch(64% 0.165 28)`). One warm signal, clear of Cobalt's electric blue and Garden's leaf green. A signal, never a flood.
 
 ## Reference register
@@ -58,7 +58,7 @@ Composed and sparse. Optional reveals fade and rise ~8px, once; keep them subtle
 
 | vs | difference |
 |---|---|
-| **Cobalt** | Cool white, electric blue, Space Grotesk plus JetBrains Mono, tight 6px bordered controls, a live code register. Coral is warm grey, coral, General Sans, soft 999px pills. Same genre, opposite temperature; the rotation walks between them. |
+| **Cobalt** | Cool white, electric blue, Familjen Grotesk plus JetBrains Mono, tight 6px bordered controls, a live code register. Coral is warm grey, coral, General Sans, soft 999px pills. Same genre, opposite temperature; the rotation walks between them. |
 | **Garden** | Also warm and light, but oat-cream botanical *editorial* with green ink and hand-built craft. Coral is warm-*grey* modern-minimal, all General Sans, coral signal. Register settles it. |
 | **Lumen** | A premium apparatus register with a classical serif headline and a built light instrument. Coral is light, all-sans, soft pills, no artefact. Serif-plus-apparatus vs sans-plus-pills. |
 

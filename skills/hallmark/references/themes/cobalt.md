@@ -9,7 +9,7 @@ The material, in one line: **cool near-white, hairlines instead of boxes, and on
 ## Axes (diversification)
 
 - **Paper band** - cool light (`L 98.5%`, hue ~250, very low chroma), an engineered near-white distinct from Coral's warm grey and from the genre's dark grounds. Ink is cool charcoal `oklch(24% 0.02 258)`; body text sits a notch lighter at `oklch(34% 0.018 257)`.
-- **Display style** - **grotesk-sans** (Space Grotesk 500/600, slightly mechanical, tight tracking). Distinct from Geist (Coral) and from every serif and rounded option.
+- **Display style** - **grotesk-sans** (Familjen Grotesk 500/600, flared terminals and a slightly idiosyncratic `g`, tight tracking). Distinct from Geist (Coral) and from every serif and rounded option.
 - **Accent hue** - **electric cobalt** (`oklch(58% 0.20 256)`). High-chroma true blue, reads "API-live", sits clear of Midnight and Lumen's dusky indigos (~250 and 268). A signal, never a flood.
 
 ## Reference register
@@ -20,9 +20,9 @@ GitBook · Firecrawl · Vercel and Geist · Linear · Mintlify · Stripe docs ·
 
 Three families, all sans, no serif anywhere.
 
-- **Display** - Space Grotesk 500/600, tight tracking.
+- **Display** - Familjen Grotesk 500/600, tight tracking.
 - **Body** - Inter 400/500.
-- **Mono and label voice** - JetBrains Mono, UPPERCASE at `0.06em` tracking for captions, meta rows, table headers, status chips, units, folios, and keyboard hints; lowercase mono for code and commands. The machine-readout register against the Space Grotesk display. It is never a kicker over a heading.
+- **Mono and label voice** - JetBrains Mono, UPPERCASE at `0.06em` tracking for captions, meta rows, table headers, status chips, units, folios, and keyboard hints; lowercase mono for code and commands. The machine-readout register against the Familjen Grotesk display. It is never a kicker over a heading.
 
 ## Material
 
@@ -56,7 +56,7 @@ Declarative, technical, specific: name the endpoint, the command, the number. No
 
 | vs | difference |
 |---|---|
-| **Coral** | Coral is warm-grey paper, warm coral accent, Geist, soft pills, quiet type. Cobalt is cool-white, electric blue, Space Grotesk and JetBrains Mono, tight bordered controls, graphite. Same genre, opposite temperature; the rotation walks between them. |
+| **Coral** | Coral is warm-grey paper, warm coral accent, Geist, soft pills, quiet type. Cobalt is cool-white, electric blue, Familjen Grotesk and JetBrains Mono, tight bordered controls, graphite. Same genre, opposite temperature; the rotation walks between them. |
 | **Midnight** | Both live near hue 250-258, but Midnight is a **dark** atmospheric canvas with a numbered display and typewriter reveals. Cobalt is a **light** engineered canvas. Light vs dark settles it instantly. |
 | **Lumen** | Lumen is an apparatus page with Instrument Serif and an emit-or-refract focal artefact. Cobalt is all-sans, hairline-structured, and its focal material is literal code, not a built light-instrument. |
 | **Ledger** | Ledger is the dark sibling in the same cluster: navy ground, teal, Hanken and IBM Plex Mono, money as its subject. Cobalt is light, cobalt, and code as its subject. |
@@ -71,7 +71,7 @@ Warm, consumer, editorial, or image-led briefs route elsewhere. When the brief i
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 ```
 
 ```css

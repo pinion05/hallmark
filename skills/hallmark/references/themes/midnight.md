@@ -62,7 +62,7 @@ Fade only, composed and slow. Reveals fade and rise ~10px, once. Hover: an azure
 
 | vs | difference |
 |---|---|
-| **Cobalt** | A **light** engineered canvas, Space Grotesk, a literal code hero, hue 256. Midnight is a **dark** blue canvas, thin Geist 300, a diffuse cool glow, hue 220. Light vs dark, code-hero vs atmosphere. |
+| **Cobalt** | A **light** engineered canvas, Familjen Grotesk, a literal code hero, hue 256. Midnight is a **dark** blue canvas, thin Geist 300, a diffuse cool glow, hue 220. Light vs dark, code-hero vs atmosphere. |
 | **Lumen** | Warm brass on violet (or light indigo), Instrument Serif *display*, one *built* light artefact. Midnight is cool azure, Geist thin, a soft diffuse glow. Warm-serif-apparatus vs cool-thin-sans atmosphere. |
 | **Aurora** | Blooms cyan and teal-green and runs a Sentient serif body on a deeper ground. Midnight is all-Geist, more restrained, one azure *signal* rather than a blooming field. Serif-body-blooms vs all-sans-restraint. |
 

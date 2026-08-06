@@ -47,7 +47,7 @@
     .thumb {
       width: var(--thumb-w); height: var(--thumb-h);
       overflow: hidden; position: relative;
-      border: 1px solid var(--rule); border-radius: 12px; background: #fff;
+      border: 1px solid var(--rule); border-radius: 12px; background: var(--card);
       box-shadow: 0 1px 2px rgba(0,0,0,0.05);
       transition: box-shadow 180ms ease, transform 180ms ease;
     }
@@ -59,7 +59,7 @@
     }
     .thumb::after {               /* tiny "open" affordance */
       content: "open →"; position: absolute; right: 8px; bottom: 8px;
-      font-size: 11px; letter-spacing: 0.04em; color: #fff;
+      font-size: 11px; letter-spacing: 0.04em; color: var(--card);
       background: rgba(20,20,20,0.7); padding: 3px 8px; border-radius: 999px;
       opacity: 0; transition: opacity 160ms ease;
     }

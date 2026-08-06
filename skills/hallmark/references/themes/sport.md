@@ -7,7 +7,7 @@ The material, in one line: **cool concrete, blue-black ink, tight caps, tabular 
 ## Axes (diversification)
 
 - **Paper band** - light, cool concrete (`--color-paper oklch(98% 0.003 250)`, L 98, hue 250, near-zero chroma). An engineered near-white with a faint cool cast. Not warm cream (Carnival, Riso), not black (Manifesto).
-- **Display style** - display-condensed, uppercase. Inter Tight `--display-weight 700`, opsz token `96`, `--tracking-display -0.04em`, all-caps on the `--lh-tight 1.02` floor. Upright, never italic (`--display-style: normal`).
+- **Display style** - display-condensed, uppercase. Saira Condensed `--display-weight 700`, `--tracking-display -0.04em`, all-caps on the `--lh-tight 1.02` floor. A true condensed design rather than a narrow cut of a text face, so the caps stack without crowding. Upright, never italic (`--display-style: normal`).
 - **Accent hue** - warm blaze-orange (`--color-accent oklch(58% 0.190 35)`; as text `--color-accent-ink oklch(54% 0.20 35)`). High-chroma safety-orange, used as a single signal, never a flood. Clear of Coral's coral and Lumen's brass.
 
 ## Reference register
@@ -34,7 +34,7 @@ The orange stays under 5% of any viewport: a bib number, one primary control, an
 
 All-sans. No serif anywhere.
 
-- **Display** - Inter Tight 700, all-caps, `--tracking-display -0.04em` on the `--lh-tight 1.02` floor. The tension lives in the caps and the tracking, not a slant: upright, never italic. Two-line all-caps risks ascender/descender collision, so hold the 1.02 floor and never drop under it.
+- **Display** - Saira Condensed 700, all-caps, `--tracking-display -0.04em` on the `--lh-tight 1.02` floor. No optical-size axis: the weight and the caps carry it. The tension lives in the caps and the tracking, not a slant: upright, never italic. Two-line all-caps risks ascender/descender collision, so hold the 1.02 floor and never drop under it.
 - **Body** - Albert Sans 400/500/600 at `--measure 58ch`.
 - **Numerals** - JetBrains Mono with `font-variant-numeric: tabular-nums` for times, splits, scores, distances, dates. The number is the content and outsizes its label: this is the stopwatch voice, and it is the theme's second signature after the caps.
 - **Label** - JetBrains Mono, uppercase, `--tracking-label 0.10em`, for captions, table headers, meta rows, units, bib tags, folios, and entry numbers inside a real `<ol>`. The wide mono label is the ONLY place caps go loose; the display stays tight. It tags a value; it never announces a heading.
@@ -68,8 +68,8 @@ Imperative, kinetic, numbered. Caps on the headline, sentence case in the body. 
 
 | vs | difference |
 |---|---|
-| **Manifesto** | Manifesto is BLACK paper with red Anton, caps as protest. Sport is light cool-grey paper with blaze-orange and Inter Tight, caps as scoreboard. Both uppercase; opposite polarity and opposite purpose (declaration vs result). |
-| **Carnival** | Carnival is duo-tone poster art (Big Shoulders width axis, ornaments, hard-offset shadows). Sport is single-signal data (Inter Tight, mono tabular numerals, hairlines). Expressive vs measured. |
+| **Manifesto** | Manifesto is BLACK paper with red Anton, caps as protest. Sport is light cool-grey paper with blaze-orange and Saira Condensed, caps as scoreboard. Both uppercase; opposite polarity and opposite purpose (declaration vs result). |
+| **Carnival** | Carnival is duo-tone poster art (Big Shoulders width axis, ornaments, hard-offset shadows). Sport is single-signal data (Saira Condensed, mono tabular numerals, hairlines). Expressive vs measured. |
 | **Brutal** | Brutal is raw heavy-border slab brutalism. Sport is fast and hairline-precise, one heavy rule, the number as hero. Structure from rules and data, not slab weight. |
 
 ## When the brief routes here
@@ -79,7 +79,7 @@ Imperative, kinetic, numbered. Caps on the headline, sentence case in the body. 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Albert+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Albert+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 ```
 
 ```css
@@ -87,7 +87,7 @@ html, body { overflow-x: clip; }
 body { background: var(--color-paper); color: var(--color-ink-2);
        font-family: var(--font-body); font-weight: 400; }
 
-/* Scoreboard heads: uppercase condensed Inter Tight, tight + upright */
+/* Scoreboard heads: uppercase Saira Condensed, tight + upright */
 h1, h2 { font-family: var(--font-display); font-weight: var(--display-weight);
          text-transform: uppercase; letter-spacing: var(--tracking-display);
          line-height: var(--lh-tight); font-style: normal; }

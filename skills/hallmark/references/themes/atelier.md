@@ -1,13 +1,13 @@
 # Theme - Atelier
 
-The considered-object register: the Aesop / couture-masthead / gallery-placard school, rendered in **warm plaster and umber** - not cream, not grey. A near-neutral plaster ground, one **fat high-contrast Didone**, grotesk body, wide-tracked mono placards, and a single amber ember for the only warm signal. It reads hand-set and unhurried: an object *presented*, never sold.
+The considered-object register: the Aesop / couture-masthead / gallery-placard school, rendered in **warm plaster and umber** - not cream, not grey. A near-neutral plaster ground, one **bold soft-contrast serif**, grotesk body, wide-tracked mono placards, and a single amber ember for the only warm signal. It reads hand-set and unhurried: an object *presented*, never sold.
 
-The material, in one line: **plaster paper, a fatface Didone, hairlines and air, one amber ember.**
+The material, in one line: **plaster paper, a bold humanist serif, hairlines and air, one amber ember.**
 
 ## Axes (diversification)
 
 - **Paper band** - light (94%). Plaster near-neutral: `oklch(94% 0.005 60)`, steps to `oklch(91% 0.006 60)` and `oklch(87% 0.008 55)`. Warm hue 60 held at almost-zero chroma - unbleached linen, distinct from Garden's oat (chroma 0.022) and Newsprint's tan (0.045).
-- **Display style** - high-contrast serif (Playfair). Playfair Display at weight **900**, optical size **144**, tracking `-0.018em` - a fatface Didone (hair-thin serifs against fat verticals). Not Specimen's light Fraunces (340), not a thin Vogue-hairline cut.
+- **Display style** - **roman serif** (Sentient). Sentient at weight **700**, tracking `-0.018em`: a soft-contrast humanist serif carrying real weight, its stems and serifs within one register of each other. Not a Didone, and deliberately not Specimen's razor-thin Bodoni Moda - the two sit at opposite ends of the contrast axis.
 - **Accent hue** - warm umber (~40 deg, low chroma). The `--color-accent` is nearly ink-dark umber `oklch(22% 0.060 40)`; the one *visible* signal is `--color-accent-ink` / `--color-focus` = amber `oklch(45% 0.13 60)`.
 
 ## Reference register
@@ -32,9 +32,9 @@ The whole page reads unbleached-linen warm. Keep the amber under 4% of any viewp
 
 ## Typography
 
-The triad - fat Didone display, neutral grotesk body, wide mono labels - **is** Atelier.
+The triad - bold humanist-serif display, neutral grotesk body, wide mono labels - **is** Atelier.
 
-- **Display** - Playfair Display at `var(--display-weight)` = 900, `font-variation-settings: "opsz" 144`, tracking `-0.018em`, clamped to `6.25rem` via `--text-display`. One large fatface line carries the page's entire gravity; nothing competes with it.
+- **Display** - Sentient at `var(--display-weight)` = 700, tracking `-0.018em`, clamped to `6.25rem` via `--text-display`. One large weighted line carries the page's entire gravity; nothing competes with it. Sentient has no optical-size axis, so weight and scale are the only levers: hold 700 and let the size do the rest.
 - **Body** - Hanken Grotesk 400/500 at `--lh-normal: 1.55` / `--lh-relaxed: 1.7`, `--measure: 56ch`. **Never set running body in the serif** (that move belongs to Newsprint).
 - **Label** - IBM Plex Mono (`--font-label`), UPPERCASE, tracking `0.24em` (`--tracking-label`). The gallery-placard voice, carrying real values: material, dimensions, year, edition, captions, spec meta, folios. It labels an object; it never announces a heading.
 
@@ -57,8 +57,8 @@ Hand-set, literary, object-precise, couture-calm. Verbs over adjectives; name th
 ## Do-nots (this theme's own failure modes)
 
 - **No bright saturated pop.** The umber accent is near-ink; amber is a whisper. No orange (Specimen), no oxblood (Newsprint), no green (Garden / Studio).
-- **No serif running body.** Playfair in paragraphs reads broadsheet, which is a different theme.
-- **No thin or hairline Didone.** Atelier's Playfair is FAT (900). A light cut collides with Specimen's Fraunces 340 and reads generic-luxury.
+- **No serif running body.** Sentient in paragraphs reads broadsheet, which is a different theme.
+- **No light or high-contrast cut.** Atelier's Sentient is BOLD (700) and soft-contrast. A thin cut with hairline serifs collides with Specimen's Bodoni Moda and reads generic-luxury.
 - **No warm-tan or cream newspaper stock.** Plaster is chroma 0.005, not oat (0.022) or tan (0.045).
 - **No boxed cards, drop-shadows, or glassmorphism.** Hairlines and air carry every surface.
 - **No filled-pill or gradient CTA, no pure `#fff` / `#000`.**
@@ -67,9 +67,9 @@ Hand-set, literary, object-precise, couture-calm. Verbs over adjectives; name th
 
 | vs | what settles it instantly |
 |---|---|
-| **Newsprint** (shares Playfair Display) | Newsprint is Playfair **700** + Crimson Pro **serif body** + warm-tan stock (`oklch(92% 0.045 50)`) + oxblood. Atelier is Playfair **900** fatface + **grotesk body** + near-neutral plaster + amber whisper. Body face and paper warmth settle it. |
-| **Specimen** (serif-display sibling) | Specimen is **light** Fraunces (340) + bright **orange** (`#FC4C02`) on warm paper. Atelier is **fat** Playfair (900) + warm-monochrome umber. Display weight and accent hue settle it. |
-| **Garden** (same 94% paper band) | Garden is Young Serif + oat cream + living **leaf-green**, botanical and organic. Atelier is a high-contrast Didone on near-neutral plaster with **no green** - gallery, not garden. |
+| **Newsprint** (serif neighbour) | Newsprint is a Zilla **slab** + Spectral **serif body** + warm-tan stock (`oklch(92% 0.045 50)`) + oxblood. Atelier is a bold humanist serif + **grotesk body** + near-neutral plaster + amber whisper. Slab-vs-roman, body face, and paper warmth settle it. |
+| **Specimen** (serif-display sibling) | Specimen is **razor-thin** Bodoni Moda (400 at opsz 96, a Didone's thick/thin extreme) + bright **orange** (`#FC4C02`) on warm oat. Atelier is **bold soft-contrast** Sentient (700) + warm-monochrome umber on plaster. Opposite ends of the contrast axis, and the accent hue confirms it. |
+| **Garden** (same 94% paper band) | Garden is Young Serif + oat cream + living **leaf-green**, botanical and organic. Atelier is a bold plaster-and-umber serif with **no green** - gallery, not garden. |
 
 ## When the brief routes here
 
@@ -80,7 +80,8 @@ Developer, enterprise, and dashboard briefs route elsewhere; loud-maximalist edi
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:opsz,wght@5..1200,400..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=sentient@200,300,400,500,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 ```
 
 ```css
@@ -88,9 +89,8 @@ html, body { overflow-x: clip; }
 body { background: var(--color-paper); color: var(--color-neutral);
        font-family: var(--font-body); font-weight: 400; line-height: var(--lh-normal); }
 
-/* The fatface Didone - the page's whole gravity */
+/* The bold humanist serif - the page's whole gravity */
 h1, .display { font-family: var(--font-display); font-weight: var(--display-weight);
-               font-variation-settings: "opsz" var(--display-optical);
                font-size: var(--text-display); letter-spacing: var(--tracking-display);
                line-height: var(--lh-tight); color: var(--color-ink); }
 
@@ -99,13 +99,12 @@ h1, .display { font-family: var(--font-display); font-weight: var(--display-weig
            letter-spacing: var(--tracking-label); color: var(--color-muted); }
 
 /* The amber drop cap - one per page, first paragraph only.
-   Playfair at ~3 lines of body leading, optically nudged so its cap-height
+   Sentient at ~3 lines of body leading, optically nudged so its cap-height
    sits on the first baseline and its left edge aligns with the measure. */
 .lede::first-letter {
   float: left;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  font-variation-settings: "opsz" 144;
   font-size: 3.9em;          /* ~3 lines at --lh-normal 1.55 */
   line-height: 0.82;
   padding: 0.06em 0.08em 0 0;

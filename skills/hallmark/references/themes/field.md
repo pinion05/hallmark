@@ -1,13 +1,13 @@
 # Theme - Field
 
-Warm, credible, hand-drawn SaaS. The warm-cream playful lane executed as **calm marigold-on-cream, one signal accent, hand-drawn ink**. Cream paper, a Source Serif headline over a Public Sans body, a marigold highlighter behind one phrase, and drawn objects where a colder theme would ship app chrome. It reads like a plain-spoken team that ships.
+Warm, credible, hand-drawn SaaS. The warm-cream playful lane executed as **calm marigold-on-cream, one signal accent, hand-drawn ink**. Cream paper, a Literata headline over a Public Sans body, a marigold highlighter behind one phrase, and drawn objects where a colder theme would ship app chrome. It reads like a plain-spoken team that ships.
 
 The material, in one line: **warm cream, warm ink, one marigold highlighter, everything drawn by hand.**
 
 ## Axes (diversification)
 
 - **Paper band** - **light warm cream** (`oklch(96.5% 0.015 90)`, hue 90). Never `#fff`, never cool grey. Ink is warm near-black `oklch(25% 0.02 70)`, hue 70 - warm, not neutral.
-- **Display style** - **roman serif** (Source Serif 4, 600, tracking `-0.02em`). No italic display. A serif headline over a Public Sans body - the friendly-but-serious pairing that separates it from the all-sans playful sibling.
+- **Display style** - **roman serif** (Literata 600, tracking `-0.02em`). A screen-tuned reading serif with sturdy slabby serifs, warm rather than formal. No italic display. A serif headline over a Public Sans body - the friendly-but-serious pairing that separates it from the all-sans playful sibling.
 - **Accent hue** - **chromatic marigold** (`oklch(75% 0.13 80)`). One warm gold-orange signal, used as highlighter and ink-stroke accent, never a flood (< 5% of any viewport).
 
 ## Reference register
@@ -32,7 +32,7 @@ Shadows are warm-tinted (hue 70), **never neutral grey**. No pure black or white
 
 ## Typography
 
-- **Display** - Source Serif 4 600, tracking `-0.02em`, line-height ~1.08. Roman only, no italic display. The serif carries the warmth.
+- **Display** - Literata 600 at `font-variation-settings: "opsz" 72`, tracking `-0.02em`, line-height ~1.08. Roman only, no italic display. The serif carries the warmth; hold the optical size up so the display cut sheds its reading-size sturdiness.
 - **Body** - Public Sans 400/500/600 at `1.0625rem` / 1.6. The sans carries the plain voice.
 - **Label** - Public Sans UPPERCASE, `0.12em` tracking, for captions, meta rows, table headers, units, and entry numbers inside a real `<ol>`. It labels content; it never sits above a heading to announce it. `--font-mono` (Geist Mono) is defined but rarely used; only load it if the page actually shows mono.
 
@@ -67,7 +67,7 @@ Warm, plain, concrete, honest. Name the noun (owner, date, decision), admit the 
 
 | vs | difference |
 |---|---|
-| **Hum** (loud playful sibling) | Hum is cream (`97% 0.012 95`) with **three** saturated accents - pear-yellow (`86% 0.18 95`), sky-cyan (`66% 0.18 235`), coral-red (`68% 0.24 18`) - all-sans Plus Jakarta, 20px radii, deliberately loud. Field ships **one** marigold signal (`75% 0.13 80`), a Source Serif display, 10px radii, and a quiet credible voice. Same lane, opposite volume. |
+| **Hum** (loud playful sibling) | Hum is cream (`97% 0.012 95`) with **three** saturated accents - pear-yellow (`86% 0.18 95`), sky-cyan (`66% 0.18 235`), coral-red (`68% 0.24 18`) - all-sans Chillax, 20px radii, deliberately loud. Field ships **one** marigold signal (`75% 0.13 80`), a Literata display, 10px radii, and a quiet credible voice. Same lane, opposite volume. |
 | **Almanac** (archival editorial) | Almanac is a cool bone with a deep-blue accent (`38% 0.135 250`) and a Newsreader prose serif - a document to read. Field is warm cream (hue 90), marigold, Public Sans body, hand-drawn - a product to try. |
 | **Garden** (warm editorial) | Garden shares the warm ground (`95.5% 0.022 92`, hue 92 ~ Field's 90) but its ink is **botanical green** (`24% 0.052 152`) with leaf-green (`47% 0.13 140`) and terracotta, on a Young Serif display. Field's ink is warm-neutral (hue 70) and its one accent is marigold. Shared ground temperature; ink and accent hue settle it. |
 
@@ -80,7 +80,7 @@ Loud playful routes to Hum; archival editorial routes to Almanac or Garden; cool
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet" />
 ```
 
 ```css

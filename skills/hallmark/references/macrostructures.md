@@ -1,13 +1,13 @@
 # Macrostructures
 
-Twenty-one named landing-page shapes. **Pick one before you write code.** Each is a complete fingerprint — heading placement, body composition, divider language, button voice, image treatment, reveal pattern — bundled as a single named choice. Picking a macrostructure is faster, less error-prone, and *categorically more varied* than choosing six independent axes from `structure.md`.
+Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the brief asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so and describe the shape in a line, per [`structure.md`](structure.md).
 
 The Specimen macrostructure (huge serif + asymmetric spans + hairline rules + typographic CTA) is one of these twenty-one. **It is no longer a default.** Reach for it only when the brief is explicitly editorial, foundry-adjacent, or the user has named it.
 
-## Diversification rule (mandatory)
+## Diversification rule
 
 The rule lives in SKILL.md's Rotation block.
-Check the `/* Hallmark · macrostructure: <name> · ... */` stamp and `.hallmark/log.json` before picking.
+Check the `/* Hallmark · macrostructure: <name> · ... */` stamp and `.hallmark/log.json` before you settle the shape.
 
 ## Hero polish patterns
 
@@ -17,13 +17,13 @@ A hero may carry one enrichment archetype (E1–E8) AND one polish pattern (HP1�
 
 ## Nav and footer voice
 
-Each macrostructure also implies a **nav archetype** (N1a–N13) and a **footer archetype** (Ft1–Ft8). The defaults sit in the routing tables in [`component-cookbook.md`](component-cookbook.md) § Navigation and § Footers. Don't ship a hero macrostructure without picking nav + footer alongside — they are part of the page shape, not optional chrome.
+Each macrostructure also implies a **nav archetype** (N1a–N13) and a **footer archetype** (Ft1–Ft8). The defaults sit in the routing tables in [`component-cookbook.md`](component-cookbook.md) § Navigation and § Footers. Nav and footer are part of the page shape, not optional chrome: settle them alongside the hero rather than defaulting them.
 
 ---
 
 ## The 21 macrostructures — index
 
-**Pick one. Then read ONLY that one file** from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; the diversification rule reads the `<name>` from the `/* Hallmark · macrostructure: <name> · ... */` stamp.
+**Read ONLY the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; the diversification rule reads the `<name>` from the `/* Hallmark · macrostructure: <name> · ... */` stamp.
 
 - **01 · Bento Grid** — Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a quote, an image, a stat. Visual rhythm comes from size variation, not card uniformity. [`macrostructures/01-bento-grid.md`](macrostructures/01-bento-grid.md)
 - **02 · Long Document** — Reads like a memo, a letter, or a journal entry. No marketing structure. Continuous prose with inline section heads. The page is *literature* about the product. [`macrostructures/02-long-document.md`](macrostructures/02-long-document.md)

@@ -56,7 +56,7 @@ Declarative, numeric, audited. Name the figure, the feed, the lock time; let spe
 
 | vs | difference |
 |---|---|
-| **Cobalt** | Cobalt is cool near-white paper (`oklch(98.5% 0.004 250)`), electric cobalt (`0.20 256`), Space Grotesk and JetBrains Mono, and code as its focal material. Ledger is dark navy (`oklch(20% 0.025 255)`), teal (`0.12 185`), Hanken and IBM Plex Mono, and money as its focal material. Same cluster, opposite ground. |
+| **Cobalt** | Cobalt is cool near-white paper (`oklch(98.5% 0.004 250)`), electric cobalt (`0.20 256`), Familjen Grotesk and JetBrains Mono, and code as its focal material. Ledger is dark navy (`oklch(20% 0.025 255)`), teal (`0.12 185`), Hanken and IBM Plex Mono, and money as its focal material. Same cluster, opposite ground. |
 | **Midnight** | Both are dark near hue 250, but Midnight is **atmospheric**: deeper `L 15%`, blue accent (`0.16 220`), Geist plus Instrument Serif, `--display-weight 300` with `0.16em` labels, typewriter reveals. Ledger is **modern-minimal**: lifted `L 20%` navy, teal 185, Hanken 600, flat and still. Mood vs instrument. |
 | **Coral** | Coral is warm-grey paper (`oklch(96.5% 0.005 50)`), warm coral (`0.165 28`), Geist, `--radius-pill 999px`. Ledger is dark navy, teal, 12px and 8px radii. Opposite temperature, opposite ground. |
 | **Terminal** | Terminal is green-black with mono for everything including body, a reading surface. Ledger keeps mono for figures only and sets its prose in a grotesk. Editor vs console. |

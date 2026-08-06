@@ -1,61 +1,68 @@
-# Theme axes - the Rotation lookup
+# Theme axes - the Rotation lookup, and the rejection table
 
-The three diversification axes for every catalog theme, derived from the canonical token values. The Rotation block in [`SKILL.md`](../SKILL.md) reads this table; two consecutive themes must differ on at least one axis. Custom builds declare their own axes per [`custom-theme.md`](custom-theme.md) § D.
+The three diversification axes for every catalog theme, derived from the canonical token values. This table is read two ways depending on the route, and both readings are live:
+
+- **As a lookup (catalog route).** The Rotation block in [`SKILL.md`](../SKILL.md) reads it to pick the next theme; two consecutive themes must differ on at least one axis.
+- **As a rejection table (custom route).** A constructed system declares its own axes per [`direction.md`](direction.md) § D, and this table is the list of triples it must not land on. See § The rejection reading below.
+
+The second reading is what the 24 themes are *for* on an archive-connected session, where every build routes custom and no build picks a catalog theme. They stop being destinations and become the twenty-four most-worn coordinates in Hallmark's own space: precisely what [`direction.md`](direction.md) § R.2 means by house defaults, with values attached.
 
 Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **warm** 10-60° · **cool** 200-300° · **neutral** chroma < 0.05 · **chromatic-other** anything else (sub-tag the hue).
 
 | Theme | Paper band | Display style | Accent hue |
 | --- | --- | --- | --- |
-| Specimen | light (oat 96%) | high-contrast-serif (Fraunces) | warm (signal orange ~35°) |
-| Atelier | light (94%) | high-contrast-serif (Playfair) | warm (umber ~40°, low chroma) |
+| Specimen | light (oat 96%) | high-contrast-serif (Bodoni Moda) | warm (signal orange ~35°) |
+| Atelier | light (94%) | roman-serif (Sentient 700) | warm (umber ~40°, low chroma) |
 | Brutal | light (98%) | display-heavy (Albert Sans) | warm (red ~25°) |
-| Newsprint | light (92%, warm) | roman-serif (Playfair/Crimson) | warm (brick ~28°) |
-| Studio | light (96.5%, cool) | high-contrast-serif (Fraunces) | chromatic-green (~145°) |
+| Newsprint | light (92%, warm) | slab-serif (Zilla Slab) | warm (brick ~28°) |
+| Studio | light (96.5%, cool) | roman-serif (Erode) | chromatic-green (~145°) |
 | Manifesto | dark (10%) | display-condensed-bold (Anton) | warm (red ~25°) |
 | Terminal | dark (11%, green) | mono (JetBrains Mono) | chromatic-phosphor (~138°) |
 | Midnight | dark (15%, blue) | geometric-sans (Geist) | cool (~220°) |
 | Almanac | mid (84%, cool slate stock) | grotesk-sans (Hanken Grotesk) | cool (~250°) |
 | Garden | light (95.5%) | roman-serif (Young Serif) | chromatic-leaf (~140°) |
 | Riso | mid (84%, pink stock) | grotesk-heavy (Public Sans 800/900) | cool (~220°) |
-| Sport | light (98%) | display-condensed (Inter Tight) | warm (~35°) |
+| Sport | light (98%) | display-condensed (Saira Condensed) | warm (~35°) |
 | Bloom | light (97%) | geometric-sans (Geist) | warm (~35°) |
 | Coral | light (96.5%) | grotesk-sans (General Sans) | warm (coral ~28°) |
-| Cobalt | light (98.5%, cool) | grotesk-sans (Space Grotesk) | cool (~256°) |
+| Cobalt | light (98.5%, cool) | grotesk-sans (Familjen Grotesk) | cool (~256°) |
 | Aurora | dark (11%, teal) | geometric-sans (Sora) | chromatic-teal-green (~172°) |
-| Editorial | light (94%, cream) | display-condensed (Inter Tight) | warm (coral ~35°) |
+| Editorial | light (94%, cream) | display-condensed (Bricolage Grotesque) | warm (coral ~35°) |
 | Carnival | light (92%, warm) | display-heavy (Big Shoulders) | chromatic-amber (~95°) |
 | Lumen | dark (13%, indigo; day drop flips light) | classical-serif (Instrument Serif) | warm (~50°) |
-| Hum | light (97%, warm) | rounded-sans (Plus Jakarta Sans) | chromatic-amber (~95°) |
+| Hum | light (97%, warm) | rounded-sans (Chillax) | chromatic-amber (~95°) |
 | Grid | light (near-white 99%) | grotesk-heavy (Archivo 800) | warm (signal red ~28) |
-| Field | light (cream 96.5%) | roman-serif display (Source Serif) | chromatic-marigold (~80) |
+| Field | light (cream 96.5%) | roman-serif (Literata) | chromatic-marigold (~80) |
 | Ledger | dark (navy 20%) | grotesk-sans + tabular mono (Hanken) | chromatic-teal (~185) |
 | Arcade | dark (violet-black 16%) | pixel display (Silkscreen) | chromatic-magenta (~340) + cyan |
 
-When two candidate themes match on two of the three axes, pick a more distant one. Known close pairs that rule arbitrates: Aurora ~172° vs Ledger ~185° (same teal family), Specimen vs Atelier (both light/high-contrast-serif/warm; faces and registers differ), Sport vs Editorial (both light/display-condensed/warm; scoreboard vs magazine register). Display is roman by default; a single italicised word inside a roman heading is banned outright (gate 38a-i), and an italic display *system* is a Reflex gate a theme can carry if it declares one (38a-ii).
+When two candidate themes match on two of the three axes, pick a more distant one. Known close pairs that rule arbitrates: Aurora ~172° vs Ledger ~185° (same teal family), Sport vs Editorial (both light/display-condensed/warm; scoreboard vs magazine register), Studio vs Atelier and Studio vs Field (all three light/roman-serif; accent hue separates green from umber from marigold, and the faces are a chipped Erode against a bold Sentient against a warm Literata). Display is roman by default; a single italicised word inside a roman heading is banned outright (gate 38a-i), and an italic display *system* is a Reflex gate a theme can carry if it declares one (38a-ii).
 
 ---
 
-## The theme contract
+## The rejection reading
 
-**A theme is a material, not a plan.** It says what the page is made of. It does not say what the page contains, in what order, or in what shape. Two pages in the same theme should not share a section sequence.
+**A constructed system that lands within tolerance of a catalog row has failed the reflex check.** Not "is unoriginal", not "should be reconsidered": failed, the same way R.1 fails when the slate lands on the category default. The whole point of the custom route is that it goes somewhere the catalog does not already stand.
 
-A theme file **may** carry:
+**Within tolerance** means all three of these at once:
 
-- palette values and their roles (paper, ink, muted, accent, accent-ink, focus, rule), in OKLCH
-- the type pairing, the role each face plays, and its tracking, weight, and case conventions
-- rule weight, radius, shadow stance, border treatment
-- texture and material: grain, overprint, scanline, deckle, and their budgets
-- motion character: how fast this theme moves and how it eases
-- what the theme feels like, and what it is *not* (its nearest neighbour in the catalog, and the difference)
-- three to six do-nots that are specific to **this theme's own failure mode**, not restatements of the global gates
+1. **Same paper band** (dark / mid / light), and
+2. **Same display class** at the table's grain - `grotesk-sans` and `grotesk-heavy` are different classes, and `roman-serif`, `high-contrast-serif` and `slab-serif` are three, and
+3. **Same accent band**, or for two `chromatic-other` entries, hues within **20°** of each other.
 
-A theme file **may not** carry:
+Matching two of the three is fine and common: a light paper with a roman serif and a teal accent collides with nothing. It is the full triple that means you re-derived a theme that already exists.
 
-- a section sequence, a page outline, or a "structural signature"
-- a mandated nav, footer, hero, or enrichment archetype
-- HTML scaffolds or page-part class names (`.masthead`, `.panel`, `.work`, `.meter`)
-- verbatim copy, invented brand names, invented people, or taglines that read as strings to ship
-- an eyebrow, in any form (gate 54)
-- counts that fix a layout ("always three cells, never two, never four")
+**When you land there.** Move one axis, and prefer the one the brief cares least about - usually accent hue, occasionally paper band, rarely display class (the display carries the direction and is the most expensive thing to trade away). Then say it happened in one line: *"Landed on Cobalt's triple (light / grotesk-sans / cool ~250); moved accent to chromatic-moss ~145."* Silence here is the failure mode, not the collision.
 
-Where a theme genuinely invented something structural worth keeping, it belongs in the Library as an **optional** entry any brief can reach for, never as a thing this theme's builds must contain. The `## Build hint` block in each file is a token sketch, not a page: `:root` values and the two or three face rules that make the theme recognisable, and nothing that names a page part.
+**Two exceptions, both narrow.**
+
+- **The user asked for it.** "Make it look like Terminal", "we want that Ledger feel" is an instruction, not a reflex. Build it, and record `axes: <triple> (Terminal, by request)` in the stamp so a later audit does not read it as drift.
+- **The draw earned it.** A direction from R.4 that genuinely demands the coordinate - a line-printer draw wanting a dark paper with a mono display - may keep it, but only with the same one-line argument R.2 requires for landing on a spent default. A draw that "happens to" land on a catalog triple twice in a project is not a draw, it is a preference.
+
+**Both rejection tables bind together on an archive-connected build.** [`reference-archive.md`](reference-archive.md)'s opposition rule refuses the *archive's* measured consensus; this table refuses *Hallmark's own* twenty-four. Clearing one does not clear the other, and the intersection is not as tight as it looks: three bands times a display class leaves the constructed system nearly the whole space, minus the two dozen places it has already been.
+
+---
+
+---
+
+The rules governing what a theme *file* may and may not carry live in [`themes/README.md`](themes/README.md). Read that only when writing or editing a theme, never when building a page.

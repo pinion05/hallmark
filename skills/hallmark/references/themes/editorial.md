@@ -1,13 +1,13 @@
 # Theme - Editorial
 
-The contemporary magazine, set for the screen: **warm cream with a heavy condensed-sans headline answered by a Playfair Display italic aside**. Inter Tight 800 crashes tight against the left margin (tracking `-0.04em`), a serif-italic pulled line answers it, hairline rules and Roman-numeral folios carry the structure. It reads like a well-art-directed feature: stylish, type-forward, warm but crisp.
+The contemporary magazine, set for the screen: **warm cream with a heavy condensed-sans headline answered by an EB Garamond italic aside**. Bricolage Grotesque 800 crashes tight against the left margin (tracking `-0.04em`), a serif-italic pulled line answers it, hairline rules and Roman-numeral folios carry the structure. It reads like a well-art-directed feature: stylish, type-forward, warm but crisp.
 
 The material, in one line: **cream paper, a tight grotesque, a Didone italic answer, one coral mark.**
 
 ## Axes (diversification)
 
 - **Paper band** - warm cream, light (`--color-paper: oklch(94% 0.020 75)`). A hair darker and a hair cooler than Specimen's oat (96%, hue 80); never `#fff`, never a neutral grey.
-- **Display style** - **display-condensed sans** (Inter Tight, `--display-weight: 800`). A heavy, tight grotesque at `--tracking-display: -0.04em`, magazine-shaped. Never a serif display; the serif appears only as italic emphasis.
+- **Display style** - **display-condensed sans** (Bricolage Grotesque, `--display-weight: 800`, `wdth` 75). A heavy grotesque narrowed on its own width axis at `--tracking-display: -0.04em`, magazine-shaped, with just enough irregularity in the letterforms to read art-directed rather than default. Never a serif display; the serif appears only as italic emphasis.
 - **Accent hue** - **warm coral** (`--color-accent: oklch(60% 0.160 35)`). Pinker and softer than Specimen's signal orange, far brighter than Newsprint's dried brick. A signal on marks and fills, never a flood.
 
 ## Reference register
@@ -33,8 +33,8 @@ Coral stays under 5% of any viewport: a link underline, one filled tag, a folio 
 
 ## Typography
 
-- **Display** - Inter Tight `--display-weight: 800` at `--text-display: clamp(2.5rem, 5vw + 0.75rem, 4.75rem)`, `--tracking-display: -0.04em`, title-case, slammed left.
-- **Serif** - Playfair Display **italic** (`--font-serif`), the answering voice. A single word or clause inside a head, or a pulled line set large between a top-and-bottom hairline with a coral indent, never in a box. The grotesque-against-Didone-italic tension is the whole voice, and the serif is italic emphasis only, never the display face.
+- **Display** - Bricolage Grotesque `--display-weight: 800` at `--text-display: clamp(2.5rem, 5vw + 0.75rem, 4.75rem)`, `font-variation-settings: "wdth" 75, "opsz" 96`, `--tracking-display: -0.04em`, title-case, slammed left. Drop the width axis and the headline loses the magazine proportion that defines the theme.
+- **Serif** - EB Garamond **italic** (`--font-serif`), the answering voice. A single word or clause inside a head, or a pulled line set large between a top-and-bottom hairline with a coral indent, never in a box. The grotesque-against-Didone-italic tension is the whole voice, and the serif is italic emphasis only, never the display face.
 - **Body** - plain Inter 400/500/600, `--section-head-gap: 1.5rem`.
 - **Label** - Geist Mono, UPPERCASE, `--tracking-label: 0.10em`, `--color-muted`. Roman numerals and mono folios are the second register, marching down the margin like a contents system, and carrying captions, meta rows, table headers, and units.
 
@@ -50,20 +50,20 @@ Quiet and composed. One orchestrated entrance: reveals fade and rise (`--ease-ou
 
 ## Do-nots (this theme's own failure modes)
 
-- **Never a serif display face.** Inter Tight carries every headline; Playfair appears only as italic emphasis. A serif headline reads as Newsprint, Specimen, or Atelier.
+- **Never a serif display face.** Bricolage Grotesque carries every headline; EB Garamond appears only as italic emphasis. A serif headline reads as Newsprint, Specimen, or Atelier.
 - **Never rounded corners, pills, or shadows.** Radius is 0 everywhere; soft pills are Coral's vocabulary.
 - **Never an orange or brick drift.** Keep the accent coral (hue 35, chroma 0.16): not Specimen's redder orange, not Newsprint's dark brick, not terracotta.
 - **Never a centred masthead.** That is Newsprint's broadsheet move; Editorial is left-biased and asymmetric.
 - **Never a dark ground.** Editorial is light cream; a dark statement page is Manifesto.
-- **Never an ALL-CAPS shout.** Inter Tight runs title-case and tight, magazine-modern, not a broadside.
+- **Never an ALL-CAPS shout.** Bricolage Grotesque runs title-case and tight, magazine-modern, not a broadside.
 
 ## How Editorial differs from its neighbours
 
 | vs | difference |
 |---|---|
-| **Specimen** | A **serif display** at scale (Fraunces light 340) over sans body, signal orange. Editorial is a **heavy condensed sans** (Inter Tight 800) with Playfair as an italic garnish, coral. Thin-serif-head vs heavy-sans-head. |
-| **Newsprint** | All-serif (Playfair Didone head, Crimson body), a **centred** masthead, columns, brick. Editorial is sans head over sans body, **left-biased** and asymmetric, coral. Broadsheet-serif vs magazine-sans. |
-| **Manifesto** | Also condensed, but **dark** ground plus Anton **UPPERCASE** in red. Editorial is **light** cream plus Inter Tight **title-case** in coral. Light-vs-dark and caps-vs-titlecase settle it. |
+| **Specimen** | A **serif display** at scale (Bodoni Moda 400, razor-thin) over sans body, signal orange. Editorial is a **heavy condensed sans** (Bricolage Grotesque 800) with EB Garamond as an italic garnish, coral. Thin-serif-head vs heavy-sans-head. |
+| **Newsprint** | All-serif (Zilla slab head, Spectral body), a **centred** masthead, columns, brick. Editorial is sans head over sans body, **left-biased** and asymmetric, coral. Broadsheet-serif vs magazine-sans. |
+| **Manifesto** | Also condensed, but **dark** ground plus Anton **UPPERCASE** in red. Editorial is **light** cream plus Bricolage Grotesque **title-case** in coral. Light-vs-dark and caps-vs-titlecase settle it. |
 
 ## When the brief routes here
 
@@ -75,7 +75,7 @@ Route elsewhere: broadsheet or journalism to Newsprint, type foundry or quiet po
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600..800&family=Inter:wght@400;500;600&family=EB+Garamond:ital,wght@0,500;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -87,7 +87,7 @@ body { background: var(--color-paper); color: var(--color-ink-2);
 .display { font-family: var(--font-display); font-weight: var(--display-weight); /* 800 */
            font-size: var(--text-display); letter-spacing: var(--tracking-display); /* -0.04em */
            color: var(--color-ink); text-align: left; text-wrap: balance; }
-.display em, .pull { font-family: var(--font-serif); font-style: italic; /* Playfair answer */
+.display em, .pull { font-family: var(--font-serif); font-style: italic; /* EB Garamond answer */
                      font-weight: 500; letter-spacing: var(--tracking-tight); }
 
 /* Mono folio + Roman-numeral marginalia, captions, meta */

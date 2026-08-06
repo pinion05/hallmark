@@ -1,13 +1,13 @@
 # Theme - Specimen
 
-The canonical Hallmark editorial voice and the catalog's silent default: the type-specimen school, where one high-contrast serif set enormous and thin *is* the page. Warm oat paper, a single signal-orange mark, ruler-drawn hairlines, Fraunces shown at specimen scale. It reads like a well-set printed page: quiet, warm, exact.
+The canonical Hallmark editorial voice and the catalog's silent default: the type-specimen school, where one high-contrast serif set enormous and thin *is* the page. Warm oat paper, a single signal-orange mark, ruler-drawn hairlines, Bodoni Moda shown at specimen scale. It reads like a well-set printed page: quiet, warm, exact.
 
 The material, in one line: **oat paper, one thin serif at scale, hairlines, and a single orange mark.**
 
 ## Axes (diversification)
 
 - **Paper band** - warm oat (`oklch(96% 0.018 80)`, hue 80). A cream near-white with real yellow warmth, distinct from Almanac's cool blue-grey oat and Atelier's near-neutral taupe.
-- **Display style** - **high-contrast serif** (Fraunces, light). `--display-weight: 340`, `--display-optical: 144` (the largest, highest-contrast optical cut), `--display-soft: 20`. Thin and elegant, never the black display of Atelier or Newsprint.
+- **Display style** - **high-contrast serif** (Bodoni Moda, its lightest cut). `--display-weight: 400` (the family floor), `--display-optical: 96` (the top of the optical-size axis, where the hairlines thin furthest against the stems). A Didone: elegant and razor-thin, never the bold crown of Atelier or the slab of Newsprint.
 - **Accent hue** - **signal orange** (`#FC4C02`, hue ~33). One warm spark, with `--color-accent-ink: oklch(55% 0.21 32)` for legible orange text on oat. A signal, never a flood.
 
 ## Reference register
@@ -32,15 +32,15 @@ Everything is tinted warm (hue 60-80). Orange stays under 5% of any viewport: a 
 
 ## Typography
 
-- **Display** - Fraunces at `--display-weight: 340`, `font-variation-settings: "opsz" 144, "SOFT" 20`, `--text-display: clamp(3rem, 5.5vw + 1rem, 5.75rem)`, `--tracking-display: -0.025em`, `--lh-tight: 1.02`. One word or a short phrase set enormous and light: the high-contrast serif carries the page and the type *is* the graphic.
+- **Display** - Bodoni Moda at `--display-weight: 400`, `font-variation-settings: "opsz" 96`, `--text-display: clamp(3rem, 5.5vw + 1rem, 5.75rem)`, `--tracking-display: -0.025em`, `--lh-tight: 1.02`. One word or a short phrase set enormous and light: at the top of the optical axis the hairlines go razor-fine against the stems, and that contrast *is* the graphic. Do not drop the optical size; a low `opsz` fattens the hairlines and the specimen effect dies with them.
 - **Body** - Geist at `--measure: 62ch`, `--lh-normal: 1.45`. The sans-under-serif contrast is the specimen tension.
-- **Serif emphasis** - Fraunces italic for pulled lines and single-word emphasis only, never the display face.
+- **Serif emphasis** - Bodoni Moda italic for pulled lines and single-word emphasis only, never the display face.
 - **Label** - Geist Mono, UPPERCASE, `--tracking-label: 0.12em`, `--text-xs`, `--color-muted`. The machine-readout counterpoint that keeps the warm serif from going soft: meta rows, folios, figure captions, table headers, units.
 
 ## Material
 
 - **Hairlines, square corners, no shadow.** `--rule-card: 1px`, `--radius-card: 0`, `--shadow-card: none`, `--rule-hair: 0.5px`. Structure is drawn with rules, columns, and double rules, never boxed surfaces or blur.
-- **Editorial ornament, no depth.** A fleuron or an orange Fraunces drop cap is welcome; a shadow is not. Where the page ornaments itself, the ornament demonstrates the face it is set in.
+- **Editorial ornament, no depth.** A fleuron or an orange Bodoni Moda drop cap is welcome; a shadow is not. Where the page ornaments itself, the ornament demonstrates the face it is set in.
 - **Generous paper.** `--page-max: 76rem`. Whitespace and the size of the type do the work.
 
 ## Motion
@@ -49,7 +49,7 @@ Quiet and composed. One orchestrated entrance: reveals fade and rise (`--ease-ou
 
 ## Do-nots (this theme's own failure modes)
 
-- **Never a heavy or black display.** Fraunces stays light (340). Playfair-900 heft is Atelier's move; a bold hero reads as a different theme.
+- **Never a heavy or black display.** Bodoni Moda stays at 400. A bold serif crown is Atelier's move; a heavy hero reads as a different theme.
 - **Never cool paper.** Cool blue-grey oat is Almanac's, warm pink cream is Newsprint's. Specimen is oat.
 - **Never a second accent.** One signal orange only: no teal, no blue, no companion hue.
 - **Never an orange flood.** The accent is a spark on a mark, never a fill behind type or a full band.
@@ -60,8 +60,8 @@ Quiet and composed. One orchestrated entrance: reveals fade and rise (`--ease-ou
 
 | vs | difference |
 |---|---|
-| **Atelier** | Playfair Display at weight **900** (heavy, dramatic), near-neutral taupe paper, oxblood accent (`oklch(22% 0.060 40)`). Specimen is Fraunces at **340** (thin), warmer oat, signal orange. Thin-plus-orange vs black-plus-oxblood. |
-| **Newsprint** | Pinker cream paper (`oklch(92% 0.045 50)`), a **serif body** (Crimson Pro), Playfair 700 display, brick accent, broadsheet columns. Specimen has a **sans body** (Geist), oat not pink, orange not brick. |
+| **Atelier** | Sentient at weight **700** (bold, soft-contrast, no hairlines), near-neutral plaster paper, umber accent (`oklch(22% 0.060 40)`). Specimen is Bodoni Moda at **400** (a Didone's thick/thin extreme), warmer oat, signal orange. High-contrast-plus-orange vs soft-bold-plus-umber. |
+| **Newsprint** | Pinker cream paper (`oklch(92% 0.045 50)`), a **serif body** (Spectral), a **slab** display (Zilla Slab 700), brick accent, broadsheet columns. Specimen has a **sans body** (Geist), a Didone display, oat not pink, orange not brick. |
 | **Almanac** | **Cool** blue-grey paper (hue 245), a **sans display** (Hanken Grotesk), blue accent, dense small type. Specimen is warm, serif-display, orange. Warm-serif vs cool-sans. |
 
 ## When the brief routes here
@@ -74,7 +74,7 @@ When the brief names no specialised aesthetic ("a landing page for X"), it lands
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -82,9 +82,9 @@ html, body { overflow-x: clip; }
 body { background: var(--color-paper); color: var(--color-ink-2);
        font-family: var(--font-body); font-weight: 400; }
 
-/* Specimen-scale display - Fraunces, light, max optical size */
-.display { font-family: var(--font-display); font-weight: var(--display-weight); /* 340 */
-           font-variation-settings: "opsz" var(--display-optical), "SOFT" var(--display-soft);
+/* Specimen-scale display - Bodoni Moda, lightest cut, max optical size */
+.display { font-family: var(--font-display); font-weight: var(--display-weight); /* 400 */
+           font-variation-settings: "opsz" var(--display-optical);                /* 96 */
            font-size: var(--text-display); letter-spacing: var(--tracking-display);
            line-height: var(--lh-tight); }
 

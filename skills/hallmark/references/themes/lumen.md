@@ -102,7 +102,7 @@ No magnetic cursors, no tile flips, no parallax, no particles, no rotating orbs.
 | **Midnight** | Geometric Geist on cool dark (`H 250`), no built object, no grid. Lumen sits 25° away with a classical serif and an engineered artefact. |
 | **Aurora** | Ambient cyan blooms and a Sentient serif body. Lumen is brass-on-violet with a built light source: different temperature, opposite focal philosophy. |
 | **Bloom** | Warm cream paper, expressive content. Lumen is dark or cool-bone, technical content. |
-| **Atelier** | Playfair Didone on warm cream, luxury fashion. Instrument Serif is a 1960s technical-journal serif. Atelier sells perfume; Lumen sells inference. |
+| **Atelier** | A bold Sentient on warm plaster, luxury fashion. Instrument Serif is a 1960s technical-journal serif. Atelier sells perfume; Lumen sells inference. |
 
 ## When the brief routes here
 

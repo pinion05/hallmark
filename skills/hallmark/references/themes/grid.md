@@ -56,7 +56,7 @@ Rational, plainspoken, institutional. Name the system, the place, the year concr
 | vs | difference |
 |---|---|
 | **Manifesto** | Manifesto is a **dark** ground (`oklch(10% 0.005 60)`), Anton 400 **uppercase** at `--lh-tight: 0.86`, red `#E51A1A`. Grid is a **light** sheet (`oklch(99% 0.003 255)`), Archivo **800 lowercase**, red `oklch(55% 0.21 28)`. Same "one red, type carries it" DNA, opposite value and case. |
-| **Cobalt** | Cobalt is modern-minimal: electric cobalt `oklch(58% 0.20 256)`, Space Grotesk plus JetBrains Mono, graphite code surfaces, 6-10px radii. Grid is editorial: red accent, single-family Archivo, an exposed 12-column grid, zero radius, no code. Blue instrument vs red Swiss manual. |
+| **Cobalt** | Cobalt is modern-minimal: electric cobalt `oklch(58% 0.20 256)`, Familjen Grotesk plus JetBrains Mono, graphite code surfaces, 6-10px radii. Grid is editorial: red accent, single-family Archivo, an exposed 12-column grid, zero radius, no code. Blue instrument vs red Swiss manual. |
 | **Brutal** | Both are light near-neutral sheets with one red and zero radius, but Brutal draws with **3px** black rules (`--color-rule: oklch(12%)`) boxing solid inverted blocks in Albert Sans 700 **uppercase**. Grid draws with **1px** hairlines (`--color-rule: oklch(88%)`) painting a **visible column grid**, Archivo 800 **lowercase**, no solid panels. Marker vs pencil; shout vs quiet. |
 
 ## When the brief routes here

@@ -327,8 +327,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   max-width: 28ch;
 }
 
-.two-min__title em {
-  font-style: italic;
+.two-min__title .em {
   font-family: var(--font-serif);
   font-weight: 400;
   color: var(--color-accent);
@@ -422,8 +421,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   max-width: 18ch;
 }
 
-.privacy__title em {
-  font-style: italic;
+.privacy__title .em {
   font-family: var(--font-serif);
   font-weight: 400;
   color: var(--color-accent);
@@ -526,7 +524,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
   <section class="two-min" id="how" aria-labelledby="t-title">
     <p class="two-min__aside">The session is two minutes long and it ends by itself. There is no countdown ring, no way to extend it, and no reminder if you skip a day.</p>
     <div class="two-min__body">
-      <h2 class="two-min__title" id="t-title">Speak. Alma <em>writes it down</em>. The session ends on its own.</h2>
+      <h2 class="two-min__title" id="t-title">Speak. Alma <span class="em">writes it down</span>. The session ends on its own.</h2>
       <ol class="two-min__steps">
         <li class="two-min__step">
           <span class="two-min__step-num">i</span>
@@ -550,7 +548,7 @@ h1, h2, h3, p, ul, ol, dl { margin: 0; }
 
   <section class="privacy" id="privacy" aria-labelledby="p-title">
     <header class="privacy__head">
-      <h2 class="privacy__title" id="p-title">The ledger: what stays on your <em>phone</em>, and what never leaves.</h2>
+      <h2 class="privacy__title" id="p-title">The ledger: what stays on your <span class="em">phone</span>, and what never leaves.</h2>
     </header>
     <ul class="privacy__list">
       <li class="privacy__row"><span class="privacy__row-key">Audio recording</span><span class="privacy__row-value">on device only</span></li>

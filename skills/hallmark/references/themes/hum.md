@@ -7,7 +7,7 @@ The material, in one line: **cream, three accents that never blend, round corner
 ## Axes (diversification)
 
 - **Paper band** - light (`L 97%`), warm cream tinted toward pear-yellow (~95°). Yellower and brighter than any other warm paper in the catalog; never the rose-warm or oat-warm cream of the editorial themes.
-- **Display style** - **rounded-sans** (Plus Jakarta Sans / Open Runde register: rounded humanist letterforms, closed apertures). Distinct from geometric-sans, italic-serif, and classical-serif.
+- **Display style** - **rounded-sans** (Chillax: softened terminals, generous curves, closed apertures, the Open Runde register). Distinct from geometric-sans, italic-serif, and classical-serif.
 - **Accent hue** - **multi**: pear-yellow `H 95`, sky-cyan `H 235`, coral-red `H 18`, all on stage at once. Distinct from every single-accent and duo-tone theme.
 
 ## Reference register
@@ -42,7 +42,7 @@ Ink is modified **with opacity, not with new hexes**: body ~88-90%, links 95%, h
 
 Two families. Rounded sans throughout; Hum has no serif anywhere.
 
-- **Display and body** - Plus Jakarta Sans 400/500/600/700. Falls back to Geist, then a rounded system stack, never a bare system font.
+- **Display and body** - Chillax 400/500/600/700 (variable, 200-700). Falls back to Geist, then a rounded system stack, never a bare system font.
 - **Label** - JetBrains Mono, UPPERCASE, tracked `0.10em`. It sets captions, meta rows, table headers, units, ordinals, folios, and streak readouts. It never sits above a heading as a kicker.
 
 Display weight is **600**, tracking `-0.025em`: confident, not delicate. Body is 400 with 500 for inline emphasis. Sentence case throughout (Hum is not Lumen's all-lowercase). Big figures run at `clamp(3rem, 5vw + 1rem, 5rem)` in rounded display with `tabular-nums`.
@@ -106,7 +106,8 @@ Briefs about enterprise, infrastructure, B2B, APIs, inference, dashboards, manif
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@200,300,400,500,600,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 ```
 
 ```css

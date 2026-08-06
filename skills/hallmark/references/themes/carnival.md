@@ -134,7 +134,7 @@ Short, loud, declarative. Headlines all-caps, six words or fewer, ending in a pe
 | **Riso** | Riso is risograph print-craft: peach paper, CMYK misregistration on display, cyan and yellow. Carnival is editorial maximalism: duo-tone, oxblood on pink, ornaments, variable-width type. Different parent tradition. |
 | **Manifesto** | Manifesto is black paper and all-caps red Anton. Carnival is tinted warm paper, duo accents, ornaments. Inverted polarity: one is dark, the other light. |
 | **Brutal** | Brutal is raw graphic-design brutalism: heavy borders, slab type, no ornaments. Carnival is decorative: ornaments, layered blocks, variable type, character. |
-| **Sport** | Sport is athletic italic uppercase (Inter Tight italic 700). Carnival is poster-art expressive (Big Shoulders 800 with the width axis). Sport feels Nike; Carnival feels Drag City. |
+| **Sport** | Sport is athletic upright uppercase (Saira Condensed 700), tension from tracking rather than slant. Carnival is poster-art expressive (Big Shoulders 800 with the width axis). Sport feels Nike; Carnival feels Drag City. |
 | **Arcade** | Arcade shares the hard-offset shadow but runs it on a dark violet-black CRT with pixel type and neon. Carnival is warm daylight paper and a fairground poster. |
 
 ## When the brief routes here

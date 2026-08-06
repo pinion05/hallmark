@@ -28,7 +28,7 @@ Four sample Step 5 Picks blocks for the model to imitate, varied across page typ
 > **Hallmark · v1.2.0**
 >
 > - **Structure** · Manifesto
-> - **Theme** · Manifesto (dark · Inter Tight 900 · single red bleed)
+> - **Theme** · Manifesto (dark · Anton uppercase · single red bleed)
 > - **Enrichment** · none (typography only - voice carries the brand)
 > - **Sections** · Masthead · Title · Five Declarations · Bleed Band · What We Refuse · Working Rules · Practice · Reading · Colophon
 > - **Motion** · none - typography only
@@ -40,7 +40,7 @@ Four sample Step 5 Picks blocks for the model to imitate, varied across page typ
 > - **Structure** · Long Document
 > - **Direction** · the postal frank (draw 6/7, wildcard no)
 > - **Posture** · Full palette (kraft field · frank red · ink · airmail-blue seal)
-> - **Theme** · custom (vibe: "archival warmth, hand-set, no varnish" · paper oklch(95% 0.015 80) · accent oklch(55% 0.17 30) frank-red · Bricolage Grotesque display + Source Serif 4 body, both roman)
+> - **Theme** · custom (vibe: "archival warmth, hand-set, no varnish" · paper oklch(95% 0.015 80) · accent oklch(55% 0.17 30) frank-red · Bricolage Grotesque display + Literata body, both roman)
 > - **Enrichment** · pure-CSS frank mark (craft tier-a)
 > - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
 > - **Motion** · breathing-loop on bean (with reduced-motion fallback)

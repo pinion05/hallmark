@@ -33,10 +33,10 @@ Brief mentions any of: *fun, consumer, casual, family, kids, friendly, approacha
 
 ## What this genre disallows
 
-- **Saturated consumer-app pinks / purples** — playful keeps chroma low by default. **Hum is the documented exception** — pear-yellow at chroma 0.18, sky-cyan at 0.18, coral at 0.24 are allowed and canonical for Hum builds only.
+- **Saturated consumer-app pinks / purples** — playful keeps chroma low by default. **A system that declares a Full-palette or Drenched posture is the exception**: three or four named roles at chroma up to 0.24 are allowed, each with a stated job and footprint, per [`color.md`](../color.md) § Colour postures. Hum is the catalog's worked example of it; a derived build claims the same licence by declaring the posture, not by borrowing Hum's name.
 - **Emoji-as-decoration** — emoji can appear in copy ("we built X 🌱") but never as visual ornament replacing iconography.
 - **Comic Sans, Comic Neue, anything that signals "we're zany"** — playful stays sophisticated, even at full vibrancy.
-- **Bouncy / overshoot easings** — playful uses smooth easings by default. **Hum is the documented exception** — spring overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`) is canonical on the primary CTA and character moment (one each per page).
+- **Bouncy / overshoot easings** — playful uses smooth easings by default. **A system that declares spring motion in its direction contract is the exception**: overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`) on the primary CTA and one character moment, one each per page, no more. Hum is the catalog's worked example; declaring it is what buys it.
 - **Glassmorphism** — banned across all genres.
 - **Gradient text** — gate 2 universal. Stays banned.
 

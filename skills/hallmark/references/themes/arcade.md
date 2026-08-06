@@ -56,7 +56,7 @@ Playful, coin-op, high-score. Short and declarative; name the credit, the theme,
 
 | vs | difference |
 |---|---|
-| **Hum** (playful sibling) | Hum is **light** cream (`oklch(97% 0.012 95)`), Plus Jakarta Sans rounded sans, 20px radii, pear-yellow plus cyan plus coral, spring motion. Arcade is **dark** violet-black (`16% 0.020 300`), pixel Silkscreen, 4px and 0 radii, magenta plus cyan over scanlines, hard-offset press. Same cluster, opposite build: soft-warm-daylight vs pixel-CRT-night. |
+| **Hum** (playful sibling) | Hum is **light** cream (`oklch(97% 0.012 95)`), a Chillax rounded sans, 20px radii, pear-yellow plus cyan plus coral, spring motion. Arcade is **dark** violet-black (`16% 0.020 300`), pixel Silkscreen, 4px and 0 radii, magenta plus cyan over scanlines, hard-offset press. Same cluster, opposite build: soft-warm-daylight vs pixel-CRT-night. |
 | **Terminal** | Terminal is green-black (`oklch(11% 0.018 145)`), JetBrains Mono for everything including body, phosphor green (`78% 0.190 138`), calm reading. Arcade is violet-black hue 300, pixel display with a **Hanken body**, magenta and cyan. A readable green editor vs a loud neon cabinet. |
 | **Carnival** (loud sibling) | Carnival is **light** pink-cream (`oklch(92% 0.045 50)`), Big Shoulders condensed, mustard and oxblood, hard-offset shadow on a poster layout. Both are loud with hard shadows; Carnival is a warm daylight fairground, Arcade is a dark neon arcade at night. |
 

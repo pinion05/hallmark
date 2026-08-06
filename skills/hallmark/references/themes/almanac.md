@@ -69,8 +69,8 @@ Declarative, dated, exact: cite the figure, the edition, the source, the unit. N
 
 | vs | difference |
 |---|---|
-| **Newsprint** | Warm `92%` paper, roman-serif display (Playfair), brick accent, justified broadsheet columns. Almanac is cool `84%` slate stock, grotesk display, ink-blue, ragged-right. Broadsheet vs reference book settles it. |
-| **Cobalt** | Same cool + blue + mono labels, but Cobalt is `98.5%` engineered near-white with **electric** `L58` cobalt and Space Grotesk. Almanac is greyer bond, **deep** `L38` bookish blue, a Newsreader serif. Dev-tool vs reference book. |
+| **Newsprint** | Warm `92%` paper, a slab display (Zilla Slab), brick accent, justified broadsheet columns. Almanac is cool `84%` slate stock, grotesk display, ink-blue, ragged-right. Broadsheet vs reference book settles it. |
+| **Cobalt** | Same cool + blue + mono labels, but Cobalt is `98.5%` engineered near-white with **electric** `L58` cobalt and Familjen Grotesk. Almanac is greyer bond, **deep** `L38` bookish blue, a Newsreader serif. Dev-tool vs reference book. |
 | **Garden** | Warm `95.5%`, roman serif (Young Serif), leaf-green, generous negative space, calm springs. Almanac is cool, grotesk, ink-blue, dense, functional `0.85×` motion. Botanical calm vs data density. |
 
 ## When the brief routes here

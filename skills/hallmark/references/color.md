@@ -91,7 +91,7 @@ Do not fill giant buttons with it. Do not set whole sections on it. Do not use i
 
 ## Colour postures
 
-The rules above describe the catalog's default posture, **Restrained**. A custom build (and only a custom build) may declare a different posture during the ritual in [`custom-theme.md`](custom-theme.md) § The ritual; the posture is stated in the stamp and the log, never improvised mid-render.
+The rules above describe **Restrained**, the default posture and the one every catalog theme is written to. Any build may declare a different one: a derived build settles it during the ritual in [`direction.md`](direction.md) § The ritual, and a catalog build may override its theme's posture when the brief earns it. Either way the posture is stated in the stamp and the log before code, never improvised mid-render.
 
 | Posture | Where the colour lives | The rule that still binds |
 | --- | --- | --- |

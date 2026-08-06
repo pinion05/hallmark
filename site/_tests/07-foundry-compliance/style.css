@@ -120,7 +120,7 @@ body {
   color: var(--color-ink);
 }
 
-.hero__head em { font-style: italic; color: var(--color-accent); }
+.hero__head .em { color: var(--color-accent); }
 
 .hero__sub {
   font-family: var(--font-body);
@@ -453,7 +453,7 @@ body {
   color: var(--color-ink);
 }
 
-.cta-strip__head em { font-style: italic; color: var(--color-accent); }
+.cta-strip__head .em { color: var(--color-accent); }
 
 .cta-strip__cta { display: flex; gap: var(--space-sm); }
 

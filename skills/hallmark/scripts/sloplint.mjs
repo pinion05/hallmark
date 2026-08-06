@@ -535,6 +535,19 @@ const TIERS = new Map(Object.entries({
 
   '31': 'finish', '35': 'finish', '36': 'finish', '38': 'finish',
   '32': 'ledger', '57': 'ledger',
+
+  /* Split gates carry a Floor clause and a Reflex clause under one number, so a
+     single tier per number is wrong in both directions: it either makes a Floor
+     clause waivable or makes a Reflex clause unwaivable. tierOf() resolves the
+     exact clause id first and only then falls back to the number above, so these
+     entries win wherever a check emits a clause id. */
+  '2a':  'floor', '2b':  'reflex',   '6a':  'floor', '6b':  'reflex',
+  '7a':  'floor', '7b':  'reflex',   '14a': 'floor', '14b': 'reflex',
+  '24a': 'floor', '24b': 'reflex',   '26a': 'floor', '26b': 'reflex',
+  '28a': 'floor', '28b': 'reflex',   '30a': 'floor', '30b': 'reflex',
+  '39a': 'floor', '39b': 'reflex',   '46a': 'floor', '46b': 'reflex',
+  '47a': 'floor', '47b': 'reflex',   '55a': 'floor', '55b': 'reflex',
+  '38a-i': 'floor', '38a-ii': 'reflex',
 }));
 
 /** '7b' -> '7', '38a-ii' -> '38a', 'F3' -> 'F3' */
@@ -545,6 +558,8 @@ function baseGate(id) {
   return m ? m[1] : s;
 }
 function tierOf(gate) {
+  const exact = TIERS.get(String(gate).trim());
+  if (exact) return exact;
   const b = baseGate(gate);
   if (/^F\d+$/.test(b)) return 'finish';
   return TIERS.get(b) || 'floor';
@@ -933,7 +948,10 @@ function check7(ctx) {
       const isBlack = c.r < 0.001 && c.g < 0.001 && c.b < 0.001;
       if (isWhite && ctx.genre === 'modern-minimal') continue;
       if (isWhite || isBlack) {
-        report(7, 'FAIL', r.file, d.line, `pure ${isBlack ? '#000' : '#fff'}: ${d.prop}: ${trunc(d.value, 28)} (${r.selector})`, 'Tint the base toward the anchor hue');
+        // 7a is a raw absolute written outside the token block; 7b is a token that
+        // resolves to one. A declaration reading var(...) is tokenised by definition.
+        const viaToken = d.prop.startsWith('--') || /var\(/.test(d.value);
+        report(viaToken ? '7b' : '7a', 'FAIL', r.file, d.line, `pure ${isBlack ? '#000' : '#fff'}: ${d.prop}: ${trunc(d.value, 28)} (${r.selector})`, 'Tint the base toward the anchor hue');
       }
     }
   }
@@ -1178,7 +1196,7 @@ function check24(ctx) {
       while ((m = re.exec(d.value))) {
         const v = Math.abs(parseFloat(m[1]));
         if (v > 2 && (v % 4 !== 0 || !Number.isInteger(v))) {
-          report(24, 'FAIL', r.file, d.line, `${d.prop}: ${trunc(d.value, 28)} (off the 4px scale) on ${r.selector}`, 'Use the 4px spacing scale');
+          report('24b', 'FAIL', r.file, d.line, `${d.prop}: ${trunc(d.value, 28)} (off the 4px scale) on ${r.selector}`, 'Use the 4px spacing scale');
         }
       }
     }
@@ -1381,7 +1399,7 @@ function check38a(ctx) {
     if (!HEADING_SEL.test(r.selector)) continue;
     for (const d of r.decls) {
       if (d.prop === 'font-style' && /italic|oblique/.test(d.value)) {
-        report('38a', 'FAIL', r.file, d.line, `italic display type on ${r.selector}`, 'Roman headers; emphasis via weight or accent');
+        report('38a-ii', 'FAIL', r.file, d.line, `italic display type on ${r.selector}`, 'Roman headers; emphasis via weight or accent');
       }
     }
   }
@@ -1396,7 +1414,7 @@ function check38a(ctx) {
     let m;
     while ((m = re.exec(doc.src))) {
       if (/<(em|i)\b/i.test(m[2])) {
-        report('38a', 'FAIL', doc.file, doc.lineOf(m.index), `<em>/<i> inside <h${m[1]}>`, 'Roman headers; emphasis via weight or accent');
+        report('38a-i', 'FAIL', doc.file, doc.lineOf(m.index), `<em>/<i> inside <h${m[1]}>`, 'Roman headers; emphasis via weight or accent');
       }
     }
   }
@@ -1605,20 +1623,25 @@ function check46(ctx) {
   }
 }
 
-/* gate 47: re-drawn UI chrome */
+/* gate 47: re-drawn UI chrome. 47a (browser or OS window) is Floor and fails
+   always; 47b (device, terminal, editor frames) is Reflex and is waivable when
+   the frame is the product rather than decoration. */
+const CHROME_47 = [
+  ['47a', /(browser|window|mac|osx)[-_]?(bar|chrome|dots|controls)|traffic[-_]?light|title[-_]?bar|window[-_]?(dots|buttons)|url[-_]?(bar|pill)/i],
+  ['47b', /phone[-_]?(frame|mock(up)?)|device[-_]?frame|\bnotch\b|terminal[-_]?(chrome|frame|bar|dots|header)|(ide|editor)[-_]?(chrome|frame)|(browser|window)[-_]?frame/i],
+];
 function check47(ctx) {
-  const re = /(browser|window|mac|osx)[-_]?(bar|chrome|frame|dots|controls)|traffic[-_]?light|phone[-_]?(frame|mock(up)?)|device[-_]?frame|\bnotch\b|title[-_]?bar|terminal[-_]?(chrome|frame|bar|dots|header)|window[-_]?(dots|buttons)|url[-_]?(bar|pill)/i;
-  for (const doc of ctx.docs) {
-    const m = re.exec(doc.src);
-    if (m) {
-      report(47, 'WARN', doc.file, doc.lineOf(m.index), `re-drawn chrome marker "${m[0]}"`, 'Use a real screenshot in a figure');
+  for (const [gate, re] of CHROME_47) {
+    for (const doc of ctx.docs) {
+      const m = re.exec(doc.src);
+      if (m) report(gate, 'FAIL', doc.file, doc.lineOf(m.index), `re-drawn chrome marker "${m[0]}"`, 'Use a real screenshot in a figure');
     }
-  }
-  for (const r of ctx.rules) {
-    const m = re.exec(r.selector);
-    if (m) {
-      report(47, 'WARN', r.file, r.line, `re-drawn chrome selector ${r.selector}`, 'Use a real screenshot in a figure');
-      break;
+    for (const r of ctx.rules) {
+      const m = re.exec(r.selector);
+      if (m) {
+        report(gate, 'FAIL', r.file, r.line, `re-drawn chrome selector ${r.selector}`, 'Use a real screenshot in a figure');
+        break;
+      }
     }
   }
 }
@@ -1960,7 +1983,10 @@ function check55(ctx) {
     const lh = parseFloat(resolveVars(lhD.value, ctx.tokens));
     if (!Number.isNaN(lh) && lh < 1.0 && (displayish || lh < 1.0 && r.decls.some((d) => d.prop === 'font-size' && (pxOf(resolveVars(d.value, ctx.tokens)) ?? 0) >= 28))) {
       if (displayish || (pxOf(resolveVars(r.decls.find((d) => d.prop === 'font-size')?.value || '', ctx.tokens)) ?? 0) >= 28) {
-        report(55, 'FAIL', r.file, lhD.line, `uppercase + line-height ${lh} on ${r.selector} (cap collision)`, 'Line-height 1.0 minimum for caps heads');
+        // 55a needs the element to be able to wrap; a nowrap lockup cannot collide
+        // with a line that does not exist, which is what 55b covers and permits.
+        const nowrap = r.decls.some((d) => d.prop === 'white-space' && /nowrap/.test(d.value));
+        report(nowrap ? '55b' : '55a', 'FAIL', r.file, lhD.line, `uppercase + line-height ${lh} on ${r.selector} (cap collision)`, 'Line-height 1.0 minimum for caps heads');
       }
     }
   }
