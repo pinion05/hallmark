@@ -1,0 +1,66 @@
+name: Sync upstream
+
+# Auto-merges Nutlope/hallmark into this fork on a schedule,
+# then re-injects the `pi` package manifest so pi keeps discovering the skill.
+# Fork repo Actions are disabled by default — enable them under the Actions tab.
+
+on:
+  schedule:
+    - cron: '17 3 * * *'   # daily ~03:17 UTC (off-peak)
+  workflow_dispatch:        # manual run any time
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/Nutlope/hallmark.git
+
+      - name: Fetch & merge upstream
+        # -X theirs: when both sides changed package.json, prefer upstream,
+        # then the next step re-applies our pi manifest on top.
+        run: |
+          git fetch upstream main
+          if git merge upstream/main --no-edit -X theirs; then
+            echo "merge=ok" >> "$GITHUB_ENV"
+          else
+            echo "::warning::merge produced conflicts; aborting and re-injecting onto current HEAD"
+            git merge --abort
+            echo "merge=aborted" >> "$GITHUB_ENV"
+          fi
+
+      - name: Re-inject pi manifest + pi-package keyword
+        run: |
+          jq '
+            .pi = { "skills": ["./skills"] }
+            | .keywords = (((.keywords // []) + ["pi-package"]) | unique)
+          ' package.json > package.json.tmp && mv package.json.tmp package.json
+          echo "--- package.json diff after re-injection ---"
+          git --no-pager diff -- package.json || true
+
+      - name: Commit & push
+        run: |
+          git add package.json
+          if git diff --cached --quiet; then
+            echo "No net changes — pi manifest present, upstream already absorbed."
+            exit 0
+          fi
+          git commit -m "chore(sync): merge upstream + ensure pi manifest"
+          git push

@@ -13,7 +13,8 @@
     "anti-ai-slop",
     "typography",
     "oklch",
-    "together-ai"
+    "together-ai",
+    "pi-package"
   ],
   "license": "MIT",
   "type": "module",
@@ -27,6 +28,11 @@
       "claude-code",
       "cursor",
       "codex"
+    ]
+  },
+  "pi": {
+    "skills": [
+      "./skills"
     ]
   },
   "scripts": {
